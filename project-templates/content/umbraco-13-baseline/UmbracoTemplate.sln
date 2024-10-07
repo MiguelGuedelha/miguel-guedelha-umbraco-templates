@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configuration", "{F7F86B2C-4CD5-4020-B769-F9CDBF9B6A8E}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8F4A0DA8-6159-483D-8473-C2FE7C0A3036}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5C295B2B-24DC-4ABC-94E6-436CEDDE63BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoTemplate.Cms", "src\UmbracoTemplate.Cms\UmbracoTemplate.Cms.csproj", "{D63F7486-C79F-446D-9644-40517E6643A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoTemplate.AppHost", "src\UmbracoTemplate.AppHost\UmbracoTemplate.AppHost.csproj", "{15F7647C-BDB3-4A5C-89DF-B9667C248320}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoTemplate.ServiceDefaults", "src\UmbracoTemplate.ServiceDefaults\UmbracoTemplate.ServiceDefaults.csproj", "{042541DD-116C-4BD5-A518-BDB8D4B5EC3D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Aspire", "Aspire", "{0396B6A2-F77A-4A7F-B379-85A57883F172}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoTemplate.Umbraco.Models", "src\UmbracoTemplate.Umbraco.Models\UmbracoTemplate.Umbraco.Models.csproj", "{6B1D8E3D-B164-4F5D-80CA-F55531E34789}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D63F7486-C79F-446D-9644-40517E6643A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D63F7486-C79F-446D-9644-40517E6643A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D63F7486-C79F-446D-9644-40517E6643A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D63F7486-C79F-446D-9644-40517E6643A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15F7647C-BDB3-4A5C-89DF-B9667C248320}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15F7647C-BDB3-4A5C-89DF-B9667C248320}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15F7647C-BDB3-4A5C-89DF-B9667C248320}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15F7647C-BDB3-4A5C-89DF-B9667C248320}.Release|Any CPU.Build.0 = Release|Any CPU
+		{042541DD-116C-4BD5-A518-BDB8D4B5EC3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{042541DD-116C-4BD5-A518-BDB8D4B5EC3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{042541DD-116C-4BD5-A518-BDB8D4B5EC3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{042541DD-116C-4BD5-A518-BDB8D4B5EC3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B1D8E3D-B164-4F5D-80CA-F55531E34789}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B1D8E3D-B164-4F5D-80CA-F55531E34789}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B1D8E3D-B164-4F5D-80CA-F55531E34789}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B1D8E3D-B164-4F5D-80CA-F55531E34789}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D63F7486-C79F-446D-9644-40517E6643A1} = {5C295B2B-24DC-4ABC-94E6-436CEDDE63BA}
+		{0396B6A2-F77A-4A7F-B379-85A57883F172} = {5C295B2B-24DC-4ABC-94E6-436CEDDE63BA}
+		{15F7647C-BDB3-4A5C-89DF-B9667C248320} = {0396B6A2-F77A-4A7F-B379-85A57883F172}
+		{042541DD-116C-4BD5-A518-BDB8D4B5EC3D} = {0396B6A2-F77A-4A7F-B379-85A57883F172}
+		{6B1D8E3D-B164-4F5D-80CA-F55531E34789} = {5C295B2B-24DC-4ABC-94E6-436CEDDE63BA}
+	EndGlobalSection
+EndGlobal

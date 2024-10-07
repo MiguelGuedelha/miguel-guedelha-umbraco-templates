@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "Umbraco.Web.UI": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:44309;http://localhost:3872",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Local",
+        "USE_USER_SECRETS": "true"
+      }
+    }
+  }
+}
