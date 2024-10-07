@@ -1,168 +1,33 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
-    <PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer"/>
-    <PackageReference Include="Cultiv.EnvironmentInspect"/>
-    <PackageReference Include="Cultiv.Hangfire"/>
-    <PackageReference Include="Diplo.AuditLogViewer"/>
-    <PackageReference Include="Our.Umbraco.MaintenanceMode"/>
-    <PackageReference Include="Skybrud.Umbraco.Redirects"/>
-    <PackageReference Include="Skybrud.Umbraco.Redirects.Import"/>
-    <PackageReference Include="Umbraco.Cms"/>
-    <PackageReference Include="Umbraco.Community.Contentment"/>
-    <PackageReference Include="uSync"/>
+    <PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" />
+    <PackageReference Include="Cultiv.EnvironmentInspect" />
+    <PackageReference Include="Cultiv.Hangfire" />
+    <PackageReference Include="Diplo.AuditLogViewer" />
+    <PackageReference Include="Our.Umbraco.MaintenanceMode" />
+    <PackageReference Include="Skybrud.Umbraco.Redirects" />
+    <PackageReference Include="Skybrud.Umbraco.Redirects.Import" />
+    <PackageReference Include="Umbraco.Cms" />
+    <PackageReference Include="Umbraco.Community.Contentment" />
+    <PackageReference Include="uSync" />
   </ItemGroup>
 
   <ItemGroup>
     <!-- Opt-in to app-local ICU to ensure consistent globalization APIs across different platforms -->
-    <PackageReference Include="Microsoft.ICU.ICU4C.Runtime"/>
-    <RuntimeHostConfigurationOption Include="System.Globalization.AppLocalIcu" Value="72.1.0.3" Condition="$(RuntimeIdentifier.StartsWith('linux')) or $(RuntimeIdentifier.StartsWith('win')) or ('$(RuntimeIdentifier)' == '' and !$([MSBuild]::IsOSPlatform('osx')))"/>
+    <PackageReference Include="Microsoft.ICU.ICU4C.Runtime" />
+    <RuntimeHostConfigurationOption Include="System.Globalization.AppLocalIcu" Value="72.1.0.3"
+      Condition="$(RuntimeIdentifier.StartsWith('linux')) or $(RuntimeIdentifier.StartsWith('win')) or ('$(RuntimeIdentifier)' == '' and !$([MSBuild]::IsOSPlatform('osx')))" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UmbracoTemplate.ServiceDefaults\UmbracoTemplate.ServiceDefaults.csproj"/>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="uSync\v9\Templates\"/>
-    <Folder Include="wwwroot\media\"/>
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="uSync\v9\Content\0dcc95dc-6cc3-4399-99b5-2ab478aa7536.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\Content\11ed5f39-fdc2-4270-b4ae-78124844eade.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\Content\188d325e-9c15-4d87-a0d0-5485033b8e0c.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\Content\3c45e444-5116-4e06-8cda-34990d4e1465.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\Content\3ea6e162-bdfb-4361-bbe7-d474e0ac6ee3.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\Content\60a38a21-86e9-49c1-91ca-3fba6ed48eb8.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\Content\74de7c6a-44a8-4142-9f05-2c3dedbeddcf.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\Content\780eaeba-385d-481b-9e6c-e6d487a836ba.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\Content\9b0d3bdd-6158-45e3-ac9e-e51a437ed3c1.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\Content\c820ad63-bd7f-4746-a101-21129947f325.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\Content\d1d2fb01-722b-4c2b-90f0-909fdb7d863e.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\Content\e4320c85-eedb-45f9-becf-3c0bd2b62789.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\Content\e5dc7cdc-70e2-4b8e-b0ad-c54cb88e40d2.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\Content\e6710c6e-5ac2-496b-924c-f8437ffde47f.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\ContentTypes\103f3c88-873e-4688-b9f6-022b808151fe.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\ContentTypes\1a85fa7f-0c5b-49e3-8b46-fbbdd7ae3ef5.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\ContentTypes\1df691c0-5d62-49fc-a076-39097fdc375a.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\ContentTypes\20b6f86c-3bce-4812-84c0-bf2e62814dcf.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\ContentTypes\2cc14f0b-be36-4f32-b9d9-1a41ea4012be.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\ContentTypes\2f56fb0f-78b8-4574-a98e-913233508795.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\ContentTypes\33074626-8a21-4070-9aa1-c1186b018072.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\ContentTypes\3558735f-e5c5-4217-a051-2b5f62e20407.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\ContentTypes\3ac0669f-6fe9-4ad0-972b-e7d7763f424b.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\ContentTypes\440b66ff-96b2-431f-8837-a6d75de6598a.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\ContentTypes\4514c357-802c-47a7-b3b0-9ffcad92feb8.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\ContentTypes\5b5d1d0d-15d5-4d19-9c08-b7036fb6e1ab.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\ContentTypes\6e4e3421-0cdf-446c-9d49-1449cc0728b9.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\ContentTypes\6e4ed98a-ad11-45ce-98ea-b0398207727a.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\ContentTypes\71ae4a4a-0d02-4a75-8a88-9f18871dadf1.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\ContentTypes\7843a02b-e028-4ef6-94b1-1179b2a6bfc5.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\ContentTypes\8163ca67-5e69-4627-9f5f-6eed9e0aa46f.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\ContentTypes\8b9729b7-10ff-4a44-9226-9e0b8e8aeb11.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\ContentTypes\8e1cb36e-aa3a-407d-a186-9775326e1e4a.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\ContentTypes\95b046ce-3c1f-4bb2-aebb-faf11c067491.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\ContentTypes\98cedae6-2123-4384-80ea-13188b838e90.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\ContentTypes\9ad739ab-711c-4890-8dc6-c73e6333a1f8.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\ContentTypes\9c36c508-7198-4c48-8fa5-85fd1a280e0b.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\ContentTypes\9d5a7b6b-320c-462d-b41b-70af7a0f4b1d.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\ContentTypes\a0fe5140-4c30-4954-b582-e1aac90885c3.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\ContentTypes\a4021f10-a7b6-4b09-9bc4-7807e9ff0e14.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\ContentTypes\a78f7847-c8fc-4a93-b46f-22d19eb3f872.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\ContentTypes\a976c9e2-4978-4eb9-aa8f-4772e14079d5.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\ContentTypes\ce126a89-bc96-47c0-b4ca-bfe34618ecd2.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\ContentTypes\d58a21f8-c7c8-4133-b386-c661d561b155.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\ContentTypes\df1360bb-2813-45ed-ae45-50290ed7c2a7.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\ContentTypes\e65c6a00-cf17-439a-9507-e0ac449f67f0.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\ContentTypes\e6fb0f60-292c-49a7-a1b3-a763bcb91e28.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\ContentTypes\f3d6b314-a1ae-4295-83ef-65599fa31e48.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\ContentTypes\fe31b0b2-7f4e-4737-9690-f49f7ec50990.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\0225af17-b302-49cb-9176-b9f35cab9c17.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\026e52c2-ec52-4da0-bea7-ef871c03e578.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\0b6a45e7-44ba-430d-9da5-4e46060b9e03.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\0cc0eba1-9960-42c9-bf9b-60e150b429ae.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\0e63d883-b62b-4799-88c3-157f82e83ecc.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\0e9794eb-f9b5-4f20-a788-93acd233a7e4.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\135d60e0-64d9-49ed-ab08-893c9ba44ae5.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\1b661f40-2242-4b44-b9cb-3990ee2b13c0.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\1df9f033-e6d4-451f-b8d2-e0cbc50a836f.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\1ea2e01f-ebd8-4ce1-8d71-6b1149e63548.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\215cb418-2153-4429-9aef-8c0f0041191b.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\2612b40a-86c4-4dd1-96a4-c750df4be56f.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\2cff7f2c-6422-4a67-8292-319c1a8871b7.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\2e6d3631-066e-44b8-aec4-96f09099b2b5.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\3a0156c4-3b8c-4803-bdc1-6871faa83fff.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\4309a3ea-0d78-4329-a06c-c80b036af19a.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\49719328-b18d-4bfb-8fda-40dfa7a26a54.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\5046194e-4237-453c-a547-15db3a07c4e1.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\5e8b4817-aa83-4dbd-9a0a-f3476f146327.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\65a7200a-baf4-4b0e-83cc-d0c3eb8da8c4.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\6ceacd2c-0f67-4855-a135-55ae474391f1.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\6f17525a-5a5c-4bcb-a3c4-db5bcb38643e.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\70575fe7-9812-4396-bbe1-c81a76db71b5.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\771a33b5-5df6-4c52-8801-90f68d6f9e14.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\78cefabd-7f22-4769-959c-3d7d28eea60e.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\7f499c99-5b75-475f-a6f9-b7a57f73b122.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\84c6b441-31df-4ffe-b67e-67d5bc3ae65a.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\8e7f995c-bd81-4627-9932-c40e568ec788.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\8f1ef1e1-9de4-40d3-a072-6673f631ca64.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\8f430dd6-4e96-447e-9dc0-cb552c8cd1f3.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\91daad36-ab0e-4c9a-aee8-e64577905999.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\92897bc6-a5f3-4ffe-ae27-f2e7e33dda49.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\930861bf-e262-4ead-a704-f99453565708.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\9410cfe8-ff3e-4007-be12-430c4e9445ec.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\9dbbcbbb-2327-434a-b355-af1b84e5010a.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\a97cec69-9b71-4c30-8b12-ec398860d7e8.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\aa2c52a0-ce87-4e65-a47c-7df09358585d.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\ac4ab951-f5d5-4068-9a21-bc1ad150c198.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\ad9f0cf2-bda2-45d5-9ea1-a63cfc873fd3.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\b0666553-9624-4308-9600-ba8a2fb43adc.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\b4e3535a-1753-47e2-8568-602cf8cfee6f.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\b6b73142-b9c1-4bf8-a16d-e1c23320b549.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\bb5f57c9-ce2b-4bb9-b697-4caca783a805.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\bc1e266c-dac4-4164-bf08-8a1ec6a7143d.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\be8c5488-7433-46aa-8190-94e4ad66e441.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\c0808dd3-8133-4e4b-8ce8-e2bea84a96a4.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\c1dc0df0-2eac-404d-826b-e4ca87b21362.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\c2c133e6-3c9d-44df-965f-30fc0c892a95.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\c6bac0dd-4ab9-45b1-8e30-e4b619ee5da3.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\ca90c950-0aff-4e72-b976-a30b1ac57dad.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\d037fafc-e968-402d-9979-634e1af24a35.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\d3dfb815-2280-42d4-a6f1-d6fa10ff68f1.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\d9da1142-bfbf-491c-bb6d-7d9c4d82d368.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\dea66367-23b9-4b09-bc89-7b3584ad8ad1.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\e4d66c0f-b935-4200-81f0-025f7256b89a.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\e90aaf98-2b9a-4620-92ec-68e34690cba4.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\f0bc4bfb-b499-40d6-ba86-058885a5178c.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\f38f0ac7-1d27-439c-9f3f-089cd8825a53.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\fbaf13a8-4036-41f2-93a3-974f678c312a.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\fc2ece60-4b3d-4f00-8ba0-9bb6cf3e2c9a.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\DataTypes\fd1e0da5-5606-4862-b679-5d0cf3a52a59.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\Domains\a59fb58c-a5b2-4f03-a150-e5d338088dc3.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\Domains\ed92df46-926d-42ae-b929-4986558868f0.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\Languages\en-gb.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\Media\76884144-e3ec-4f42-9b8c-04d61c6ca7dc.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\MediaTypes\4c52d8ab-54e6-40cd-999c-7a5f24903e4d.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\MediaTypes\a43e3414-9599-4230-a7d3-943a21b20122.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\MediaTypes\a5ddeee0-8fd8-4cee-a658-6f1fcdb00de3.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\MediaTypes\c4b1efcf-a9d5-41c4-9621-e9d273b52a9c.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\MediaTypes\cc07b313-0843-4aa8-bbda-871c8da728c8.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\MediaTypes\f38bd2d7-65d0-48e6-95dc-87ce06ec2d3d.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\MediaTypes\f6c515bb-653c-4bdc-821c-987729ebe327.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\MemberTypes\d59be02f-1df9-4228-aa1e-01917d806cda.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\Templates\1b46bd5e-1a21-4532-bcec-f2ba4588f01b.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\Templates\26b7c530-9040-4179-a819-ece8de53f088.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\Templates\4efa2c51-0b0b-4c56-95f9-fea0f7cdbec6.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\Templates\5443bd26-0bf4-482f-ba06-b5f828f8cb90.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\Templates\b7ae3da1-dad8-410e-a517-72170c0f5cfa.config"/>
-    <_ContentIncludedByDefault Remove="uSync\v9\usync.config"/>
+    <ProjectReference Include="..\UmbracoTemplate.ServiceDefaults\UmbracoTemplate.ServiceDefaults.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
     <!-- Razor files are needed for the backoffice to work correctly -->
     <CopyRazorGenerateFilesToPublishDirectory>true</CopyRazorGenerateFilesToPublishDirectory>
-    <UserSecretsId>173d0813-486c-4b95-9e03-a4974ba30d3d</UserSecretsId>
+    <UserSecretsId>UmbracoTemplate-173d0813-486c-4b95-9e03-a4974ba30d3d</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -170,5 +35,9 @@
     <RazorCompileOnBuild>false</RazorCompileOnBuild>
     <RazorCompileOnPublish>false</RazorCompileOnPublish>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\media\" />
+  </ItemGroup>
 
 </Project>

@@ -3,16 +3,16 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <IsAspireHost>true</IsAspireHost>
-    <UserSecretsId>24863493-bd25-4d22-b72f-fcd8e940b823</UserSecretsId>
+    <UserSecretsId>UmbracoTemplate-24863493-bd25-4d22-b72f-fcd8e940b823</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspire.Hosting.AppHost"/>
-    <PackageReference Include="Aspire.Hosting.SqlServer"/>
+    <PackageReference Include="Aspire.Hosting.AppHost" />
+    <PackageReference Include="Aspire.Hosting.SqlServer" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UmbracoTemplate.Cms\UmbracoTemplate.Cms.csproj"/>
+    <ProjectReference Include="..\UmbracoTemplate.Cms\UmbracoTemplate.Cms.csproj" />
   </ItemGroup>
 
 </Project>
