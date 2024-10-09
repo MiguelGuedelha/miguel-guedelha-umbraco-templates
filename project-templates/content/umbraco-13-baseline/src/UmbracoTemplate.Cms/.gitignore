@@ -481,3 +481,6 @@ appsettings-schema.*.json
 # Umbraco Packages
 /App_Plugins/Cultiv.EnvironmentInspect/
 /App_Plugins/DiploAuditLogViewer/
+
+# Frontend build artifacts
+/wwwroot/*.bundle.js*

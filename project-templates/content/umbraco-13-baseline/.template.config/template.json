@@ -51,7 +51,8 @@
         "**/App_Plugins/**",
         "**/[Uu]mbraco/**",
         "**/uSync/**",
-        "src/UmbracoTemplate.Umbraco.Models/*.cs"
+        "src/UmbracoTemplate.Umbraco.Models/*.cs",
+        "**/*.bundle.js*"
       ]
     }
   ],

@@ -178,6 +178,10 @@ indent_size = 2
 [*.json]
 indent_size = 2
 
+# Frontend files
+[*.{js,jsx,ts,tsx,md,mdx}]
+indent_size = 2
+
 # YAML config files
 [*.{yml,yaml}]
 indent_size = 2

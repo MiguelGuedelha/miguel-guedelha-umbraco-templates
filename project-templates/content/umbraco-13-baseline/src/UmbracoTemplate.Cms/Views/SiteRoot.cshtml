@@ -1,0 +1,10 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.SiteRoot>
+@using NodeReact.AspNetCore
+@using ContentModels = UmbracoTemplate.Umbraco.Models;
+@{
+	Layout = "_Layout";
+}
+
+<div>
+    @await Html.ReactAsync("HelloWorld", new { name = "Miguel"})
+</div>

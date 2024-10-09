@@ -1,3 +1,5 @@
+using NodeReact;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.CreateUmbracoBuilder()
@@ -14,6 +16,27 @@ if (bool.TryParse(Environment.GetEnvironmentVariable("USE_USER_SECRETS"), out va
 }
 
 builder.AddServiceDefaults();
+
+builder.Services.AddMvc().AddRazorRuntimeCompilation();
+
+// Needs update of dependencies
+// Follow here: https://github.com/DaniilSokolyuk/NodeReact.NET/pull/15
+builder.Services.AddNodeReact(
+    config =>
+    {
+        config.EnginesCount = 2;
+        config.ConfigureOutOfProcessNodeJSService(o =>
+        {
+            o.NumRetries = 0;
+            o.InvocationTimeoutMS = 10000;
+        });
+        config.AddScriptWithoutTransform("~/server.bundle.js");
+        config.UseDebugReact = true;
+
+        config.ConfigureSystemTextJsonPropsSerializer((_) => { });
+        //config.ConfigureNewtonsoftJsonPropsSerializer((_) => { });
+    }
+);
 
 var app = builder.Build();
 

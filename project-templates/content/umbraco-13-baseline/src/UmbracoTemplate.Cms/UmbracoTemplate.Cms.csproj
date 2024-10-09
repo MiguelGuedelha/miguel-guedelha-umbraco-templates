@@ -5,6 +5,8 @@
     <PackageReference Include="Cultiv.EnvironmentInspect" />
     <PackageReference Include="Cultiv.Hangfire" />
     <PackageReference Include="Diplo.AuditLogViewer" />
+    <PackageReference Include="Microsoft.IO.RecyclableMemoryStream" />
+    <PackageReference Include="NodeReact" />
     <PackageReference Include="Our.Umbraco.MaintenanceMode" />
     <PackageReference Include="Skybrud.Umbraco.Redirects" />
     <PackageReference Include="Skybrud.Umbraco.Redirects.Import" />
@@ -22,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\UmbracoTemplate.ServiceDefaults\UmbracoTemplate.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\UmbracoTemplate.Umbraco.Models\UmbracoTemplate.Umbraco.Models.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
