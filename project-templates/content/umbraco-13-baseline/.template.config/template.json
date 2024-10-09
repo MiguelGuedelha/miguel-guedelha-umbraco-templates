@@ -56,27 +56,27 @@
       ],
       "modifiers": [
         {
-          "condition": "(Frontend == \"nodereact\")",
+          "condition": "(Frontend == nodereact)",
           "exclude": [
-            "frontends/astro-frontend/**"
+            "src/frontends/astro-frontend/**"
           ],
           "rename": {
             "frontends/nodereact-frontend/": "./frontend/"
           }
         },
         {
-          "condition": "(Frontend == \"astro\" && UseContentDeliveryApi)",
+          "condition": "(Frontend == astro && UseContentDeliveryApi)",
           "exclude": [
-            "frontends/nodereact-frontend/**"
+            "src/frontends/nodereact-frontend/**"
           ],
           "rename": {
             "frontends/astro-frontend/": "./frontend/"
           }
         },
         {
-          "condition": "(Frontend == \"none\" || ((Frontend == \"astro\" && !UseContentDeliveryApi)))",
+          "condition": "(Frontend == none || ((Frontend == astro && !UseContentDeliveryApi)))",
           "exclude": [
-            "frontends/**"
+            "src/frontends/**"
           ]
         }
       ]
