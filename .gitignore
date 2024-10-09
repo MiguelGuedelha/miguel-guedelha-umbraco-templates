@@ -482,3 +482,9 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# Testing files
+project-templates/test/**
+
+# Force certain folders to always be present
+!.gitkeep
