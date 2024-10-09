@@ -5,8 +5,9 @@
     <PackageReference Include="Cultiv.EnvironmentInspect" />
     <PackageReference Include="Cultiv.Hangfire" />
     <PackageReference Include="Diplo.AuditLogViewer" />
-    <PackageReference Include="Microsoft.IO.RecyclableMemoryStream" />
+    <!--#if (Frontend == nodereact) -->
     <PackageReference Include="NodeReact" />
+    <!--#endif -->
     <PackageReference Include="Our.Umbraco.MaintenanceMode" />
     <PackageReference Include="Skybrud.Umbraco.Redirects" />
     <PackageReference Include="Skybrud.Umbraco.Redirects.Import" />

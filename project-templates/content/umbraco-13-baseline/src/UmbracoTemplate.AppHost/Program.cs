@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Configuration;
+using UmbracoTemplate.AppHost.Extensions;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
@@ -31,5 +32,12 @@ var cms = builder.AddProject<Projects.UmbracoTemplate_Cms>("cms")
     .WithEnvironment("Umbraco:CMS:Global:Smtp:Port", smtpPort)
     .WithEnvironment("Umbraco:CMS:Global:Smtp:Username", smtpUser)
     .WithEnvironment("Umbraco:CMS:Global:Smtp:Password", smtpPassword);
+
+#if (Frontend == astro && UseContentDeliveryApi)
+var astroApp = builder.AddPnpmApp("astro", "../frontend", "dev")
+    .WithReference(cms)
+    .WithHttpEndpoint(env: "PORT")
+    .WithExternalHttpEndpoints();
+#endif
 
 builder.Build().Run();

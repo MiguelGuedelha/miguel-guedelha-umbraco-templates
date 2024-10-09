@@ -5,7 +5,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.CreateUmbracoBuilder()
     .AddBackOffice()
     .AddWebsite()
+#if (UseContentDeliveryApi)
     .AddDeliveryApi()
+#endif
     .AddComposers()
     .Build();
 
@@ -19,6 +21,7 @@ builder.AddServiceDefaults();
 
 builder.Services.AddMvc().AddRazorRuntimeCompilation();
 
+#if (Frontend == nodereact)
 // Needs update of dependencies
 // Follow here: https://github.com/DaniilSokolyuk/NodeReact.NET/pull/15
 builder.Services.AddNodeReact(
@@ -33,10 +36,11 @@ builder.Services.AddNodeReact(
         config.AddScriptWithoutTransform("~/server.bundle.js");
         config.UseDebugReact = true;
 
-        config.ConfigureSystemTextJsonPropsSerializer((_) => { });
-        //config.ConfigureNewtonsoftJsonPropsSerializer((_) => { });
+        config.ConfigureSystemTextJsonPropsSerializer(_ => { });
+        //config.ConfigureNewtonsoftJsonPropsSerializer(_ => { });
     }
 );
+#endif
 
 var app = builder.Build();
 

@@ -53,9 +53,63 @@
         "**/uSync/**",
         "src/UmbracoTemplate.Umbraco.Models/*.cs",
         "**/*.bundle.js*"
+      ],
+      "modifiers": [
+        {
+          "condition": "(Frontend == \"nodereact\")",
+          "exclude": [
+            "frontends/astro-frontend/**"
+          ],
+          "rename": {
+            "frontends/nodereact-frontend/": "./frontend/"
+          }
+        },
+        {
+          "condition": "(Frontend == \"astro\" && UseContentDeliveryApi)",
+          "exclude": [
+            "frontends/nodereact-frontend/**"
+          ],
+          "rename": {
+            "frontends/astro-frontend/": "./frontend/"
+          }
+        },
+        {
+          "condition": "(Frontend == \"none\" || ((Frontend == \"astro\" && !UseContentDeliveryApi)))",
+          "exclude": [
+            "frontends/**"
+          ]
+        }
       ]
     }
   ],
+  "symbols": {
+    "UseContentDeliveryApi": {
+      "type": "parameter",
+      "description": "Enable the Umbraco Content Delivery Api",
+      "datatype": "bool",
+      "defaultValue": "true"
+    },
+    "Frontend": {
+      "type": "parameter",
+      "description": "If a frontend framework should be enabled, and which one",
+      "datatype": "choice",
+      "choices": [
+        {
+          "choice": "none",
+          "description": "No frontend enabled"
+        },
+        {
+          "choice": "astro",
+          "description": "Use a Astro project as the frontend. Only takes effect if UseContentDeliveryApi is also true"
+        },
+        {
+          "choice": "nodereact",
+          "description": "Use a NodeReact project as the frontend"
+        }
+      ],
+      "defaultValue": "none"
+    }
+  },
   "tags": {
     "language": "C#",
     "type": "solution"
