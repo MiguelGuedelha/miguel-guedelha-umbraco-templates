@@ -9,7 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting.AppHost" />
     <PackageReference Include="Aspire.Hosting.SqlServer" />
-    <!--#if (Frontend == astro && UseContentDeliveryApi) -->
+    <!--#if (UseAstroFrontend) -->
     <PackageReference Include="Aspire.Hosting.NodeJs" />
     <!--#endif -->
   </ItemGroup>
@@ -18,7 +18,7 @@
     <ProjectReference Include="..\UmbracoTemplate.Cms\UmbracoTemplate.Cms.csproj" />
   </ItemGroup>
 
-  <!--#if (Frontend == astro && UseContentDeliveryApi) -->
+  <!--#if (UseAstroFrontend) -->
   <Target Name="RestoreNpm" BeforeTargets="Build" Condition=" '$(DesignTimeBuild)' != 'true'">
     <ItemGroup>
       <PackageJsons Include="..\frontend\package.json" />

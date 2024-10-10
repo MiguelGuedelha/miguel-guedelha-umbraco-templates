@@ -5,7 +5,7 @@
     <PackageReference Include="Cultiv.EnvironmentInspect" />
     <PackageReference Include="Cultiv.Hangfire" />
     <PackageReference Include="Diplo.AuditLogViewer" />
-    <!--#if (Frontend == nodereact) -->
+    <!--#if (UseNodeReactFrontend) -->
     <PackageReference Include="NodeReact" />
     <!--#endif -->
     <PackageReference Include="Our.Umbraco.MaintenanceMode" />

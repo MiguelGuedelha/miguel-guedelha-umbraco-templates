@@ -21,7 +21,7 @@ builder.AddServiceDefaults();
 
 builder.Services.AddMvc().AddRazorRuntimeCompilation();
 
-#if (Frontend == nodereact)
+#if (UseNodeReactFrontend)
 // Needs update of dependencies
 // Follow here: https://github.com/DaniilSokolyuk/NodeReact.NET/pull/15
 builder.Services.AddNodeReact(

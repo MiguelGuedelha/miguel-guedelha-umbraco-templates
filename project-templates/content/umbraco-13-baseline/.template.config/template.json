@@ -52,29 +52,30 @@
         "**/[Uu]mbraco/**",
         "**/uSync/**",
         "src/UmbracoTemplate.Umbraco.Models/*.cs",
-        "**/*.bundle.js*"
+        "**/*.bundle.js*",
+        "**/node_modules/**"
       ],
       "modifiers": [
         {
-          "condition": "(Frontend == nodereact)",
+          "condition": "(UseNodeReactFrontend)",
           "exclude": [
             "src/frontends/astro-frontend/**"
           ],
           "rename": {
-            "frontends/nodereact-frontend/": "./frontend/"
+            "src/frontends/nodereact-frontend/": "src/frontend/"
           }
         },
         {
-          "condition": "(Frontend == astro && UseContentDeliveryApi)",
+          "condition": "(UseAstroFrontend)",
           "exclude": [
             "src/frontends/nodereact-frontend/**"
           ],
           "rename": {
-            "frontends/astro-frontend/": "./frontend/"
+            "src/frontends/astro-frontend/": "src/frontend/"
           }
         },
         {
-          "condition": "(Frontend == none || ((Frontend == astro && !UseContentDeliveryApi)))",
+          "condition": "(UseNoFrontend)",
           "exclude": [
             "src/frontends/**"
           ]
@@ -100,7 +101,7 @@
         },
         {
           "choice": "astro",
-          "description": "Use a Astro project as the frontend. Only takes effect if UseContentDeliveryApi is also true"
+          "description": "Use a Astro project as the frontend. Only takes effect if UseContentDeliveryApi is true"
         },
         {
           "choice": "nodereact",
@@ -108,6 +109,18 @@
         }
       ],
       "defaultValue": "none"
+    },
+    "UseAstroFrontend": {
+      "type": "computed",
+      "value": "(Frontend == \"astro\" && UseContentDeliveryApi)"
+    },
+    "UseNodeReactFrontend": {
+      "type": "computed",
+      "value": "(Frontend == \"nodereact\")"
+    },
+    "UseNoFrontend": {
+      "type": "computed",
+      "value": "(Frontend == \"none\" || ((Frontend == \"astro\" && !UseContentDeliveryApi)))"
     }
   },
   "tags": {
