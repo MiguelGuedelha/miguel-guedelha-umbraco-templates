@@ -13,6 +13,9 @@
     <PackageReference Include="Skybrud.Umbraco.Redirects.Import" />
     <PackageReference Include="Umbraco.Cms" />
     <PackageReference Include="Umbraco.Community.Contentment" />
+    <!--#if (UseContentDeliveryApi) -->
+    <PackageReference Include="Umbraco.Community.DeliveryApiExtensions" />
+    <!--#endif -->
     <PackageReference Include="uSync" />
   </ItemGroup>
 

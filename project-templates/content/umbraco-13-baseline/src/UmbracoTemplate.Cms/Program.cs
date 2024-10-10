@@ -1,11 +1,13 @@
+#if UseNodeReactFrontend
 using NodeReact;
+#endif
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.CreateUmbracoBuilder()
     .AddBackOffice()
     .AddWebsite()
-#if (UseContentDeliveryApi)
+#if UseContentDeliveryApi
     .AddDeliveryApi()
 #endif
     .AddComposers()
@@ -19,9 +21,9 @@ if (bool.TryParse(Environment.GetEnvironmentVariable("USE_USER_SECRETS"), out va
 
 builder.AddServiceDefaults();
 
+#if UseNodeReactFrontend
 builder.Services.AddMvc().AddRazorRuntimeCompilation();
 
-#if (UseNodeReactFrontend)
 // Needs update of dependencies
 // Follow here: https://github.com/DaniilSokolyuk/NodeReact.NET/pull/15
 builder.Services.AddNodeReact(

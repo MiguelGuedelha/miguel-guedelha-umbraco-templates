@@ -1,5 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+<!-- #if (UseNodeReactFrontend) -->
 @using NodeReact.AspNetCore
+<!-- #endif -->
 @using Smidge.TagHelpers
 <!DOCTYPE html>
 <html lang="en">
@@ -7,13 +9,17 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>AspNetCoreSample</title>
+    <!-- #if (UseNodeReactFrontend) -->
     <script src="@Url.Content("~/client.bundle.js")" asp-append-version="true"></script>
+    <!-- #endif -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
 </head>
 <body>
 
 @RenderBody()
 
+<!-- #if (UseNodeReactFrontend) -->
 @Html.ReactInitJavaScript()
+<!-- #endif -->
 </body>
 </html>
