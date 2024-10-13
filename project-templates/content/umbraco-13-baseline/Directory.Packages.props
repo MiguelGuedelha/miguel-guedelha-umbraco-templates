@@ -9,6 +9,7 @@
     <PackageVersion Include="Aspire.Hosting.NodeJs" Version="8.2.0" />
     <!--#endif -->
     <PackageVersion Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="8.2.0" />
+    <PackageVersion Include="CorrelationId" Version="3.0.1" />
     <PackageVersion Include="Microsoft.ICU.ICU4C.Runtime" Version="72.1.0.3" />
     <PackageVersion Include="Cultiv.EnvironmentInspect" Version="1.0.3" />
     <PackageVersion Include="Cultiv.Hangfire" Version="3.1.2" />
@@ -18,6 +19,8 @@
     <PackageVersion Include="NodeReact" Version="2.0.0" />
     <!--#endif -->
     <PackageVersion Include="Our.Umbraco.MaintenanceMode" Version="10.2.0" />
+    <PackageVersion Include="Serilog.Enrichers.ClientInfo" Version="2.1.2" />
+    <PackageVersion Include="Serilog.Exceptions" Version="8.4.0" />
     <PackageVersion Include="Skybrud.Umbraco.Redirects" Version="13.0.4" />
     <PackageVersion Include="Skybrud.Umbraco.Redirects.Import" Version="13.0.0" />
     <PackageVersion Include="Umbraco.Cms" Version="13.5.1" />

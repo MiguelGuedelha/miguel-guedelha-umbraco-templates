@@ -1,8 +1,15 @@
+using CorrelationId;
+using CorrelationId.DependencyInjection;
+using Serilog;
+
 #if UseNodeReactFrontend
 using NodeReact;
 #endif
 
 var builder = WebApplication.CreateBuilder(args);
+
+var services = builder.Services;
+var configuration = builder.Configuration;
 
 builder.CreateUmbracoBuilder()
     .AddBackOffice()
@@ -16,10 +23,16 @@ builder.CreateUmbracoBuilder()
 if (bool.TryParse(Environment.GetEnvironmentVariable("USE_USER_SECRETS"), out var useUserSecrets)
     && useUserSecrets)
 {
-    builder.Configuration.AddUserSecrets<Program>();
+    configuration.AddUserSecrets<Program>();
 }
 
 builder.AddServiceDefaults();
+
+services.AddCorrelationId(o =>
+{
+    o.AddToLoggingScope = true;
+})
+.WithGuidProvider();
 
 #if UseNodeReactFrontend
 builder.Services.AddMvc().AddRazorRuntimeCompilation();
@@ -63,4 +76,20 @@ app.UseUmbraco()
 
 app.MapDefaultEndpoints();
 
-await app.RunAsync();
+app.UseCorrelationId();
+
+// Run app
+try
+{
+    await app.RunAsync();
+}
+catch (Exception e)
+{
+    Log.Fatal(e, "Host shutdown unexpectedly");
+}
+finally
+{
+    Log.Information("Flushing Log");
+
+    Log.CloseAndFlush();
+}
