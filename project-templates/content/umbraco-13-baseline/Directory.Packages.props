@@ -18,11 +18,8 @@
     <!--#if (UseNodeReactFrontend) -->
     <PackageVersion Include="NodeReact" Version="2.0.0" />
     <!--#endif -->
-    <PackageVersion Include="Our.Umbraco.MaintenanceMode" Version="10.2.0" />
     <PackageVersion Include="Serilog.Enrichers.ClientInfo" Version="2.1.2" />
     <PackageVersion Include="Serilog.Exceptions" Version="8.4.0" />
-    <PackageVersion Include="Skybrud.Umbraco.Redirects" Version="13.0.4" />
-    <PackageVersion Include="Skybrud.Umbraco.Redirects.Import" Version="13.0.0" />
     <PackageVersion Include="Umbraco.Cms" Version="13.5.1" />
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="8.9.1" />
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="8.2.0" />
@@ -36,6 +33,10 @@
     <PackageVersion Include="Umbraco.Community.Contentment" Version="5.0.2" />
     <!--#if (UseContentDeliveryApi) -->
     <PackageVersion Include="Umbraco.Community.DeliveryApiExtensions" Version="13.0.0" />
+    <!--#else -->
+    <PackageVersion Include="Our.Umbraco.MaintenanceMode" Version="10.2.0" />
+    <PackageVersion Include="Skybrud.Umbraco.Redirects" Version="13.0.4" />
+    <PackageVersion Include="Skybrud.Umbraco.Redirects.Import" Version="13.0.0" />
     <!--#endif -->
     <PackageVersion Include="uSync" Version="13.2.5" />
   </ItemGroup>

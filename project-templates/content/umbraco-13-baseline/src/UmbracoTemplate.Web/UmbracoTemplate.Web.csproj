@@ -31,7 +31,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\UmbracoTemplate.ServiceDefaults\UmbracoTemplate.ServiceDefaults.csproj"/>
-    <ProjectReference Include="..\UmbracoTemplate.Umbraco.Models\UmbracoTemplate.Umbraco.Models.csproj"/>
   </ItemGroup>
 
   <PropertyGroup>
