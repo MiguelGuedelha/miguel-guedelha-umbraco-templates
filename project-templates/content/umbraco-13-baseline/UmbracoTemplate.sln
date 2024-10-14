@@ -18,7 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5C295B2B-24DC-4ABC-94E6-436CEDDE63BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoTemplate.Cms", "src\UmbracoTemplate.Cms\UmbracoTemplate.Cms.csproj", "{D63F7486-C79F-446D-9644-40517E6643A1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoTemplate.Web", "src\UmbracoTemplate.Web\UmbracoTemplate.Web.csproj", "{D63F7486-C79F-446D-9644-40517E6643A1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoTemplate.AppHost", "src\UmbracoTemplate.AppHost\UmbracoTemplate.AppHost.csproj", "{15F7647C-BDB3-4A5C-89DF-B9667C248320}"
 EndProject

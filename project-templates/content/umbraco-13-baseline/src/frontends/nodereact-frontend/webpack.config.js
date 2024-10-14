@@ -2,7 +2,7 @@ const path = require("path");
 const { merge } = require("webpack-merge");
 
 const wwwrootWeb = () =>
-  path.resolve(__dirname, "..", "UmbracoTemplate.Cms/wwwroot");
+  path.resolve(__dirname, "..", "UmbracoTemplate.Web/wwwroot");
 
 const babelServer = {
   loader: "babel-loader",

@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UmbracoTemplate.Cms\UmbracoTemplate.Cms.csproj" />
+    <ProjectReference Include="..\UmbracoTemplate.Web\UmbracoTemplate.Web.csproj" />
   </ItemGroup>
 
   <!--#if (UseAstroFrontend) -->

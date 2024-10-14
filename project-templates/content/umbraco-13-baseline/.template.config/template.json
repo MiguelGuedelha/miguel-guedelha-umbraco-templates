@@ -69,7 +69,7 @@
           "condition": "(UseAstroFrontend)",
           "exclude": [
             "src/frontends/nodereact-frontend/**",
-            "src/UmbracoTemplate.Cms/Views/**"
+            "src/UmbracoTemplate.Web/Views/**"
           ],
           "rename": {
             "src/frontends/astro-frontend/": "src/frontend/"

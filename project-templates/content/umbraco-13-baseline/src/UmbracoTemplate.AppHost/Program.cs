@@ -25,7 +25,7 @@ var sqlServer = builder
 
 var umbracoDb = sqlServer.AddDatabase("umbracoDbDSN", "umbraco-cms");
 
-var cms = builder.AddProject<Projects.UmbracoTemplate_Cms>("cms")
+var cms = builder.AddProject<Projects.UmbracoTemplate_Web>("cms")
     .WithExternalHttpEndpoints()
     .WithReference(umbracoDb)
     .WithEnvironment("Umbraco:CMS:Global:Smtp:Port", smtpPort)
