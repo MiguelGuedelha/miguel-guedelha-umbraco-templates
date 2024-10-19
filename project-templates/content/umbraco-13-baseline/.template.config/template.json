@@ -78,6 +78,12 @@
           "exclude": [
             "src/frontends/**"
           ]
+        },
+        {
+          "condition": "(!UseLoadBalancing)",
+          "exclude": [
+            "src/UmbracoTemplate.Web/Composers/LoadBalancingComposer.cs"
+          ]
         }
       ]
     }
@@ -86,6 +92,12 @@
     "UseContentDeliveryApi": {
       "type": "parameter",
       "description": "Enable the Umbraco Content Delivery Api",
+      "datatype": "bool",
+      "defaultValue": "true"
+    },
+    "UseLoadBalancing": {
+      "type": "parameter",
+      "description": "Enable support for load balanced environments",
       "datatype": "bool",
       "defaultValue": "true"
     },
