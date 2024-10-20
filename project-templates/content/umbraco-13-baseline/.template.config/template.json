@@ -46,11 +46,11 @@
         ".template.config/**/*",
         "**/*.filelist",
         "**/*.user",
+        "**/appsettings-schema*",
         "**/*.lock.json",
         "**/App_Plugins/**",
         "**/[Uu]mbraco/**",
         "**/uSync/**",
-        "src/UmbracoTemplate.Umbraco.Models/*.cs",
         "**/*.bundle.js*",
         "**/node_modules/**"
       ],
