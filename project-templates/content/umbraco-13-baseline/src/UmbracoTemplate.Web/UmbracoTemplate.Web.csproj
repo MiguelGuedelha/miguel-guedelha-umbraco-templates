@@ -27,6 +27,12 @@
     <PackageReference Include="Skybrud.Umbraco.Redirects.Import" />
     <!--#endif -->
     <PackageReference Include="uSync" />
+    <!--#if (Caching)-->
+    <PackageReference Include="ZiggyCreatures.FusionCache" />
+    <PackageReference Include="ZiggyCreatures.FusionCache.Backplane.StackExchangeRedis" />
+    <PackageReference Include="ZiggyCreatures.FusionCache.OpenTelemetry" />
+    <PackageReference Include="ZiggyCreatures.FusionCache.Serialization.NewtonsoftJson" />
+    <!--#endif-->
   </ItemGroup>
 
   <ItemGroup>

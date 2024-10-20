@@ -22,7 +22,6 @@
     "15F7647C-BDB3-4A5C-89DF-B9667C248320",
     "042541DD-116C-4BD5-A518-BDB8D4B5EC3D",
     "0396B6A2-F77A-4A7F-B379-85A57883F172",
-    "2E267FC2-5FF6-4F2D-9F79-F7B58B462F9F",
     // User secrets GUIDs
     "24863493-bd25-4d22-b72f-fcd8e940b823",
     "173d0813-486c-4b95-9e03-a4974ba30d3d"
@@ -85,13 +84,13 @@
         {
           "condition": "(!LoadBalancing)",
           "exclude": [
-            "src/UmbracoTemplate.Web/Composers/LoadBalancingComposer.cs"
+            "src/UmbracoTemplate.Web/Shared/LoadBalancing/LoadBalancingComposer.cs"
           ]
         },
         {
           "condition": "(!Caching)",
           "exclude": [
-            "src/UmbracoTemplate.Shared/Caching/**"
+            "src/UmbracoTemplate.Web/Shared/Caching/**"
           ]
         }
       ]
