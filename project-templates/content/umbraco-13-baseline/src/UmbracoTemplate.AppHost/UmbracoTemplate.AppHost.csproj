@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting.AppHost" />
-    <!--#if (UseLoadBalancing || UseCaching) -->
+    <!--#if (LoadBalancing || Caching) -->
     <PackageReference Include="Aspire.Hosting.Redis" />
     <!--#endif -->
     <PackageReference Include="Aspire.Hosting.SqlServer" />

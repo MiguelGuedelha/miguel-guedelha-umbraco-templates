@@ -4,7 +4,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="Aspire.Hosting.AppHost" Version="8.2.0" />
-    <!--#if (UseLoadBalancing || UseCaching) -->
+    <!--#if (LoadBalancing || Caching) -->
     <PackageVersion Include="Aspire.Hosting.Redis" Version="8.2.1" />
     <PackageVersion Include="Aspire.StackExchange.Redis.DistributedCaching" Version="8.2.1" />
     <!--#endif -->
@@ -35,10 +35,10 @@
     <PackageVersion Include="Umbraco.Cms.Core" Version="13.5.1" />
     <PackageVersion Include="Umbraco.Cms.Infrastructure" Version="13.5.1" />
     <PackageVersion Include="Umbraco.Community.Contentment" Version="5.0.2" />
-    <!--#if (UseLoadBalancing) -->
+    <!--#if (LoadBalancing) -->
     <PackageVersion Include="Umbraco.Community.DataProtection" Version="13.0.0" />
     <!--#endif -->
-    <!--#if (UseContentDeliveryApi) -->
+    <!--#if (ContentDeliveryApi) -->
     <PackageVersion Include="Umbraco.Community.DeliveryApiExtensions" Version="13.0.0" />
     <!--#else -->
     <PackageVersion Include="Our.Umbraco.MaintenanceMode" Version="10.2.0" />
@@ -46,7 +46,7 @@
     <PackageVersion Include="Skybrud.Umbraco.Redirects.Import" Version="13.0.0" />
     <!--#endif -->
     <PackageVersion Include="uSync" Version="13.2.5" />
-    <!--#if (UseCaching) -->
+    <!--#if (Caching) -->
     <PackageVersion Include="ZiggyCreatures.FusionCache" Version="1.4.0" />
     <PackageVersion Include="ZiggyCreatures.FusionCache.Backplane.StackExchangeRedis" Version="1.4.0" />
     <PackageVersion Include="ZiggyCreatures.FusionCache.OpenTelemetry" Version="1.4.0" />

@@ -14,7 +14,7 @@ var configuration = builder.Configuration;
 builder.CreateUmbracoBuilder()
     .AddBackOffice()
     .AddWebsite()
-#if UseContentDeliveryApi
+#if ContentDeliveryApi
     .AddDeliveryApi()
 #endif
     .AddComposers()
@@ -34,7 +34,7 @@ services.AddCorrelationId(o =>
 })
 .WithGuidProvider();
 
-#if(UseLoadBalancing || UseCaching)
+#if(LoadBalancing || Caching)
 builder.AddRedisDistributedCache("cache");
 #endif
 

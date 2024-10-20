@@ -25,14 +25,14 @@ var sqlServer = builder
 
 var umbracoDb = sqlServer.AddDatabase("umbracoDbDSN", "umbraco-cms");
 
-#if(UseLoadBalancing || UseCaching)
+#if(LoadBalancing || Caching)
 var redis = builder.AddRedis("cache");
 #endif
 
 var cms = builder.AddProject<Projects.UmbracoTemplate_Web>("cms")
     .WithExternalHttpEndpoints()
     .WithReference(umbracoDb)
-#if(UseLoadBalancing || UseCaching)
+#if(LoadBalancing || Caching)
     .WithReference(redis)
 #endif
     .WithEnvironment("Umbraco:CMS:Global:Smtp:Port", smtpPort)

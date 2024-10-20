@@ -2,7 +2,7 @@
 
   <ItemGroup>
     <PackageReference Include="Umbraco.Cms.Core" />
-    <!--#if (UseCaching) -->
+    <!--#if (Caching) -->
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" />
     <PackageReference Include="ZiggyCreatures.FusionCache" />
     <PackageReference Include="ZiggyCreatures.FusionCache.Backplane.StackExchangeRedis" />

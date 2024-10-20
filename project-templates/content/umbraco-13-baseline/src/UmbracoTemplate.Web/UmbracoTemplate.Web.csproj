@@ -1,43 +1,43 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
-    <PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer"/>
-    <!--#if (UseLoadBalancing || UseCaching) -->
+    <PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" />
+    <!--#if (LoadBalancing || Caching) -->
     <PackageReference Include="Aspire.StackExchange.Redis.DistributedCaching" />
     <!--#endif -->
     <PackageReference Include="CorrelationId" />
-    <PackageReference Include="Cultiv.EnvironmentInspect"/>
-    <PackageReference Include="Cultiv.Hangfire"/>
-    <PackageReference Include="Diplo.AuditLogViewer"/>
+    <PackageReference Include="Cultiv.EnvironmentInspect" />
+    <PackageReference Include="Cultiv.Hangfire" />
+    <PackageReference Include="Diplo.AuditLogViewer" />
     <!--#if (UseNodeReactFrontend) -->
-    <PackageReference Include="NodeReact"/>
+    <PackageReference Include="NodeReact" />
     <!--#endif -->
     <PackageReference Include="Serilog.Enrichers.ClientInfo" />
     <PackageReference Include="Serilog.Exceptions" />
-    <PackageReference Include="Umbraco.Cms"/>
-    <PackageReference Include="Umbraco.Community.Contentment"/>
-    <!--#if (UseLoadBalancing) -->
+    <PackageReference Include="Umbraco.Cms" />
+    <PackageReference Include="Umbraco.Community.Contentment" />
+    <!--#if (LoadBalancing) -->
     <PackageReference Include="Umbraco.Community.DataProtection" />
     <!--#endif -->
-    <!--#if (UseContentDeliveryApi) -->
-    <PackageReference Include="Umbraco.Community.DeliveryApiExtensions"/>
+    <!--#if (ContentDeliveryApi) -->
+    <PackageReference Include="Umbraco.Community.DeliveryApiExtensions" />
     <!--#else -->
-    <PackageReference Include="Our.Umbraco.MaintenanceMode"/>
-    <PackageReference Include="Skybrud.Umbraco.Redirects"/>
-    <PackageReference Include="Skybrud.Umbraco.Redirects.Import"/>
+    <PackageReference Include="Our.Umbraco.MaintenanceMode" />
+    <PackageReference Include="Skybrud.Umbraco.Redirects" />
+    <PackageReference Include="Skybrud.Umbraco.Redirects.Import" />
     <!--#endif -->
-    <PackageReference Include="uSync"/>
+    <PackageReference Include="uSync" />
   </ItemGroup>
 
   <ItemGroup>
     <!-- Opt-in to app-local ICU to ensure consistent globalization APIs across different platforms -->
-    <PackageReference Include="Microsoft.ICU.ICU4C.Runtime"/>
+    <PackageReference Include="Microsoft.ICU.ICU4C.Runtime" />
     <RuntimeHostConfigurationOption Include="System.Globalization.AppLocalIcu" Value="72.1.0.3"
-                                    Condition="$(RuntimeIdentifier.StartsWith('linux')) or $(RuntimeIdentifier.StartsWith('win')) or ('$(RuntimeIdentifier)' == '' and !$([MSBuild]::IsOSPlatform('osx')))"/>
+      Condition="$(RuntimeIdentifier.StartsWith('linux')) or $(RuntimeIdentifier.StartsWith('win')) or ('$(RuntimeIdentifier)' == '' and !$([MSBuild]::IsOSPlatform('osx')))" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UmbracoTemplate.ServiceDefaults\UmbracoTemplate.ServiceDefaults.csproj"/>
+    <ProjectReference Include="..\UmbracoTemplate.ServiceDefaults\UmbracoTemplate.ServiceDefaults.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
@@ -53,7 +53,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\media\"/>
+    <Folder Include="wwwroot\media\" />
   </ItemGroup>
 
 </Project>

@@ -81,13 +81,13 @@
           ]
         },
         {
-          "condition": "(!UseLoadBalancing)",
+          "condition": "(!LoadBalancing)",
           "exclude": [
             "src/UmbracoTemplate.Web/Composers/LoadBalancingComposer.cs"
           ]
         },
         {
-          "condition": "(!UseCaching)",
+          "condition": "(!Caching)",
           "exclude": [
             "src/UmbracoTemplate.Shared/Caching/**"
           ]
@@ -96,19 +96,19 @@
     }
   ],
   "symbols": {
-    "UseContentDeliveryApi": {
+    "ContentDeliveryApi": {
       "type": "parameter",
       "description": "Enable the Umbraco Content Delivery Api",
       "datatype": "bool",
       "defaultValue": "true"
     },
-    "UseCaching": {
+    "Caching": {
       "type": "parameter",
       "description": "Enable the Umbraco Content Delivery Api",
       "datatype": "bool",
       "defaultValue": "true"
     },
-    "UseLoadBalancing": {
+    "LoadBalancing": {
       "type": "parameter",
       "description": "Enable support for load balanced environments",
       "datatype": "bool",
@@ -125,18 +125,18 @@
         },
         {
           "choice": "astro",
-          "description": "Use a Astro project as the frontend. Only takes effect if UseContentDeliveryApi is true"
+          "description": "Use a Astro project as the frontend. Only takes effect if ContentDeliveryApi is true"
         },
         {
           "choice": "nodereact",
-          "description": "Use a NodeReact project as the frontend. CURRENTLY IS NON FUNCTIONAL"
+          "description": "CURRENTLY IS NON FUNCTIONAL. Use a NodeReact project as the frontend"
         }
       ],
       "defaultValue": "none"
     },
     "UseAstroFrontend": {
       "type": "computed",
-      "value": "(Frontend == \"astro\" && UseContentDeliveryApi)"
+      "value": "(Frontend == \"astro\" && ContentDeliveryApi)"
     },
     "UseNodeReactFrontend": {
       "type": "computed",
@@ -144,7 +144,7 @@
     },
     "UseNoFrontend": {
       "type": "computed",
-      "value": "(Frontend == \"none\" || ((Frontend == \"astro\" && !UseContentDeliveryApi)))"
+      "value": "(Frontend == \"none\" || ((Frontend == \"astro\" && !ContentDeliveryApi)))"
     }
   },
   "tags": {

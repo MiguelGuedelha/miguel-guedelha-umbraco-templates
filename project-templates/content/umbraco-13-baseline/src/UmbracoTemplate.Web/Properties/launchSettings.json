@@ -8,7 +8,7 @@
       "applicationUrl": "https://localhost:44309;http://localhost:3872",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Local",
-        //#if (UseLoadBalancing)
+        //#if (LoadBalancing)
         "APPLICATION_SERVER_ROLE": "Single",
         //#endif
         "USE_USER_SECRETS": "true"
