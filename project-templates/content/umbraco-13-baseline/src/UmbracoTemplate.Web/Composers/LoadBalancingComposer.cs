@@ -2,25 +2,30 @@
 using Umbraco.Cms.Core.Composing;
 using Umbraco.Cms.Core.Sync;
 using Umbraco.Cms.Infrastructure.DependencyInjection;
+using Umbraco.Community.DataProtection.Composing;
 
 namespace UmbracoTemplate.Web.Composers;
 
 public class LoadBalancingComposer : IComposer
 {
-    private readonly ServerRole _serverRole;
+    public void Compose(IUmbracoBuilder builder)
+    {
+        builder.AddServerRoleLoadBalancing();
+        builder.AddUmbracoDataProtection();
+    }
+}
 
-    public LoadBalancingComposer()
+public static class ServerRoleExtensions
+{
+    public static void AddServerRoleLoadBalancing(this IUmbracoBuilder builder)
     {
         var serverRole = Environment.GetEnvironmentVariable("APPLICATION_SERVER_ROLE");
 
-        _serverRole = !serverRole.IsNullOrWhiteSpace()
+        var serverRoleParsed = !serverRole.IsNullOrWhiteSpace()
             ? Enum.Parse<ServerRole>(serverRole, true)
             : ServerRole.Single;
-    }
 
-    public void Compose(IUmbracoBuilder builder)
-    {
-        switch (_serverRole)
+        switch (serverRoleParsed)
         {
             case ServerRole.Single:
                 builder.SetServerRegistrar<SingleServerRoleAccessor>();

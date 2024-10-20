@@ -34,6 +34,10 @@ services.AddCorrelationId(o =>
 })
 .WithGuidProvider();
 
+#if(UseLoadBalancing || UseCaching)
+builder.AddRedisDistributedCache("cache");
+#endif
+
 #if UseNodeReactFrontend
 builder.Services.AddMvc().AddRazorRuntimeCompilation();
 

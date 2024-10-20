@@ -2,6 +2,9 @@
 
   <ItemGroup>
     <PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer"/>
+    <!--#if (UseLoadBalancing || UseCaching) -->
+    <PackageReference Include="Aspire.StackExchange.Redis.DistributedCaching" />
+    <!--#endif -->
     <PackageReference Include="CorrelationId" />
     <PackageReference Include="Cultiv.EnvironmentInspect"/>
     <PackageReference Include="Cultiv.Hangfire"/>
@@ -9,15 +12,19 @@
     <!--#if (UseNodeReactFrontend) -->
     <PackageReference Include="NodeReact"/>
     <!--#endif -->
-    <PackageReference Include="Our.Umbraco.MaintenanceMode"/>
     <PackageReference Include="Serilog.Enrichers.ClientInfo" />
     <PackageReference Include="Serilog.Exceptions" />
-    <PackageReference Include="Skybrud.Umbraco.Redirects"/>
-    <PackageReference Include="Skybrud.Umbraco.Redirects.Import"/>
     <PackageReference Include="Umbraco.Cms"/>
     <PackageReference Include="Umbraco.Community.Contentment"/>
+    <!--#if (UseLoadBalancing) -->
+    <PackageReference Include="Umbraco.Community.DataProtection" />
+    <!--#endif -->
     <!--#if (UseContentDeliveryApi) -->
     <PackageReference Include="Umbraco.Community.DeliveryApiExtensions"/>
+    <!--#else -->
+    <PackageReference Include="Our.Umbraco.MaintenanceMode"/>
+    <PackageReference Include="Skybrud.Umbraco.Redirects"/>
+    <PackageReference Include="Skybrud.Umbraco.Redirects.Import"/>
     <!--#endif -->
     <PackageReference Include="uSync"/>
   </ItemGroup>
