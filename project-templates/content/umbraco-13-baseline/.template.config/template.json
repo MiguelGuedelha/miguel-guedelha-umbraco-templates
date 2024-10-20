@@ -58,7 +58,8 @@
         {
           "condition": "(UseNodeReactFrontend)",
           "exclude": [
-            "src/frontends/astro-frontend/**"
+            "src/frontends/astro-frontend/**",
+            "src/UmbracoTemplate.AppHost/Extensions/DistributedApplicationBuilderPnpmExtensions.cs"
           ],
           "rename": {
             "src/frontends/nodereact-frontend/": "src/frontend/"
@@ -77,7 +78,8 @@
         {
           "condition": "(UseNoFrontend)",
           "exclude": [
-            "src/frontends/**"
+            "src/frontends/**",
+            "src/UmbracoTemplate.AppHost/Extensions/DistributedApplicationBuilderPnpmExtensions.cs"
           ]
         },
         {

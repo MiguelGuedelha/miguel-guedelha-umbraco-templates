@@ -2,7 +2,7 @@
 
 namespace UmbracoTemplate.AppHost.Extensions;
 
-public static class DistributedApplicationBuilderExtensions
+public static class DistributedApplicationBuilderPnpmExtensions
 {
     public static IResourceBuilder<NodeAppResource> AddPnpmApp(this IDistributedApplicationBuilder builder, string name,
         string workingDirectory, string scriptName = "start", string[]? args = null)
