@@ -47,6 +47,7 @@
         "**/*.user",
         "**/appsettings-schema*",
         "**/*.lock.json",
+        "**/*.lock.yaml",
         "**/App_Plugins/**",
         "**/[Uu]mbraco/**",
         "**/uSync/**",
@@ -58,6 +59,7 @@
           "condition": "(UseNodeReactFrontend)",
           "exclude": [
             "src/frontends/astro-frontend/**",
+            "src/frontends/vite-react-frontend/**",
             "src/UmbracoTemplate.AppHost/Extensions/DistributedApplicationBuilderPnpmExtensions.cs"
           ],
           "rename": {
@@ -68,10 +70,21 @@
           "condition": "(UseAstroFrontend)",
           "exclude": [
             "src/frontends/nodereact-frontend/**",
+            "src/frontends/vite-react-frontend/**",
             "src/UmbracoTemplate.Web/Views/**"
           ],
           "rename": {
             "src/frontends/astro-frontend/": "src/frontend/"
+          }
+        },
+        {
+          "condition": "(UseReactFrontend)",
+          "exclude": [
+            "src/frontends/nodereact-frontend/**",
+            "src/frontends/astro-frontend/**"
+          ],
+          "rename": {
+            "src/frontends/vite-react-frontend/": "src/frontend/"
           }
         },
         {
@@ -129,8 +142,12 @@
           "description": "Use a Astro project as the frontend. Only takes effect if ContentDeliveryApi is true"
         },
         {
-          "choice": "nodereact",
+          "choice": "node-react",
           "description": "CURRENTLY IS NON FUNCTIONAL. Use a NodeReact project as the frontend"
+        },
+        {
+          "choice": "vite-react",
+          "description": "Use a Vite (React) project that can be built and registered in the Razor/MVC views for richer client-side interactivity"
         }
       ],
       "defaultValue": "none"
@@ -141,7 +158,11 @@
     },
     "UseNodeReactFrontend": {
       "type": "computed",
-      "value": "(Frontend == \"nodereact\")"
+      "value": "(Frontend == \"node-react\")"
+    },
+    "UseViteReactFrontend": {
+      "type": "computed",
+      "value": "(Frontend == \"vite-react\")"
     },
     "UseNoFrontend": {
       "type": "computed",
