@@ -4,7 +4,7 @@ using Umbraco.Cms.Core.Sync;
 using Umbraco.Cms.Infrastructure.DependencyInjection;
 using Umbraco.Community.DataProtection.Composing;
 
-namespace UmbracoTemplate.Web.Composers;
+namespace UmbracoTemplate.Web.Shared.Caching;
 
 public class LoadBalancingComposer : IComposer
 {
