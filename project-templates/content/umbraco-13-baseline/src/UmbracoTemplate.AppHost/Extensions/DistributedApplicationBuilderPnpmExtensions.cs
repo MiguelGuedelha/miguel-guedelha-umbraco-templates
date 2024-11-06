@@ -1,5 +1,7 @@
-﻿// ReSharper disable once CheckNamespace
-namespace Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.Hosting;
+
+// ReSharper disable once CheckNamespace
+namespace Aspire.Hosting;
 
 public static class DistributedApplicationBuilderPnpmExtensions
 {
