@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Hosting;
 
-namespace UmbracoTemplate.AppHost.Extensions;
+// ReSharper disable once CheckNamespace
+namespace Aspire.Hosting;
 
 public static class DistributedApplicationBuilderPnpmExtensions
 {
