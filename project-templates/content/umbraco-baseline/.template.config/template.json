@@ -12,7 +12,7 @@
   ],
   "name": "Umbraco Website Baseline",
   "defaultName": "UmbracoSite",
-  "description": "A template containing a baseline multi-project solution for scaffolding Umbraco 13 Sites, allowing for both MVC or Content Delivery Api based sites. Taking advantage of .NET Aspire for local development. It comes packed with multiple pre-installed packages commonly used or that prove useful in Umbraco projects, such as Hangfire, Audit Log Viewer, etc.",
+  "description": "A template containing a baseline multi-project solution for scaffolding Umbraco Sites, allowing for both MVC or Content Delivery Api based sites. Taking advantage of .NET Aspire for local development. It comes packed with multiple pre-installed packages commonly used or that prove useful in Umbraco projects, such as Hangfire, Audit Log Viewer, etc.",
   "guids": [
     // sln file GUIDs
     "F7F86B2C-4CD5-4020-B769-F9CDBF9B6A8E",
@@ -26,14 +26,14 @@
     "24863493-bd25-4d22-b72f-fcd8e940b823",
     "173d0813-486c-4b95-9e03-a4974ba30d3d"
   ],
-  "identity": "MiguelGuedelha.Umbraco.Baseline.13",
+  "identity": "MiguelGuedelha.Umbraco.Baseline",
   "preferNameDirectory": true,
   "primaryOutputs": [
     {
       "path": "UmbracoTemplate.sln"
     }
   ],
-  "shortName": "umbracobaseline-13",
+  "shortName": "umbracobaseline",
   "sourceName": "UmbracoTemplate",
   "sources": [
     {

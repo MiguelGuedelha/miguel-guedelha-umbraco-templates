@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json.schemastore.org/template",
+  "author": "miguelguedelha",
+  "classifications": [
+    "AspNetCore",
+    "Web",
+    "Cloud",
+    "Solution",
+    "Umbraco",
+    "API"
+  ],
+  "name": "Umbraco Website BFF API and Astro",
+  "defaultName": "UmbracoBFFAstro",
+  "description": "A template containing a baseline set of 3 deployables. A Umbraco Site with Content API enabled, a BFF layer API and an Astro Frontend",
+  "guids": [],
+  "identity": "MiguelGuedelha.UmbracoBFFAstro",
+  "preferNameDirectory": true,
+  "primaryOutputs": [
+    {
+      "path": "TODO"
+    }
+  ],
+  "shortName": "umbraco-bff-astro",
+  "sourceName": "UmbracoBFFAstro",
+  "sources": [
+    {
+      "source": "./",
+      "target": "./",
+      "exclude": [
+        "**/[Bb]in/**",
+        "**/[Oo]bj/**",
+        ".template.config/**/*",
+        "**/*.filelist",
+        "**/*.user",
+        "**/appsettings-schema*",
+        "**/*.lock.json",
+        "**/*.lock.yaml",
+        "**/App_Plugins/**",
+        "**/[Uu]mbraco/**",
+        "**/uSync/**",
+        "**/*.bundle.js*",
+        "**/node_modules/**"
+      ],
+      "modifiers": [
+        {
+          "condition": "(!LoadBalancing)",
+          "exclude": [
+            "Cms/src/UmbracoBFFAstro.Cms/Shared/LoadBalancing/LoadBalancingComposer.cs"
+          ]
+        },
+        {
+          "condition": "(!Caching)",
+          "exclude": [
+            "TODO"
+          ]
+        }
+      ]
+    }
+  ],
+  "symbols": {
+    "Caching": {
+      "type": "parameter",
+      "description": "Enable fusion cache",
+      "datatype": "bool",
+      "defaultValue": "true"
+    },
+    "LoadBalancing": {
+      "type": "parameter",
+      "description": "Enable support for load balanced Umbraco instances",
+      "datatype": "bool",
+      "defaultValue": "false"
+    }
+  },
+  "tags": {
+    "language": "C#",
+    "type": "solution"
+  },
+  "postActions": [
+    {
+      "id": "restore",
+      "description": "Restore NuGet packages required by this project.",
+      "manualInstructions": [
+        {
+          "text": "Run 'dotnet restore'"
+        }
+      ],
+      "actionId": "210D431B-A78B-4D2F-B762-4ED3E3EA9025",
+      "continueOnError": true
+    }
+  ]
+}
