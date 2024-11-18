@@ -1,8 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
+  <PropertyGroup>
+    <UserSecretsId>UmbracoBFFAstro.Cms.Web-759145f7-38d6-4b5f-a862-55c536235b63</UserSecretsId>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Umbraco.Cms" />
-    <UserSecretsId>UmbracoBFFAstro.Cms.Web-759145f7-38d6-4b5f-a862-55c536235b63</UserSecretsId>
   </ItemGroup>
 
   <ItemGroup>
@@ -10,6 +13,10 @@
     <PackageReference Include="Microsoft.ICU.ICU4C.Runtime" />
     <RuntimeHostConfigurationOption Include="System.Globalization.AppLocalIcu" Value="72.1.0.3"
       Condition="$(RuntimeIdentifier.StartsWith('linux')) or $(RuntimeIdentifier.StartsWith('win')) or ('$(RuntimeIdentifier)' == '' and !$([MSBuild]::IsOSPlatform('osx')))" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UmbracoBFFAstro.Cms.ServiceDefaults\UmbracoBFFAstro.Cms.ServiceDefaults.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

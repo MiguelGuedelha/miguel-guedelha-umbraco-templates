@@ -5,4 +5,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\UmbracoBFFAstro.SiteApi.ServiceDefaults\UmbracoBFFAstro.SiteApi.ServiceDefaults.csproj" />
+  </ItemGroup>
+
 </Project>

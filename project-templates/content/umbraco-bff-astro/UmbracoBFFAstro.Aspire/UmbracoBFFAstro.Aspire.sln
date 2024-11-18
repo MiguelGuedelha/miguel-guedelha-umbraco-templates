@@ -9,13 +9,43 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Local Configuration", "Loca
 		Directory.Packages.props = Directory.Packages.props
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Global Configuration", "Global Configuration", "{E0332E04-0B45-4FF3-AB54-FF343395397C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "001 Global Configuration", "001 Global Configuration", "{E0332E04-0B45-4FF3-AB54-FF343395397C}"
 	ProjectSection(SolutionItems) = preProject
 		..\.editorconfig = ..\.editorconfig
 		..\.gitignore = ..\.gitignore
 		..\Directory.Build.props = ..\Directory.Build.props
 		..\Directory.Packages.props = ..\Directory.Packages.props
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoBFFAstro.Aspire.AppHost", "src\UmbracoBFFAstro.Aspire.AppHost\UmbracoBFFAstro.Aspire.AppHost.csproj", "{140ADDCC-22DB-42AC-BC96-758BB269E3D9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "030 Aspire", "030 Aspire", "{AECA3854-4D41-45C8-9F66-C6E63AE5253E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "040 Cms", "040 Cms", "{AFFC74CF-448C-4862-B802-F26F52278584}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "050 SiteApi", "050 SiteApi", "{9062E972-6DD3-4606-B149-D5DDD6CD642D}"
+	ProjectSection(SolutionItems) = preProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoBFFAstro.Cms.Web", "..\UmbracoBFFAstro.Cms\src\UmbracoBFFAstro.Cms.Web\UmbracoBFFAstro.Cms.Web.csproj", "{8FCFEF1E-8A4E-434E-8058-B9389E04F193}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoBFFAstro.Cms.ServiceDefaults", "..\UmbracoBFFAstro.Cms\src\UmbracoBFFAstro.Cms.ServiceDefaults\UmbracoBFFAstro.Cms.ServiceDefaults.csproj", "{51B0BBFA-04CE-40DC-BC6E-B59C10A33704}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Local Configuration", "Local Configuration", "{EF14C012-4E74-471E-960B-E9437FB69E40}"
+	ProjectSection(SolutionItems) = preProject
+		..\UmbracoBFFAstro.Cms\Directory.Build.props = ..\UmbracoBFFAstro.Cms\Directory.Build.props
+		..\UmbracoBFFAstro.Cms\Directory.Packages.props = ..\UmbracoBFFAstro.Cms\Directory.Packages.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Local Configuration", "Local Configuration", "{4460829C-4E3A-45E4-AB2E-FE5EF2F1C9EC}"
+	ProjectSection(SolutionItems) = preProject
+		..\UmbracoBFFAstro.SiteApi\Directory.Build.props = ..\UmbracoBFFAstro.SiteApi\Directory.Build.props
+		..\UmbracoBFFAstro.SiteApi\Directory.Packages.props = ..\UmbracoBFFAstro.SiteApi\Directory.Packages.props
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoBFFAstro.SiteApi.Web", "..\UmbracoBFFAstro.SiteApi\src\UmbracoBFFAstro.SiteApi.Web\UmbracoBFFAstro.SiteApi.Web.csproj", "{193E0029-66B8-4125-8479-66C1324EA138}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoBFFAstro.SiteApi.ServiceDefaults", "..\UmbracoBFFAstro.SiteApi\src\UmbracoBFFAstro.SiteApi.ServiceDefaults\UmbracoBFFAstro.SiteApi.ServiceDefaults.csproj", "{F7EAA0DD-E457-463D-90A7-0CBBC63D02ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,5 +54,37 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{140ADDCC-22DB-42AC-BC96-758BB269E3D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{140ADDCC-22DB-42AC-BC96-758BB269E3D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{140ADDCC-22DB-42AC-BC96-758BB269E3D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{140ADDCC-22DB-42AC-BC96-758BB269E3D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FCFEF1E-8A4E-434E-8058-B9389E04F193}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FCFEF1E-8A4E-434E-8058-B9389E04F193}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FCFEF1E-8A4E-434E-8058-B9389E04F193}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FCFEF1E-8A4E-434E-8058-B9389E04F193}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51B0BBFA-04CE-40DC-BC6E-B59C10A33704}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51B0BBFA-04CE-40DC-BC6E-B59C10A33704}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51B0BBFA-04CE-40DC-BC6E-B59C10A33704}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51B0BBFA-04CE-40DC-BC6E-B59C10A33704}.Release|Any CPU.Build.0 = Release|Any CPU
+		{193E0029-66B8-4125-8479-66C1324EA138}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{193E0029-66B8-4125-8479-66C1324EA138}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{193E0029-66B8-4125-8479-66C1324EA138}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{193E0029-66B8-4125-8479-66C1324EA138}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7EAA0DD-E457-463D-90A7-0CBBC63D02ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7EAA0DD-E457-463D-90A7-0CBBC63D02ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7EAA0DD-E457-463D-90A7-0CBBC63D02ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7EAA0DD-E457-463D-90A7-0CBBC63D02ED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{140ADDCC-22DB-42AC-BC96-758BB269E3D9} = {AECA3854-4D41-45C8-9F66-C6E63AE5253E}
+		{8FCFEF1E-8A4E-434E-8058-B9389E04F193} = {AFFC74CF-448C-4862-B802-F26F52278584}
+		{51B0BBFA-04CE-40DC-BC6E-B59C10A33704} = {AFFC74CF-448C-4862-B802-F26F52278584}
+		{88CA445B-8AD8-46D9-9D28-8373FD914273} = {AECA3854-4D41-45C8-9F66-C6E63AE5253E}
+		{EF14C012-4E74-471E-960B-E9437FB69E40} = {AFFC74CF-448C-4862-B802-F26F52278584}
+		{4460829C-4E3A-45E4-AB2E-FE5EF2F1C9EC} = {9062E972-6DD3-4606-B149-D5DDD6CD642D}
+		{193E0029-66B8-4125-8479-66C1324EA138} = {9062E972-6DD3-4606-B149-D5DDD6CD642D}
+		{F7EAA0DD-E457-463D-90A7-0CBBC63D02ED} = {9062E972-6DD3-4606-B149-D5DDD6CD642D}
 	EndGlobalSection
 EndGlobal

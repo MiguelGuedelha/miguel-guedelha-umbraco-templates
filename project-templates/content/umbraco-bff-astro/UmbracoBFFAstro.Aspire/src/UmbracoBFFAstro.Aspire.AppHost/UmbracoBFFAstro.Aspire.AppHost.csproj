@@ -12,4 +12,9 @@
     <PackageReference Include="Aspire.Hosting.AppHost" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\UmbracoBFFAstro.Cms\src\UmbracoBFFAstro.Cms.Web\UmbracoBFFAstro.Cms.Web.csproj" />
+    <ProjectReference Include="..\..\..\UmbracoBFFAstro.SiteApi\src\UmbracoBFFAstro.SiteApi.Web\UmbracoBFFAstro.SiteApi.Web.csproj" />
+  </ItemGroup>
+
 </Project>
