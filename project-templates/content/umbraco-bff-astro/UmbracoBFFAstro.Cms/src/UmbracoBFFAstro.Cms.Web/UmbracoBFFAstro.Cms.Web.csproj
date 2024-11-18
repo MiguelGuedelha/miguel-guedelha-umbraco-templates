@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Serilog.Enrichers.ClientInfo" />
+    <PackageReference Include="Serilog.Exceptions" />
     <PackageReference Include="Umbraco.Cms" />
     <PackageReference Include="Umbraco.Community.DataProtection" />
   </ItemGroup>

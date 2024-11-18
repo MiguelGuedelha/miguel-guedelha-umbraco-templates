@@ -11,6 +11,25 @@
           "Microsoft.OpenApi": "1.4.3"
         }
       },
+      "Serilog.Enrichers.ClientInfo": {
+        "type": "Direct",
+        "requested": "[2.1.2, )",
+        "resolved": "2.1.2",
+        "contentHash": "pj4yBNYghlax7SMEzRVSUHWeArlabjy5yAdw9bnxK5Nwjj8gWIqKSLtXV2wt1VxnRGGa+UiROwkQjhh93MWB5g==",
+        "dependencies": {
+          "Serilog": "2.9.0"
+        }
+      },
+      "Serilog.Exceptions": {
+        "type": "Direct",
+        "requested": "[8.4.0, )",
+        "resolved": "8.4.0",
+        "contentHash": "nc/+hUw3lsdo0zCj0KMIybAu7perMx79vu72w0za9Nsi6mWyNkGXxYxakAjWB7nEmYL6zdmhEQRB4oJ2ALUeug==",
+        "dependencies": {
+          "Serilog": "2.8.0",
+          "System.Reflection.TypeExtensions": "4.7.0"
+        }
+      },
       "Swashbuckle.AspNetCore": {
         "type": "Direct",
         "requested": "[6.6.2, )",
@@ -420,6 +439,11 @@
           "System.Threading.RateLimiting": "8.0.0"
         }
       },
+      "Serilog": {
+        "type": "Transitive",
+        "resolved": "2.9.0",
+        "contentHash": "QzcrD33A3+CsVvwi1I5CSei67ikQnkGrw7SscgL+vZTghaC2aNYg8fiUcedXHzKJFNjgje9rBjzwYGQTKEaXaA=="
+      },
       "StackExchange.Redis": {
         "type": "Transitive",
         "resolved": "2.8.0",
@@ -465,6 +489,11 @@
         "resolved": "4.5.3",
         "contentHash": "3oDzvc/zzetpTKWMShs1AADwZjQ/36HnsufHRPcOjyRAAMLDlu2iD33MBI2opxnezcVUtXyqDXXjoFMOU9c7SA=="
       },
+      "System.Reflection.TypeExtensions": {
+        "type": "Transitive",
+        "resolved": "4.7.0",
+        "contentHash": "VybpaOQQhqE6siHppMktjfGBw1GCwvCqiufqmP8F1nj7fTUNtW35LOEt3UZTEsECfo+ELAl/9o9nJx3U91i7vA=="
+      },
       "System.Threading.RateLimiting": {
         "type": "Transitive",
         "resolved": "8.0.0",
@@ -509,6 +538,7 @@
       "umbracobffastro.sharedmodules.features": {
         "type": "Project",
         "dependencies": {
+          "Microsoft.AspNetCore.HeaderPropagation": "[8.0.11, )",
           "Microsoft.Extensions.Caching.StackExchangeRedis": "[9.0.0, )",
           "UmbracoBFFAstro.SharedModules.ServiceDefaults": "[1.0.0, )",
           "ZiggyCreatures.FusionCache": "[1.4.1, )",
@@ -527,6 +557,16 @@
           "OpenTelemetry.Instrumentation.AspNetCore": "[1.9.0, )",
           "OpenTelemetry.Instrumentation.Http": "[1.9.0, )",
           "OpenTelemetry.Instrumentation.Runtime": "[1.9.0, )"
+        }
+      },
+      "Microsoft.AspNetCore.HeaderPropagation": {
+        "type": "CentralTransitive",
+        "requested": "[8.0.11, )",
+        "resolved": "8.0.11",
+        "contentHash": "UEdVAhRJU9oaT6Ky3SohYl/b7Qr8pOX7xE7YgE2IXYzetfo9WvfTfy+A+8I9K6tKjeAOziyhNE3DM9wV/IrZcQ==",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection": "8.0.1",
+          "Microsoft.Extensions.Http": "8.0.1"
         }
       },
       "Microsoft.Extensions.Http.Resilience": {

@@ -7,5 +7,8 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.9.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.9.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.9.0" />
+    <PackageVersion Include="Serilog.Enrichers.ClientInfo" Version="2.1.2" />
+    <PackageVersion Include="Serilog.Exceptions" Version="8.4.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.HeaderPropagation" Version="8.0.11" />
   </ItemGroup>
 </Project>
