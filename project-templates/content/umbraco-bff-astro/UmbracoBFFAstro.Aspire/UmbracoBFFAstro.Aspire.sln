@@ -55,6 +55,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Local Configuration", "Loca
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoBFFAstro.SharedModules.Features", "..\UmbracoBFFAstro.SharedModules\src\UmbracoBFFAstro.SharedModules.Features\UmbracoBFFAstro.SharedModules.Features.csproj", "{C86453E2-1EB4-44EA-925D-6FB2F6B5973D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "006 Frontend", "006 Frontend", "{3E70EF77-30C3-47F2-BD65-8E1E77677886}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
