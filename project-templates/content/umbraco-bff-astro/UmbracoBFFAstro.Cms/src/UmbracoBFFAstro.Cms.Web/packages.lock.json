@@ -29,6 +29,17 @@
           "Umbraco.Cms.Targets": "[13.5.2, 14.0.0)"
         }
       },
+      "Umbraco.Community.DataProtection": {
+        "type": "Direct",
+        "requested": "[13.0.1, )",
+        "resolved": "13.0.1",
+        "contentHash": "ewl1V5xzZPhCBUwhs2PTRfvlQhq2NxOZ3ZEPA9Iz4TkWEr2mZV4tgTF5J+9PgrVbi2jvsVKHYXDQl3SGcrkksg==",
+        "dependencies": {
+          "Umbraco.Cms.Core": "[13.0.0, 14.0.0)",
+          "Umbraco.Cms.Infrastructure": "[13.0.0, 14.0.0)",
+          "jcdcdev.Umbraco.Core": "13.0.1"
+        }
+      },
       "Asp.Versioning.Abstractions": {
         "type": "Transitive",
         "resolved": "7.0.0",
@@ -183,6 +194,14 @@
         "type": "Transitive",
         "resolved": "2.0.0",
         "contentHash": "M5bwDajAARZiyqupU+rHQJnsVLxNBOHJ8vKYHd8LcLIb1FgLfzzcJvc31Qo5Xz/GEHFjDF9ScjKL/ks/zRTXuA=="
+      },
+      "jcdcdev.Umbraco.Core": {
+        "type": "Transitive",
+        "resolved": "13.0.1",
+        "contentHash": "yNWhu3EEiqqSXE2b7xy730pVylcsqAaJxaH64HuGVMcZpUq7FfiDVF2mjbB97sx6XIcFpLq8a9btpzZN83mq6w==",
+        "dependencies": {
+          "Umbraco.Cms.Web.Common": "[13.0.0, 14.0.0)"
+        }
       },
       "K4os.Compression.LZ4": {
         "type": "Transitive",
@@ -3019,7 +3038,7 @@
         "resolved": "15.0.0",
         "contentHash": "YSDIkxq44VMy2N3jBTwJBJ/ZjGyuyb0GRyfQAUIma07dCHIbjXgKXjZaAxVa6ik3XTqgcyATvwYJL0EBtAClwA=="
       },
-      "umbracobffastro.cms.servicedefaults": {
+      "umbracobffastro.sharedmodules.servicedefaults": {
         "type": "Project",
         "dependencies": {
           "Microsoft.Extensions.Http.Resilience": "[9.0.0, )",

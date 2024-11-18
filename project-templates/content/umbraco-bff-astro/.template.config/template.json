@@ -45,7 +45,7 @@
         {
           "condition": "(!LoadBalancing)",
           "exclude": [
-            "Cms/src/UmbracoBFFAstro.Cms/Shared/LoadBalancing/LoadBalancingComposer.cs"
+            "Cms/src/UmbracoBFFAstro.Cms.Web/Shared/LoadBalancing/LoadBalancingComposer.cs"
           ]
         },
         {

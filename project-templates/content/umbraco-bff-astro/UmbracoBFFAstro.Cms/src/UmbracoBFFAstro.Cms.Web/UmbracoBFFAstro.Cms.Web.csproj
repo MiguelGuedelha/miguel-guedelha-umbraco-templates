@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Umbraco.Cms" />
+    <PackageReference Include="Umbraco.Community.DataProtection" />
   </ItemGroup>
 
   <ItemGroup>
@@ -16,7 +17,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UmbracoBFFAstro.Cms.ServiceDefaults\UmbracoBFFAstro.Cms.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\..\..\UmbracoBFFAstro.SharedModules\src\UmbracoBFFAstro.SharedModules.ServiceDefaults\UmbracoBFFAstro.SharedModules.ServiceDefaults.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Configuration\" />
   </ItemGroup>
 
   <PropertyGroup>
