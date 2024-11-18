@@ -6,6 +6,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\UmbracoBFFAstro.SharedModules\src\UmbracoBFFAstro.SharedModules.Features\UmbracoBFFAstro.SharedModules.Features.csproj" />
     <ProjectReference Include="..\..\..\UmbracoBFFAstro.SharedModules\src\UmbracoBFFAstro.SharedModules.ServiceDefaults\UmbracoBFFAstro.SharedModules.ServiceDefaults.csproj" />
   </ItemGroup>
 

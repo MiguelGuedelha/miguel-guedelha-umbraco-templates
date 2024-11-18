@@ -1,4 +1,7 @@
+using UmbracoBFFAstro.SharedModules.Features.Caching;
+
 var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
 
 builder.CreateUmbracoBuilder()
     .AddBackOffice()
@@ -8,6 +11,8 @@ builder.CreateUmbracoBuilder()
     .Build();
 
 builder.AddServiceDefaults();
+
+builder.AddCaching(configuration);
 
 var app = builder.Build();
 

@@ -16,6 +16,9 @@ public static class CachingConfiguration
     public static void AddCaching(this WebApplicationBuilder builder, IConfiguration configuration)
     {
         builder.Services.AddMemoryCache();
+
+        var cacheConnectionString = configuration.GetConnectionString(CachingConstants.ConnectionStringName);
+
         builder.Services.AddFusionCache()
             .WithOptions(o =>
             {
@@ -29,6 +32,9 @@ public static class CachingConfiguration
                 o.DistributedCacheErrorsLogLevel = LogLevel.Error;
                 o.FactorySyntheticTimeoutsLogLevel = LogLevel.Debug;
                 o.FactoryErrorsLogLevel = LogLevel.Error;
+                o.BackplaneErrorsLogLevel = LogLevel.Warning;
+                o.EventHandlingErrorsLogLevel = LogLevel.Warning;
+                o.IncoherentOptionsNormalizationLogLevel = LogLevel.Error;
             })
             .WithDefaultEntryOptions(o =>
             {
@@ -37,16 +43,16 @@ public static class CachingConfiguration
 
                 //Failsafe
                 o.IsFailSafeEnabled = true;
-                o.FailSafeMaxDuration = TimeSpan.FromMinutes(5);
-                o.FailSafeThrottleDuration = TimeSpan.FromMinutes(30);
+                o.FailSafeMaxDuration = TimeSpan.FromHours(2);
+                o.FailSafeThrottleDuration = TimeSpan.FromMinutes(5);
 
                 //Factory Timeouts
                 o.FactorySoftTimeout = TimeSpan.FromMilliseconds(300);
                 o.FactoryHardTimeout = TimeSpan.FromSeconds(5);
 
                 //Distributed Cache Options
-                o.DistributedCacheSoftTimeout = TimeSpan.FromMilliseconds(500);
-                o.DistributedCacheHardTimeout = TimeSpan.FromSeconds(2);
+                o.DistributedCacheSoftTimeout = TimeSpan.FromMilliseconds(100);
+                o.DistributedCacheHardTimeout = TimeSpan.FromSeconds(5);
                 o.AllowBackgroundDistributedCacheOperations = true;
                 o.AllowBackgroundBackplaneOperations  = true;
 
@@ -54,8 +60,8 @@ public static class CachingConfiguration
                 o.JitterMaxDuration = TimeSpan.FromSeconds(10);
             })
             .WithSerializer(new FusionCacheNewtonsoftJsonSerializer())
-            .WithDistributedCache(new RedisCache(new RedisCacheOptions { Configuration = configuration.GetConnectionString("cache")}))
-            .WithBackplane(new RedisBackplane(new RedisBackplaneOptions { Configuration = configuration.GetConnectionString("cache")}));
+            .WithDistributedCache(new RedisCache(new RedisCacheOptions { Configuration = cacheConnectionString }))
+            .WithBackplane(new RedisBackplane(new RedisBackplaneOptions { Configuration = cacheConnectionString }));
 
         builder.Services.AddOpenTelemetry()
             .WithTracing(tracing => tracing.AddFusionCacheInstrumentation())
