@@ -54,7 +54,7 @@ public static class CachingConfiguration
                 o.DistributedCacheSoftTimeout = TimeSpan.FromMilliseconds(100);
                 o.DistributedCacheHardTimeout = TimeSpan.FromSeconds(5);
                 o.AllowBackgroundDistributedCacheOperations = true;
-                o.AllowBackgroundBackplaneOperations  = true;
+                o.AllowBackgroundBackplaneOperations = true;
 
                 //Jitter
                 o.JitterMaxDuration = TimeSpan.FromSeconds(10);
