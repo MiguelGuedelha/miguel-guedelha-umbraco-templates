@@ -1,5 +1,14 @@
 <Project>
   <PropertyGroup>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <!--    Comma separated list of warning codes/types that should not be treated as errors -->
+    <!--    Whitelists certain warnings to bypass the compiler check essentially -->
+    <!--    <WarningsNotAsErrors></WarningsNotAsErrors> -->
   </PropertyGroup>
+
+  <!--   Add the following to individual class libraries if they need to use aspnetcore types/definitions but don't have them -->
+  <!--  <ItemGroup>-->
+  <!--    <FrameworkReference Include="Microsoft.AspNetCore.App"/>-->
+  <!--  </ItemGroup>-->
 </Project>

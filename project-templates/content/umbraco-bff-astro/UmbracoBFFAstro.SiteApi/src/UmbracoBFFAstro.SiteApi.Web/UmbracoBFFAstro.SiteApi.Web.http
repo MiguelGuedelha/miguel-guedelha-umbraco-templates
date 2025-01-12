@@ -1,6 +1,0 @@
-@UmbracoBFFAstro.SiteApi.Web_HostAddress = http://localhost:5124
-
-GET {{UmbracoBFFAstro.SiteApi.Web_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

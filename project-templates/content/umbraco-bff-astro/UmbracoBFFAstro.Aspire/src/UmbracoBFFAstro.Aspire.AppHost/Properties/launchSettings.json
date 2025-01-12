@@ -7,8 +7,8 @@
       "launchBrowser": true,
       "applicationUrl": "https://localhost:17157;http://localhost:15093",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "DOTNET_ENVIRONMENT": "Development",
+        "ASPNETCORE_ENVIRONMENT": "Local",
+        "DOTNET_ENVIRONMENT": "Local",
         "DOTNET_DASHBOARD_OTLP_ENDPOINT_URL": "https://localhost:21194",
         "DOTNET_RESOURCE_SERVICE_ENDPOINT_URL": "https://localhost:22014"
       }
@@ -19,8 +19,8 @@
       "launchBrowser": true,
       "applicationUrl": "http://localhost:15093",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "DOTNET_ENVIRONMENT": "Development",
+        "ASPNETCORE_ENVIRONMENT": "Local",
+        "DOTNET_ENVIRONMENT": "Local",
         "DOTNET_DASHBOARD_OTLP_ENDPOINT_URL": "http://localhost:19164",
         "DOTNET_RESOURCE_SERVICE_ENDPOINT_URL": "http://localhost:20162"
       }

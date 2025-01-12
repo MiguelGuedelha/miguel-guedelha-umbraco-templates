@@ -153,10 +153,10 @@ csharp_space_between_parentheses = false
 csharp_space_between_square_brackets = false
 
 # Xml project files
-[*.{csproj,vbproj,vcxproj,vcxproj.filters,proj,nativeproj,locproj}]
+[*.{csproj,esproj,vbproj,vcxproj,vcxproj.filters,proj,nativeproj,locproj}]
 indent_size = 2
 
-[*.{csproj,vbproj,proj,nativeproj,locproj}]
+[*.{csproj,esproj,vbproj,proj,nativeproj,locproj}]
 charset = utf-8
 
 # Xml build files

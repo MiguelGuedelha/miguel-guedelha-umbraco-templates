@@ -10,11 +10,13 @@
 
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting.AppHost" />
+    <PackageReference Include="Aspire.Hosting.NodeJs" />
+    <PackageReference Include="Aspire.Hosting.Redis" />
+    <PackageReference Include="Aspire.Hosting.SqlServer" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\UmbracoBFFAstro.Cms\src\UmbracoBFFAstro.Cms.Web\UmbracoBFFAstro.Cms.Web.csproj" />
     <ProjectReference Include="..\..\..\UmbracoBFFAstro.SiteApi\src\UmbracoBFFAstro.SiteApi.Web\UmbracoBFFAstro.SiteApi.Web.csproj" />
   </ItemGroup>
-
 </Project>

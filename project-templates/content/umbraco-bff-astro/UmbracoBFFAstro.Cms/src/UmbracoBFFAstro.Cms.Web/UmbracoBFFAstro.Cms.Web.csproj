@@ -1,14 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
-  <PropertyGroup>
-    <UserSecretsId>UmbracoBFFAstro.Cms.Web-759145f7-38d6-4b5f-a862-55c536235b63</UserSecretsId>
-  </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Serilog.Enrichers.ClientInfo" />
     <PackageReference Include="Serilog.Exceptions" />
     <PackageReference Include="Umbraco.Cms" />
     <PackageReference Include="Umbraco.Community.DataProtection" />
+    <PackageReference Include="System.Text.Json" />
+    <PackageReference Include="Lucene.Net.Replicator" />
   </ItemGroup>
 
   <ItemGroup>
