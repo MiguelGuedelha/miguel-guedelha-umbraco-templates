@@ -2,9 +2,9 @@
   <Import Project="$([MSBuild]::GetPathOfFileAbove(Directory.Packages.props, $(MSBuildThisFileDirectory)..))" />
   <ItemGroup>
     <PackageVersion Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="9.0.2" />
-    <PackageVersion Include="ZiggyCreatures.FusionCache" Version="1.4.1" />
-    <PackageVersion Include="ZiggyCreatures.FusionCache.Backplane.StackExchangeRedis" Version="1.4.1" />
-    <PackageVersion Include="ZiggyCreatures.FusionCache.OpenTelemetry" Version="1.4.1" />
-    <PackageVersion Include="ZiggyCreatures.FusionCache.Serialization.NewtonsoftJson" Version="1.4.1" />
+    <PackageVersion Include="ZiggyCreatures.FusionCache" Version="2.1.0" />
+    <PackageVersion Include="ZiggyCreatures.FusionCache.Backplane.StackExchangeRedis" Version="2.1.0" />
+    <PackageVersion Include="ZiggyCreatures.FusionCache.OpenTelemetry" Version="2.1.0" />
+    <PackageVersion Include="ZiggyCreatures.FusionCache.Serialization.NewtonsoftJson" Version="2.1.0" />
   </ItemGroup>
 </Project>
