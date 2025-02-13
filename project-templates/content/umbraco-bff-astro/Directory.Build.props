@@ -2,6 +2,7 @@
   <PropertyGroup>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsNotAsErrors>NU1901;NU1902;NU1903;NU1904</WarningsNotAsErrors>
     <!--    Comma separated list of warning codes/types that should not be treated as errors -->
     <!--    Whitelists certain warnings to bypass the compiler check essentially -->
     <!--    <WarningsNotAsErrors></WarningsNotAsErrors> -->
