@@ -2,7 +2,7 @@
   <Import Project="$([MSBuild]::GetPathOfFileAbove(Directory.Packages.props, $(MSBuildThisFileDirectory)..))" />
   <ItemGroup>
     <PackageVersion Include="Microsoft.ICU.ICU4C.Runtime" Version="72.1.0.3" />
-    <PackageVersion Include="Umbraco.Cms" Version="13.5.2" />
+    <PackageVersion Include="Umbraco.Cms" Version="13.6.0" />
     <PackageVersion Include="Umbraco.Community.DataProtection" Version="13.0.1" />
     <PackageVersion Include="System.Text.Json" Version="8.0.5" />
     <PackageVersion Include="Lucene.Net.Replicator" Version="4.8.0-beta00017" />

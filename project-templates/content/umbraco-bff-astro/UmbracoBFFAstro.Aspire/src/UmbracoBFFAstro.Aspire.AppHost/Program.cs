@@ -8,7 +8,7 @@ var smtpUser = builder.AddParameter("SmtpUser");
 var smtpPassword = builder.AddParameter("SmtpPassword", true);
 var smtpPort = builder.AddParameter("SmtpPort");
 
-var mailServer = builder.AddContainer("MailServer", "rnwood/smtp4dev")
+var mailServer = builder.AddContainer("mail-server", "rnwood/smtp4dev")
     .WithHttpEndpoint(34523, 80, "ui")
     .WithHttpEndpoint(int.Parse(smtpPort.Resource.Value), 25, "smtp")
     .WithVolume("UmbracoBFFAstro-mail-server-data", "/stmp4dev")
@@ -17,7 +17,7 @@ var mailServer = builder.AddContainer("MailServer", "rnwood/smtp4dev")
     .WithEnvironment("ServerOptions__Users__0__Password", smtpPassword);
 
 var database = builder
-    .AddSqlServer("Db")
+    .AddSqlServer("db")
     .WithDataVolume("UmbracoBFFAstro-db-data")
     .WithVolume("UmbracoBFFAstro-db-log", "/var/opt/mssql/log")
     .WithVolume("UmbracoBFFAstro-db-secrets", "/var/opt/mssql/secrets")
@@ -26,11 +26,10 @@ var database = builder
 var umbracoDb = database.AddDatabase("umbracoDbDSN", "umbraco-cms");
 
 var cache = builder
-    .AddRedis("Cache")
-    .WithDataVolume("UmbracoBFFAstro-cache-data")
+    .AddRedis("cache")
     .WithRedisInsight();
 
-var cms = builder.AddProject<Projects.UmbracoBFFAstro_Cms_Web>("cms")
+var cms = builder.AddProject<Projects.UmbracoBFFAstro_Cms_Web>("cms", launchProfileName: "cms")
     .WithExternalHttpEndpoints()
     .WithReference(umbracoDb)
     .WithReference(cache)
@@ -38,20 +37,19 @@ var cms = builder.AddProject<Projects.UmbracoBFFAstro_Cms_Web>("cms")
     .WithEnvironment("Umbraco:CMS:Global:Smtp:Username", smtpUser)
     .WithEnvironment("Umbraco:CMS:Global:Smtp:Password", smtpPassword)
     .WaitFor(mailServer)
-    .WaitFor(database)
     .WaitFor(umbracoDb)
     .WaitFor(cache);
 
-var siteApi = builder.AddProject<Projects.UmbracoBFFAstro_SiteApi_Web>("SiteApi")
+var siteApi = builder.AddProject<Projects.UmbracoBFFAstro_SiteApi_Web>("site-api")
     .WithExternalHttpEndpoints()
     .WithReference(cache)
     .WithReference(cms)
     .WaitFor(cache)
     .WaitFor(cms);
 
-var frontend = builder.AddPnpmApp("Astro", "../../../UmbracoBFFAstro.Frontend", "dev")
+var frontend = builder.AddPnpmApp("frontend-astro", "../../../UmbracoBFFAstro.Frontend", "dev")
     .WithReference(siteApi)
-    .WithHttpEndpoint(env: "PORT")
+    .WithHttpEndpoint(targetPort: 4321)
     .WithExternalHttpEndpoints()
     .WaitFor(siteApi);
 
