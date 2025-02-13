@@ -28,12 +28,9 @@ var umbracoDb = database.AddDatabase("umbracoDbDSN", "umbraco-cms");
 var cache = builder
     .AddRedis("Cache")
     .WithDataVolume("UmbracoBFFAstro-cache-data")
-    .WithPersistence(TimeSpan.FromMinutes(5), 100)
     .WithRedisInsight();
 
-var cms = builder.AddProject<Projects.UmbracoBFFAstro_Cms_Web>(
-        "Cms",
-        launchProfileName: "Cms")
+var cms = builder.AddProject<Projects.UmbracoBFFAstro_Cms_Web>("cms")
     .WithExternalHttpEndpoints()
     .WithReference(umbracoDb)
     .WithReference(cache)
@@ -44,28 +41,13 @@ var cms = builder.AddProject<Projects.UmbracoBFFAstro_Cms_Web>(
     .WaitFor(database)
     .WaitFor(umbracoDb)
     .WaitFor(cache);
-
-var cmsDeliveryApi = builder.AddProject<Projects.UmbracoBFFAstro_Cms_Web>(
-        "DeliveryApi",
-        launchProfileName: "DeliveryApi")
-    .WithExternalHttpEndpoints()
-    .WithReference(umbracoDb)
-    .WithReference(cache)
-    .WithEnvironment("Umbraco:CMS:Global:Smtp:Port", smtpPort)
-    .WithEnvironment("Umbraco:CMS:Global:Smtp:Username", smtpUser)
-    .WithEnvironment("Umbraco:CMS:Global:Smtp:Password", smtpPassword)
-    .WaitFor(mailServer)
-    .WaitFor(database)
-    .WaitFor(umbracoDb)
-    .WaitFor(cache)
-    .WithReplicas(2);
 
 var siteApi = builder.AddProject<Projects.UmbracoBFFAstro_SiteApi_Web>("SiteApi")
     .WithExternalHttpEndpoints()
-    .WithReference(cmsDeliveryApi)
     .WithReference(cache)
-    .WaitFor(cmsDeliveryApi)
-    .WaitFor(cache);
+    .WithReference(cms)
+    .WaitFor(cache)
+    .WaitFor(cms);
 
 var frontend = builder.AddPnpmApp("Astro", "../../../UmbracoBFFAstro.Frontend", "dev")
     .WithReference(siteApi)
