@@ -60,7 +60,7 @@
   "symbols": {
     "Caching": {
       "type": "parameter",
-      "description": "Enable fusion cache",
+      "description": "Enable caching",
       "datatype": "bool",
       "defaultValue": "true"
     },
