@@ -1,9 +1,11 @@
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
-builder.Configuration.AddUserSecrets<Program>();
+if (builder.Environment.IsLocal())
+{
+    builder.Configuration.AddUserSecrets<Program>();
+}
 
 var smtpUser = builder.AddParameter("SmtpUser");
 var smtpPassword = builder.AddParameter("SmtpPassword", true);
@@ -71,10 +73,3 @@ var frontend = builder.AddPnpmApp("frontend-astro", "../../../UmbracoBFFAstro.Fr
     .WaitFor(siteApi);
 
 builder.Build().Run();
-
-// Extension in Shared Modules is referenced by the main projects
-// Can't import it to Aspire due to circular references
-static class EnvironmentExtensions
-{
-    public static bool IsLocal(this IHostEnvironment environment) => environment.IsEnvironment("Local");
-}
