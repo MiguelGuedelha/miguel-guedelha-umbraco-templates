@@ -2,7 +2,7 @@
 
 namespace UmbracoBFFAstro.SharedModules.Features.Correlation;
 
-public class CorrelationIdMiddleware : IMiddleware
+internal class CorrelationIdMiddleware : IMiddleware
 {
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {

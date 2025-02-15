@@ -6,7 +6,7 @@ using Umbraco.Community.DataProtection.Composing;
 
 namespace UmbracoBFFAstro.Cms.Web.Configuration.LoadBalancing;
 
-public class LoadBalancingComposer : IComposer
+internal sealed class LoadBalancingComposer : IComposer
 {
     public void Compose(IUmbracoBuilder builder)
     {

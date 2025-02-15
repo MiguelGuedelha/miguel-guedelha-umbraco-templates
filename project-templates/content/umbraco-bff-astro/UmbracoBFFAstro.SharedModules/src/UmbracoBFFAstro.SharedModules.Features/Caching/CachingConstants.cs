@@ -1,6 +1,6 @@
 ﻿namespace UmbracoBFFAstro.SharedModules.Features.Caching;
 
-public static class CachingConstants
+internal static class CachingConstants
 {
     public const string ConnectionStringName = "Cache";
 }

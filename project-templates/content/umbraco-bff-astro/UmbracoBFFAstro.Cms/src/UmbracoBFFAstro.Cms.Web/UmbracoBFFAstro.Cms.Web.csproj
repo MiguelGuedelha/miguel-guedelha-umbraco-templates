@@ -6,6 +6,8 @@
     <PackageReference Include="Umbraco.Community.DataProtection" />
     <PackageReference Include="System.Text.Json" />
     <PackageReference Include="Lucene.Net.Replicator" />
+    <PackageReference Include="Umbraco.StorageProviders.AzureBlob" />
+    <PackageReference Include="Umbraco.StorageProviders.AzureBlob.ImageSharp" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,10 +20,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\UmbracoBFFAstro.SharedModules\src\UmbracoBFFAstro.SharedModules.Features\UmbracoBFFAstro.SharedModules.Features.csproj" />
     <ProjectReference Include="..\..\..\UmbracoBFFAstro.SharedModules\src\UmbracoBFFAstro.SharedModules.ServiceDefaults\UmbracoBFFAstro.SharedModules.ServiceDefaults.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Configuration\" />
   </ItemGroup>
 
   <PropertyGroup>

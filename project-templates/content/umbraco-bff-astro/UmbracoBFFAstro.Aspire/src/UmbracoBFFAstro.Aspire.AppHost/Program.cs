@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
@@ -29,16 +30,32 @@ var cache = builder
     .AddRedis("cache")
     .WithRedisInsight();
 
+var blobStorage = builder.AddAzureStorage("blob-storage");
+
+if (builder.Environment.IsLocal())
+{
+    blobStorage.RunAsEmulator(c =>
+    {
+        c.WithDataVolume("UmbracoBFFAstro-blob-storage");
+    });
+}
+
+// On first run, connect to storage and create the required container name
+// umbraco-local-media
+var umbracoBlob = blobStorage.AddBlobs("blobs");
+
 var cms = builder.AddProject<Projects.UmbracoBFFAstro_Cms_Web>("cms", launchProfileName: "cms")
     .WithExternalHttpEndpoints()
     .WithReference(umbracoDb)
     .WithReference(cache)
-    .WithEnvironment("Umbraco:CMS:Global:Smtp:Port", smtpPort)
-    .WithEnvironment("Umbraco:CMS:Global:Smtp:Username", smtpUser)
-    .WithEnvironment("Umbraco:CMS:Global:Smtp:Password", smtpPassword)
+    .WithEnvironment("Umbraco__CMS__Global__Smtp__Port", smtpPort)
+    .WithEnvironment("Umbraco__CMS__Global__Smtp__Username", smtpUser)
+    .WithEnvironment("Umbraco__CMS__Global__Smtp__Password", smtpPassword)
+    .WithEnvironment("Umbraco__Storage__AzureBlob__Media__ConnectionString", umbracoBlob.Resource.ConnectionStringExpression)
     .WaitFor(mailServer)
     .WaitFor(umbracoDb)
-    .WaitFor(cache);
+    .WaitFor(cache)
+    .WaitFor(umbracoBlob);
 
 var siteApi = builder.AddProject<Projects.UmbracoBFFAstro_SiteApi_Web>("site-api")
     .WithExternalHttpEndpoints()
@@ -54,3 +71,10 @@ var frontend = builder.AddPnpmApp("frontend-astro", "../../../UmbracoBFFAstro.Fr
     .WaitFor(siteApi);
 
 builder.Build().Run();
+
+// Extension in Shared Modules is referenced by the main projects
+// Can't import it to Aspire due to circular references
+static class EnvironmentExtensions
+{
+    public static bool IsLocal(this IHostEnvironment environment) => environment.IsEnvironment("Local");
+}
