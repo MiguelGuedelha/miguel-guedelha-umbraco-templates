@@ -1,8 +1,5 @@
 <Project>
   <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Packages.props', $(MSBuildThisFileDirectory)..))" />
-  <PropertyGroup>
-    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-  </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="8.0.13" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.9.0" />
