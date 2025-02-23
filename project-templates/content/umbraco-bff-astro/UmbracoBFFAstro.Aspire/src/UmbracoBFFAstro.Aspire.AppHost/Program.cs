@@ -67,6 +67,7 @@ var siteApi = builder.AddProject<Projects.UmbracoBFFAstro_SiteApi_Web>("site-api
     .WaitFor(cms);
 
 var frontend = builder.AddPnpmApp("frontend-astro", "../../../UmbracoBFFAstro.Frontend", "dev")
+    .WithPnpmPackageInstallation()
     .WithReference(siteApi)
     .WithHttpEndpoint(targetPort: 4321)
     .WithExternalHttpEndpoints()
