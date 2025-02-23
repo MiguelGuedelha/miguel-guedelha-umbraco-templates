@@ -42,7 +42,7 @@ if (builder.Environment.IsLocal())
     });
 }
 
-// On first run, connect to storage and create the required container name
+// On first run, mannually connect to storage and create the required container name
 // umbraco-local-media
 var umbracoBlob = blobStorage.AddBlobs("blobs");
 
