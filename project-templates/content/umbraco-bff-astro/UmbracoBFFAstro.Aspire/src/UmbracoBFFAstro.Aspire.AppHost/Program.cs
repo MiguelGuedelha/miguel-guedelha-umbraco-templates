@@ -47,7 +47,7 @@ if (builder.Environment.IsLocal())
 // umbraco-local-media
 var umbracoBlob = blobStorage.AddBlobs("blobs");
 
-var cms = builder.AddProject<Projects.UmbracoBFFAstro_Cms_Web>("cms", launchProfileName: "cms")
+var cms = builder.AddProject<Projects.GeneratedClassNamePrefix_Cms_Web>("cms", launchProfileName: "cms")
     .WithExternalHttpEndpoints()
     .WithReference(umbracoDb)
     .WithReference(cache)
@@ -60,7 +60,7 @@ var cms = builder.AddProject<Projects.UmbracoBFFAstro_Cms_Web>("cms", launchProf
     .WaitFor(cache)
     .WaitFor(umbracoBlob);
 
-var siteApi = builder.AddProject<Projects.UmbracoBFFAstro_SiteApi_Web>("site-api")
+var siteApi = builder.AddProject<Projects.GeneratedClassNamePrefix_SiteApi_Web>("site-api")
     .WithExternalHttpEndpoints()
     .WithReference(cache)
     .WithReference(cms)

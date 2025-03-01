@@ -57,6 +57,21 @@
       "datatype": "bool",
       "description": "If specified, skips the automatic restore of the project on create.",
       "defaultValue": "false"
+    },
+    "GeneratedClassNamePrefix": {
+      "type": "generated",
+      "generator": "regex",
+      "datatype": "string",
+      "replaces": "GeneratedClassNamePrefix",
+      "parameters": {
+        "source": "name",
+        "steps": [
+          {
+            "regex": "(((?<=\\.)|^)(?=\\d)|\\W)",
+            "replacement": "_"
+          }
+        ]
+      }
     }
   },
   "tags": {
