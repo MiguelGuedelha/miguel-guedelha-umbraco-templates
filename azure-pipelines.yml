@@ -19,3 +19,6 @@ steps:
       command: 'pack'
       packagesToPack: './project-templates/MiguelGuedelha.UmbracoTemplates.Projects.csproj'
       versioningScheme: 'off'
+
+  - publish: $(Build.ArtifactStagingDirectory)/
+    artifact: nupkg
