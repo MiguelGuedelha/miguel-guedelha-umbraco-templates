@@ -10,7 +10,7 @@
     <Authors>Miguel Guedelha</Authors>
     <Description>Umbraco project templates create by me for quicker bootstrap of certain types of project</Description>
     <PackageTags>dotnet-new;templates</PackageTags>
-    <PackageProjectUrl></PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/MiguelGuedelha/miguel-guedelha-umbraco-templates</PackageProjectUrl>
 
     <!-- Keep package type as 'Template' to show the package as a template package on nuget.org and make your template
     available in dotnet new search.-->
