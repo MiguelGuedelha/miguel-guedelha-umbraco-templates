@@ -2,18 +2,6 @@
   "version": 2,
   "dependencies": {
     "net8.0": {
-      "Lucene.Net.Replicator": {
-        "type": "Direct",
-        "requested": "[4.8.0-beta00017, )",
-        "resolved": "4.8.0-beta00017",
-        "contentHash": "YGZcKkQhuLweZ+M4UgA/Uok3Vl3HOTlvZpUmTZMS4J9cBdvTevG0e6rn/pZrfONUpp0TtbXe494oGA1rScouOA==",
-        "dependencies": {
-          "J2N": "[2.1.0, 3.0.0)",
-          "Lucene.Net": "4.8.0-beta00017",
-          "Lucene.Net.Facet": "4.8.0-beta00017",
-          "Newtonsoft.Json": "13.0.1"
-        }
-      },
       "Microsoft.ICU.ICU4C.Runtime": {
         "type": "Direct",
         "requested": "[72.1.0.3, )",
@@ -64,17 +52,6 @@
           "Umbraco.Cms.Persistence.SqlServer": "[13.7.0, 14.0.0)",
           "Umbraco.Cms.Persistence.Sqlite": "[13.7.0, 14.0.0)",
           "Umbraco.Cms.Targets": "[13.7.0, 14.0.0)"
-        }
-      },
-      "Umbraco.Community.DataProtection": {
-        "type": "Direct",
-        "requested": "[13.0.1, )",
-        "resolved": "13.0.1",
-        "contentHash": "ewl1V5xzZPhCBUwhs2PTRfvlQhq2NxOZ3ZEPA9Iz4TkWEr2mZV4tgTF5J+9PgrVbi2jvsVKHYXDQl3SGcrkksg==",
-        "dependencies": {
-          "Umbraco.Cms.Core": "[13.0.0, 14.0.0)",
-          "Umbraco.Cms.Infrastructure": "[13.0.0, 14.0.0)",
-          "jcdcdev.Umbraco.Core": "13.0.1"
         }
       },
       "Umbraco.StorageProviders.AzureBlob": {
@@ -242,14 +219,6 @@
         "resolved": "2.1.0",
         "contentHash": "Vooz1wbnnqWuS+u93tADXK5Owxo8vLJhSrZ9Ac+KpgDF3GJq9TybXXTF1TFcWILgEtRThc8AOBENEzB0TQH1JA=="
       },
-      "jcdcdev.Umbraco.Core": {
-        "type": "Transitive",
-        "resolved": "13.0.1",
-        "contentHash": "yNWhu3EEiqqSXE2b7xy730pVylcsqAaJxaH64HuGVMcZpUq7FfiDVF2mjbB97sx6XIcFpLq8a9btpzZN83mq6w==",
-        "dependencies": {
-          "Umbraco.Cms.Web.Common": "[13.0.0, 14.0.0)"
-        }
-      },
       "K4os.Compression.LZ4": {
         "type": "Transitive",
         "resolved": "1.3.8",
@@ -314,6 +283,17 @@
           "Lucene.Net.Analysis.Common": "4.8.0-beta00017",
           "Lucene.Net.Queries": "4.8.0-beta00017",
           "Lucene.Net.Sandbox": "4.8.0-beta00017"
+        }
+      },
+      "Lucene.Net.Replicator": {
+        "type": "Transitive",
+        "resolved": "4.8.0-beta00017",
+        "contentHash": "YGZcKkQhuLweZ+M4UgA/Uok3Vl3HOTlvZpUmTZMS4J9cBdvTevG0e6rn/pZrfONUpp0TtbXe494oGA1rScouOA==",
+        "dependencies": {
+          "J2N": "[2.1.0, 3.0.0)",
+          "Lucene.Net": "4.8.0-beta00017",
+          "Lucene.Net.Facet": "4.8.0-beta00017",
+          "Newtonsoft.Json": "13.0.1"
         }
       },
       "Lucene.Net.Sandbox": {

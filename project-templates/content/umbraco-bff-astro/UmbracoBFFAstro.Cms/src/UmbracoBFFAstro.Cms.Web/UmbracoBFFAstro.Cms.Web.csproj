@@ -3,9 +3,7 @@
     <PackageReference Include="Serilog.Enrichers.ClientInfo" />
     <PackageReference Include="Serilog.Exceptions" />
     <PackageReference Include="Umbraco.Cms" />
-    <PackageReference Include="Umbraco.Community.DataProtection" />
     <PackageReference Include="System.Text.Json" />
-    <PackageReference Include="Lucene.Net.Replicator" />
     <PackageReference Include="Umbraco.StorageProviders.AzureBlob" />
     <PackageReference Include="Umbraco.StorageProviders.AzureBlob.ImageSharp" />
   </ItemGroup>

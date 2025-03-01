@@ -2,7 +2,6 @@
 using Umbraco.Cms.Core.Composing;
 using Umbraco.Cms.Core.Sync;
 using Umbraco.Cms.Infrastructure.DependencyInjection;
-using Umbraco.Community.DataProtection.Composing;
 
 namespace UmbracoBFFAstro.Cms.Web.Configuration.LoadBalancing;
 
@@ -11,7 +10,6 @@ internal sealed class LoadBalancingComposer : IComposer
     public void Compose(IUmbracoBuilder builder)
     {
         builder.AddServerRoleLoadBalancing();
-        builder.AddUmbracoDataProtection();
     }
 }
 
