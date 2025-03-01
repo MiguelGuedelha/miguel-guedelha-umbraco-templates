@@ -4,13 +4,13 @@
     <!-- The package metadata. Fill in the properties marked as TODO below -->
     <!-- Follow the instructions on
     https://learn.microsoft.com/en-us/nuget/create-packages/package-authoring-best-practices -->
-    <PackageId>MiguelGuedelha.DotnetTemplates.Projects</PackageId>
+    <PackageId>MiguelGuedelha.UmbracoTemplates</PackageId>
     <PackageVersion>1.0</PackageVersion>
-    <Title>Miguel Guedelha Templates</Title>
+    <Title>Miguel Guedelha Umbraco Templates</Title>
     <Authors>Miguel Guedelha</Authors>
-    <Description>Dotnet project templates create by me for quicker bootstrap of certain types of project</Description>
+    <Description>Umbraco project templates create by me for quicker bootstrap of certain types of project</Description>
     <PackageTags>dotnet-new;templates</PackageTags>
-    <PackageProjectUrl>TODO: include a link to an associated project, repository, or company website</PackageProjectUrl>
+    <PackageProjectUrl></PackageProjectUrl>
 
     <!-- Keep package type as 'Template' to show the package as a template package on nuget.org and make your template
     available in dotnet new search.-->
