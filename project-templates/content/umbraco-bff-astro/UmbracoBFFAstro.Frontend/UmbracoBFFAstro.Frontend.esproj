@@ -18,7 +18,7 @@
           Condition="!Exists('%(PackageJsons.RootDir)%(PackageJsons.Directory)/node_modules') And Exists('%(PackageJsons.RootDir)%(PackageJsons.Directory)/pnpm-lock.yaml')" />
 
     <!-- Install npm packages from scratch if node_modules is missing and lockfile is not present -->
-    <Message Importance="Normal" Text="Installing npm packages for %(PackageJsons.RelativeDir) from lockfile"
+    <Message Importance="Normal" Text="Installing npm packages for %(PackageJsons.RelativeDir) from scratch"
              Condition="!Exists('%(PackageJsons.RootDir)%(PackageJsons.Directory)/node_modules') And !Exists('%(PackageJsons.RootDir)%(PackageJsons.Directory)/pnpm-lock.yaml')" />
     <Exec Command="pnpm install --frozen-lockfile" WorkingDirectory="%(PackageJsons.RootDir)%(PackageJsons.Directory)"
           Condition="!Exists('%(PackageJsons.RootDir)%(PackageJsons.Directory)/node_modules') And !Exists('%(PackageJsons.RootDir)%(PackageJsons.Directory)/pnpm-lock.yaml')" />
