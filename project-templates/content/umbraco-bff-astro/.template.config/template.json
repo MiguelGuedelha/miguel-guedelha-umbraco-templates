@@ -7,17 +7,20 @@
     "Cloud",
     "Solution",
     "Umbraco",
-    "API"
+    "API",
+    "Headless"
   ],
   "name": "Umbraco Website BFF API and Astro",
   "defaultName": "UmbracoBFFAstro",
-  "description": "A template containing a baseline set of 3 deployables. A Umbraco Site with Content API enabled, a BFF layer API and an Astro Frontend",
-  "guids": [],
+  "description": "A template containing a baseline set of 3 deployable services. A Umbraco Site with Delivery API enabled, a BFF layer API and an Astro Frontend. It also includes pre-baked in features, such as caching and load balancing",
+  "guids": [
+    "96428842-b8ff-46d1-aa2f-dbf284cb7d6a"
+  ],
   "identity": "MiguelGuedelha.UmbracoBFFAstro",
   "preferNameDirectory": true,
   "primaryOutputs": [
     {
-      "path": "TODO"
+      "path": "UmbracoBFFAstro.Aspire/UmbracoBFFAstro.Aspire.sln"
     }
   ],
   "shortName": "umbraco-bff-astro",
@@ -33,41 +36,26 @@
         "**/*.filelist",
         "**/*.user",
         "**/appsettings-schema*",
-        "**/*.lock.json",
-        "**/*.lock.yaml",
+        "**/*lock.json",
+        "**/*lock.yaml",
         "**/App_Plugins/**",
         "**/[Uu]mbraco/**",
         "**/uSync/**",
         "**/*.bundle.js*",
-        "**/node_modules/**"
+        "**/node_modules/**",
+        "**/dist/**",
+        "**/.astro/**",
+        "**/.vscode/launch.json",
+        "**/dist"
       ],
-      "modifiers": [
-        {
-          "condition": "(!LoadBalancing)",
-          "exclude": [
-            "Cms/src/UmbracoBFFAstro.Cms.Web/Shared/LoadBalancing/LoadBalancingComposer.cs"
-          ]
-        },
-        {
-          "condition": "(!Caching)",
-          "exclude": [
-            "TODO"
-          ]
-        }
-      ]
+      "modifiers": []
     }
   ],
   "symbols": {
-    "Caching": {
+    "skipRestore": {
       "type": "parameter",
-      "description": "Enable caching",
       "datatype": "bool",
-      "defaultValue": "true"
-    },
-    "LoadBalancing": {
-      "type": "parameter",
-      "description": "Enable support for load balanced Umbraco instances",
-      "datatype": "bool",
+      "description": "If specified, skips the automatic restore of the project on create.",
       "defaultValue": "false"
     }
   },
@@ -77,6 +65,7 @@
   },
   "postActions": [
     {
+      "condition": "(!skipRestore)",
       "id": "restore",
       "description": "Restore NuGet packages required by this project.",
       "manualInstructions": [
