@@ -173,8 +173,8 @@
       },
       "Microsoft.Extensions.Features": {
         "type": "Transitive",
-        "resolved": "8.0.11",
-        "contentHash": "xL0WcA9bRu49QSUmGZEYY5dslR/x52fl+XY9GWOP2h5ibOJY7hF8Tz/raXVP+GPJ2S2piNPlfL4GkJK794PjFA=="
+        "resolved": "8.0.12",
+        "contentHash": "NnoxzBc79BB1+U8astDIiRnnmtEemavMT+twoLNQO7Cr2/3KUFoZhnFo+agQRiG6xD736FGDzZFozy8W6DCDig=="
       },
       "Microsoft.Extensions.FileProviders.Abstractions": {
         "type": "Transitive",
@@ -301,14 +301,14 @@
       },
       "Microsoft.Extensions.ServiceDiscovery.Abstractions": {
         "type": "Transitive",
-        "resolved": "9.0.0",
-        "contentHash": "gJRU3MTYVtB6reZGJGVOcYhNLgt1i86Pt8yMnekCe7mEz9hr2g5fg5mu2l1lWoxM4eagqDHtk9HkrQFS88yJ3w==",
+        "resolved": "9.1.0",
+        "contentHash": "XtOy3Dp8ZK2/p9t3b9o5Jea92kPmfxLzSHOre5Nq6IucH6r6DjgqIHP3w49aH5nPIVslTNMGvVglAwUsaqBVcQ==",
         "dependencies": {
           "Microsoft.Extensions.Configuration.Abstractions": "8.0.0",
           "Microsoft.Extensions.Configuration.Binder": "8.0.2",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.2",
-          "Microsoft.Extensions.Features": "8.0.11",
-          "Microsoft.Extensions.Logging.Abstractions": "8.0.2",
+          "Microsoft.Extensions.Features": "8.0.12",
+          "Microsoft.Extensions.Logging.Abstractions": "8.0.3",
           "Microsoft.Extensions.Options": "8.0.2",
           "Microsoft.Extensions.Primitives": "8.0.0"
         }
@@ -500,7 +500,7 @@
         "dependencies": {
           "Microsoft.AspNetCore.HeaderPropagation": "[8.0.13, )",
           "Microsoft.Extensions.Caching.StackExchangeRedis": "[9.0.2, )",
-          "UmbracoBFFAstro.SharedModules.ServiceDefaults": "[1.0.0, )",
+          "OpenTelemetry.Extensions.Hosting": "[1.11.1, )",
           "ZiggyCreatures.FusionCache": "[2.1.0, )",
           "ZiggyCreatures.FusionCache.Backplane.StackExchangeRedis": "[2.1.0, )",
           "ZiggyCreatures.FusionCache.OpenTelemetry": "[2.1.0, )",
@@ -511,12 +511,13 @@
         "type": "Project",
         "dependencies": {
           "Microsoft.Extensions.Http.Resilience": "[9.2.0, )",
-          "Microsoft.Extensions.ServiceDiscovery": "[9.0.0, )",
+          "Microsoft.Extensions.ServiceDiscovery": "[9.1.0, )",
           "OpenTelemetry.Exporter.OpenTelemetryProtocol": "[1.11.1, )",
           "OpenTelemetry.Extensions.Hosting": "[1.11.1, )",
           "OpenTelemetry.Instrumentation.AspNetCore": "[1.11.0, )",
           "OpenTelemetry.Instrumentation.Http": "[1.11.0, )",
-          "OpenTelemetry.Instrumentation.Runtime": "[1.11.0, )"
+          "OpenTelemetry.Instrumentation.Runtime": "[1.11.0, )",
+          "UmbracoBFFAstro.SharedModules.Features": "[1.0.0, )"
         }
       },
       "Microsoft.AspNetCore.HeaderPropagation": {
@@ -543,19 +544,19 @@
       },
       "Microsoft.Extensions.ServiceDiscovery": {
         "type": "CentralTransitive",
-        "requested": "[9.0.0, )",
-        "resolved": "9.0.0",
-        "contentHash": "bRJ7+R+Qz6ueGGH2WqiZjyAJJho9UBLBclSTf8ReOIeMxjvbaBXTtOGmmrckSSJ/RLQRJKM9QNyK9+y1UUpVGw==",
+        "requested": "[9.1.0, )",
+        "resolved": "9.1.0",
+        "contentHash": "c/QYDSFmLOKN9N0pD1ZDmaWtT7wdTdSjOXYA39RfVeuLi+Q5OcQusB//NDwBpeAd6XbrY916p8vxLyOKelXrcQ==",
         "dependencies": {
           "Microsoft.Extensions.Configuration.Abstractions": "8.0.0",
           "Microsoft.Extensions.Configuration.Binder": "8.0.2",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.2",
-          "Microsoft.Extensions.Features": "8.0.11",
+          "Microsoft.Extensions.Features": "8.0.12",
           "Microsoft.Extensions.Http": "8.0.1",
-          "Microsoft.Extensions.Logging.Abstractions": "8.0.2",
+          "Microsoft.Extensions.Logging.Abstractions": "8.0.3",
           "Microsoft.Extensions.Options": "8.0.2",
           "Microsoft.Extensions.Primitives": "8.0.0",
-          "Microsoft.Extensions.ServiceDiscovery.Abstractions": "9.0.0"
+          "Microsoft.Extensions.ServiceDiscovery.Abstractions": "9.1.0"
         }
       },
       "OpenTelemetry.Exporter.OpenTelemetryProtocol": {

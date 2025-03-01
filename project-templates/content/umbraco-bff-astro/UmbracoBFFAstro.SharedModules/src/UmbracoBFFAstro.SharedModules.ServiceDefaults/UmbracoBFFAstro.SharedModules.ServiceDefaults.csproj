@@ -16,4 +16,8 @@
     <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\UmbracoBFFAstro.SharedModules.Features\UmbracoBFFAstro.SharedModules.Features.csproj" />
+  </ItemGroup>
+
 </Project>

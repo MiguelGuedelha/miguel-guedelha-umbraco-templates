@@ -8,15 +8,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" />
+    <PackageReference Include="OpenTelemetry.Extensions.Hosting" />
     <PackageReference Include="ZiggyCreatures.FusionCache" />
     <PackageReference Include="ZiggyCreatures.FusionCache.Backplane.StackExchangeRedis" />
     <PackageReference Include="ZiggyCreatures.FusionCache.OpenTelemetry" />
     <PackageReference Include="ZiggyCreatures.FusionCache.Serialization.NewtonsoftJson" />
     <PackageReference Include="Microsoft.AspNetCore.HeaderPropagation" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\UmbracoBFFAstro.SharedModules.ServiceDefaults\UmbracoBFFAstro.SharedModules.ServiceDefaults.csproj" />
   </ItemGroup>
 
 </Project>

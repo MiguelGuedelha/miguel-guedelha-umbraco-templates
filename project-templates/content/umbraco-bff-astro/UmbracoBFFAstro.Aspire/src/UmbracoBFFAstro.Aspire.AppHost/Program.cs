@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Configuration;
+using UmbracoBFFAstro.SharedModules.Features.Environment;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
