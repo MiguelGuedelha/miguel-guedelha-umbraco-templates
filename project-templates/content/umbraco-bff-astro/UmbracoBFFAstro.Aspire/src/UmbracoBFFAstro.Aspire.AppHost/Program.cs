@@ -47,7 +47,7 @@ if (builder.Environment.IsLocal())
 // umbraco-local-media
 var umbracoBlob = blobStorage.AddBlobs("blobs");
 
-var cms = builder.AddProject<Projects.GeneratedClassNamePrefix_Cms_Web>("cms", launchProfileName: "cms")
+var cms = builder.AddProject<Projects.GeneratedClassNamePrefix_Cms_Web>("cms", launchProfileName: "single")
     .WithExternalHttpEndpoints()
     .WithReference(umbracoDb)
     .WithReference(cache)
