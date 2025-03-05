@@ -1,6 +1,5 @@
 using UmbracoBFFAstro.SharedModules.Features.Caching;
 using UmbracoBFFAstro.SharedModules.Features.Correlation;
-using UmbracoBFFAstro.SharedModules.Features.Environment;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -31,5 +30,7 @@ if (!app.Environment.IsProduction())
 app.UseHttpsRedirection();
 
 app.UseCorrelation();
+
+app.MapDefaultEndpoints();
 
 app.Run();

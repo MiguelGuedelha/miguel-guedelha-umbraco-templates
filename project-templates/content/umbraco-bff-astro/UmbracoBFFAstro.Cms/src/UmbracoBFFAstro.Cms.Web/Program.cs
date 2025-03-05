@@ -1,6 +1,5 @@
 using UmbracoBFFAstro.SharedModules.Features.Caching;
 using UmbracoBFFAstro.SharedModules.Features.Correlation;
-using UmbracoBFFAstro.SharedModules.Features.Environment;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -30,6 +29,8 @@ var app = builder.Build();
 await app.BootUmbracoAsync();
 
 app.UseCorrelation();
+
+app.MapDefaultEndpoints();
 
 app.UseUmbraco()
     .WithMiddleware(u =>

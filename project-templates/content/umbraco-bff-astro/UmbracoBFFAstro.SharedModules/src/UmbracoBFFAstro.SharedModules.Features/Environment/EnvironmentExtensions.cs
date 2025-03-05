@@ -1,6 +1,5 @@
-﻿using Microsoft.Extensions.Hosting;
-
-namespace UmbracoBFFAstro.SharedModules.Features.Environment;
+﻿// ReSharper disable once CheckNamespace
+namespace Microsoft.Extensions.Hosting;
 
 public static class EnvironmentExtensions
 {
