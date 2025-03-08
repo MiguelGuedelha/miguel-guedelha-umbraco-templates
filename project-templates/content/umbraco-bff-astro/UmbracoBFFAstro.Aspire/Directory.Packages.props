@@ -6,6 +6,6 @@
     <PackageVersion Include="Aspire.Hosting.NodeJs" Version="9.1.0" />
     <PackageVersion Include="Aspire.Hosting.Redis" Version="9.1.0" />
     <PackageVersion Include="Aspire.Hosting.SqlServer" Version="9.1.0" />
-    <PackageVersion Include="CommunityToolkit.Aspire.Hosting.NodeJS.Extensions" Version="9.2.0" />
+    <PackageVersion Include="CommunityToolkit.Aspire.Hosting.NodeJS.Extensions" Version="9.2.1" />
   </ItemGroup>
 </Project>
