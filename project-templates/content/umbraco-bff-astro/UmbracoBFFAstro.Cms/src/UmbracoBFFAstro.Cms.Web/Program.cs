@@ -1,3 +1,4 @@
+using Azure.Storage.Blobs;
 using UmbracoBFFAstro.SharedModules.Features.Caching;
 using UmbracoBFFAstro.SharedModules.Features.Correlation;
 
@@ -22,9 +23,18 @@ builder.AddCorrelation();
 if (environment.IsLocal())
 {
     configuration.AddUserSecrets<Program>();
+    builder.AddAzureBlobClient("blobs");
 }
 
 var app = builder.Build();
+
+if (environment.IsLocal())
+{
+    var blobService = app.Services.GetRequiredService<BlobServiceClient>();
+    var umbracoMediaContainer = blobService.GetBlobContainerClient(app.Configuration["Umbraco:Storage:AzureBlob:Media:ContainerName"]);
+
+    await umbracoMediaContainer.CreateIfNotExistsAsync();
+}
 
 await app.BootUmbracoAsync();
 

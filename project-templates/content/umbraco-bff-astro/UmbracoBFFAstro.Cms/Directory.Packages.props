@@ -1,6 +1,7 @@
 <Project>
   <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Packages.props', $(MSBuildThisFileDirectory)..))" />
   <ItemGroup>
+    <PackageVersion Include="Aspire.Azure.Storage.Blobs" Version="9.1.0" />
     <PackageVersion Include="Microsoft.ICU.ICU4C.Runtime" Version="72.1.0.3" />
     <PackageVersion Include="Umbraco.Cms" Version="13.7.0" />
     <PackageVersion Include="System.Text.Json" Version="8.0.5" />
