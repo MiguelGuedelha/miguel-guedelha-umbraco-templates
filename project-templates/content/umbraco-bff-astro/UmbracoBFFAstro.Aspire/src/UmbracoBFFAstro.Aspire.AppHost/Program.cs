@@ -43,8 +43,6 @@ if (builder.Environment.IsLocal())
     });
 }
 
-// On first run, mannually connect to storage and create the required container name
-// umbraco-local-media
 var umbracoBlob = blobStorage.AddBlobs("blobs");
 
 var cms = builder.AddProject<Projects.GeneratedClassNamePrefix_Cms_Web>("cms", launchProfileName: "single")
