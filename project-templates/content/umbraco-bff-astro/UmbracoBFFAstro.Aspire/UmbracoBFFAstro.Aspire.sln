@@ -30,13 +30,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "005 SiteApi", "005 SiteApi"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoBFFAstro.Cms.Web", "..\UmbracoBFFAstro.Cms\src\UmbracoBFFAstro.Cms.Web\UmbracoBFFAstro.Cms.Web.csproj", "{8FCFEF1E-8A4E-434E-8058-B9389E04F193}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Local Configuration", "Local Configuration", "{EF14C012-4E74-471E-960B-E9437FB69E40}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 Local Configuration", "01 Local Configuration", "{EF14C012-4E74-471E-960B-E9437FB69E40}"
 	ProjectSection(SolutionItems) = preProject
 		..\UmbracoBFFAstro.Cms\Directory.Build.props = ..\UmbracoBFFAstro.Cms\Directory.Build.props
 		..\UmbracoBFFAstro.Cms\Directory.Packages.props = ..\UmbracoBFFAstro.Cms\Directory.Packages.props
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Local Configuration", "Local Configuration", "{4460829C-4E3A-45E4-AB2E-FE5EF2F1C9EC}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 Local Configuration", "01 Local Configuration", "{4460829C-4E3A-45E4-AB2E-FE5EF2F1C9EC}"
 	ProjectSection(SolutionItems) = preProject
 		..\UmbracoBFFAstro.SiteApi\Directory.Build.props = ..\UmbracoBFFAstro.SiteApi\Directory.Build.props
 		..\UmbracoBFFAstro.SiteApi\Directory.Packages.props = ..\UmbracoBFFAstro.SiteApi\Directory.Packages.props
@@ -59,6 +59,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "006 Frontend", "006 Frontend", "{3E70EF77-30C3-47F2-BD65-8E1E77677886}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "UmbracoBFFAstro.Frontend", "..\UmbracoBFFAstro.Frontend\UmbracoBFFAstro.Frontend.esproj", "{D88C623E-31FD-43E2-927F-8C068AF7FD11}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 Modules", "02 Modules", "{A4F153A6-515D-4D8D-B700-69EB728D639D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 Modules", "02 Modules", "{82F2FA96-FA6C-4ECC-80D6-573B2E546DC3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoBFFAstro.Cms.Modules.Common", "..\UmbracoBFFAstro.Cms\src\UmbracoBFFAstro.Cms.Modules.Common\UmbracoBFFAstro.Cms.Modules.Common.csproj", "{CCF25883-4514-465E-951A-393656218AB8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoBFFAstro.SiteApi.Modules.Common", "..\UmbracoBFFAstro.SiteApi\src\UmbracoBFFAstro.SiteApi.Modules.Common\UmbracoBFFAstro.SiteApi.Modules.Common.csproj", "{AD95BB74-6A13-4C7F-89C1-5EE950B07400}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +101,14 @@ Global
 		{D88C623E-31FD-43E2-927F-8C068AF7FD11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D88C623E-31FD-43E2-927F-8C068AF7FD11}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{D88C623E-31FD-43E2-927F-8C068AF7FD11}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{CCF25883-4514-465E-951A-393656218AB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCF25883-4514-465E-951A-393656218AB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCF25883-4514-465E-951A-393656218AB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCF25883-4514-465E-951A-393656218AB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD95BB74-6A13-4C7F-89C1-5EE950B07400}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD95BB74-6A13-4C7F-89C1-5EE950B07400}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD95BB74-6A13-4C7F-89C1-5EE950B07400}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD95BB74-6A13-4C7F-89C1-5EE950B07400}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{140ADDCC-22DB-42AC-BC96-758BB269E3D9} = {AECA3854-4D41-45C8-9F66-C6E63AE5253E}
@@ -105,5 +121,9 @@ Global
 		{05E7A912-B859-4EE5-BBCF-D519B094B780} = {DBB4C004-989A-44A9-B6D3-30042E68CC0C}
 		{C86453E2-1EB4-44EA-925D-6FB2F6B5973D} = {DBB4C004-989A-44A9-B6D3-30042E68CC0C}
 		{D88C623E-31FD-43E2-927F-8C068AF7FD11} = {3E70EF77-30C3-47F2-BD65-8E1E77677886}
+		{A4F153A6-515D-4D8D-B700-69EB728D639D} = {AFFC74CF-448C-4862-B802-F26F52278584}
+		{82F2FA96-FA6C-4ECC-80D6-573B2E546DC3} = {9062E972-6DD3-4606-B149-D5DDD6CD642D}
+		{CCF25883-4514-465E-951A-393656218AB8} = {A4F153A6-515D-4D8D-B700-69EB728D639D}
+		{AD95BB74-6A13-4C7F-89C1-5EE950B07400} = {82F2FA96-FA6C-4ECC-80D6-573B2E546DC3}
 	EndGlobalSection
 EndGlobal
