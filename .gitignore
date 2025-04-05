@@ -488,3 +488,7 @@ project-templates/test/**
 
 # Force certain folders to always be present
 !.gitkeep
+
+# Lockfiles
+packages.lock.json
+pnpm-lock.yaml
