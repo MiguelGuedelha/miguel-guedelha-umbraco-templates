@@ -65,11 +65,12 @@ var siteApi = builder.AddProject<Projects.GeneratedClassNamePrefix_SiteApi_Web>(
     .WaitFor(cache)
     .WaitFor(cms);
 
-var frontend = builder.AddPnpmApp("frontend-astro", "../../../UmbracoBFFAstro.Frontend", "dev")
-    .WithPnpmPackageInstallation()
-    .WithReference(siteApi)
-    .WithHttpEndpoint(targetPort: 4321)
-    .WithExternalHttpEndpoints()
-    .WaitFor(siteApi);
+// Example frontend service that could be added to aspire orchestration
+// var frontend = builder.AddPnpmApp("frontend-astro", "../../../UmbracoBFFAstro.Frontend", "dev")
+//     .WithPnpmPackageInstallation()
+//     .WithReference(siteApi)
+//     .WithHttpEndpoint(targetPort: 4321)
+//     .WithExternalHttpEndpoints()
+//     .WaitFor(siteApi);
 
 builder.Build().Run();

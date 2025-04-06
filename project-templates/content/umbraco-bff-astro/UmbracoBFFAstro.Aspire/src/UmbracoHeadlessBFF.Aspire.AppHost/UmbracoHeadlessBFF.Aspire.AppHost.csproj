@@ -18,8 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\UmbracoBFFAstro.Cms\src\UmbracoBFFAstro.Cms.Web\UmbracoBFFAstro.Cms.Web.csproj" />
-    <ProjectReference IsAspireProjectResource="false" Include="..\..\..\UmbracoBFFAstro.SharedModules\src\UmbracoBFFAstro.SharedModules.Features\UmbracoBFFAstro.SharedModules.Features.csproj" />
-    <ProjectReference Include="..\..\..\UmbracoBFFAstro.SiteApi\src\UmbracoBFFAstro.SiteApi.Web\UmbracoBFFAstro.SiteApi.Web.csproj" />
+    <ProjectReference Include="..\..\..\UmbracoBFFAstro.Cms\src\UmbracoHeadlessBFF.Cms.Web\UmbracoHeadlessBFF.Cms.Web.csproj" />
+    <ProjectReference IsAspireProjectResource="false" Include="..\..\..\UmbracoBFFAstro.SharedModules\src\UmbracoHeadlessBFF.SharedModules.Features\UmbracoHeadlessBFF.SharedModules.Features.csproj" />
+    <ProjectReference Include="..\..\..\UmbracoBFFAstro.SiteApi\src\UmbracoHeadlessBFF.SiteApi.Web\UmbracoHeadlessBFF.SiteApi.Web.csproj" />
   </ItemGroup>
 </Project>

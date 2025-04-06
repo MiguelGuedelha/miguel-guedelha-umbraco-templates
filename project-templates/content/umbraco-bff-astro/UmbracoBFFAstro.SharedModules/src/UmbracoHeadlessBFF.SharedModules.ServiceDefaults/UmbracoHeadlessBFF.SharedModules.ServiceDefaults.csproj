@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UmbracoBFFAstro.SharedModules.Features\UmbracoBFFAstro.SharedModules.Features.csproj" />
+    <ProjectReference Include="..\UmbracoHeadlessBFF.SharedModules.Features\UmbracoHeadlessBFF.SharedModules.Features.csproj" />
   </ItemGroup>
 
 </Project>

@@ -17,8 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\UmbracoBFFAstro.SharedModules\src\UmbracoBFFAstro.SharedModules.Features\UmbracoBFFAstro.SharedModules.Features.csproj" />
-    <ProjectReference Include="..\..\..\UmbracoBFFAstro.SharedModules\src\UmbracoBFFAstro.SharedModules.ServiceDefaults\UmbracoBFFAstro.SharedModules.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\..\..\UmbracoBFFAstro.SharedModules\src\UmbracoHeadlessBFF.SharedModules.Features\UmbracoHeadlessBFF.SharedModules.Features.csproj" />
+    <ProjectReference Include="..\..\..\UmbracoBFFAstro.SharedModules\src\UmbracoHeadlessBFF.SharedModules.ServiceDefaults\UmbracoHeadlessBFF.SharedModules.ServiceDefaults.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

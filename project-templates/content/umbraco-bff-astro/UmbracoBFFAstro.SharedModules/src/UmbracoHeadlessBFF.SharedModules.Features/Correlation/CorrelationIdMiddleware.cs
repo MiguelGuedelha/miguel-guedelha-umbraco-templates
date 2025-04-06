@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace UmbracoBFFAstro.SharedModules.Features.Correlation;
+namespace UmbracoHeadlessBFF.SharedModules.Features.Correlation;
 
 internal class CorrelationIdMiddleware : IMiddleware
 {

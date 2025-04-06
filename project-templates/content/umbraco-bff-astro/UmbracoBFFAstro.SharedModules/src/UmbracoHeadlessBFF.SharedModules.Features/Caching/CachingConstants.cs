@@ -1,4 +1,4 @@
-﻿namespace UmbracoBFFAstro.SharedModules.Features.Caching;
+﻿namespace UmbracoHeadlessBFF.SharedModules.Features.Caching;
 
 internal static class CachingConstants
 {
