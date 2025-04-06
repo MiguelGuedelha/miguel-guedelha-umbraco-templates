@@ -15,16 +15,16 @@ var smtpPort = builder.AddParameter("SmtpPort");
 var mailServer = builder.AddContainer("mail-server", "rnwood/smtp4dev")
     .WithHttpEndpoint(34523, 80, "ui")
     .WithHttpEndpoint(int.Parse(smtpPort.Resource.Value), 25, "smtp")
-    .WithVolume("UmbracoBFFAstro-mail-server-data", "/stmp4dev")
+    .WithVolume("UmbracoHeadlessBFF-mail-server-data", "/stmp4dev")
     .WithEnvironment("ServerOptions__AuthenticationRequired", "true")
     .WithEnvironment("ServerOptions__Users__0__Username", smtpUser)
     .WithEnvironment("ServerOptions__Users__0__Password", smtpPassword);
 
 var database = builder
     .AddSqlServer("db")
-    .WithDataVolume("UmbracoBFFAstro-db-data")
-    .WithVolume("UmbracoBFFAstro-db-log", "/var/opt/mssql/log")
-    .WithVolume("UmbracoBFFAstro-db-secrets", "/var/opt/mssql/secrets")
+    .WithDataVolume("UmbracoHeadlessBFF-db-data")
+    .WithVolume("UmbracoHeadlessBFF-db-log", "/var/opt/mssql/log")
+    .WithVolume("UmbracoHeadlessBFF-db-secrets", "/var/opt/mssql/secrets")
     .WithContainerRuntimeArgs("--user", "root");
 
 var umbracoDb = database.AddDatabase("umbracoDbDSN", "umbraco-cms");
@@ -39,7 +39,7 @@ if (builder.Environment.IsLocal())
 {
     blobStorage.RunAsEmulator(c =>
     {
-        c.WithDataVolume("UmbracoBFFAstro-blob-storage");
+        c.WithDataVolume("UmbracoHeadlessBFF-blob-storage");
     });
 }
 
@@ -66,7 +66,7 @@ var siteApi = builder.AddProject<Projects.GeneratedClassNamePrefix_SiteApi_Web>(
     .WaitFor(cms);
 
 // Example frontend service that could be added to aspire orchestration
-// var frontend = builder.AddPnpmApp("frontend-astro", "../../../UmbracoBFFAstro.Frontend", "dev")
+// var frontend = builder.AddPnpmApp("frontend-astro", "../../../UmbracoHeadlessBFF.Frontend", "dev")
 //     .WithPnpmPackageInstallation()
 //     .WithReference(siteApi)
 //     .WithHttpEndpoint(targetPort: 4321)

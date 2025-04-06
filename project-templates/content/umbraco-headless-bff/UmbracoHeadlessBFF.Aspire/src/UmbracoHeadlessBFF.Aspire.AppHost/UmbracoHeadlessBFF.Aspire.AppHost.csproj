@@ -5,7 +5,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <IsAspireHost>true</IsAspireHost>
-    <UserSecretsId>UmbracoBFFAstro.Aspire.AppHost-759145f7-38d6-4b5f-a862-55c536235b63</UserSecretsId>
+    <UserSecretsId>UmbracoHeadlessBFF.Aspire.AppHost-759145f7-38d6-4b5f-a862-55c536235b63</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,8 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\UmbracoBFFAstro.Cms\src\UmbracoHeadlessBFF.Cms.Web\UmbracoHeadlessBFF.Cms.Web.csproj" />
-    <ProjectReference IsAspireProjectResource="false" Include="..\..\..\UmbracoBFFAstro.SharedModules\src\UmbracoHeadlessBFF.SharedModules.Features\UmbracoHeadlessBFF.SharedModules.Features.csproj" />
-    <ProjectReference Include="..\..\..\UmbracoBFFAstro.SiteApi\src\UmbracoHeadlessBFF.SiteApi.Web\UmbracoHeadlessBFF.SiteApi.Web.csproj" />
+    <ProjectReference
+      Include="..\..\..\UmbracoHeadlessBFF.Cms\src\UmbracoHeadlessBFF.Cms.Web\UmbracoHeadlessBFF.Cms.Web.csproj" />
+    <ProjectReference IsAspireProjectResource="false"
+      Include="..\..\..\UmbracoHeadlessBFF.SharedModules\src\UmbracoHeadlessBFF.SharedModules.Features\UmbracoHeadlessBFF.SharedModules.Features.csproj" />
+    <ProjectReference
+      Include="..\..\..\UmbracoHeadlessBFF.SiteApi\src\UmbracoHeadlessBFF.SiteApi.Web\UmbracoHeadlessBFF.SiteApi.Web.csproj" />
   </ItemGroup>
 </Project>

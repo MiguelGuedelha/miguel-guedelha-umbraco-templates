@@ -3,7 +3,7 @@ using Umbraco.Cms.Core.Composing;
 using Umbraco.Cms.Core.Sync;
 using Umbraco.Cms.Infrastructure.DependencyInjection;
 
-namespace UmbracoBFFAstro.Cms.Web.Configuration.LoadBalancing;
+namespace UmbracoHeadlessBFF.Cms.Web.Configuration.LoadBalancing;
 
 internal sealed class LoadBalancingComposer : IComposer
 {
