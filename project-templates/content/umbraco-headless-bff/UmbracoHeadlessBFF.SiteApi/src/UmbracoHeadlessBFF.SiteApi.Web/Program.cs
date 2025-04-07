@@ -1,5 +1,5 @@
-using UmbracoHeadlessBFF.SharedModules.Features.Caching;
-using UmbracoHeadlessBFF.SharedModules.Features.Correlation;
+using UmbracoHeadlessBFF.SharedModules.Common.Caching;
+using UmbracoHeadlessBFF.SharedModules.Common.Correlation;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;

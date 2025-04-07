@@ -18,10 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference IsAspireProjectResource="false" Include="..\..\..\UmbracoHeadlessBFF.SharedModules\src\UmbracoHeadlessBFF.SharedModules.Common\UmbracoHeadlessBFF.SharedModules.Common.csproj" />
     <ProjectReference
       Include="..\..\..\UmbracoHeadlessBFF.Cms\src\UmbracoHeadlessBFF.Cms.Web\UmbracoHeadlessBFF.Cms.Web.csproj" />
-    <ProjectReference IsAspireProjectResource="false"
-      Include="..\..\..\UmbracoHeadlessBFF.SharedModules\src\UmbracoHeadlessBFF.SharedModules.Features\UmbracoHeadlessBFF.SharedModules.Features.csproj" />
     <ProjectReference
       Include="..\..\..\UmbracoHeadlessBFF.SiteApi\src\UmbracoHeadlessBFF.SiteApi.Web\UmbracoHeadlessBFF.SiteApi.Web.csproj" />
   </ItemGroup>

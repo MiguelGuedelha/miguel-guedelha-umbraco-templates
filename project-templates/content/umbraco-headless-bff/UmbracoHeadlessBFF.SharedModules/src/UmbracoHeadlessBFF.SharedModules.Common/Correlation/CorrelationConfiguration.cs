@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace UmbracoHeadlessBFF.SharedModules.Features.Correlation;
+namespace UmbracoHeadlessBFF.SharedModules.Common.Correlation;
 
 public static class CorrelationConfiguration
 {

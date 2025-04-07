@@ -1,0 +1,5 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\UmbracoHeadlessBFF.SiteApi.Modules.Common\UmbracoHeadlessBFF.SiteApi.Modules.Common.csproj" />
+  </ItemGroup>
+</Project>

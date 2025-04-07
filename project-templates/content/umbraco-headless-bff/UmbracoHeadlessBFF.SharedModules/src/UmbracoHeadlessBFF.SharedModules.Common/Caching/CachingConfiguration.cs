@@ -9,7 +9,7 @@ using ZiggyCreatures.Caching.Fusion;
 using ZiggyCreatures.Caching.Fusion.Backplane.StackExchangeRedis;
 using ZiggyCreatures.Caching.Fusion.Serialization.NewtonsoftJson;
 
-namespace UmbracoHeadlessBFF.SharedModules.Features.Caching;
+namespace UmbracoHeadlessBFF.SharedModules.Common.Caching;
 
 public static class CachingConfiguration
 {

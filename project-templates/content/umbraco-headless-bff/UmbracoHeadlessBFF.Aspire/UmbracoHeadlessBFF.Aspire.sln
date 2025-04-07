@@ -54,7 +54,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Local Configuration", "Loca
 		..\UmbracoHeadlessBFF.SharedModules\Directory.Packages.props = ..\UmbracoHeadlessBFF.SharedModules\Directory.Packages.props
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoHeadlessBFF.SharedModules.Features", "..\UmbracoHeadlessBFF.SharedModules\src\UmbracoHeadlessBFF.SharedModules.Features\UmbracoHeadlessBFF.SharedModules.Features.csproj", "{C86453E2-1EB4-44EA-925D-6FB2F6B5973D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoHeadlessBFF.SharedModules.Common", "..\UmbracoHeadlessBFF.SharedModules\src\UmbracoHeadlessBFF.SharedModules.Common\UmbracoHeadlessBFF.SharedModules.Common.csproj", "{C86453E2-1EB4-44EA-925D-6FB2F6B5973D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "002 Modules", "002 Modules", "{A4F153A6-515D-4D8D-B700-69EB728D639D}"
 EndProject
@@ -63,6 +63,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoHeadlessBFF.Cms.Modules.Common", "..\UmbracoHeadlessBFF.Cms\src\UmbracoHeadlessBFF.Cms.Modules.Common\UmbracoHeadlessBFF.Cms.Modules.Common.csproj", "{CCF25883-4514-465E-951A-393656218AB8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoHeadlessBFF.SiteApi.Modules.Common", "..\UmbracoHeadlessBFF.SiteApi\src\UmbracoHeadlessBFF.SiteApi.Modules.Common\UmbracoHeadlessBFF.SiteApi.Modules.Common.csproj", "{AD95BB74-6A13-4C7F-89C1-5EE950B07400}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoHeadlessBFF.Cms.Modules.Content", "..\UmbracoHeadlessBFF.Cms\src\UmbracoHeadlessBFF.Cms.Modules.Content\UmbracoHeadlessBFF.Cms.Modules.Content.csproj", "{FFC9C1EC-16CC-4BBA-9660-26D76ED201BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoHeadlessBFF.SiteApi.Modules.Content", "..\UmbracoHeadlessBFF.SiteApi\src\UmbracoHeadlessBFF.SiteApi.Modules.Content\UmbracoHeadlessBFF.SiteApi.Modules.Content.csproj", "{7E4919F0-E290-4B96-ABD4-6C3406448C13}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -101,6 +105,14 @@ Global
 		{AD95BB74-6A13-4C7F-89C1-5EE950B07400}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD95BB74-6A13-4C7F-89C1-5EE950B07400}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD95BB74-6A13-4C7F-89C1-5EE950B07400}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFC9C1EC-16CC-4BBA-9660-26D76ED201BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFC9C1EC-16CC-4BBA-9660-26D76ED201BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFC9C1EC-16CC-4BBA-9660-26D76ED201BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFC9C1EC-16CC-4BBA-9660-26D76ED201BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E4919F0-E290-4B96-ABD4-6C3406448C13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E4919F0-E290-4B96-ABD4-6C3406448C13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E4919F0-E290-4B96-ABD4-6C3406448C13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E4919F0-E290-4B96-ABD4-6C3406448C13}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{140ADDCC-22DB-42AC-BC96-758BB269E3D9} = {AECA3854-4D41-45C8-9F66-C6E63AE5253E}
@@ -116,5 +128,7 @@ Global
 		{82F2FA96-FA6C-4ECC-80D6-573B2E546DC3} = {9062E972-6DD3-4606-B149-D5DDD6CD642D}
 		{CCF25883-4514-465E-951A-393656218AB8} = {A4F153A6-515D-4D8D-B700-69EB728D639D}
 		{AD95BB74-6A13-4C7F-89C1-5EE950B07400} = {82F2FA96-FA6C-4ECC-80D6-573B2E546DC3}
+		{FFC9C1EC-16CC-4BBA-9660-26D76ED201BA} = {A4F153A6-515D-4D8D-B700-69EB728D639D}
+		{7E4919F0-E290-4B96-ABD4-6C3406448C13} = {82F2FA96-FA6C-4ECC-80D6-573B2E546DC3}
 	EndGlobalSection
 EndGlobal
