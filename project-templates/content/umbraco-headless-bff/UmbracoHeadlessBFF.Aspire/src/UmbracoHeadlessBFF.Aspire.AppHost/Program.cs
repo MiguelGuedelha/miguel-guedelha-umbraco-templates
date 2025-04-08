@@ -45,6 +45,11 @@ if (builder.Environment.IsLocal())
 
 var umbracoBlob = blobStorage.AddBlobs("blobs");
 
+#if (false)
+// Don't commit actual name as below, it should not be compilable inside this template
+// Only compilable when testing/running during template development
+// It should always be GeneratedClassNamePrefix_Cms_Web
+#endif
 var cms = builder.AddProject<Projects.GeneratedClassNamePrefix_Cms_Web>("cms", launchProfileName: "single")
     .WithExternalHttpEndpoints()
     .WithReference(umbracoDb)
@@ -58,6 +63,11 @@ var cms = builder.AddProject<Projects.GeneratedClassNamePrefix_Cms_Web>("cms", l
     .WaitFor(cache)
     .WaitFor(umbracoBlob);
 
+#if (false)
+// Don't commit actual name as below, it should not be compilable inside this template
+// Only compilable when testing/running during template development
+// It should always be GeneratedClassNamePrefix_SiteApi_Web
+#endif
 var siteApi = builder.AddProject<Projects.GeneratedClassNamePrefix_SiteApi_Web>("site-api")
     .WithExternalHttpEndpoints()
     .WithReference(cache)
