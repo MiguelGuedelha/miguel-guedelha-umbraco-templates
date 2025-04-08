@@ -54,6 +54,7 @@ var cms = builder.AddProject<Projects.GeneratedClassNamePrefix_Cms_Web>("cms", l
     .WithExternalHttpEndpoints()
     .WithReference(umbracoDb)
     .WithReference(cache)
+    .WithReference(umbracoBlob) //Only needed on local
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Port", smtpPort)
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Username", smtpUser)
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Password", smtpPassword)
