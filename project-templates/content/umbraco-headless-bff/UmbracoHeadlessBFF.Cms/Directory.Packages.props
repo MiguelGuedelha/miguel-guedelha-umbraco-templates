@@ -7,5 +7,6 @@
     <PackageVersion Include="System.Text.Json" Version="8.0.5" />
     <PackageVersion Include="Umbraco.StorageProviders.AzureBlob" Version="13.1.0" />
     <PackageVersion Include="Umbraco.StorageProviders.AzureBlob.ImageSharp" Version="13.1.0" />
+    <PackageVersion Include="uSync" Version="13.2.7" />
   </ItemGroup>
 </Project>
