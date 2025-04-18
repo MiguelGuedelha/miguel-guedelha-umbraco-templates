@@ -11,7 +11,7 @@ This repository contains .NET templates for Umbraco, designed to streamline the 
 
 ## Available Templates
 
-- `umbraco-bff-astro` - This is the main template which contains a set of 3 projects in a monorepo (CMS, Content API, Astro frontend)
+- `umbraco-headless-bff` - This is the main template which contains a set of 3 projects in a monorepo (CMS, Content API, Astro frontend)
 
 ## Installation
 
