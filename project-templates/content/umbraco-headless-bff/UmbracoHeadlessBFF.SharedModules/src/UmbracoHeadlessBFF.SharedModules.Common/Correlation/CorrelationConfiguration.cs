@@ -14,9 +14,11 @@ public static class CorrelationConfiguration
     {
         builder.Services.AddHttpContextAccessor();
         builder.Services.AddScoped<CorrelationIdMiddleware>();
-        builder.Services.AddHeaderPropagation(o =>
+        builder.Services.AddHeaderPropagation(options =>
         {
-            o.Headers.Add("x-correlation-id");
+            options.Headers.Add("x-correlation-id");
+            options.Headers.Add(SharedConstants.Common.SiteResolution.Headers.SiteHost);
+            options.Headers.Add(SharedConstants.Common.SiteResolution.Headers.SitePath);
         });
     }
 

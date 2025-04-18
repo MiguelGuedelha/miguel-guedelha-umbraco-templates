@@ -1,2 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk" >
+    <ItemGroup>
+      <FrameworkReference Include="Microsoft.AspNetCore.App"/>
+    </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="Asp.Versioning.Mvc" />
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
+      <PackageReference Include="Umbraco.Cms.Core" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\UmbracoHeadlessBFF.SharedModules\src\UmbracoHeadlessBFF.SharedModules.Common\UmbracoHeadlessBFF.SharedModules.Common.csproj" />
+    </ItemGroup>
 </Project>

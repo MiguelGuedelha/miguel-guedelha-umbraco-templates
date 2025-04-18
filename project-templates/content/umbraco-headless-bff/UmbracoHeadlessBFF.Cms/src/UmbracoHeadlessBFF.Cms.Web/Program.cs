@@ -1,4 +1,6 @@
 using Azure.Storage.Blobs;
+using Umbraco.Cms.Api.Common.DependencyInjection;
+using Umbraco.Cms.Core;
 using UmbracoHeadlessBFF.SharedModules.Common.Caching;
 using UmbracoHeadlessBFF.SharedModules.Common.Correlation;
 
@@ -25,6 +27,11 @@ if (environment.IsLocal())
     configuration.AddUserSecrets<Program>();
     builder.AddAzureBlobClient("blobs");
 }
+
+builder.Services.AddControllers().AddJsonOptions(Constants.JsonOptionsNames.DeliveryApi, options =>
+{
+    options.JsonSerializerOptions.MaxDepth = 128;
+});
 
 var app = builder.Build();
 

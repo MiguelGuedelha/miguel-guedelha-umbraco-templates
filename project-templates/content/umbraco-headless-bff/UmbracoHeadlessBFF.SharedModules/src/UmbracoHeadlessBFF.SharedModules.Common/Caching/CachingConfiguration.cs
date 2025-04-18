@@ -13,7 +13,7 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.Caching;
 
 public static class CachingConfiguration
 {
-    public static void AddCaching(this WebApplicationBuilder builder, IConfiguration configuration)
+    public static void AddCaching(this WebApplicationBuilder builder, IConfiguration configuration, string? cachePrefix = null, Action<FusionCacheEntryOptions>? configure = null)
     {
         builder.Services.AddMemoryCache();
 
@@ -22,6 +22,11 @@ public static class CachingConfiguration
         builder.Services.AddFusionCache()
             .WithOptions(o =>
             {
+                if (cachePrefix is not null)
+                {
+                    o.CacheKeyPrefix = cachePrefix;
+                }
+
                 //Backs off the Distributed Cache if having issues
                 o.DistributedCacheCircuitBreakerDuration = TimeSpan.FromSeconds(10);
 
@@ -58,6 +63,8 @@ public static class CachingConfiguration
 
                 //Jitter
                 o.JitterMaxDuration = TimeSpan.FromSeconds(10);
+
+                configure?.Invoke(o);
             })
             .WithSerializer(new FusionCacheNewtonsoftJsonSerializer())
             .WithDistributedCache(new RedisCache(new RedisCacheOptions { Configuration = cacheConnectionString }))
