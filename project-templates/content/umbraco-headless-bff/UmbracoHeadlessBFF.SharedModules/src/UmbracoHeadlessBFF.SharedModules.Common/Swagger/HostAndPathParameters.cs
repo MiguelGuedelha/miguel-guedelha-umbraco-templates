@@ -1,9 +1,10 @@
 ﻿using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using UmbracoHeadlessBFF.SharedModules.Common.Constants;
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Swagger;
 
-public class HostAndPathParameters : IOperationFilter
+public sealed class HostAndPathParameters : IOperationFilter
 {
     public void Apply(OpenApiOperation operation, OperationFilterContext context)
     {

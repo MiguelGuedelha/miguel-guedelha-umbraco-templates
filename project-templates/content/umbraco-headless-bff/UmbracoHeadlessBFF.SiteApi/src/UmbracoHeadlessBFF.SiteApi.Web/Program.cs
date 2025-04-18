@@ -21,7 +21,7 @@ builder.Services.AddSwaggerGen(options =>
 
 builder.AddServiceDefaults();
 
-builder.AddCaching(configuration);
+builder.AddCaching();
 builder.AddCorrelation();
 
 if (environment.IsLocal())

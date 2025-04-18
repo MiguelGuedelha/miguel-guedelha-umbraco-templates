@@ -19,7 +19,7 @@ builder.CreateUmbracoBuilder()
 
 builder.AddServiceDefaults();
 
-builder.AddCaching(configuration);
+builder.AddCaching();
 builder.AddCorrelation();
 
 if (environment.IsLocal())

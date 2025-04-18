@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using UmbracoHeadlessBFF.SharedModules.Common.Constants;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
@@ -12,7 +13,7 @@ var smtpUser = builder.AddParameter("SmtpUser");
 var smtpPassword = builder.AddParameter("SmtpPassword", true);
 var smtpPort = builder.AddParameter("SmtpPort");
 
-var mailServer = builder.AddContainer("mail-server", "rnwood/smtp4dev")
+var mailServer = builder.AddContainer("MailServer", "rnwood/smtp4dev")
     .WithHttpEndpoint(34523, 80, "ui")
     .WithHttpEndpoint(int.Parse(smtpPort.Resource.Value), 25, "smtp")
     .WithVolume("UmbracoHeadlessBFF-mail-server-data", "/stmp4dev")
@@ -27,13 +28,13 @@ var database = builder
     .WithVolume("UmbracoHeadlessBFF-db-secrets", "/var/opt/mssql/secrets")
     .WithContainerRuntimeArgs("--user", "root");
 
-var umbracoDb = database.AddDatabase("umbracoDbDSN", "umbraco-cms");
+var umbracoDb = database.AddDatabase("Database", "umbraco-cms");
 
 var cache = builder
-    .AddRedis("cache")
+    .AddRedis(SharedConstants.Common.Caching.ConnectionStringName)
     .WithRedisInsight();
 
-var blobStorage = builder.AddAzureStorage("blob-storage");
+var blobStorage = builder.AddAzureStorage("BlobStorage");
 
 if (builder.Environment.IsLocal())
 {
@@ -50,9 +51,9 @@ var umbracoBlob = blobStorage.AddBlobs("blobs");
 // Only compilable when testing/running during template development
 // It should always be GeneratedClassNamePrefix_Cms_Web
 #endif
-var cms = builder.AddProject<Projects.GeneratedClassNamePrefix_Cms_Web>("cms", launchProfileName: "single")
+var cms = builder.AddProject<Projects.UmbracoHeadlessBFF_Cms_Web>("Cms", launchProfileName: "single")
     .WithExternalHttpEndpoints()
-    .WithReference(umbracoDb)
+    .WithReference(umbracoDb, connectionName: "umbracoDbDSN")
     .WithReference(cache)
     .WithReference(umbracoBlob) //Only needed on local
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Port", smtpPort)
@@ -69,7 +70,7 @@ var cms = builder.AddProject<Projects.GeneratedClassNamePrefix_Cms_Web>("cms", l
 // Only compilable when testing/running during template development
 // It should always be GeneratedClassNamePrefix_SiteApi_Web
 #endif
-var siteApi = builder.AddProject<Projects.GeneratedClassNamePrefix_SiteApi_Web>("site-api")
+var siteApi = builder.AddProject<Projects.UmbracoHeadlessBFF_SiteApi_Web>("SiteApi")
     .WithExternalHttpEndpoints()
     .WithReference(cache)
     .WithReference(cms)

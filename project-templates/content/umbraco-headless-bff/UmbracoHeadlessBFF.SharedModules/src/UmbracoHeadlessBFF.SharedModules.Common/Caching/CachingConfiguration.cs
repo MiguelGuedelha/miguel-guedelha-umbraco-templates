@@ -1,23 +1,24 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Caching.StackExchangeRedis;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
+using UmbracoHeadlessBFF.SharedModules.Common.Constants;
 using ZiggyCreatures.Caching.Fusion;
-using ZiggyCreatures.Caching.Fusion.Backplane.StackExchangeRedis;
 using ZiggyCreatures.Caching.Fusion.Serialization.NewtonsoftJson;
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Caching;
 
 public static class CachingConfiguration
 {
-    public static void AddCaching(this WebApplicationBuilder builder, IConfiguration configuration, string? cachePrefix = null, Action<FusionCacheEntryOptions>? configure = null)
+    public static void AddCaching(this WebApplicationBuilder builder, string? cachePrefix = null, Action<FusionCacheEntryOptions>? configure = null)
     {
         builder.Services.AddMemoryCache();
 
-        var cacheConnectionString = configuration.GetConnectionString(CachingConstants.ConnectionStringName);
+        builder.AddRedisDistributedCache(SharedConstants.Common.Caching.ConnectionStringName);
+
+        builder.Services.AddFusionCacheStackExchangeRedisBackplane();
 
         builder.Services.AddFusionCache()
             .WithOptions(o =>
@@ -67,8 +68,8 @@ public static class CachingConfiguration
                 configure?.Invoke(o);
             })
             .WithSerializer(new FusionCacheNewtonsoftJsonSerializer())
-            .WithDistributedCache(new RedisCache(new RedisCacheOptions { Configuration = cacheConnectionString }))
-            .WithBackplane(new RedisBackplane(new RedisBackplaneOptions { Configuration = cacheConnectionString }));
+            .WithRegisteredDistributedCache()
+            .WithRegisteredBackplane();
 
         builder.Services.AddOpenTelemetry()
             .WithTracing(tracing => tracing.AddFusionCacheInstrumentation())
