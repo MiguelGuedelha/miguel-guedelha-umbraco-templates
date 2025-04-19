@@ -22,7 +22,7 @@ var mailServer = builder.AddContainer("MailServer", "rnwood/smtp4dev")
     .WithEnvironment("ServerOptions__Users__0__Password", smtpPassword);
 
 var database = builder
-    .AddSqlServer("db")
+    .AddSqlServer("SqlServer")
     .WithDataVolume("UmbracoHeadlessBFF-db-data")
     .WithVolume("UmbracoHeadlessBFF-db-log", "/var/opt/mssql/log")
     .WithVolume("UmbracoHeadlessBFF-db-secrets", "/var/opt/mssql/secrets")
