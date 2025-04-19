@@ -477,3 +477,6 @@ appsettings-schema.*.json
 
 # Media files
 /wwwroot/media/
+
+# Smidge
+/Smidge/

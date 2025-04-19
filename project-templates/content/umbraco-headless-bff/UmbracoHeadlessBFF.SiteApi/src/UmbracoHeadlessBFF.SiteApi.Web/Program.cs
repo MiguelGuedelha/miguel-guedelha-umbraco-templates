@@ -1,5 +1,8 @@
+using Asp.Versioning;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using UmbracoHeadlessBFF.SharedModules.Common;
 using UmbracoHeadlessBFF.SharedModules.Common.Caching;
 using UmbracoHeadlessBFF.SharedModules.Common.Correlation;
 using UmbracoHeadlessBFF.SiteApi.Web.Swagger;
@@ -18,6 +21,34 @@ builder.Services.AddSwaggerGen(options =>
     options.OperationFilter<PreviewModeParameters>();
 });
 
+builder.Services.AddProblemDetails(options =>
+{
+    options.CustomizeProblemDetails = context =>
+    {
+        context.ProblemDetails.Instance = $"{context.HttpContext.Request.Method} {context.HttpContext.Request.Path}";
+
+        context.ProblemDetails.Extensions.TryAdd("requestId", context.HttpContext.TraceIdentifier);
+
+        var activity = context.HttpContext.Features.Get<IHttpActivityFeature>()?.Activity;
+        context.ProblemDetails.Extensions.TryAdd("traceId", activity?.Id);
+        context.ProblemDetails.Extensions.TryAdd("correlationId", context.HttpContext.Request.Headers[SharedConstants.Common.Correlation.Headers.CorrelationId]);
+    };
+});
+
+builder.Services
+    .AddApiVersioning(options =>
+    {
+        options.DefaultApiVersion = new(1);
+        options.ReportApiVersions = true;
+        options.AssumeDefaultVersionWhenUnspecified = false;
+        options.ApiVersionReader = ApiVersionReader.Combine(new UrlSegmentApiVersionReader());
+    })
+    .AddApiExplorer(options =>
+    {
+        options.GroupNameFormat = "'v'VVV";
+        options.SubstituteApiVersionInUrl = true;
+    });
+
 builder.AddServiceDefaults();
 
 builder.AddCaching();
@@ -29,6 +60,10 @@ if (environment.IsLocal())
 }
 
 var app = builder.Build();
+
+app.UseHttpsRedirection();
+
+app.UseCorrelation();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsProduction())
@@ -48,10 +83,8 @@ if (!app.Environment.IsProduction())
     });
 }
 
-app.UseHttpsRedirection();
-
-app.UseCorrelation();
+app.UseExceptionHandler();
 
 app.MapDefaultEndpoints();
 
-app.Run();
+await app.RunAsync();
