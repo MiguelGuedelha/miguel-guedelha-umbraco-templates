@@ -51,7 +51,7 @@ var umbracoBlob = blobStorage.AddBlobs("blobs");
 // Only compilable when testing/running during template development
 // It should always be GeneratedClassNamePrefix_Cms_Web
 #endif
-var cms = builder.AddProject<Projects.UmbracoHeadlessBFF_Cms_Web>("Cms", launchProfileName: "single")
+var cms = builder.AddProject<Projects.GeneratedClassNamePrefix_Cms_Web>("Cms", launchProfileName: "single")
     .WithExternalHttpEndpoints()
     .WithReference(umbracoDb, connectionName: "umbracoDbDSN")
     .WithReference(cache)
@@ -70,7 +70,7 @@ var cms = builder.AddProject<Projects.UmbracoHeadlessBFF_Cms_Web>("Cms", launchP
 // Only compilable when testing/running during template development
 // It should always be GeneratedClassNamePrefix_SiteApi_Web
 #endif
-var siteApi = builder.AddProject<Projects.UmbracoHeadlessBFF_SiteApi_Web>("SiteApi")
+var siteApi = builder.AddProject<Projects.GeneratedClassNamePrefix_SiteApi_Web>("SiteApi")
     .WithExternalHttpEndpoints()
     .WithReference(cache)
     .WithReference(cms)
