@@ -16,9 +16,9 @@ public static class CorrelationConfiguration
         builder.Services.AddScoped<CorrelationIdMiddleware>();
         builder.Services.AddHeaderPropagation(options =>
         {
-            options.Headers.Add(Constants.SharedConstants.Common.Correlation.Headers.CorrelationId);
-            options.Headers.Add(Constants.SharedConstants.Common.SiteResolution.Headers.SiteHost);
-            options.Headers.Add(Constants.SharedConstants.Common.SiteResolution.Headers.SitePath);
+            options.Headers.Add(SharedConstants.Common.Correlation.Headers.CorrelationId);
+            options.Headers.Add(SharedConstants.Common.Correlation.Headers.SiteHost);
+            options.Headers.Add(SharedConstants.Common.Correlation.Headers.SitePath);
         });
     }
 

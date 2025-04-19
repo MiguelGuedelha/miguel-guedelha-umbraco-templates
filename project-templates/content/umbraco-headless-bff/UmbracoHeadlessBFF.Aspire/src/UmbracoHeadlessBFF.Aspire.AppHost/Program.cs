@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using UmbracoHeadlessBFF.SharedModules.Common.Constants;
+using UmbracoHeadlessBFF.SharedModules.Common;
 
 var builder = DistributedApplication.CreateBuilder(args);
 

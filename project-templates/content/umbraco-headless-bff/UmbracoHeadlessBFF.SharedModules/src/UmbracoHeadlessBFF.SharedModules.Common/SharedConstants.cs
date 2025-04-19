@@ -1,4 +1,4 @@
-namespace UmbracoHeadlessBFF.SharedModules.Common.Constants;
+namespace UmbracoHeadlessBFF.SharedModules.Common;
 
 public static partial class SharedConstants
 {

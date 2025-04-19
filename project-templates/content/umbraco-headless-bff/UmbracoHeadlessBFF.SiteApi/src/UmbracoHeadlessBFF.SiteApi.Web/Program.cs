@@ -2,7 +2,6 @@ using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using UmbracoHeadlessBFF.SharedModules.Common.Caching;
 using UmbracoHeadlessBFF.SharedModules.Common.Correlation;
-using UmbracoHeadlessBFF.SharedModules.Common.Swagger;
 using UmbracoHeadlessBFF.SiteApi.Web.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);

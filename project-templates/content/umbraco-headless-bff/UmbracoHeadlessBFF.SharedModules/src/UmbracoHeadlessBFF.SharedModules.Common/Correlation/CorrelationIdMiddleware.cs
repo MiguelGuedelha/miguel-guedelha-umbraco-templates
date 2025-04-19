@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using UmbracoHeadlessBFF.SharedModules.Common.Constants;
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Correlation;
 

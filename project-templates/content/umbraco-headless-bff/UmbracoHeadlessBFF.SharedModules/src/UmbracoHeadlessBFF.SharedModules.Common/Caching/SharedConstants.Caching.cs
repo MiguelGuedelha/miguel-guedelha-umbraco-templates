@@ -1,4 +1,5 @@
-﻿namespace UmbracoHeadlessBFF.SharedModules.Common.Constants;
+﻿// ReSharper disable once CheckNamespace
+namespace UmbracoHeadlessBFF.SharedModules.Common;
 
 public static partial class SharedConstants
 {
