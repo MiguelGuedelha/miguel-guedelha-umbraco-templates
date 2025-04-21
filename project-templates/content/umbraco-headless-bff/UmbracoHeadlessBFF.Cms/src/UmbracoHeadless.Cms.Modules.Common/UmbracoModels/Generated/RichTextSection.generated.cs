@@ -18,29 +18,14 @@ using Umbraco.Extensions;
 
 namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 {
-	// Mixin Content Type with alias "jumpMenuConfiguration"
-	/// <summary>Jump Menu Configuration</summary>
-	public partial interface IJumpMenuConfiguration : IPublishedElement
-	{
-		/// <summary>Anchor Id</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		string JumpMenuAnchorId { get; }
-
-		/// <summary>Heading</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		string JumpMenuHeading { get; }
-	}
-
-	/// <summary>Jump Menu Configuration</summary>
-	[PublishedModel("jumpMenuConfiguration")]
-	public partial class JumpMenuConfiguration : PublishedElementModel, IJumpMenuConfiguration
+	/// <summary>Rich Text Section</summary>
+	[PublishedModel("richTextSection")]
+	public partial class RichTextSection : PublishedElementModel, IInternalBlockListGridElementInfo, IJumpMenuConfiguration
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		public new const string ModelTypeAlias = "jumpMenuConfiguration";
+		public new const string ModelTypeAlias = "richTextSection";
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
@@ -49,14 +34,14 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 			=> PublishedModelUtility.GetModelContentType(publishedSnapshotAccessor, ModelItemType, ModelTypeAlias);
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		public static IPublishedPropertyType GetModelPropertyType<TValue>(IPublishedSnapshotAccessor publishedSnapshotAccessor, Expression<Func<JumpMenuConfiguration, TValue>> selector)
+		public static IPublishedPropertyType GetModelPropertyType<TValue>(IPublishedSnapshotAccessor publishedSnapshotAccessor, Expression<Func<RichTextSection, TValue>> selector)
 			=> PublishedModelUtility.GetModelPropertyType(GetModelContentType(publishedSnapshotAccessor), selector);
 #pragma warning restore 0109
 
 		private IPublishedValueFallback _publishedValueFallback;
 
 		// ctor
-		public JumpMenuConfiguration(IPublishedElement content, IPublishedValueFallback publishedValueFallback)
+		public RichTextSection(IPublishedElement content, IPublishedValueFallback publishedValueFallback)
 			: base(content, publishedValueFallback)
 		{
 			_publishedValueFallback = publishedValueFallback;
@@ -65,17 +50,36 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 		// properties
 
 		///<summary>
+		/// Cta
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("cta")]
+		public virtual global::Umbraco.Cms.Core.Models.Link Cta => this.Value<global::Umbraco.Cms.Core.Models.Link>(_publishedValueFallback, "cta");
+
+		///<summary>
+		/// Text
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("text")]
+		public virtual global::Umbraco.Cms.Core.Strings.IHtmlEncodedString Text => this.Value<global::Umbraco.Cms.Core.Strings.IHtmlEncodedString>(_publishedValueFallback, "text");
+
+		///<summary>
+		/// Block Label
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("internalBlockLabel")]
+		public virtual string InternalBlockLabel => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated.InternalBlockListGridElementInfo.GetInternalBlockLabel(this, _publishedValueFallback);
+
+		///<summary>
 		/// Anchor Id: The Id used to navigate to the element in the page from the jump menu, must be unique on the page
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("jumpMenuAnchorId")]
-		public virtual string JumpMenuAnchorId => GetJumpMenuAnchorId(this, _publishedValueFallback);
-
-		/// <summary>Static getter for Anchor Id</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		public static string GetJumpMenuAnchorId(IJumpMenuConfiguration that, IPublishedValueFallback publishedValueFallback) => that.Value<string>(publishedValueFallback, "jumpMenuAnchorId");
+		public virtual string JumpMenuAnchorId => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated.JumpMenuConfiguration.GetJumpMenuAnchorId(this, _publishedValueFallback);
 
 		///<summary>
 		/// Heading: The heading shown if a jump menu is present on the page
@@ -83,11 +87,6 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("jumpMenuHeading")]
-		public virtual string JumpMenuHeading => GetJumpMenuHeading(this, _publishedValueFallback);
-
-		/// <summary>Static getter for Heading</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		public static string GetJumpMenuHeading(IJumpMenuConfiguration that, IPublishedValueFallback publishedValueFallback) => that.Value<string>(publishedValueFallback, "jumpMenuHeading");
+		public virtual string JumpMenuHeading => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated.JumpMenuConfiguration.GetJumpMenuHeading(this, _publishedValueFallback);
 	}
 }

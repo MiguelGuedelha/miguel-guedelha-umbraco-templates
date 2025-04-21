@@ -18,29 +18,34 @@ using Umbraco.Extensions;
 
 namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 {
-	// Mixin Content Type with alias "jumpMenuConfiguration"
-	/// <summary>Jump Menu Configuration</summary>
-	public partial interface IJumpMenuConfiguration : IPublishedElement
+	// Mixin Content Type with alias "mandatoryHeadingWithOptionalSubHeading"
+	/// <summary>Mandatory Heading with Optional Sub Heading</summary>
+	public partial interface IMandatoryHeadingWithOptionalSubHeading : IPublishedElement
 	{
-		/// <summary>Anchor Id</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		string JumpMenuAnchorId { get; }
-
 		/// <summary>Heading</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		string JumpMenuHeading { get; }
+		string Heading { get; }
+
+		/// <summary>Heading Size</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		string HeadingSize { get; }
+
+		/// <summary>Sub Heading</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		string SubHeading { get; }
 	}
 
-	/// <summary>Jump Menu Configuration</summary>
-	[PublishedModel("jumpMenuConfiguration")]
-	public partial class JumpMenuConfiguration : PublishedElementModel, IJumpMenuConfiguration
+	/// <summary>Mandatory Heading with Optional Sub Heading</summary>
+	[PublishedModel("mandatoryHeadingWithOptionalSubHeading")]
+	public partial class MandatoryHeadingWithOptionalSubHeading : PublishedElementModel, IMandatoryHeadingWithOptionalSubHeading
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		public new const string ModelTypeAlias = "jumpMenuConfiguration";
+		public new const string ModelTypeAlias = "mandatoryHeadingWithOptionalSubHeading";
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
@@ -49,14 +54,14 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 			=> PublishedModelUtility.GetModelContentType(publishedSnapshotAccessor, ModelItemType, ModelTypeAlias);
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		public static IPublishedPropertyType GetModelPropertyType<TValue>(IPublishedSnapshotAccessor publishedSnapshotAccessor, Expression<Func<JumpMenuConfiguration, TValue>> selector)
+		public static IPublishedPropertyType GetModelPropertyType<TValue>(IPublishedSnapshotAccessor publishedSnapshotAccessor, Expression<Func<MandatoryHeadingWithOptionalSubHeading, TValue>> selector)
 			=> PublishedModelUtility.GetModelPropertyType(GetModelContentType(publishedSnapshotAccessor), selector);
 #pragma warning restore 0109
 
 		private IPublishedValueFallback _publishedValueFallback;
 
 		// ctor
-		public JumpMenuConfiguration(IPublishedElement content, IPublishedValueFallback publishedValueFallback)
+		public MandatoryHeadingWithOptionalSubHeading(IPublishedElement content, IPublishedValueFallback publishedValueFallback)
 			: base(content, publishedValueFallback)
 		{
 			_publishedValueFallback = publishedValueFallback;
@@ -65,29 +70,42 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 		// properties
 
 		///<summary>
-		/// Anchor Id: The Id used to navigate to the element in the page from the jump menu, must be unique on the page
+		/// Heading
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("jumpMenuAnchorId")]
-		public virtual string JumpMenuAnchorId => GetJumpMenuAnchorId(this, _publishedValueFallback);
-
-		/// <summary>Static getter for Anchor Id</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		public static string GetJumpMenuAnchorId(IJumpMenuConfiguration that, IPublishedValueFallback publishedValueFallback) => that.Value<string>(publishedValueFallback, "jumpMenuAnchorId");
-
-		///<summary>
-		/// Heading: The heading shown if a jump menu is present on the page
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("jumpMenuHeading")]
-		public virtual string JumpMenuHeading => GetJumpMenuHeading(this, _publishedValueFallback);
+		[ImplementPropertyType("heading")]
+		public virtual string Heading => GetHeading(this, _publishedValueFallback);
 
 		/// <summary>Static getter for Heading</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		public static string GetJumpMenuHeading(IJumpMenuConfiguration that, IPublishedValueFallback publishedValueFallback) => that.Value<string>(publishedValueFallback, "jumpMenuHeading");
+		public static string GetHeading(IMandatoryHeadingWithOptionalSubHeading that, IPublishedValueFallback publishedValueFallback) => that.Value<string>(publishedValueFallback, "heading");
+
+		///<summary>
+		/// Heading Size
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("headingSize")]
+		public virtual string HeadingSize => GetHeadingSize(this, _publishedValueFallback);
+
+		/// <summary>Static getter for Heading Size</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		public static string GetHeadingSize(IMandatoryHeadingWithOptionalSubHeading that, IPublishedValueFallback publishedValueFallback) => that.Value<string>(publishedValueFallback, "headingSize");
+
+		///<summary>
+		/// Sub Heading
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("subHeading")]
+		public virtual string SubHeading => GetSubHeading(this, _publishedValueFallback);
+
+		/// <summary>Static getter for Sub Heading</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		public static string GetSubHeading(IMandatoryHeadingWithOptionalSubHeading that, IPublishedValueFallback publishedValueFallback) => that.Value<string>(publishedValueFallback, "subHeading");
 	}
 }

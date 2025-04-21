@@ -18,9 +18,19 @@ using Umbraco.Extensions;
 
 namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 {
+	// Mixin Content Type with alias "internalBlockListGridElementInfo"
+	/// <summary>Internal Block List/Grid Element Info</summary>
+	public partial interface IInternalBlockListGridElementInfo : IPublishedElement
+	{
+		/// <summary>Block Label</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		string InternalBlockLabel { get; }
+	}
+
 	/// <summary>Internal Block List/Grid Element Info</summary>
 	[PublishedModel("internalBlockListGridElementInfo")]
-	public partial class InternalBlockListGridElementInfo : PublishedElementModel
+	public partial class InternalBlockListGridElementInfo : PublishedElementModel, IInternalBlockListGridElementInfo
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
@@ -55,6 +65,11 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("internalBlockLabel")]
-		public virtual string InternalBlockLabel => this.Value<string>(_publishedValueFallback, "internalBlockLabel");
+		public virtual string InternalBlockLabel => GetInternalBlockLabel(this, _publishedValueFallback);
+
+		/// <summary>Static getter for Block Label</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		public static string GetInternalBlockLabel(IInternalBlockListGridElementInfo that, IPublishedValueFallback publishedValueFallback) => that.Value<string>(publishedValueFallback, "internalBlockLabel");
 	}
 }
