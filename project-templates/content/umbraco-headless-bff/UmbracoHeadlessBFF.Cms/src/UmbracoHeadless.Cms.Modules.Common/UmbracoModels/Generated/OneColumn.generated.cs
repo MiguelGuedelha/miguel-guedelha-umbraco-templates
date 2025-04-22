@@ -20,7 +20,7 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 {
 	/// <summary>One Column</summary>
 	[PublishedModel("oneColumn")]
-	public partial class OneColumn : PublishedElementModel
+	public partial class OneColumn : PublishedElementModel, IInternalBlockListGridElementInfo
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
@@ -48,5 +48,13 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 		}
 
 		// properties
+
+		///<summary>
+		/// Block Label
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("internalBlockLabel")]
+		public virtual string InternalBlockLabel => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated.InternalBlockListGridElementInfo.GetInternalBlockLabel(this, _publishedValueFallback);
 	}
 }

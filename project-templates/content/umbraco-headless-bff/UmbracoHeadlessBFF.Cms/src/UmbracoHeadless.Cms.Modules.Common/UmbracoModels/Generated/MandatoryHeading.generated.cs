@@ -18,9 +18,24 @@ using Umbraco.Extensions;
 
 namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 {
+	// Mixin Content Type with alias "mandatoryHeading"
+	/// <summary>Mandatory Heading</summary>
+	public partial interface IMandatoryHeading : IPublishedElement
+	{
+		/// <summary>Heading</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		string Heading { get; }
+
+		/// <summary>Heading Size</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		string HeadingSize { get; }
+	}
+
 	/// <summary>Mandatory Heading</summary>
 	[PublishedModel("mandatoryHeading")]
-	public partial class MandatoryHeading : PublishedElementModel
+	public partial class MandatoryHeading : PublishedElementModel, IMandatoryHeading
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
@@ -55,7 +70,12 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("heading")]
-		public virtual string Heading => this.Value<string>(_publishedValueFallback, "heading");
+		public virtual string Heading => GetHeading(this, _publishedValueFallback);
+
+		/// <summary>Static getter for Heading</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		public static string GetHeading(IMandatoryHeading that, IPublishedValueFallback publishedValueFallback) => that.Value<string>(publishedValueFallback, "heading");
 
 		///<summary>
 		/// Heading Size
@@ -63,6 +83,11 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("headingSize")]
-		public virtual string HeadingSize => this.Value<string>(_publishedValueFallback, "headingSize");
+		public virtual string HeadingSize => GetHeadingSize(this, _publishedValueFallback);
+
+		/// <summary>Static getter for Heading Size</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		public static string GetHeadingSize(IMandatoryHeading that, IPublishedValueFallback publishedValueFallback) => that.Value<string>(publishedValueFallback, "headingSize");
 	}
 }

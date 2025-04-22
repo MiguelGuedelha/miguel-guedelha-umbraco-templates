@@ -20,7 +20,7 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 {
 	/// <summary>Embed Video</summary>
 	[PublishedModel("embedVideo")]
-	public partial class EmbedVideo : PublishedElementModel
+	public partial class EmbedVideo : PublishedElementModel, IInternalBlockListGridElementInfo
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
@@ -64,5 +64,13 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("video")]
 		public virtual global::Dawoe.OEmbedPickerPropertyEditor.Core.Models.OEmbedItem Video => this.Value<global::Dawoe.OEmbedPickerPropertyEditor.Core.Models.OEmbedItem>(_publishedValueFallback, "video");
+
+		///<summary>
+		/// Block Label
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("internalBlockLabel")]
+		public virtual string InternalBlockLabel => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated.InternalBlockListGridElementInfo.GetInternalBlockLabel(this, _publishedValueFallback);
 	}
 }
