@@ -49,7 +49,7 @@ var umbracoBlob = blobStorage.AddBlobs("blobs");
 #if (false)
 // Don't commit actual name as below, it should not be compilable inside this template
 // Only compilable when testing/running during template development
-// It should always be GeneratedClassNamePrefix_Cms_Web
+// It should always be GeneratedClassNamePrefix_Cms_Web when committed to remote
 #endif
 var cms = builder.AddProject<Projects.GeneratedClassNamePrefix_Cms_Web>("Cms", launchProfileName: "single")
     .WithExternalHttpEndpoints()
@@ -69,7 +69,7 @@ var cms = builder.AddProject<Projects.GeneratedClassNamePrefix_Cms_Web>("Cms", l
 #if (false)
 // Don't commit actual name as below, it should not be compilable inside this template
 // Only compilable when testing/running during template development
-// It should always be GeneratedClassNamePrefix_SiteApi_Web
+// It should always be GeneratedClassNamePrefix_SiteApi_Web when committed to remote
 #endif
 var siteApi = builder.AddProject<Projects.GeneratedClassNamePrefix_SiteApi_Web>("SiteApi")
     .WithExternalHttpEndpoints()
@@ -79,6 +79,7 @@ var siteApi = builder.AddProject<Projects.GeneratedClassNamePrefix_SiteApi_Web>(
     .WaitFor(cms);
 
 // Example frontend service that could be added to aspire orchestration
+// Delete if not desired
 // var frontend = builder.AddPnpmApp("frontend-astro", "../../../UmbracoHeadlessBFF.Frontend", "dev")
 //     .WithPnpmPackageInstallation()
 //     .WithReference(siteApi)
