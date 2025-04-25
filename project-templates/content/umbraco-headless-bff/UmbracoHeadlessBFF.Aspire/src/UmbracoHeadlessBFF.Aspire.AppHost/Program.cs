@@ -55,8 +55,8 @@ var cms = builder.AddProject<Projects.GeneratedClassNamePrefix_Cms_Web>("Cms", l
     .WithExternalHttpEndpoints()
     .WithReference(umbracoDb, connectionName: "umbracoDbDSN")
     .WithReference(cache)
-    .WithReference(umbracoBlob) //Only needed on local so we can connect to the client
-                                //and ensure the blob container exists before booting up umbraco
+    //Only needed to add this reference on local so we can connect to the client in a standard way and ensure the blob container exists before booting up umbraco
+    .WithReference(umbracoBlob)
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Port", smtpPort)
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Username", smtpUser)
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Password", smtpPassword)
