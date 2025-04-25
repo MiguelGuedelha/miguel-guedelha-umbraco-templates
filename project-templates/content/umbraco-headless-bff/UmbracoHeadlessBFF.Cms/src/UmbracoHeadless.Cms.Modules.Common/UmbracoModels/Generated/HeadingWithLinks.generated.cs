@@ -18,14 +18,14 @@ using Umbraco.Extensions;
 
 namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 {
-	/// <summary>Site Settings</summary>
-	[PublishedModel("siteSettings")]
-	public partial class SiteSettings : PublishedContentModel
+	/// <summary>Heading with Links</summary>
+	[PublishedModel("headingWithLinks")]
+	public partial class HeadingWithLinks : PublishedElementModel, IMandatoryHeading
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		public new const string ModelTypeAlias = "siteSettings";
+		public new const string ModelTypeAlias = "headingWithLinks";
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
@@ -34,14 +34,14 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 			=> PublishedModelUtility.GetModelContentType(publishedSnapshotAccessor, ModelItemType, ModelTypeAlias);
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		public static IPublishedPropertyType GetModelPropertyType<TValue>(IPublishedSnapshotAccessor publishedSnapshotAccessor, Expression<Func<SiteSettings, TValue>> selector)
+		public static IPublishedPropertyType GetModelPropertyType<TValue>(IPublishedSnapshotAccessor publishedSnapshotAccessor, Expression<Func<HeadingWithLinks, TValue>> selector)
 			=> PublishedModelUtility.GetModelPropertyType(GetModelContentType(publishedSnapshotAccessor), selector);
 #pragma warning restore 0109
 
 		private IPublishedValueFallback _publishedValueFallback;
 
 		// ctor
-		public SiteSettings(IPublishedContent content, IPublishedValueFallback publishedValueFallback)
+		public HeadingWithLinks(IPublishedElement content, IPublishedValueFallback publishedValueFallback)
 			: base(content, publishedValueFallback)
 		{
 			_publishedValueFallback = publishedValueFallback;
@@ -50,43 +50,27 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 		// properties
 
 		///<summary>
-		/// Logo
+		/// Links
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("footerLogo")]
-		public virtual global::Umbraco.Cms.Core.Models.MediaWithCrops FooterLogo => this.Value<global::Umbraco.Cms.Core.Models.MediaWithCrops>(_publishedValueFallback, "footerLogo");
+		[ImplementPropertyType("links")]
+		public virtual global::System.Collections.Generic.IEnumerable<global::Umbraco.Cms.Core.Models.Link> Links => this.Value<global::System.Collections.Generic.IEnumerable<global::Umbraco.Cms.Core.Models.Link>>(_publishedValueFallback, "links");
 
 		///<summary>
-		/// Logo
+		/// Heading
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("headerLogo")]
-		public virtual global::Umbraco.Cms.Core.Models.MediaWithCrops HeaderLogo => this.Value<global::Umbraco.Cms.Core.Models.MediaWithCrops>(_publishedValueFallback, "headerLogo");
+		[ImplementPropertyType("heading")]
+		public virtual string Heading => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated.MandatoryHeading.GetHeading(this, _publishedValueFallback);
 
 		///<summary>
-		/// Navigation
+		/// Heading Size
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("headerNavigation")]
-		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel HeaderNavigation => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockListModel>(_publishedValueFallback, "headerNavigation");
-
-		///<summary>
-		/// Not Found Page
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("notFoundPage")]
-		public virtual global::Umbraco.Cms.Core.Models.PublishedContent.IPublishedContent NotFoundPage => this.Value<global::Umbraco.Cms.Core.Models.PublishedContent.IPublishedContent>(_publishedValueFallback, "notFoundPage");
-
-		///<summary>
-		/// Search Page
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("searchPage")]
-		public virtual global::Umbraco.Cms.Core.Models.PublishedContent.IPublishedContent SearchPage => this.Value<global::Umbraco.Cms.Core.Models.PublishedContent.IPublishedContent>(_publishedValueFallback, "searchPage");
+		[ImplementPropertyType("headingSize")]
+		public virtual string HeadingSize => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated.MandatoryHeading.GetHeadingSize(this, _publishedValueFallback);
 	}
 }

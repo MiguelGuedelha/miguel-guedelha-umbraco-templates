@@ -18,14 +18,14 @@ using Umbraco.Extensions;
 
 namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 {
-	/// <summary>Site Settings</summary>
-	[PublishedModel("siteSettings")]
-	public partial class SiteSettings : PublishedContentModel
+	/// <summary>Site Dictionary</summary>
+	[PublishedModel("siteDictionary")]
+	public partial class SiteDictionary : PublishedContentModel
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		public new const string ModelTypeAlias = "siteSettings";
+		public new const string ModelTypeAlias = "siteDictionary";
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
@@ -34,14 +34,14 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 			=> PublishedModelUtility.GetModelContentType(publishedSnapshotAccessor, ModelItemType, ModelTypeAlias);
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		public static IPublishedPropertyType GetModelPropertyType<TValue>(IPublishedSnapshotAccessor publishedSnapshotAccessor, Expression<Func<SiteSettings, TValue>> selector)
+		public static IPublishedPropertyType GetModelPropertyType<TValue>(IPublishedSnapshotAccessor publishedSnapshotAccessor, Expression<Func<SiteDictionary, TValue>> selector)
 			=> PublishedModelUtility.GetModelPropertyType(GetModelContentType(publishedSnapshotAccessor), selector);
 #pragma warning restore 0109
 
 		private IPublishedValueFallback _publishedValueFallback;
 
 		// ctor
-		public SiteSettings(IPublishedContent content, IPublishedValueFallback publishedValueFallback)
+		public SiteDictionary(IPublishedContent content, IPublishedValueFallback publishedValueFallback)
 			: base(content, publishedValueFallback)
 		{
 			_publishedValueFallback = publishedValueFallback;
@@ -50,43 +50,27 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 		// properties
 
 		///<summary>
-		/// Logo
+		/// Back Text
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("footerLogo")]
-		public virtual global::Umbraco.Cms.Core.Models.MediaWithCrops FooterLogo => this.Value<global::Umbraco.Cms.Core.Models.MediaWithCrops>(_publishedValueFallback, "footerLogo");
+		[ImplementPropertyType("generalButtonsBackText")]
+		public virtual string GeneralButtonsBackText => this.Value<string>(_publishedValueFallback, "generalButtonsBackText");
 
 		///<summary>
-		/// Logo
+		/// Next Text
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("headerLogo")]
-		public virtual global::Umbraco.Cms.Core.Models.MediaWithCrops HeaderLogo => this.Value<global::Umbraco.Cms.Core.Models.MediaWithCrops>(_publishedValueFallback, "headerLogo");
+		[ImplementPropertyType("generalButtonsNextText")]
+		public virtual string GeneralButtonsNextText => this.Value<string>(_publishedValueFallback, "generalButtonsNextText");
 
 		///<summary>
-		/// Navigation
+		/// Placeholder Text
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("headerNavigation")]
-		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel HeaderNavigation => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockListModel>(_publishedValueFallback, "headerNavigation");
-
-		///<summary>
-		/// Not Found Page
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("notFoundPage")]
-		public virtual global::Umbraco.Cms.Core.Models.PublishedContent.IPublishedContent NotFoundPage => this.Value<global::Umbraco.Cms.Core.Models.PublishedContent.IPublishedContent>(_publishedValueFallback, "notFoundPage");
-
-		///<summary>
-		/// Search Page
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("searchPage")]
-		public virtual global::Umbraco.Cms.Core.Models.PublishedContent.IPublishedContent SearchPage => this.Value<global::Umbraco.Cms.Core.Models.PublishedContent.IPublishedContent>(_publishedValueFallback, "searchPage");
+		[ImplementPropertyType("generalSearchPlaceholderText")]
+		public virtual string GeneralSearchPlaceholderText => this.Value<string>(_publishedValueFallback, "generalSearchPlaceholderText");
 	}
 }
