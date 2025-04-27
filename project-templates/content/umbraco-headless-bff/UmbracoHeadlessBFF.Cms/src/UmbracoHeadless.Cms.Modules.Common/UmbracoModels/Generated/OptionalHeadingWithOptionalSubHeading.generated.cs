@@ -18,9 +18,29 @@ using Umbraco.Extensions;
 
 namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 {
+	// Mixin Content Type with alias "optionalHeadingWithOptionalSubHeading"
+	/// <summary>Optional Heading with Optional Sub Heading</summary>
+	public partial interface IOptionalHeadingWithOptionalSubHeading : IPublishedElement
+	{
+		/// <summary>Heading</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		string Heading { get; }
+
+		/// <summary>Heading Size</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		string HeadingSize { get; }
+
+		/// <summary>Sub Heading</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		string SubHeading { get; }
+	}
+
 	/// <summary>Optional Heading with Optional Sub Heading</summary>
 	[PublishedModel("optionalHeadingWithOptionalSubHeading")]
-	public partial class OptionalHeadingWithOptionalSubHeading : PublishedElementModel
+	public partial class OptionalHeadingWithOptionalSubHeading : PublishedElementModel, IOptionalHeadingWithOptionalSubHeading
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
@@ -55,7 +75,12 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("heading")]
-		public virtual string Heading => this.Value<string>(_publishedValueFallback, "heading");
+		public virtual string Heading => GetHeading(this, _publishedValueFallback);
+
+		/// <summary>Static getter for Heading</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		public static string GetHeading(IOptionalHeadingWithOptionalSubHeading that, IPublishedValueFallback publishedValueFallback) => that.Value<string>(publishedValueFallback, "heading");
 
 		///<summary>
 		/// Heading Size
@@ -63,7 +88,12 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("headingSize")]
-		public virtual string HeadingSize => this.Value<string>(_publishedValueFallback, "headingSize");
+		public virtual string HeadingSize => GetHeadingSize(this, _publishedValueFallback);
+
+		/// <summary>Static getter for Heading Size</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		public static string GetHeadingSize(IOptionalHeadingWithOptionalSubHeading that, IPublishedValueFallback publishedValueFallback) => that.Value<string>(publishedValueFallback, "headingSize");
 
 		///<summary>
 		/// Sub Heading
@@ -71,6 +101,11 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("subHeading")]
-		public virtual string SubHeading => this.Value<string>(_publishedValueFallback, "subHeading");
+		public virtual string SubHeading => GetSubHeading(this, _publishedValueFallback);
+
+		/// <summary>Static getter for Sub Heading</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		public static string GetSubHeading(IOptionalHeadingWithOptionalSubHeading that, IPublishedValueFallback publishedValueFallback) => that.Value<string>(publishedValueFallback, "subHeading");
 	}
 }
