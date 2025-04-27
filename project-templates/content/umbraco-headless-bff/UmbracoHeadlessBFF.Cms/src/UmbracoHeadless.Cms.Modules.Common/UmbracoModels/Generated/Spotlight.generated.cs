@@ -20,7 +20,7 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 {
 	/// <summary>Spotlight</summary>
 	[PublishedModel("spotlight")]
-	public partial class Spotlight : PublishedElementModel, IMandatoryHeading, IMandatoryRtedescription
+	public partial class Spotlight : PublishedElementModel, IJumpMenuConfiguration, IMandatoryHeading, IMandatoryRteDescription
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
@@ -66,6 +66,22 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel Media => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockListModel>(_publishedValueFallback, "media");
 
 		///<summary>
+		/// Anchor Id: The Id used to navigate to the element in the page from the jump menu, must be unique on the page
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("jumpMenuAnchorId")]
+		public virtual string JumpMenuAnchorId => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated.JumpMenuConfiguration.GetJumpMenuAnchorId(this, _publishedValueFallback);
+
+		///<summary>
+		/// Heading: The heading shown if a jump menu is present on the page
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("jumpMenuHeading")]
+		public virtual string JumpMenuHeading => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated.JumpMenuConfiguration.GetJumpMenuHeading(this, _publishedValueFallback);
+
+		///<summary>
 		/// Heading
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
@@ -87,6 +103,6 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("description")]
-		public virtual global::Umbraco.Cms.Core.Strings.IHtmlEncodedString Description => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated.MandatoryRtedescription.GetDescription(this, _publishedValueFallback);
+		public virtual global::Umbraco.Cms.Core.Strings.IHtmlEncodedString Description => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated.MandatoryRteDescription.GetDescription(this, _publishedValueFallback);
 	}
 }

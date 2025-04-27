@@ -20,7 +20,7 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 {
 	/// <summary>Banner</summary>
 	[PublishedModel("banner")]
-	public partial class Banner : PublishedElementModel, IJumpMenuConfiguration, IMandatoryHeadingWithOptionalSubHeading, IOptionalRtedescription
+	public partial class Banner : PublishedElementModel, IJumpMenuConfiguration, IMandatoryHeadingWithOptionalSubHeading, IOptionalRteDescription
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
@@ -103,6 +103,6 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("description")]
-		public virtual global::Umbraco.Cms.Core.Strings.IHtmlEncodedString Description => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated.OptionalRtedescription.GetDescription(this, _publishedValueFallback);
+		public virtual global::Umbraco.Cms.Core.Strings.IHtmlEncodedString Description => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated.OptionalRteDescription.GetDescription(this, _publishedValueFallback);
 	}
 }
