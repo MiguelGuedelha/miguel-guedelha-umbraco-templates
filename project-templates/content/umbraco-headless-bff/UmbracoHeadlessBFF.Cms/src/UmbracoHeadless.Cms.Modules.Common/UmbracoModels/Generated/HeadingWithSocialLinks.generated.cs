@@ -18,29 +18,14 @@ using Umbraco.Extensions;
 
 namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 {
-	// Mixin Content Type with alias "optionalHeading"
-	/// <summary>Optional Heading</summary>
-	public partial interface IOptionalHeading : IPublishedElement
-	{
-		/// <summary>Heading</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		string Heading { get; }
-
-		/// <summary>Heading Size</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		string HeadingSize { get; }
-	}
-
-	/// <summary>Optional Heading</summary>
-	[PublishedModel("optionalHeading")]
-	public partial class OptionalHeading : PublishedElementModel, IOptionalHeading
+	/// <summary>Heading With Social Links</summary>
+	[PublishedModel("headingWithSocialLinks")]
+	public partial class HeadingWithSocialLinks : PublishedElementModel, IOptionalHeading
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		public new const string ModelTypeAlias = "optionalHeading";
+		public new const string ModelTypeAlias = "headingWithSocialLinks";
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
@@ -49,14 +34,14 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 			=> PublishedModelUtility.GetModelContentType(publishedSnapshotAccessor, ModelItemType, ModelTypeAlias);
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		public static IPublishedPropertyType GetModelPropertyType<TValue>(IPublishedSnapshotAccessor publishedSnapshotAccessor, Expression<Func<OptionalHeading, TValue>> selector)
+		public static IPublishedPropertyType GetModelPropertyType<TValue>(IPublishedSnapshotAccessor publishedSnapshotAccessor, Expression<Func<HeadingWithSocialLinks, TValue>> selector)
 			=> PublishedModelUtility.GetModelPropertyType(GetModelContentType(publishedSnapshotAccessor), selector);
 #pragma warning restore 0109
 
 		private IPublishedValueFallback _publishedValueFallback;
 
 		// ctor
-		public OptionalHeading(IPublishedElement content, IPublishedValueFallback publishedValueFallback)
+		public HeadingWithSocialLinks(IPublishedElement content, IPublishedValueFallback publishedValueFallback)
 			: base(content, publishedValueFallback)
 		{
 			_publishedValueFallback = publishedValueFallback;
@@ -65,17 +50,20 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 		// properties
 
 		///<summary>
+		/// Social Links
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("socialLinks")]
+		public virtual global::System.Collections.Generic.IEnumerable<global::Umbraco.Cms.Core.Models.PublishedContent.SocialLink> SocialLinks => this.Value<global::System.Collections.Generic.IEnumerable<global::Umbraco.Cms.Core.Models.PublishedContent.SocialLink>>(_publishedValueFallback, "socialLinks");
+
+		///<summary>
 		/// Heading
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("heading")]
-		public virtual string Heading => GetHeading(this, _publishedValueFallback);
-
-		/// <summary>Static getter for Heading</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		public static string GetHeading(IOptionalHeading that, IPublishedValueFallback publishedValueFallback) => that.Value<string>(publishedValueFallback, "heading");
+		public virtual string Heading => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated.OptionalHeading.GetHeading(this, _publishedValueFallback);
 
 		///<summary>
 		/// Heading Size
@@ -83,11 +71,6 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("headingSize")]
-		public virtual string HeadingSize => GetHeadingSize(this, _publishedValueFallback);
-
-		/// <summary>Static getter for Heading Size</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		public static string GetHeadingSize(IOptionalHeading that, IPublishedValueFallback publishedValueFallback) => that.Value<string>(publishedValueFallback, "headingSize");
+		public virtual string HeadingSize => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated.OptionalHeading.GetHeadingSize(this, _publishedValueFallback);
 	}
 }
