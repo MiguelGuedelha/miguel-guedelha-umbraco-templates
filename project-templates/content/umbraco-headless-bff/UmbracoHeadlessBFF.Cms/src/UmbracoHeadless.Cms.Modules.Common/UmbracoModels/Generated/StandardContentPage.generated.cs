@@ -20,7 +20,7 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 {
 	/// <summary>Standard Content Page</summary>
 	[PublishedModel("standardContentPage")]
-	public partial class StandardContentPage : PublishedContentModel, ISeoSettings
+	public partial class StandardContentPage : PublishedContentModel, IListingSettings, IPageContent, ISeoSettings
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
@@ -48,6 +48,45 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 		}
 
 		// properties
+
+		///<summary>
+		/// Exclude From Search
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[ImplementPropertyType("excludeFromSearch")]
+		public virtual bool ExcludeFromSearch => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated.ListingSettings.GetExcludeFromSearch(this, _publishedValueFallback);
+
+		///<summary>
+		/// Description
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("listingDescription")]
+		public virtual string ListingDescription => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated.ListingSettings.GetListingDescription(this, _publishedValueFallback);
+
+		///<summary>
+		/// Image
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("listingImage")]
+		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel ListingImage => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated.ListingSettings.GetListingImage(this, _publishedValueFallback);
+
+		///<summary>
+		/// Title
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("listingTitle")]
+		public virtual string ListingTitle => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated.ListingSettings.GetListingTitle(this, _publishedValueFallback);
+
+		///<summary>
+		/// Main Content
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("mainContent")]
+		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockGridModel MainContent => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated.PageContent.GetMainContent(this, _publishedValueFallback);
 
 		///<summary>
 		/// Description: Description to show on search engine results

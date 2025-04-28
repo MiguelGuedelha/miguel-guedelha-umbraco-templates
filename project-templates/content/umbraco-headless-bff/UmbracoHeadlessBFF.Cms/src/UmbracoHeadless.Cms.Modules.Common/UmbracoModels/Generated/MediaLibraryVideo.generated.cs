@@ -20,7 +20,7 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 {
 	/// <summary>Media Library Video</summary>
 	[PublishedModel("mediaLibraryVideo")]
-	public partial class MediaLibraryVideo : PublishedElementModel, IInternalBlockListGridElementInfo
+	public partial class MediaLibraryVideo : PublishedElementModel, IInternalBlockInfo
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
@@ -71,6 +71,6 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("internalBlockLabel")]
-		public virtual string InternalBlockLabel => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated.InternalBlockListGridElementInfo.GetInternalBlockLabel(this, _publishedValueFallback);
+		public virtual string InternalBlockLabel => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated.InternalBlockInfo.GetInternalBlockLabel(this, _publishedValueFallback);
 	}
 }

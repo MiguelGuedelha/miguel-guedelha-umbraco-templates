@@ -20,7 +20,7 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 {
 	/// <summary>Not Found</summary>
 	[PublishedModel("notFound")]
-	public partial class NotFound : PublishedContentModel, ISeoSettings
+	public partial class NotFound : PublishedContentModel, IPageContent, ISeoSettings
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
@@ -48,6 +48,14 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 		}
 
 		// properties
+
+		///<summary>
+		/// Main Content
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("mainContent")]
+		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockGridModel MainContent => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated.PageContent.GetMainContent(this, _publishedValueFallback);
 
 		///<summary>
 		/// Description: Description to show on search engine results

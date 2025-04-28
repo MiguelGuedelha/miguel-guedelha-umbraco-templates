@@ -50,6 +50,14 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 		// properties
 
 		///<summary>
+		/// Canonical Domain Override: Optional override the domain to be shown on the canonical tags  If left empty, first domain entry in Culture & Hostnames will be used
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("canonicalDomainOverride")]
+		public virtual string CanonicalDomainOverride => this.Value<string>(_publishedValueFallback, "canonicalDomainOverride");
+
+		///<summary>
 		/// Copyright
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
@@ -120,6 +128,14 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("notFoundPage")]
 		public virtual global::Umbraco.Cms.Core.Models.PublishedContent.IPublishedContent NotFoundPage => this.Value<global::Umbraco.Cms.Core.Models.PublishedContent.IPublishedContent>(_publishedValueFallback, "notFoundPage");
+
+		///<summary>
+		/// Page Title Prefix: Optional text to be shown at the start of every page's title
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("pageTitlePrefix")]
+		public virtual string PageTitlePrefix => this.Value<string>(_publishedValueFallback, "pageTitlePrefix");
 
 		///<summary>
 		/// Search Page

@@ -20,7 +20,7 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 {
 	/// <summary>Blog Article</summary>
 	[PublishedModel("blogArticle")]
-	public partial class BlogArticle : PublishedContentModel, ISeoSettings
+	public partial class BlogArticle : PublishedContentModel, IListingSettings, ISeoSettings
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
@@ -48,6 +48,37 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 		}
 
 		// properties
+
+		///<summary>
+		/// Exclude From Search
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[ImplementPropertyType("excludeFromSearch")]
+		public virtual bool ExcludeFromSearch => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated.ListingSettings.GetExcludeFromSearch(this, _publishedValueFallback);
+
+		///<summary>
+		/// Description
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("listingDescription")]
+		public virtual string ListingDescription => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated.ListingSettings.GetListingDescription(this, _publishedValueFallback);
+
+		///<summary>
+		/// Image
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("listingImage")]
+		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel ListingImage => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated.ListingSettings.GetListingImage(this, _publishedValueFallback);
+
+		///<summary>
+		/// Title
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("listingTitle")]
+		public virtual string ListingTitle => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated.ListingSettings.GetListingTitle(this, _publishedValueFallback);
 
 		///<summary>
 		/// Description: Description to show on search engine results

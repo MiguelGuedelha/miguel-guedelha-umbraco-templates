@@ -18,9 +18,9 @@ using Umbraco.Extensions;
 
 namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 {
-	// Mixin Content Type with alias "internalBlockListGridElementInfo"
-	/// <summary>Internal Block List/Grid Element Info</summary>
-	public partial interface IInternalBlockListGridElementInfo : IPublishedElement
+	// Mixin Content Type with alias "internalBlockInfo"
+	/// <summary>Internal Block Info</summary>
+	public partial interface IInternalBlockInfo : IPublishedElement
 	{
 		/// <summary>Block Label</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
@@ -28,14 +28,14 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 		string InternalBlockLabel { get; }
 	}
 
-	/// <summary>Internal Block List/Grid Element Info</summary>
-	[PublishedModel("internalBlockListGridElementInfo")]
-	public partial class InternalBlockListGridElementInfo : PublishedElementModel, IInternalBlockListGridElementInfo
+	/// <summary>Internal Block Info</summary>
+	[PublishedModel("internalBlockInfo")]
+	public partial class InternalBlockInfo : PublishedElementModel, IInternalBlockInfo
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		public new const string ModelTypeAlias = "internalBlockListGridElementInfo";
+		public new const string ModelTypeAlias = "internalBlockInfo";
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
@@ -44,14 +44,14 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 			=> PublishedModelUtility.GetModelContentType(publishedSnapshotAccessor, ModelItemType, ModelTypeAlias);
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		public static IPublishedPropertyType GetModelPropertyType<TValue>(IPublishedSnapshotAccessor publishedSnapshotAccessor, Expression<Func<InternalBlockListGridElementInfo, TValue>> selector)
+		public static IPublishedPropertyType GetModelPropertyType<TValue>(IPublishedSnapshotAccessor publishedSnapshotAccessor, Expression<Func<InternalBlockInfo, TValue>> selector)
 			=> PublishedModelUtility.GetModelPropertyType(GetModelContentType(publishedSnapshotAccessor), selector);
 #pragma warning restore 0109
 
 		private IPublishedValueFallback _publishedValueFallback;
 
 		// ctor
-		public InternalBlockListGridElementInfo(IPublishedElement content, IPublishedValueFallback publishedValueFallback)
+		public InternalBlockInfo(IPublishedElement content, IPublishedValueFallback publishedValueFallback)
 			: base(content, publishedValueFallback)
 		{
 			_publishedValueFallback = publishedValueFallback;
@@ -70,6 +70,6 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 		/// <summary>Static getter for Block Label</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		public static string GetInternalBlockLabel(IInternalBlockListGridElementInfo that, IPublishedValueFallback publishedValueFallback) => that.Value<string>(publishedValueFallback, "internalBlockLabel");
+		public static string GetInternalBlockLabel(IInternalBlockInfo that, IPublishedValueFallback publishedValueFallback) => that.Value<string>(publishedValueFallback, "internalBlockLabel");
 	}
 }

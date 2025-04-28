@@ -20,7 +20,7 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 {
 	/// <summary>Rich Text Section</summary>
 	[PublishedModel("richTextSection")]
-	public partial class RichTextSection : PublishedElementModel, IInternalBlockListGridElementInfo, IJumpMenuConfiguration
+	public partial class RichTextSection : PublishedElementModel, IInternalBlockInfo, IJumpMenuConfiguration
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
@@ -71,7 +71,7 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("internalBlockLabel")]
-		public virtual string InternalBlockLabel => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated.InternalBlockListGridElementInfo.GetInternalBlockLabel(this, _publishedValueFallback);
+		public virtual string InternalBlockLabel => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated.InternalBlockInfo.GetInternalBlockLabel(this, _publishedValueFallback);
 
 		///<summary>
 		/// Anchor Id: The Id used to navigate to the element in the page from the jump menu, must be unique on the page

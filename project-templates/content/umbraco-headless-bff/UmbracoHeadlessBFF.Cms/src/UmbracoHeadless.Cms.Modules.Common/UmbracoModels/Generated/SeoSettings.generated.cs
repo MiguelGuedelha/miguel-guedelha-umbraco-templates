@@ -20,7 +20,7 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 {
 	// Mixin Content Type with alias "seoSettings"
 	/// <summary>Seo Settings</summary>
-	public partial interface ISeoSettings : IPublishedElement
+	public partial interface ISeoSettings : IPublishedContent
 	{
 		/// <summary>Description</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
@@ -86,7 +86,7 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 
 	/// <summary>Seo Settings</summary>
 	[PublishedModel("seoSettings")]
-	public partial class SeoSettings : PublishedElementModel, ISeoSettings
+	public partial class SeoSettings : PublishedContentModel, ISeoSettings
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
@@ -107,7 +107,7 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.Generated
 		private IPublishedValueFallback _publishedValueFallback;
 
 		// ctor
-		public SeoSettings(IPublishedElement content, IPublishedValueFallback publishedValueFallback)
+		public SeoSettings(IPublishedContent content, IPublishedValueFallback publishedValueFallback)
 			: base(content, publishedValueFallback)
 		{
 			_publishedValueFallback = publishedValueFallback;
