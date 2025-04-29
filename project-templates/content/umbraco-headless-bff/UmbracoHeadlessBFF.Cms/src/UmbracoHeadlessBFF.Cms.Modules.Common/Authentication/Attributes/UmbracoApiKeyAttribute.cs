@@ -7,7 +7,7 @@ using Umbraco.Cms.Core.Configuration.Models;
 namespace UmbracoHeadlessBFF.Cms.Modules.Common.Authentication.Attributes;
 
 [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
-public class UmbracoApiKeyAttribute : Attribute, IAuthorizationFilter
+public sealed class UmbracoApiKeyAttribute : Attribute, IAuthorizationFilter
 {
     private const string ApiKeyHeaderName = "x-api-key";
 
