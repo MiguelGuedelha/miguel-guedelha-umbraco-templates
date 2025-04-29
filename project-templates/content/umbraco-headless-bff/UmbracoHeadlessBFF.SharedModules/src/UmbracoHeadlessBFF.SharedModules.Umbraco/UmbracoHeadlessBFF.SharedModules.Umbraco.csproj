@@ -1,0 +1,10 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Dawoe.OEmbedPickerPropertyEditor" />
+    <PackageReference Include="Umbraco.Cms.Infrastructure" />
+    <PackageReference Include="Umbraco.Community.Contentment" />
+  </ItemGroup>
+</Project>

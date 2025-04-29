@@ -2,7 +2,7 @@
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Correlation;
 
-internal class CorrelationIdMiddleware : IMiddleware
+internal sealed class CorrelationIdMiddleware : IMiddleware
 {
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {

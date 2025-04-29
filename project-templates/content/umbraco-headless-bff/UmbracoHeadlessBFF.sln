@@ -68,6 +68,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoHeadlessBFF.Cms.Modu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoHeadlessBFF.SiteApi.Modules.Content", "UmbracoHeadlessBFF.SiteApi\src\UmbracoHeadlessBFF.SiteApi.Modules.Content\UmbracoHeadlessBFF.SiteApi.Modules.Content.csproj", "{7E4919F0-E290-4B96-ABD4-6C3406448C13}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoHeadlessBFF.SharedModules.Umbraco", "UmbracoHeadlessBFF.SharedModules\src\UmbracoHeadlessBFF.SharedModules.Umbraco\UmbracoHeadlessBFF.SharedModules.Umbraco.csproj", "{2E75BBA6-D7AC-439E-8AC9-726B9ED24DBC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -113,6 +115,10 @@ Global
 		{7E4919F0-E290-4B96-ABD4-6C3406448C13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E4919F0-E290-4B96-ABD4-6C3406448C13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E4919F0-E290-4B96-ABD4-6C3406448C13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E75BBA6-D7AC-439E-8AC9-726B9ED24DBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E75BBA6-D7AC-439E-8AC9-726B9ED24DBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E75BBA6-D7AC-439E-8AC9-726B9ED24DBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E75BBA6-D7AC-439E-8AC9-726B9ED24DBC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{140ADDCC-22DB-42AC-BC96-758BB269E3D9} = {AECA3854-4D41-45C8-9F66-C6E63AE5253E}
@@ -130,5 +136,6 @@ Global
 		{AD95BB74-6A13-4C7F-89C1-5EE950B07400} = {82F2FA96-FA6C-4ECC-80D6-573B2E546DC3}
 		{FFC9C1EC-16CC-4BBA-9660-26D76ED201BA} = {A4F153A6-515D-4D8D-B700-69EB728D639D}
 		{7E4919F0-E290-4B96-ABD4-6C3406448C13} = {82F2FA96-FA6C-4ECC-80D6-573B2E546DC3}
+		{2E75BBA6-D7AC-439E-8AC9-726B9ED24DBC} = {DBB4C004-989A-44A9-B6D3-30042E68CC0C}
 	EndGlobalSection
 EndGlobal
