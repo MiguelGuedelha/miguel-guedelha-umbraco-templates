@@ -2,13 +2,13 @@
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.DeliveryApi.Models.Pages;
 
-public sealed class SiteGroupingContentResponseModel : IApiContentResponseModel
+public sealed class ApiSiteGrouping : IApiContent
 {
     public Guid Id { get; init; }
-    public required string ContentType { get; init; }
+    public string ContentType { get; } = "OneColumn";
     public required string Name { get; init; }
     public DateTime CreateDate { get; init; }
     public DateTime UpdateDate { get; init; }
-    public required ApiContentRouteModel Route { get; init; }
-    public required Dictionary<string, ApiContentRouteModel> Cultures { get; init; }
+    public required ApiContentRoute Route { get; init; }
+    public required Dictionary<string, ApiContentRoute> Cultures { get; init; }
 }

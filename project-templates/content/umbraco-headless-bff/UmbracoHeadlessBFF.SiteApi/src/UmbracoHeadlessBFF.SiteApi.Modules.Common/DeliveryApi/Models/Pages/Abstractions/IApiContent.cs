@@ -1,12 +1,12 @@
 ﻿namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.DeliveryApi.Models.Pages.Abstractions;
 
-public interface IApiContentResponseModel
+public interface IApiContent
 {
     Guid Id { get; init; }
-    string ContentType { get; init; }
+    string ContentType { get; }
     string Name { get; init; }
     DateTime CreateDate { get; init; }
     DateTime UpdateDate { get; init; }
-    ApiContentRouteModel Route { get; init; }
-    Dictionary<string, ApiContentRouteModel> Cultures { get; init; }
+    ApiContentRoute Route { get; init; }
+    Dictionary<string, ApiContentRoute> Cultures { get; init; }
 }

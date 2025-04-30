@@ -2,7 +2,7 @@
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.DeliveryApi.Models.Media;
 
-public sealed class ApiMediaWithCropsModel
+public sealed class ApiMediaWithCrops
 {
     public required string Id { get; init; }
     public required string Name { get; init; }
@@ -14,6 +14,6 @@ public sealed class ApiMediaWithCropsModel
     public int? Bytes { get; init; }
     [JsonExtensionData]
     public required IDictionary<string, object> Properties { get; init; }
-    public ImageFocalPointModel? FocalPoint { get; init; }
-    public ImageCropModel? Crops { get; init; }
+    public ApiImageFocalPoint? FocalPoint { get; init; }
+    public ICollection<ApiImageCrop> Crops { get; init; } = [];
 }

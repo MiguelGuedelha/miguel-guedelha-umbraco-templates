@@ -55,7 +55,7 @@ namespace UmbracoHeadlessBFF.SharedModules.Umbraco.Models
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("image")]
-		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel Image => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockListModel>(_publishedValueFallback, "image");
+		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListItem<global::UmbracoHeadlessBFF.SharedModules.Umbraco.Models.ResponsiveImage> Image => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockListItem<global::UmbracoHeadlessBFF.SharedModules.Umbraco.Models.ResponsiveImage>>(_publishedValueFallback, "image");
 
 		///<summary>
 		/// Block Label

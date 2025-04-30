@@ -1,9 +1,9 @@
 ﻿namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.DeliveryApi.Models.Media;
 
-public sealed class ImageCropModel
+public sealed class ApiImageCrop
 {
     public string? Alias { get; init; }
     public int Width { get; init; }
     public int Height { get; init; }
-    public required ImageCropCoordinatesModel Coordinates { get; init; }
+    public required ApiImageCropCoordinates Coordinates { get; init; }
 }

@@ -2,14 +2,14 @@
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.DeliveryApi.Models.Pages.Abstractions;
 
-public interface ISeoSettingsPropertiesModel
+public interface IApiSeoSettingsProperties
 {
     string? MetaTitle { get; init; }
     string? MetaDescription { get; init; }
-    ICollection<ApiMediaWithCropsModel>? MetaImage { get; init; }
+    ICollection<ApiMediaWithCrops>? MetaImage { get; init; }
     string? OgType { get; init; }
     string? OgDescription { get; init; }
-    ICollection<ApiMediaWithCropsModel>? OgImage { get; init; }
+    ICollection<ApiMediaWithCrops>? OgImage { get; init; }
     IReadOnlyCollection<string>? RobotsIndexOptions { get; init; }
     DateTime? RobotsUnavailableAfter { get; init; }
     bool? SitemapShow { get; init; }
