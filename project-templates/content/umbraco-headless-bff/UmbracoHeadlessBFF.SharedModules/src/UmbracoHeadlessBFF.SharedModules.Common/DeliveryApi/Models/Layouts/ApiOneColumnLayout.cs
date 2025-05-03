@@ -2,8 +2,7 @@ using UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Models.Data.Abstractio
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Models.Layouts;
 
-public class ApiOneColumnLayout : IApiElement
+public class ApiOneColumnLayout : ApiElement
 {
-    public required string Id { get; init; }
-    public string ContentType => "oneColumn";
+    public const string ContentType = "oneColumn";
 }

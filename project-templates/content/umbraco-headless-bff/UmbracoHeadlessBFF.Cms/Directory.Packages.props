@@ -7,6 +7,11 @@
     <PackageVersion Include="Microsoft.ICU.ICU4C.Runtime" Version="72.1.0.3" />
     <PackageVersion Include="Umbraco.Cms" Version="13.7.2" />
     <PackageVersion Include="System.Text.Json" Version="8.0.5" />
+    <PackageVersion Include="Umbraco.Cms.Core" Version="13.7.2" />
+    <PackageVersion Include="Umbraco.Cms.Infrastructure" Version="13.7.2" />
+    <PackageVersion Include="Umbraco.Cms.Web.BackOffice" Version="13.7.2" />
+    <PackageVersion Include="Umbraco.Cms.Web.Common" Version="13.7.2" />
+    <PackageVersion Include="Umbraco.Cms.Web.Website" Version="13.7.2" />
     <PackageVersion Include="Umbraco.Community.Contentment" Version="5.1.0" />
     <PackageVersion Include="Umbraco.Community.DeliveryApiExtensions" Version="13.1.1" />
     <PackageVersion Include="Umbraco.StorageProviders.AzureBlob" Version="13.1.0" />

@@ -2,5 +2,6 @@
 
 public sealed class ApiBlockGrid
 {
-    public ICollection<ApiBlockGridItem> Items { get; set; } = [];
+    public int GridColumns { get; init; }
+    public IReadOnlyCollection<ApiBlockGridItem> Items { get; set; } = [];
 }

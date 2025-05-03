@@ -22,5 +22,5 @@ public interface IApiBlockGridItemProperties
     int RowSpan { get; init; }
     int ColumnSpan { get; init; }
     int AreaGridColumns { get; init; }
-    ICollection<ApiBlockGridArea> Areas { get; init; }
+    IReadOnlyCollection<ApiBlockGridArea> Areas { get; init; }
 }

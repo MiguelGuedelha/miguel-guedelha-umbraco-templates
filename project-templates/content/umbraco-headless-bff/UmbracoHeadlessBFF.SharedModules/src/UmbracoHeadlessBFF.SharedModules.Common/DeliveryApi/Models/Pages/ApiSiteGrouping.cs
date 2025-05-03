@@ -2,13 +2,7 @@
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Models.Pages;
 
-public sealed class ApiSiteGrouping : IApiContent
+public sealed class ApiSiteGrouping : ApiContent
 {
-    public Guid Id { get; init; }
-    public string ContentType { get; } = "OneColumn";
-    public required string Name { get; init; }
-    public DateTime CreateDate { get; init; }
-    public DateTime UpdateDate { get; init; }
-    public required ApiContentRoute Route { get; init; }
-    public required Dictionary<string, ApiContentRoute> Cultures { get; init; }
+    public const string ContentType = "siteGrouping";
 }

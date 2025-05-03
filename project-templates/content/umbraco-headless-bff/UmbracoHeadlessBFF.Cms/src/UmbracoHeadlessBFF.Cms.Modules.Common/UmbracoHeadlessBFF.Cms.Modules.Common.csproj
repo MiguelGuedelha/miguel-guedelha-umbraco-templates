@@ -5,7 +5,11 @@
     <ItemGroup>
       <PackageReference Include="Asp.Versioning.Mvc" />
       <PackageReference Include="Dawoe.OEmbedPickerPropertyEditor" />
-      <PackageReference Include="Umbraco.Cms" />
+      <PackageReference Include="Umbraco.Cms.Core" />
+      <PackageReference Include="Umbraco.Cms.Infrastructure" />
+      <PackageReference Include="Umbraco.Cms.Web.BackOffice" />
+      <PackageReference Include="Umbraco.Cms.Web.Common" />
+      <PackageReference Include="Umbraco.Cms.Web.Website" />
       <PackageReference Include="Umbraco.Community.Contentment" />
     </ItemGroup>
     <ItemGroup>

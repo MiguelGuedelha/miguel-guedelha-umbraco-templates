@@ -3,10 +3,9 @@ using UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Models.Data.Abstractio
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Models.Components.Standard;
 
-public class ApiRichTextSection : IApiElement
+public class ApiRichTextSection : ApiElement
 {
-    public required string Id { get; init; }
-    public string ContentType => "richTextSection";
+    public const string ContentType = "richTextSection";
     public required ApiRichTextSectionProperties Properties { get; init; }
 }
 

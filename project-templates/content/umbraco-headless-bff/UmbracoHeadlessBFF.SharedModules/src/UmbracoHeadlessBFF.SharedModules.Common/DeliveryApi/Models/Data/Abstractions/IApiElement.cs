@@ -1,7 +1,15 @@
-﻿namespace UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Models.Data.Abstractions;
+﻿using System.Text.Json.Serialization;
+using UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Converters;
 
+namespace UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Models.Data.Abstractions;
+
+[JsonConverter(typeof(ApiElementConverter))]
 public interface IApiElement
 {
     string Id { get; init; }
-    string ContentType { get; }
+}
+
+public abstract class ApiElement : IApiElement
+{
+    public required string Id { get; init; }
 }

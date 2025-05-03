@@ -4,11 +4,11 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Models.Data.BlockL
 
 public sealed class ApiBlockList
 {
-    public ICollection<IApiBlock> Items { get; init; } = [];
+    public IReadOnlyCollection<ApiBlockListItem> Items { get; init; } = [];
 }
 
 public sealed class ApiBlockList<TContent>
     where TContent : class, IApiElement
 {
-    public ICollection<IApiBlock<TContent>> Items { get; init; } = [];
+    public IReadOnlyCollection<ApiBlockListItem<TContent>> Items { get; init; } = [];
 }
