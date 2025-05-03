@@ -4,8 +4,9 @@
     </ItemGroup>
     <ItemGroup>
       <PackageReference Include="Asp.Versioning.Mvc" />
-      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
-      <PackageReference Include="Umbraco.Cms.Core" />
+      <PackageReference Include="Dawoe.OEmbedPickerPropertyEditor" />
+      <PackageReference Include="Umbraco.Cms" />
+      <PackageReference Include="Umbraco.Community.Contentment" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\..\..\UmbracoHeadlessBFF.SharedModules\src\UmbracoHeadlessBFF.SharedModules.Common\UmbracoHeadlessBFF.SharedModules.Common.csproj" />

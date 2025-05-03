@@ -1,5 +1,1 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\UmbracoHeadlessBFF.SharedModules\src\UmbracoHeadlessBFF.SharedModules.Umbraco\UmbracoHeadlessBFF.SharedModules.Umbraco.csproj" />
-  </ItemGroup>
-</Project>
+﻿<Project Sdk="Microsoft.NET.Sdk" />

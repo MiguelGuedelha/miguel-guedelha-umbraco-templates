@@ -1,7 +1,6 @@
 using Azure.Storage.Blobs;
 using Umbraco.Cms.Api.Common.DependencyInjection;
 using Umbraco.Cms.Core;
-using UmbracoHeadlessBFF.SharedModules.Common.Caching;
 using UmbracoHeadlessBFF.SharedModules.Common.Correlation;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,7 +18,6 @@ builder.CreateUmbracoBuilder()
 
 builder.AddServiceDefaults();
 
-builder.AddCaching();
 builder.AddCorrelation();
 
 if (environment.IsLocal())
