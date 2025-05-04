@@ -46,6 +46,8 @@ if (builder.Environment.IsLocal())
 
 var umbracoBlob = blobStorage.AddBlobs("blobs");
 
+var cmsDeliveryApiKey = builder.AddParameter("CmsDeliveryApiKey");
+
 #if (false)
 // Don't commit actual name as below, it should not be compilable inside this template
 // Only compilable when testing/running during template development
@@ -61,6 +63,7 @@ var cms = builder.AddProject<Projects.GeneratedClassNamePrefix_Cms_Web>("Cms", l
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Username", smtpUser)
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Password", smtpPassword)
     .WithEnvironment("Umbraco__Storage__AzureBlob__Media__ConnectionString", umbracoBlob.Resource.ConnectionStringExpression)
+    .WithEnvironment("Umbraco__CMS__DeliveryApi__ApiKey", cmsDeliveryApiKey)
     .WaitFor(mailServer)
     .WaitFor(umbracoDb)
     .WaitFor(cache)
@@ -88,6 +91,7 @@ var siteApi = builder.AddProject<Projects.GeneratedClassNamePrefix_SiteApi_Web>(
     .WithExternalHttpEndpoints()
     .WithReference(cache)
     .WithReference(cms)
+    .WithEnvironment("services__Cms__Parameters__DeliveryApiKey", cmsDeliveryApiKey)
     .WaitFor(cache)
     .WaitFor(cms);
 
@@ -109,4 +113,4 @@ siteApi.WithUrls(context =>
 //     .WithExternalHttpEndpoints()
 //     .WaitFor(siteApi);
 
-builder.Build().Run();
+await builder.Build().RunAsync();

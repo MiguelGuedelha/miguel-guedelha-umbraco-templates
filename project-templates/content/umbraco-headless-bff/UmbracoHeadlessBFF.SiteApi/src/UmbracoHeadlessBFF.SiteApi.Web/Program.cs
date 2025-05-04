@@ -5,6 +5,7 @@ using Scalar.AspNetCore;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using UmbracoHeadlessBFF.SharedModules.Common;
 using UmbracoHeadlessBFF.SharedModules.Common.Caching;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms;
 using UmbracoHeadlessBFF.SharedModules.Common.Correlation;
 using UmbracoHeadlessBFF.SiteApi.Web.Swagger;
 
@@ -54,6 +55,7 @@ builder.AddServiceDefaults();
 
 builder.AddCaching();
 builder.AddCorrelation();
+builder.AddCms();
 
 if (environment.IsLocal())
 {
