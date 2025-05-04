@@ -3,7 +3,7 @@ using UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Models.Data.BlockList;
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Models.Pages.Abstractions;
 
-public abstract class ApiBaseSearchablePage : ApiBaseNonSearchablePage, IApiListingSettingsProperties
+public abstract class ApiBaseSearchablePageProperties : ApiBaseNonSearchablePageProperties, IApiListingSettingsProperties
 {
     public bool ExcludeFromSearch { get; init; }
     public string? ListingTitle { get; init; }

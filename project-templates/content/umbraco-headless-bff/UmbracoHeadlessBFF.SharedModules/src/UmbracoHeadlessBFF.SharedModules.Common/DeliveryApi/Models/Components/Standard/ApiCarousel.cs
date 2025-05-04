@@ -5,10 +5,9 @@ using UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Models.Data.BlockList;
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Models.Components.Standard;
 
-public sealed class ApiCarousel : ApiElement
+public sealed class ApiCarousel : ApiElement<ApiCarouselProperties>
 {
     public const string ContentType = "carousel";
-    public required ApiCarouselProperties Properties { get; init; }
 }
 
 public sealed class ApiCarouselProperties : IApiJumpMenuConfiguration, IApiHeadingWithSubHeading

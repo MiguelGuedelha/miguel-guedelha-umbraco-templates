@@ -2,7 +2,7 @@
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Models.Data.Links;
 
-public sealed class ApiLinkModel
+public sealed class ApiLink
 {
     public string? Url { get; init; }
     public string? QueryString { get; init; }
@@ -11,5 +11,5 @@ public sealed class ApiLinkModel
     public Guid? DestinationId { get; init; }
     public string? DestinationType { get; init; }
     public ApiContentRoute? Route { get; init; }
-    public LinkType LinkType { get; init; }
+    public ApiLinkType LinkType { get; init; }
 }

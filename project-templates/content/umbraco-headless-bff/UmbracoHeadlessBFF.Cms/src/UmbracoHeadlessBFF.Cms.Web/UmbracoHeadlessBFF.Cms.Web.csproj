@@ -2,8 +2,10 @@
   <ItemGroup>
     <PackageReference Include="Aspire.Azure.Storage.Blobs" />
     <PackageReference Include="Dawoe.OEmbedPickerPropertyEditor" />
+    <PackageReference Include="Scalar.AspNetCore" />
     <PackageReference Include="Serilog.Enrichers.ClientInfo" />
     <PackageReference Include="Serilog.Exceptions" />
+    <PackageReference Include="Swashbuckle.AspNetCore" />
     <PackageReference Include="Umbraco.Cms" />
     <PackageReference Include="System.Text.Json" />
     <PackageReference Include="Umbraco.Community.Contentment" />

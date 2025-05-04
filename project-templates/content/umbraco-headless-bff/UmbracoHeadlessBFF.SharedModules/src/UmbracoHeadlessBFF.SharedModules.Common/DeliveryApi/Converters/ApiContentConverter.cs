@@ -2,12 +2,13 @@
 using System.Text.Json.Serialization;
 using UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Models.Pages;
 using UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Models.Pages.Abstractions;
+using UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Models.Pages.Blogs;
 using UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Models.Pages.Errors;
 using UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Models.Pages.Settings;
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Converters;
 
-public class ApiContentConverter : JsonConverter<IApiContent>
+public sealed class ApiContentConverter : JsonConverter<IApiContent>
 {
     private static readonly Dictionary<string, Type> s_apiContentMap = new()
     {
@@ -16,7 +17,12 @@ public class ApiContentConverter : JsonConverter<IApiContent>
         { ApiStandardContentPage.ContentType, typeof(ApiStandardContentPage) },
         { ApiSiteSearch.ContentType, typeof(ApiSiteSearch) },
         { ApiSiteDictionary.ContentType, typeof(ApiSiteDictionary) },
-        { ApiNotFound.ContentType, typeof(ApiNotFound) }
+        { ApiNotFound.ContentType, typeof(ApiNotFound) },
+        { ApiBlogRepository.ContentType, typeof(ApiBlogRepository) },
+        { ApiBlogYear.ContentType, typeof(ApiBlogYear) },
+        { ApiBlogMonth.ContentType, typeof(ApiBlogMonth) },
+        { ApiBlogArticle.ContentType, typeof(ApiBlogArticle) },
+        { ApiSiteSettings.ContentType, typeof(ApiSiteSettings) }
     };
 
     public override IApiContent? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)

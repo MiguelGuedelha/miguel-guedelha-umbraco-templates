@@ -7,7 +7,7 @@ public interface IUmbracoDeliveryApi
 {
     ApiResponse<IApiContent> GetContent(
         string? fetch = null,
-        ICollection<string>? filter = null,
+        IEnumerable<string>? filter = null,
         string? sort = null,
         int skip = 0,
         int take = 10,

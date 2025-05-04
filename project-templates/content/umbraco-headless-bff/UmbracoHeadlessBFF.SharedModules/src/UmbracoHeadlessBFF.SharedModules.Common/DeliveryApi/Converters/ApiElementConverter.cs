@@ -1,20 +1,29 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 using UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Models.BuildingBlocks;
+using UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Models.Components.Blogs.BlogListing;
 using UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Models.Components.Standard;
+using UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Models.Components.Standard.Banner;
+using UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Models.Components.Standard.Gallery;
 using UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Models.Data.Abstractions;
 using UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Models.Layouts;
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Converters;
 
-public class ApiElementConverter : JsonConverter<IApiElement>
+public sealed class ApiElementConverter : JsonConverter<IApiElement>
 {
     private static readonly Dictionary<string, Type> s_elementMap = new()
     {
+        // Building blocks
         { ApiCard.ContentType, typeof(ApiCard) },
         { ApiEmbedVideo.ContentType, typeof(ApiEmbedVideo) },
         { ApiMediaLibraryVideo.ContentType, typeof(ApiMediaLibraryVideo) },
         { ApiResponsiveImage.ContentType, typeof(ApiResponsiveImage) },
+        { ApiMainNavigationLink.ContentType, typeof(ApiMainNavigationLink) },
+        { ApiLinkWithSublinks.ContentType, typeof(ApiLinkWithSublinks) },
+        { ApiHeadingWithLinks.ContentType, typeof(ApiHeadingWithLinks) },
+        { ApiHeadingWithSocialLinks.ContentType, typeof(ApiHeadingWithSocialLinks) },
+        // Components
         { ApiBanner.ContentType, typeof(ApiBanner) },
         { ApiCarousel.ContentType, typeof(ApiCarousel) },
         { ApiFullWidthImage.ContentType, typeof(ApiFullWidthImage) },
@@ -23,7 +32,10 @@ public class ApiElementConverter : JsonConverter<IApiElement>
         { ApiRichTextSection.ContentType, typeof(ApiRichTextSection) },
         { ApiSectionHeader.ContentType, typeof(ApiSectionHeader) },
         { ApiSpotlight.ContentType, typeof(ApiSpotlight) },
-        { ApiOneColumnLayout.ContentType, typeof(ApiOneColumnLayout) }
+        { ApiBlogListing.ContentType, typeof(ApiBlogListing) },
+        { ApiBlogListingSettings.ContentType, typeof(ApiBlogListingSettings) },
+        // Layouts
+        { ApiOneColumn.ContentType, typeof(ApiOneColumn) },
     };
 
     public override IApiElement? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)

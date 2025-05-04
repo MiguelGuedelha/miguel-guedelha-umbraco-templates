@@ -1,14 +1,14 @@
 ﻿using UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Models.Components.Abstractions;
 using UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Models.Data.Abstractions;
 
-namespace UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Models.Components.Standard;
+namespace UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Models.Components.Blogs.BlogListing;
 
-public sealed class ApiSectionHeader : ApiElement<ApiSectionHeaderProperties>
+public sealed class ApiBlogListing : ApiElement<ApiBlogListingProperties>
 {
-    public const string ContentType = "sectionHeader";
+    public const string ContentType = "blogListing";
 }
 
-public sealed class ApiSectionHeaderProperties : IApiJumpMenuConfiguration, IApiHeadingWithSubHeading
+public sealed class ApiBlogListingProperties : IApiJumpMenuConfiguration, IApiHeadingWithSubHeading
 {
     public string? JumpMenuHeading { get; init; }
     public string? JumpMenuAnchorId { get; init; }

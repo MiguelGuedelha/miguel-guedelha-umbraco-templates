@@ -66,6 +66,19 @@ var cms = builder.AddProject<Projects.GeneratedClassNamePrefix_Cms_Web>("Cms", l
     .WaitFor(cache)
     .WaitFor(umbracoBlob);
 
+cms.WithUrls(context =>
+{
+    var httpsEndpoint = cms.GetEndpoint("https");
+    var httpsEndpointUrl = httpsEndpoint.Url;
+
+    context.Urls.Clear();
+    context.Urls.Add(new() { Url = $"{httpsEndpointUrl}/umbraco", DisplayText = "Umbraco Dashboard", Endpoint = httpsEndpoint });
+    context.Urls.Add(new() { Url = $"{httpsEndpointUrl}/scalar/delivery", DisplayText = "Scalar - Delivery API", Endpoint = httpsEndpoint });
+    context.Urls.Add(new() { Url = $"{httpsEndpointUrl}/scalar/default", DisplayText = "Scalar - Default API", Endpoint = httpsEndpoint });
+    context.Urls.Add(new() { Url = $"{httpsEndpointUrl}/umbraco/swagger/index.html?urls.primaryName=Umbraco+Delivery+API", DisplayText = "Swagger - Delivery API", Endpoint = httpsEndpoint });
+    context.Urls.Add(new() { Url = $"{httpsEndpointUrl}/umbraco/swagger/index.html", DisplayText = "Swagger - Default API", Endpoint = httpsEndpoint });
+});
+
 #if (false)
 // Don't commit actual name as below, it should not be compilable inside this template
 // Only compilable when testing/running during template development
@@ -77,6 +90,15 @@ var siteApi = builder.AddProject<Projects.GeneratedClassNamePrefix_SiteApi_Web>(
     .WithReference(cms)
     .WaitFor(cache)
     .WaitFor(cms);
+
+siteApi.WithUrls(context =>
+{
+    var httpsEndpoint = cms.GetEndpoint("https");
+    var httpsEndpointUrl = httpsEndpoint.Url;
+
+    context.Urls.Clear();
+    context.Urls.Add(new() { Url = $"{httpsEndpointUrl}/scalar", DisplayText = "Scalar - Site Api v1", Endpoint = httpsEndpoint});
+});
 
 // Example frontend service that could be added to aspire orchestration
 // Delete if not desired

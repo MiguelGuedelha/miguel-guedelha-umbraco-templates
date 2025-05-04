@@ -1,4 +1,5 @@
 using Azure.Storage.Blobs;
+using Scalar.AspNetCore;
 using Umbraco.Cms.Api.Common.DependencyInjection;
 using Umbraco.Cms.Core;
 using UmbracoHeadlessBFF.SharedModules.Common.Correlation;
@@ -46,6 +47,14 @@ await app.BootUmbracoAsync();
 app.UseCorrelation();
 
 app.MapDefaultEndpoints();
+
+if (!app.Environment.IsProduction())
+{
+    app.MapScalarApiReference(options =>
+    {
+        options.OpenApiRoutePattern = "/umbraco/swagger/{documentName}/swagger.json";
+    });
+}
 
 app.UseUmbraco()
     .WithMiddleware(u =>

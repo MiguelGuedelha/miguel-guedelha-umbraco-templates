@@ -5,7 +5,7 @@ using UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Models.Data.Links;
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Models.BuildingBlocks;
 
-public sealed class ApiCard : ApiElement
+public sealed class ApiCard : ApiElement<ApiCardProperties>
 {
     public const string ContentType = "card";
 }
@@ -17,6 +17,6 @@ public sealed class ApiCardProperties : IApiHeadingWithSubHeading
     public string? SubHeading { get; init; }
     public ApiBlockList<ApiResponsiveImage>? Image { get; init; }
     public ApiResponsiveImage? ImageItem => Image?.Items.FirstOrDefault()?.Content;
-    public IReadOnlyCollection<ApiLinkModel>? Link { get; init; }
-    public ApiLinkModel? LinkItem => Link?.FirstOrDefault();
+    public IReadOnlyCollection<ApiLink>? Link { get; init; }
+    public ApiLink? LinkItem => Link?.FirstOrDefault();
 }

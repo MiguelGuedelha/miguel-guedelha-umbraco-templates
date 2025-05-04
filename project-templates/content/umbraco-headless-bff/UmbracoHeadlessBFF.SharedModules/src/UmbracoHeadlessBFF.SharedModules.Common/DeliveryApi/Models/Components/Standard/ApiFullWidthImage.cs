@@ -5,10 +5,9 @@ using UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Models.Data.BlockList;
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Models.Components.Standard;
 
-public class ApiFullWidthImage : ApiElement
+public sealed class ApiFullWidthImage : ApiElement<ApiFullWidthImageProperties>
 {
     public const string ContentType = "fullWidthImage";
-    public required ApiFullWidthImageProperties Properties { get; init; }
 }
 
 public sealed class ApiFullWidthImageProperties : IApiJumpMenuConfiguration

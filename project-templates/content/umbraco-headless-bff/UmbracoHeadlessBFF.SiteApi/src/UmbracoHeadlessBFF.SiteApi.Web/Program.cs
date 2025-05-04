@@ -1,6 +1,7 @@
 using Asp.Versioning;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Options;
+using Scalar.AspNetCore;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using UmbracoHeadlessBFF.SharedModules.Common;
 using UmbracoHeadlessBFF.SharedModules.Common.Caching;
@@ -69,17 +70,20 @@ app.UseCorrelation();
 if (!app.Environment.IsProduction())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(options =>
+    app.MapScalarApiReference(options =>
     {
         var descriptions = app.DescribeApiVersions();
 
-        // build a swagger endpoint for each discovered API version
-        foreach (var description in descriptions)
-        {
-            var url = $"/swagger/{description.GroupName}/swagger.json";
-            var name = description.GroupName.ToUpperInvariant();
-            options.SwaggerEndpoint(url, name);
-        }
+        var documents = descriptions
+            .Select(x => new ScalarDocument(
+                x.GroupName.ToUpperInvariant(),
+                $"Content API - {x.GroupName}",
+                $"/swagger/{x.GroupName}/swagger.json")
+            );
+
+        options.AddDocuments(documents);
+
+        options.WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
     });
 }
 

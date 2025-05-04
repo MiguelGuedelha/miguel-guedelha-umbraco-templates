@@ -3,7 +3,7 @@
 namespace UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Models.Data.Links;
 
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum LinkType
+public enum ApiLinkType
 {
     Content,
     Media,

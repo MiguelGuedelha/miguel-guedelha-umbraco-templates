@@ -1,6 +1,6 @@
 ﻿namespace UmbracoHeadlessBFF.SharedModules.Common.DeliveryApi.Clients.Handlers;
 
-public class DeliveryApiHeadersHandler : DelegatingHandler
+public sealed class DeliveryApiHeadersHandler : DelegatingHandler
 {
     protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {

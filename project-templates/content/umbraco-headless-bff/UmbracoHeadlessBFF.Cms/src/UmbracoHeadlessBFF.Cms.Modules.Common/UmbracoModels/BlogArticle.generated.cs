@@ -20,7 +20,7 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels
 {
 	/// <summary>Blog Article</summary>
 	[PublishedModel("blogArticle")]
-	public partial class BlogArticle : PublishedContentModel, IListingSettings, ISeoSettings
+	public partial class BlogArticle : PublishedContentModel, IListingSettings, IPageContent, ISeoSettings
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
@@ -79,6 +79,14 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("listingTitle")]
 		public virtual string ListingTitle => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.ListingSettings.GetListingTitle(this, _publishedValueFallback);
+
+		///<summary>
+		/// Main Content
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("mainContent")]
+		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockGridModel MainContent => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.PageContent.GetMainContent(this, _publishedValueFallback);
 
 		///<summary>
 		/// Description: Description to show on search engine results
