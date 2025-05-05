@@ -1,4 +1,5 @@
 using Asp.Versioning;
+using Asp.Versioning.Conventions;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Options;
 using Scalar.AspNetCore;
@@ -43,7 +44,7 @@ builder.Services
         options.DefaultApiVersion = new(1);
         options.ReportApiVersions = true;
         options.AssumeDefaultVersionWhenUnspecified = false;
-        options.ApiVersionReader = ApiVersionReader.Combine(new UrlSegmentApiVersionReader());
+        options.ApiVersionReader = new UrlSegmentApiVersionReader();
     })
     .AddApiExplorer(options =>
     {
@@ -92,5 +93,12 @@ if (!app.Environment.IsProduction())
 app.UseExceptionHandler();
 
 app.MapDefaultEndpoints();
+
+var apiVersionSet = app.NewApiVersionSet()
+    .HasApiVersion(1.0)
+    .ReportApiVersions()
+    .Build();
+
+app.MapGroup("");
 
 await app.RunAsync();

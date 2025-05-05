@@ -1,9 +1,5 @@
-﻿using System.Text.Json.Serialization;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Converters;
+﻿namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.Abstractions;
 
-namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.Abstractions;
-
-[JsonConverter(typeof(ApiElementConverter))]
 public interface IApiElement
 {
     string Id { get; init; }
