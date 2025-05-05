@@ -1,11 +1,13 @@
-﻿using System.Text.Json.Serialization;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Refit;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Clients;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Clients.Handlers;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Converters;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.Handlers;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.Options;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.SiteResolution.Clients;
+using UmbracoHeadlessBFF.SharedModules.Common.Serialisation;
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Cms;
 
@@ -14,11 +16,10 @@ public static class CmsConfiguration
     private static readonly RefitSettings s_clientSettings = new()
     {
         CollectionFormat = CollectionFormat.Multi,
-        ContentSerializer = new SystemTextJsonContentSerializer(new()
+        ContentSerializer = new SystemTextJsonContentSerializer(new(BaseSerializerOptions.SystemTextJsonSerializerOptions)
         {
             Converters =
             {
-                new JsonStringEnumConverter(),
                 new ApiElementConverter(),
                 new ApiContentConverter()
             }
@@ -27,7 +28,7 @@ public static class CmsConfiguration
 
     public static void AddCms(this WebApplicationBuilder builder)
     {
-
+        // Delivery Api
         builder.Services.Configure<CmsServiceOptions>(builder.Configuration.GetSection(CmsServiceOptions.SectionName));
         builder.Services.AddTransient<DeliveryApiHeadersHandler>();
         builder.Services.AddRefitClient<IUmbracoDeliveryApi>(s_clientSettings)
@@ -36,6 +37,16 @@ public static class CmsConfiguration
                 c.BaseAddress = new("https://Cms/umbraco/delivery/api/v2");
             })
             .AddHttpMessageHandler<DeliveryApiHeadersHandler>()
+            .AddHeaderPropagation();
+
+        // Site Resolution
+        builder.Services.AddTransient<CmsApiKeyHeaderHandler>();
+        builder.Services.AddRefitClient<ISiteResolutionApi>()
+            .ConfigureHttpClient(c =>
+            {
+                c.BaseAddress = new("https://Cms/api/v1.0/sites");
+            })
+            .AddHttpMessageHandler<CmsApiKeyHeaderHandler>()
             .AddHeaderPropagation();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Asp.Versioning.Builder;
 using Microsoft.AspNetCore.Builder;
-using UmbracoHeadlessBFF.SiteApi.Modules.Content.GetContent;
+using Microsoft.AspNetCore.Http;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Endpoints;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content;
 
@@ -13,7 +14,7 @@ public static class ContentConfiguration
 
     public static void MapContentEndpoints(this WebApplication app, ApiVersionSet versionSet)
     {
-        app.MapGroup("content")
+        app.MapGroup("content").WithTags("Content")
             .MapGetContent(versionSet);
     }
 }
