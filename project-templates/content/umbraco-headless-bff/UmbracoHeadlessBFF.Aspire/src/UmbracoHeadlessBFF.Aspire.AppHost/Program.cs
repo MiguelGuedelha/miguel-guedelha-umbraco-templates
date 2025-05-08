@@ -97,7 +97,7 @@ var siteApi = builder.AddProject<Projects.GeneratedClassNamePrefix_SiteApi_Web>(
 
 siteApi.WithUrls(context =>
 {
-    var httpsEndpoint = cms.GetEndpoint("https");
+    var httpsEndpoint = siteApi.GetEndpoint("https");
     var httpsEndpointUrl = httpsEndpoint.Url;
 
     context.Urls.Clear();
