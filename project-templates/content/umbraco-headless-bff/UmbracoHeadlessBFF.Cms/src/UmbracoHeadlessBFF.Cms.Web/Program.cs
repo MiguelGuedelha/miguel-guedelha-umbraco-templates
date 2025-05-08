@@ -2,6 +2,8 @@ using Azure.Storage.Blobs;
 using Scalar.AspNetCore;
 using Umbraco.Cms.Api.Common.DependencyInjection;
 using Umbraco.Cms.Core;
+using UmbracoHeadlessBFF.Cms.Modules.Common.Links;
+using UmbracoHeadlessBFF.Cms.Modules.Common.Preview;
 using UmbracoHeadlessBFF.SharedModules.Common.Correlation;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,7 +21,9 @@ builder.CreateUmbracoBuilder()
 
 builder.AddServiceDefaults();
 
-builder.AddCorrelation();
+builder.AddCorrelationSharedModules();
+builder.AddPreview();
+builder.AddLinks();
 
 if (environment.IsLocal())
 {
@@ -44,7 +48,7 @@ if (environment.IsLocal())
 
 await app.BootUmbracoAsync();
 
-app.UseCorrelation();
+app.UseCorrelationSharedModules();
 
 app.MapDefaultEndpoints();
 

@@ -8,6 +8,9 @@ using UmbracoHeadlessBFF.SharedModules.Common;
 using UmbracoHeadlessBFF.SharedModules.Common.Caching;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms;
 using UmbracoHeadlessBFF.SharedModules.Common.Correlation;
+using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms;
+using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content;
 using UmbracoHeadlessBFF.SiteApi.Web.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,20 +25,6 @@ builder.Services.AddSwaggerGen(options =>
     options.OperationFilter<SwaggerDefaultValues>();
     options.OperationFilter<HostAndPathParameters>();
     options.OperationFilter<PreviewModeParameters>();
-});
-
-builder.Services.AddProblemDetails(options =>
-{
-    options.CustomizeProblemDetails = context =>
-    {
-        context.ProblemDetails.Instance = $"{context.HttpContext.Request.Method} {context.HttpContext.Request.Path}";
-
-        context.ProblemDetails.Extensions.TryAdd("requestId", context.HttpContext.TraceIdentifier);
-
-        var activity = context.HttpContext.Features.Get<IHttpActivityFeature>()?.Activity;
-        context.ProblemDetails.Extensions.TryAdd("traceId", activity?.Id);
-        context.ProblemDetails.Extensions.TryAdd("correlationId", context.HttpContext.Request.Headers[SharedConstants.Common.Correlation.Headers.CorrelationId]);
-    };
 });
 
 builder.Services
@@ -54,8 +43,10 @@ builder.Services
 
 builder.AddServiceDefaults();
 
-builder.AddCaching();
-builder.AddCorrelation();
+builder.AddCachingSharedModules();
+builder.AddCorrelationSharedModules();
+builder.AddCmsSharedModules();
+builder.AddErrors();
 builder.AddCms();
 
 if (environment.IsLocal())
@@ -65,9 +56,11 @@ if (environment.IsLocal())
 
 var app = builder.Build();
 
+app.UseStatusCodePages();
+
 app.UseHttpsRedirection();
 
-app.UseCorrelation();
+app.UseCorrelationSharedModules();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsProduction())
@@ -90,7 +83,8 @@ if (!app.Environment.IsProduction())
     });
 }
 
-app.UseExceptionHandler();
+app.UseErrors();
+app.UseCms();
 
 app.MapDefaultEndpoints();
 
@@ -99,6 +93,6 @@ var apiVersionSet = app.NewApiVersionSet()
     .ReportApiVersions()
     .Build();
 
-app.MapGroup("");
+app.MapContentEndpoints(apiVersionSet);
 
 await app.RunAsync();

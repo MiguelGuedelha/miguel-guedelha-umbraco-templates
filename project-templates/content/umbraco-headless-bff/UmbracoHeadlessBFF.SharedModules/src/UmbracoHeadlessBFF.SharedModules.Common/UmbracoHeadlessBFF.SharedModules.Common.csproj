@@ -10,7 +10,4 @@
     <PackageReference Include="ZiggyCreatures.FusionCache.Serialization.NewtonsoftJson" />
     <PackageReference Include="Microsoft.AspNetCore.HeaderPropagation" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Authentication\Handlers\" />
-  </ItemGroup>
 </Project>

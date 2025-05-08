@@ -11,7 +11,7 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.Caching;
 
 public static class CachingConfiguration
 {
-    public static void AddCaching(this WebApplicationBuilder builder, string? cachePrefix = null, Action<FusionCacheEntryOptions>? configure = null)
+    public static void AddCachingSharedModules(this WebApplicationBuilder builder, string? cachePrefix = null, Action<FusionCacheEntryOptions>? configure = null)
     {
         builder.Services.AddMemoryCache();
 

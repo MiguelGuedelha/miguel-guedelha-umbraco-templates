@@ -29,7 +29,7 @@ public class GetSitesController : Controller
     }
 
     [HttpGet("")]
-    public Results<Ok<Dictionary<Guid, SiteDefinition>>, NotFound, ProblemHttpResult> GetSites(bool preview)
+    public Results<Ok<Dictionary<string, SiteDefinition>>, NotFound, ProblemHttpResult> GetSites(bool preview)
     {
         var context = _umbracoContextFactory.EnsureUmbracoContext().UmbracoContext;
 
@@ -51,7 +51,7 @@ public class GetSitesController : Controller
 
         var domainDefinitions = homepages.Select(x => (x, _domainService.GetAssignedDomains(x.Id, false)));
 
-        var siteDefinitions = new Dictionary<Guid, SiteDefinition>();
+        var siteDefinitions = new Dictionary<string, SiteDefinition>();
 
         foreach (var (homepage, domains) in domainDefinitions)
         {
@@ -76,7 +76,7 @@ public class GetSitesController : Controller
 
                 var rootContent = homepage.Root();
 
-                siteDefinitions.TryAdd(domain.Key, new()
+                siteDefinitions.TryAdd($"{homepage.Key}-{domain.LanguageIsoCode}", new()
                 {
                     RootId = rootContent.Key,
                     SiteSettingsId = siteSettings.Key,

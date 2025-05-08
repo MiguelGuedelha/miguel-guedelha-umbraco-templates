@@ -6,6 +6,7 @@ using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Clients.Handlers;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Converters;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.Handlers;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.Options;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.Preview.Clients;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.SiteResolution.Clients;
 using UmbracoHeadlessBFF.SharedModules.Common.Serialisation;
 
@@ -26,7 +27,7 @@ public static class CmsConfiguration
         })
     };
 
-    public static void AddCms(this WebApplicationBuilder builder)
+    public static void AddCmsSharedModules(this WebApplicationBuilder builder)
     {
         // Delivery Api
         builder.Services.Configure<CmsServiceOptions>(builder.Configuration.GetSection(CmsServiceOptions.SectionName));
@@ -47,6 +48,14 @@ public static class CmsConfiguration
                 c.BaseAddress = new("https://Cms/api/v1.0/sites");
             })
             .AddHttpMessageHandler<CmsApiKeyHeaderHandler>()
+            .AddHeaderPropagation();
+
+        // Preview
+        builder.Services.AddRefitClient<IPreviewVerificationApi>()
+            .ConfigureHttpClient(c =>
+            {
+                c.BaseAddress = new("https://Cms/api/v1.0/preview");
+            })
             .AddHeaderPropagation();
     }
 }

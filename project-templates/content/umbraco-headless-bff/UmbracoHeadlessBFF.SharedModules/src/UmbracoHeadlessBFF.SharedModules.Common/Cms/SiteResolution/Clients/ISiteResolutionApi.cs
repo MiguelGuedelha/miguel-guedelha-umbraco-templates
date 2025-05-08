@@ -6,5 +6,5 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.SiteResolution.Clients;
 public interface ISiteResolutionApi
 {
     [Get("/")]
-    Task<ApiResponse<Dictionary<Guid, SiteDefinition>>> GetSites(bool preview);
+    Task<ApiResponse<Dictionary<string, SiteDefinition>>> GetSites(bool preview);
 }

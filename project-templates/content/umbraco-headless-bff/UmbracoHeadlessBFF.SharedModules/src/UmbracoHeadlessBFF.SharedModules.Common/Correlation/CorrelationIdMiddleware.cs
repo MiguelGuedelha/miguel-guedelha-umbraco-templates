@@ -11,6 +11,7 @@ internal sealed class CorrelationIdMiddleware : IMiddleware
         if (string.IsNullOrWhiteSpace(correlationId))
         {
             correlationId = Guid.NewGuid().ToString();
+            context.Request.Headers.Append(SharedConstants.Common.Correlation.Headers.CorrelationId, correlationId);
             context.Response.Headers.Append(SharedConstants.Common.Correlation.Headers.CorrelationId, correlationId);
         }
 

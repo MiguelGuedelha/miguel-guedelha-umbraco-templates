@@ -14,7 +14,9 @@ public static class ContentConfiguration
 
     public static void MapContentEndpoints(this WebApplication app, ApiVersionSet versionSet)
     {
-        app.MapGroup("content").WithTags("Content")
+        app
+            .MapGroup("content")
+            .WithTags("Content")
             .MapGetContent(versionSet);
     }
 }

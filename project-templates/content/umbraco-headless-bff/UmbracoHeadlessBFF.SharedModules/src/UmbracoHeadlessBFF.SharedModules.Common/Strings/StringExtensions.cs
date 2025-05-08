@@ -6,6 +6,9 @@ public static partial class StringExtensions
 {
     private static readonly char[] s_uriTrimChars = ['/', '\\'];
 
+    [GeneratedRegex("^/{2,}")]
+    private static partial Regex LeadingSlashesRegex();
+
     public static string ReplaceFirst(this string text, string term, string replace)
     {
         var index = text.IndexOf(term, StringComparison.InvariantCultureIgnoreCase);
@@ -42,7 +45,4 @@ public static partial class StringExtensions
             ? $"/{path}"
             : LeadingSlashesRegex().Replace(path, "/");
     }
-
-    [GeneratedRegex("^/{2,}")]
-    private static partial Regex LeadingSlashesRegex();
 }

@@ -5,7 +5,7 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.Correlation;
 
 public static class CorrelationConfiguration
 {
-    public static void AddCorrelation(this WebApplicationBuilder builder)
+    public static void AddCorrelationSharedModules(this WebApplicationBuilder builder)
     {
         builder.Services.AddHttpContextAccessor();
         builder.Services.AddScoped<CorrelationIdMiddleware>();
@@ -17,7 +17,7 @@ public static class CorrelationConfiguration
         });
     }
 
-    public static void UseCorrelation(this WebApplication app)
+    public static void UseCorrelationSharedModules(this WebApplication app)
     {
         app.UseMiddleware<CorrelationIdMiddleware>();
         app.UseHeaderPropagation();

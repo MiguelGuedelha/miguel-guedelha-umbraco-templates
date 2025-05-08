@@ -5,4 +5,7 @@
     <ItemGroup>
       <PackageReference Include="Asp.Versioning.Http" />
     </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\UmbracoHeadlessBFF.SharedModules\src\UmbracoHeadlessBFF.SharedModules.Common\UmbracoHeadlessBFF.SharedModules.Common.csproj" />
+    </ItemGroup>
 </Project>
