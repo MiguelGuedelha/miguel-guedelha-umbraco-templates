@@ -1,13 +1,14 @@
+using System.Text.Json.Serialization;
 using Asp.Versioning;
 using Asp.Versioning.Conventions;
-using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Options;
 using Scalar.AspNetCore;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using UmbracoHeadlessBFF.SharedModules.Common;
 using UmbracoHeadlessBFF.SharedModules.Common.Caching;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Converters;
 using UmbracoHeadlessBFF.SharedModules.Common.Correlation;
+using UmbracoHeadlessBFF.SharedModules.Common.Serialisation;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content;
@@ -41,6 +42,13 @@ builder.Services
         options.SubstituteApiVersionInUrl = true;
     });
 
+builder.Services.ConfigureHttpJsonOptions(options =>
+{
+    options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    options.SerializerOptions.Converters.Add(new ApiContentConverter());
+    options.SerializerOptions.Converters.Add(new ApiElementConverter());
+});
+
 builder.AddServiceDefaults();
 
 builder.AddCachingSharedModules();
@@ -48,6 +56,7 @@ builder.AddCorrelationSharedModules();
 builder.AddCmsSharedModules();
 builder.AddErrors();
 builder.AddCms();
+builder.AddContent();
 
 if (environment.IsLocal())
 {
@@ -62,7 +71,6 @@ app.UseHttpsRedirection();
 
 app.UseCorrelationSharedModules();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsProduction())
 {
     app.UseSwagger();
@@ -93,6 +101,18 @@ var apiVersionSet = app.NewApiVersionSet()
     .ReportApiVersions()
     .Build();
 
-app.MapContentEndpoints(apiVersionSet);
+var versionGroup = app
+    .MapGroup("/v{version:apiVersion}")
+    .WithApiVersionSet(apiVersionSet);
+
+versionGroup.MapContentEndpoints();
+
+if (app.Environment.IsLocal())
+{
+    app
+        .MapGet("/debug/routes", (IEnumerable<EndpointDataSource> endpointSources) =>
+            string.Join("\n", endpointSources.SelectMany(source => source.Endpoints)))
+        .WithTags("Debug");
+}
 
 await app.RunAsync();

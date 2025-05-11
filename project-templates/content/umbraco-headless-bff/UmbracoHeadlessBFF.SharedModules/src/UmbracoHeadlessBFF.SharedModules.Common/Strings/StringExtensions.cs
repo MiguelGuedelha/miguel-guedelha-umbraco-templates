@@ -18,9 +18,9 @@ public static partial class StringExtensions
             : $"{text[..index]}{replace}{text[(index + term.Length)..]}";
     }
 
-    public static string CombineUri(params string[] parts)
+    public static string CombineUri(this string first, params string[] parts)
     {
-        var uri = string.Empty;
+        var uri = first;
 
         if (parts is { Length: 0 })
         {

@@ -5,9 +5,9 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.Serialisation;
 
 public static class BaseSerializerOptions
 {
-    public static readonly JsonSerializerOptions SystemTextJsonSerializerOptions = new()
+    public static readonly JsonSerializerOptions SystemTextJsonSerializerOptions = new(JsonSerializerDefaults.Web)
     {
         Converters = { new JsonStringEnumConverter() },
-        ReferenceHandler = ReferenceHandler.IgnoreCycles,
+        ReferenceHandler = ReferenceHandler.IgnoreCycles
     };
 }

@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using UmbracoHeadlessBFF.SharedModules.Common;
+using UmbracoHeadlessBFF.SharedModules.Common.Caching;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
@@ -31,7 +31,7 @@ var database = builder
 var umbracoDb = database.AddDatabase("Database", "umbraco-cms");
 
 var cache = builder
-    .AddRedis(SharedConstants.Common.Caching.ConnectionStringName)
+    .AddRedis(CachingConstants.ConnectionStringName)
     .WithRedisInsight();
 
 var blobStorage = builder.AddAzureStorage("BlobStorage");

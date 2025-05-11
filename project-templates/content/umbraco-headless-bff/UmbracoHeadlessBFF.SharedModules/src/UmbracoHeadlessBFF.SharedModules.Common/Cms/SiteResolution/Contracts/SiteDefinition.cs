@@ -11,4 +11,5 @@ public sealed record SiteDefinition
     public required string Path { get; init; }
     public required string BasePath { get; init; }
     public Guid NotFoundPageId { get; set; }
+    public Guid SearchPageId { get; set; }
 }

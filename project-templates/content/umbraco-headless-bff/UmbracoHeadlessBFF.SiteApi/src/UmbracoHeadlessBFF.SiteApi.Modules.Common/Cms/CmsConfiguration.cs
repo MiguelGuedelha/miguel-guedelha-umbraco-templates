@@ -10,12 +10,12 @@ public static class CmsConfiguration
     public static void AddCms(this WebApplicationBuilder builder)
     {
         // Site Resolution
-        builder.Services.AddScoped<SiteResolutionContext>();
-        builder.Services.AddScoped<SiteResolutionMiddleware>();
-        builder.Services.AddScoped<SiteResolutionService>();
+        builder.Services.AddTransient<SiteResolutionContext>();
+        builder.Services.AddTransient<SiteResolutionMiddleware>();
+        builder.Services.AddTransient<SiteResolutionService>();
 
         // Preview
-        builder.Services.AddScoped<PreviewMiddleware>();
+        builder.Services.AddTransient<PreviewMiddleware>();
     }
 
     public static void UseCms(this WebApplication app)

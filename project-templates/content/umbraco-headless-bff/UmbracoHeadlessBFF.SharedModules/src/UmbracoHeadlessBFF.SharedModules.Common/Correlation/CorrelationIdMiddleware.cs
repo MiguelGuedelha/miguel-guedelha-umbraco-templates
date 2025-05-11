@@ -6,13 +6,13 @@ internal sealed class CorrelationIdMiddleware : IMiddleware
 {
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
-        var correlationId = context.Request.Headers[SharedConstants.Common.Correlation.Headers.CorrelationId].FirstOrDefault();
+        var correlationId = context.Request.Headers[CorrelationConstants.Headers.CorrelationId].FirstOrDefault();
 
         if (string.IsNullOrWhiteSpace(correlationId))
         {
             correlationId = Guid.NewGuid().ToString();
-            context.Request.Headers.Append(SharedConstants.Common.Correlation.Headers.CorrelationId, correlationId);
-            context.Response.Headers.Append(SharedConstants.Common.Correlation.Headers.CorrelationId, correlationId);
+            context.Request.Headers.Append(CorrelationConstants.Headers.CorrelationId, correlationId);
+            context.Response.Headers.Append(CorrelationConstants.Headers.CorrelationId, correlationId);
         }
 
         await next(context);

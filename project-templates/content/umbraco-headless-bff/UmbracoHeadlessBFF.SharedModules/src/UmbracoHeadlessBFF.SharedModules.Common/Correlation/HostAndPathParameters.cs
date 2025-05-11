@@ -11,7 +11,7 @@ public sealed class HostAndPathParameters : IOperationFilter
 
         operation.Parameters.Add(new()
         {
-            Name = SharedConstants.Common.Correlation.Headers.SiteHost,
+            Name = CorrelationConstants.Headers.SiteHost,
             Description = "The frontend host, used to find the correct CMS instance and site node",
             In = ParameterLocation.Header,
             Required = false
@@ -19,7 +19,7 @@ public sealed class HostAndPathParameters : IOperationFilter
 
         operation.Parameters.Add(new()
         {
-            Name = SharedConstants.Common.Correlation.Headers.SitePath,
+            Name = CorrelationConstants.Headers.SitePath,
             Description = "The frontend path, used to find the correct CMS instance and site node",
             In = ParameterLocation.Header,
             Required = false
@@ -27,7 +27,7 @@ public sealed class HostAndPathParameters : IOperationFilter
 
         operation.Parameters.Add(new()
         {
-            Name = SharedConstants.Common.Correlation.Headers.SiteId,
+            Name = CorrelationConstants.Headers.SiteId,
             Description = "The resolved CMS/Site id, allows to skip the resolution step otherwise required if this is sent",
             In = ParameterLocation.Header,
             Required = false

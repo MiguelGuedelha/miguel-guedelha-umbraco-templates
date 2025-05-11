@@ -15,7 +15,7 @@ public static class CachingConfiguration
     {
         builder.Services.AddMemoryCache();
 
-        builder.AddRedisDistributedCache(SharedConstants.Common.Caching.ConnectionStringName);
+        builder.AddRedisDistributedCache(CachingConstants.ConnectionStringName);
 
         builder.Services.AddFusionCacheStackExchangeRedisBackplane();
 

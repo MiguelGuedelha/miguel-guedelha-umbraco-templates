@@ -1,26 +1,33 @@
-﻿using Asp.Versioning.Builder;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
-using UmbracoHeadlessBFF.SiteApi.Modules.Common.Endpoints;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages.Abstractions;
+using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Endpoints;
 
 public static class GetItemByPathEndpoint
 {
-    public static RouteGroupBuilder MapGetContent(this RouteGroupBuilder builder, ApiVersionSet versionSet)
+    public static RouteGroupBuilder MapGetContent(this RouteGroupBuilder builder)
     {
         builder
-            .MapGet("/item/{path}", GetContentHandler)
-            .WithApiVersionSet(versionSet)
-            .MapToApiVersion(EndpointConstants.Versions.V1);
+            .MapGet("/item", GetContentHandler);
+            //.MapToApiVersion(EndpointConstants.Versions.V1);
 
         return builder;
     }
 
-    private static async Task<Results<Ok, NotFound, UnauthorizedHttpResult>> GetContentHandler(string path)
+    private static async Task<Results<Ok<IApiContent>, NotFound, UnauthorizedHttpResult>> GetContentHandler(string? path, Guid? id, [FromServices] ContentService contentService)
     {
-        return await Task.FromResult(TypedResults.Ok());
+        var content = (path, id) switch
+        {
+            (_, not null) => await contentService.GetContentById(id.Value),
+            (not null, _) => await contentService.GetContentByPath(path),
+            _ => throw new SiteApiException(StatusCodes.Status400BadRequest, "Path or id required")
+        };
+
+        return TypedResults.Ok(content);
     }
 }

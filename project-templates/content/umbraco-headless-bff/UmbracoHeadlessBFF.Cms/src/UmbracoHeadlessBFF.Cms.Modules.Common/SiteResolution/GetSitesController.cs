@@ -10,7 +10,7 @@ using UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.SiteResolution.Contracts;
 using NotFound = Microsoft.AspNetCore.Http.HttpResults.NotFound;
 
-namespace UmbracoHeadlessBFF.Cms.Modules.Common.SiteResolution.Controllers;
+namespace UmbracoHeadlessBFF.Cms.Modules.Common.SiteResolution;
 
 [ApiController]
 [Route($"api/v{{version:apiVersion}}/{SiteResolutionConstants.Endpoints.Group}")]
@@ -65,9 +65,10 @@ public class GetSitesController : Controller
                 var siteSettings = homepage.Descendant<SiteSettings>(domain.LanguageIsoCode);
                 var dictionary = homepage.Descendant<SiteDictionary>(domain.LanguageIsoCode);
                 var notFoundPage = siteSettings?.NotFoundPage;
+                var searchPage = siteSettings?.SearchPage;
                 var homePageSegment = homepage.UrlSegment(domain.LanguageIsoCode);
 
-                if (siteSettings is null || dictionary is null || homePageSegment is null || notFoundPage is null)
+                if (siteSettings is null || dictionary is null || homePageSegment is null || notFoundPage is null ||  searchPage is null)
                 {
                     continue;
                 }
@@ -81,6 +82,7 @@ public class GetSitesController : Controller
                     RootId = rootContent.Key,
                     SiteSettingsId = siteSettings.Key,
                     NotFoundPageId = notFoundPage.Key,
+                    SearchPageId = searchPage.Key,
                     DictionaryId = dictionary.Key,
                     HomepageId = homepage.Key,
                     CultureInfo = domain.LanguageIsoCode,

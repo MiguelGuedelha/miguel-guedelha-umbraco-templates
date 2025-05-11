@@ -19,7 +19,7 @@ public static class ErrorsConfiguration
 
                 var activity = context.HttpContext.Features.Get<IHttpActivityFeature>()?.Activity;
                 context.ProblemDetails.Extensions.TryAdd("traceId", activity?.Id);
-                context.ProblemDetails.Extensions.TryAdd("correlationId", context.HttpContext.Request.Headers[SharedConstants.Common.Correlation.Headers.CorrelationId]);
+                context.ProblemDetails.Extensions.TryAdd("correlationId", context.HttpContext.Request.Headers[CorrelationConstants.Headers.CorrelationId].ToString());
             };
         });
         builder.Services.AddExceptionHandler<GlobalExceptionHandler>();

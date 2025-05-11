@@ -2,8 +2,6 @@
 using UmbracoHeadlessBFF.SharedModules.Common;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.SiteResolution.Clients;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.SiteResolution.Contracts;
-using UmbracoHeadlessBFF.SharedModules.Common.Http;
-using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
 
@@ -30,9 +28,9 @@ public sealed class SiteResolutionService
             return null;
         }
 
-        var hasSiteId =  context.Request.Headers.TryGetValue(SharedConstants.Common.Correlation.Headers.SiteId, out var siteId);
-        var hasSitePath =  context.Request.Headers.TryGetValue(SharedConstants.Common.Correlation.Headers.SitePath, out var sitePath);
-        var hasSiteHost =  context.Request.Headers.TryGetValue(SharedConstants.Common.Correlation.Headers.SiteHost, out var siteHost);
+        var hasSiteId =  context.Request.Headers.TryGetValue(CorrelationConstants.Headers.SiteId, out var siteId);
+        var hasSitePath =  context.Request.Headers.TryGetValue(CorrelationConstants.Headers.SitePath, out var sitePath);
+        var hasSiteHost =  context.Request.Headers.TryGetValue(CorrelationConstants.Headers.SiteHost, out var siteHost);
 
         var isPreview = _siteResolutionContext.IsPreview;
 

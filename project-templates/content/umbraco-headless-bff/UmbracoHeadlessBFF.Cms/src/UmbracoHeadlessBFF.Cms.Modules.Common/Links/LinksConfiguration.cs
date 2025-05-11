@@ -7,6 +7,6 @@ public static class LinksConfiguration
 {
     public static void AddLinks(this WebApplicationBuilder builder)
     {
-        builder.Services.AddScoped<LinkService>();
+        builder.Services.AddTransient<LinkService>();
     }
 }

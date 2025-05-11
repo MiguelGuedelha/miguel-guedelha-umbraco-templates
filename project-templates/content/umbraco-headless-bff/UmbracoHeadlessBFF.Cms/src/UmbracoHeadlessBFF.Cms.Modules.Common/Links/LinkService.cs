@@ -3,7 +3,7 @@ using Umbraco.Cms.Core.Web;
 using Umbraco.Extensions;
 using UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.Links.Contracts;
-using StringExtensions = UmbracoHeadlessBFF.SharedModules.Common.Strings.StringExtensions;
+using UmbracoHeadlessBFF.SharedModules.Common.Strings;
 
 namespace UmbracoHeadlessBFF.Cms.Modules.Common.Links;
 
@@ -57,7 +57,7 @@ public sealed partial class LinkService
 
         var domainName = domain.Name.Contains("http") ? domain.Name.Replace("http:", "https:") : $"https://{domain.Name}";
 
-        route = ResolvedRouteRegex().Replace(route, StringExtensions.CombineUri(domainName, "$1"));
+        route = ResolvedRouteRegex().Replace(route, domainName.CombineUri("$1"));
 
         var uri = new Uri(route);
 
