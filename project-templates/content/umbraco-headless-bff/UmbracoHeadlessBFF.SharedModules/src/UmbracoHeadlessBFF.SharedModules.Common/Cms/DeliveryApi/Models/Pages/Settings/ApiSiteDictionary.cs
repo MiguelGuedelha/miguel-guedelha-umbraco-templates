@@ -4,7 +4,6 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages.S
 
 public sealed class ApiSiteDictionary : ApiContent<ApiSiteDictionaryProperties>
 {
-    public const string ContentType = "siteDictionary";
 }
 
 public sealed class ApiSiteDictionaryProperties

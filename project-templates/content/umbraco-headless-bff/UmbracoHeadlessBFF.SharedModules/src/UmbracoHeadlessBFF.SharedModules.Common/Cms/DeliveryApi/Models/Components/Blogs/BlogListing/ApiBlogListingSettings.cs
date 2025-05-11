@@ -5,7 +5,6 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Compone
 
 public sealed class ApiBlogListingSettings : ApiElement<ApiBlogListingSettingsProperties>
 {
-    public const string ContentType = "blogListingSettings";
 }
 
 public sealed class ApiBlogListingSettingsProperties

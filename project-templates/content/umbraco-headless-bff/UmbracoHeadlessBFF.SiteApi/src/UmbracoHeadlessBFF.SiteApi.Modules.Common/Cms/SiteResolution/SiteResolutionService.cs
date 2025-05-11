@@ -2,6 +2,7 @@
 using UmbracoHeadlessBFF.SharedModules.Common;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.SiteResolution.Clients;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.SiteResolution.Contracts;
+using UmbracoHeadlessBFF.SharedModules.Common.Correlation;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
 

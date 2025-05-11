@@ -5,7 +5,6 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Buildin
 
 public sealed class ApiLinkWithSublinks : ApiElement<ApiLinkWithSublinksProperties>
 {
-    public const string ContentType = "linkWithSubLinks";
 }
 
 public sealed class ApiLinkWithSublinksProperties

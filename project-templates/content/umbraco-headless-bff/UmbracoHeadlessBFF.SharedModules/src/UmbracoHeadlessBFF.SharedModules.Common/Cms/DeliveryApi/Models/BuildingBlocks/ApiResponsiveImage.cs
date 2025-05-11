@@ -5,7 +5,6 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Buildin
 
 public sealed class ApiResponsiveImage : ApiElement<ApiResponsiveImageProperties>
 {
-    public const string ContentType = "responsiveImage";
 }
 
 public sealed class ApiResponsiveImageProperties

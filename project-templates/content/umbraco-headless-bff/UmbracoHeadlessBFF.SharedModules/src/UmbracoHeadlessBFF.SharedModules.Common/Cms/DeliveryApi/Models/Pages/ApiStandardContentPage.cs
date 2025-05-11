@@ -5,7 +5,6 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages;
 
 public sealed class ApiStandardContentPage : ApiContent<ApiStandardContentPageProperties>
 {
-    public const string ContentType = "standardContentPage";
 }
 
 public sealed class ApiStandardContentPageProperties : ApiBaseSearchablePageProperties, IApiPageContent

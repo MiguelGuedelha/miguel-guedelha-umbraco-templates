@@ -8,7 +8,6 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Compone
 
 public sealed class ApiSpotlight : ApiElement<ApiSpotlightProperties>
 {
-    public const string ContentType = "spotlight";
 }
 
 public sealed class ApiSpotlightProperties : IApiJumpMenuConfiguration, IApiHeading, IApiRteDescription

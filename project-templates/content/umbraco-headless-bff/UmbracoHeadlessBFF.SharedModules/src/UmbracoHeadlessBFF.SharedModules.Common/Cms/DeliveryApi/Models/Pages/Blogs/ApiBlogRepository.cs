@@ -4,5 +4,4 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages.B
 
 public sealed class ApiBlogRepository : ApiContent
 {
-    public const string ContentType = "blogRepository";
 }

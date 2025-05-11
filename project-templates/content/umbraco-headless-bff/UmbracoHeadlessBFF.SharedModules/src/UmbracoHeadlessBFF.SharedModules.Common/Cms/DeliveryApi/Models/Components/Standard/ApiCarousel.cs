@@ -7,7 +7,6 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Compone
 
 public sealed class ApiCarousel : ApiElement<ApiCarouselProperties>
 {
-    public const string ContentType = "carousel";
 }
 
 public sealed class ApiCarouselProperties : IApiJumpMenuConfiguration, IApiHeadingWithSubHeading

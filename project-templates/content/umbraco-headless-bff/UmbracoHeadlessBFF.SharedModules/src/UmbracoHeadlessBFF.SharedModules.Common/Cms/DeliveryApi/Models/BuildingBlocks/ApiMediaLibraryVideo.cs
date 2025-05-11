@@ -5,7 +5,6 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Buildin
 
 public sealed class ApiMediaLibraryVideo : ApiElement<ApiMediaLibraryVideoProperties>
 {
-    public const string ContentType = "mediaLibraryVideo";
 }
 
 public sealed class ApiMediaLibraryVideoProperties

@@ -7,7 +7,6 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Compone
 
 public sealed class ApiBannerItem : ApiElement, IApiHeadingWithSubHeading, IApiRteDescription
 {
-    public const string ContentType = "bannerItem";
     public string? Heading { get; init; }
     public string HeadingSize { get; init; } = "h2";
     public string? SubHeading { get; init; }

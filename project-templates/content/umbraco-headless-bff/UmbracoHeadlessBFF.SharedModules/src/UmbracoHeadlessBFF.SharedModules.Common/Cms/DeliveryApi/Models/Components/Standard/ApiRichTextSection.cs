@@ -7,7 +7,6 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Compone
 
 public sealed class ApiRichTextSection : ApiElement<ApiRichTextSectionProperties>
 {
-    public const string ContentType = "richTextSection";
 }
 
 public sealed class ApiRichTextSectionProperties : IApiJumpMenuConfiguration

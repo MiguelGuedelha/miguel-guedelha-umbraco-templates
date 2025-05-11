@@ -7,7 +7,6 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Compone
 
 public sealed class ApiFullWidthImage : ApiElement<ApiFullWidthImageProperties>
 {
-    public const string ContentType = "fullWidthImage";
 }
 
 public sealed class ApiFullWidthImageProperties : IApiJumpMenuConfiguration

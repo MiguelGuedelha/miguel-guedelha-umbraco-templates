@@ -5,7 +5,6 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages;
 
 public sealed class ApiHome : ApiContent<ApiHomeProperties>
 {
-    public const string ContentType = "home";
 }
 
 public sealed class ApiHomeProperties : ApiBaseNonSearchablePageProperties, IApiPageContent

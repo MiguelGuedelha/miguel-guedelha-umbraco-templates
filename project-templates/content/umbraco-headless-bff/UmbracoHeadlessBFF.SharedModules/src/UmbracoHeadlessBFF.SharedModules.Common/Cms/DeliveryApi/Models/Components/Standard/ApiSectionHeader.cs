@@ -5,7 +5,6 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Compone
 
 public sealed class ApiSectionHeader : ApiElement<ApiSectionHeaderProperties>
 {
-    public const string ContentType = "sectionHeader";
 }
 
 public sealed class ApiSectionHeaderProperties : IApiJumpMenuConfiguration, IApiHeadingWithSubHeading

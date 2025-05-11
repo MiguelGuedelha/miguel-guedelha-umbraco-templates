@@ -6,7 +6,6 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Buildin
 
 public sealed class ApiHeadingWithLinks : ApiElement<ApiHeadingWithLinksProperties>
 {
-    public const string ContentType = "headingWithLinks";
 }
 
 public sealed class ApiHeadingWithLinksProperties : IApiHeading

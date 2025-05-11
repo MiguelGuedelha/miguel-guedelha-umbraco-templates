@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.DependencyInjection;
 using UmbracoHeadlessBFF.SharedModules.Common;
+using UmbracoHeadlessBFF.SharedModules.Common.Correlation;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 

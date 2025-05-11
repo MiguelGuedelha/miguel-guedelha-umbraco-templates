@@ -3,6 +3,7 @@
 public interface IApiContent
 {
     Guid Id { get; init; }
+    string ContentType { get; init; }
     string Name { get; init; }
     DateTime CreateDate { get; init; }
     DateTime UpdateDate { get; init; }
@@ -18,6 +19,7 @@ public interface IApiContent<T> : IApiContent
 public abstract class ApiContent<T> : IApiContent<T>
 {
     public Guid Id { get; init; }
+    public required string ContentType { get; init; }
     public required string Name { get; init; }
     public DateTime CreateDate { get; init; }
     public DateTime UpdateDate { get; init; }
@@ -29,6 +31,7 @@ public abstract class ApiContent<T> : IApiContent<T>
 public abstract class ApiContent : IApiContent
 {
     public Guid Id { get; init; }
+    public required string ContentType { get; init; }
     public required string Name { get; init; }
     public DateTime CreateDate { get; init; }
     public DateTime UpdateDate { get; init; }

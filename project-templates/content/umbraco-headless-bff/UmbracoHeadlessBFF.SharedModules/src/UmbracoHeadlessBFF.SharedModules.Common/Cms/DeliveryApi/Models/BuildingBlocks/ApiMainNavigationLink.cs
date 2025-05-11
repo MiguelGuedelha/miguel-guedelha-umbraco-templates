@@ -6,7 +6,6 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Buildin
 
 public sealed class ApiMainNavigationLink : ApiElement<ApiMainNavigationLinkProperties>
 {
-    public const string ContentType = "mainNavigationLink";
 }
 
 public sealed class ApiMainNavigationLinkProperties

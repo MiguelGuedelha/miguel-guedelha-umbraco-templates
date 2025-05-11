@@ -7,7 +7,6 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Compone
 
 public sealed class ApiGallery : ApiElement<ApiGalleryProperties>
 {
-    public const string ContentType = "gallery";
 }
 
 public sealed class ApiGalleryProperties : IApiHeadingWithSubHeading

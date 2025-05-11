@@ -6,7 +6,6 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Compone
 
 public sealed class ApiBanner : ApiElement<ApiBannerProperties>
 {
-    public const string ContentType = "banner";
 }
 
 public sealed class ApiBannerProperties : IApiJumpMenuConfiguration

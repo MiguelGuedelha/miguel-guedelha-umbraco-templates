@@ -4,7 +4,6 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages;
 
 public sealed class ApiSiteSearch : ApiContent<ApiSiteSearchProperties>
 {
-    public const string ContentType = "siteSearch";
 }
 
 public sealed class ApiSiteSearchProperties : ApiSeoSettingsProperties

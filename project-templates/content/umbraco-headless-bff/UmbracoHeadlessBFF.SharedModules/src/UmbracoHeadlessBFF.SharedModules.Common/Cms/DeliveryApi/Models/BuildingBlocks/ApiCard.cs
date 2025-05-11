@@ -7,7 +7,6 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Buildin
 
 public sealed class ApiCard : ApiElement<ApiCardProperties>
 {
-    public const string ContentType = "card";
 }
 
 public sealed class ApiCardProperties : IApiHeadingWithSubHeading

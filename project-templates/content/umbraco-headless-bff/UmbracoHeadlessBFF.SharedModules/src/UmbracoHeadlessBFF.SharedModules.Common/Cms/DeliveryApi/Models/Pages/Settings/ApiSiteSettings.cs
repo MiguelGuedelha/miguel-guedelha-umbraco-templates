@@ -8,7 +8,6 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages.S
 
 public sealed class ApiSiteSettings : ApiContent<ApiSiteSettingsProperties>
 {
-    public const string ContentType = "siteSettings";
 }
 
 public sealed class ApiSiteSettingsProperties

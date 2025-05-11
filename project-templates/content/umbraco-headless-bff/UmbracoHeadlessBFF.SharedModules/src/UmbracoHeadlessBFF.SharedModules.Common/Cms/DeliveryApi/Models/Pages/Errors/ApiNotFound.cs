@@ -5,7 +5,6 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages.E
 
 public sealed class ApiNotFound : ApiContent<ApiNotFoundProperties>
 {
-    public const string ContentType = "notFound";
 }
 
 public sealed class ApiNotFoundProperties : ApiBaseNonSearchablePageProperties, IApiPageContent
