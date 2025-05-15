@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages.Abstractions;
+using UmbracoHeadlessBFF.SiteApi.Modules.Common.Endpoints;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Endpoints;
@@ -13,19 +14,18 @@ public static class GetItemByPathEndpoint
     public static RouteGroupBuilder MapGetContent(this RouteGroupBuilder builder)
     {
         builder
-            .MapGet("/item", GetContentHandler);
-            //.MapToApiVersion(EndpointConstants.Versions.V1);
+            .MapGet("/item", GetContentHandler)
+            .MapToApiVersion(EndpointConstants.Versions.V1);
 
         return builder;
     }
 
-    private static async Task<Results<Ok<IApiContent>, NotFound, UnauthorizedHttpResult>> GetContentHandler(string? path, Guid? id, [FromServices] ContentService contentService)
+    private static async Task<Results<Ok<IApiContent>, NotFound, UnauthorizedHttpResult>> GetContentHandler(string id, [FromServices] ContentService contentService)
     {
-        var content = (path, id) switch
+        var content = id switch
         {
-            (_, not null) => await contentService.GetContentById(id.Value),
-            (not null, _) => await contentService.GetContentByPath(path),
-            _ => throw new SiteApiException(StatusCodes.Status400BadRequest, "Path or id required")
+            _ when Guid.TryParse(id, out var parsedId) => await contentService.GetContentById(parsedId),
+            _ => await contentService.GetContentByPath(id)
         };
 
         return TypedResults.Ok(content);
