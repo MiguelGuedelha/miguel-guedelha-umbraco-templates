@@ -28,9 +28,9 @@ public sealed class SiteResolutionService
             return null;
         }
 
-        var hasSiteId =  context.Request.Headers.TryGetValue(CorrelationConstants.Headers.SiteId, out var siteId);
-        var hasSitePath =  context.Request.Headers.TryGetValue(CorrelationConstants.Headers.SitePath, out var sitePath);
-        var hasSiteHost =  context.Request.Headers.TryGetValue(CorrelationConstants.Headers.SiteHost, out var siteHost);
+        var hasSiteId = context.Request.Headers.TryGetValue(CorrelationConstants.Headers.SiteId, out var siteId);
+        var hasSitePath = context.Request.Headers.TryGetValue(CorrelationConstants.Headers.SitePath, out var sitePath);
+        var hasSiteHost = context.Request.Headers.TryGetValue(CorrelationConstants.Headers.SiteHost, out var siteHost);
 
         var isPreview = _siteResolutionContext.IsPreview;
 

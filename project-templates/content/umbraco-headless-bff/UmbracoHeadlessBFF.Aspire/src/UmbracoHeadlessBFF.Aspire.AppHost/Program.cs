@@ -101,7 +101,7 @@ siteApi.WithUrls(context =>
     var httpsEndpointUrl = httpsEndpoint.Url;
 
     context.Urls.Clear();
-    context.Urls.Add(new() { Url = $"{httpsEndpointUrl}/scalar", DisplayText = "Scalar - Site Api v1", Endpoint = httpsEndpoint});
+    context.Urls.Add(new() { Url = $"{httpsEndpointUrl}/scalar", DisplayText = "Scalar - Site Api v1", Endpoint = httpsEndpoint });
 });
 
 // Example frontend service that could be added to aspire orchestration

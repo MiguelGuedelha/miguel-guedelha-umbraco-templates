@@ -68,7 +68,7 @@ public sealed class GetSitesController : Controller
                 var searchPage = siteSettings?.SearchPage;
                 var homePageSegment = homepage.UrlSegment(domain.LanguageIsoCode);
 
-                if (siteSettings is null || dictionary is null || homePageSegment is null || notFoundPage is null ||  searchPage is null)
+                if (siteSettings is null || dictionary is null || homePageSegment is null || notFoundPage is null || searchPage is null)
                 {
                     continue;
                 }

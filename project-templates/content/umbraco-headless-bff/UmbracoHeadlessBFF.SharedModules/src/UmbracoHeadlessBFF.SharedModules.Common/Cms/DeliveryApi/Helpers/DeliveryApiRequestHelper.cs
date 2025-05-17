@@ -24,7 +24,7 @@ public static class DeliveryApiRequestHelper
         builder.Append(basePart);
 
         // Closing brackets
-        builder.Append(new string(']', 1 + (level-1)*2));
+        builder.Append(new string(']', 1 + (level - 1) * 2));
 
         return builder.ToString();
     }
