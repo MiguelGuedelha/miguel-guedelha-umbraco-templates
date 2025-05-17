@@ -7,7 +7,7 @@ using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content;
 
-public sealed class ContentService
+internal sealed class ContentService
 {
     private readonly IUmbracoDeliveryApi _umbracoDeliveryApi;
     private readonly SiteResolutionContext _siteResolutionContext;

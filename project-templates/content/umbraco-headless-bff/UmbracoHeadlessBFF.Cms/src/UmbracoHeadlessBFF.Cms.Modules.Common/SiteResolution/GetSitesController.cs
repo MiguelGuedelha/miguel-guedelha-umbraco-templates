@@ -17,7 +17,7 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.SiteResolution;
 [Tags(SiteResolutionConstants.Endpoints.Tag)]
 [ApiVersion(1)]
 [ApiKey]
-public class GetSitesController : Controller
+public sealed class GetSitesController : Controller
 {
     private readonly IUmbracoContextFactory _umbracoContextFactory;
     private readonly IDomainService _domainService;

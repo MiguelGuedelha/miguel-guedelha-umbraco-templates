@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 
-public class GlobalExceptionHandler : IExceptionHandler
+public sealed class GlobalExceptionHandler : IExceptionHandler
 {
     private readonly IProblemDetailsService _problemDetailsService;
 

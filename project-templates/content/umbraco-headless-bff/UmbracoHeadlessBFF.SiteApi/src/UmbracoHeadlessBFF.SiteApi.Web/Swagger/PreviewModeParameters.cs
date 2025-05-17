@@ -3,7 +3,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace UmbracoHeadlessBFF.SiteApi.Web.Swagger;
 
-public sealed class PreviewModeParameters : IOperationFilter
+internal sealed class PreviewModeParameters : IOperationFilter
 {
     public void Apply(OpenApiOperation operation, OperationFilterContext context)
     {

@@ -5,7 +5,7 @@ using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.Preview;
 
-public class PreviewMiddleware : IMiddleware
+public sealed class PreviewMiddleware : IMiddleware
 {
     private readonly SiteResolutionContext _siteResolutionContext;
     private readonly IPreviewVerificationApi _previewVerificationApi;

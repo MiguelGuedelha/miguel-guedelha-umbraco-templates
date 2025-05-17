@@ -3,7 +3,7 @@ using UmbracoHeadlessBFF.SharedModules.Common.Cms.Options;
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.Handlers;
 
-public class CmsApiKeyHeaderHandler : DelegatingHandler
+internal sealed class CmsApiKeyHeaderHandler : DelegatingHandler
 {
     private readonly IOptionsMonitor<CmsServiceOptions> _cmsServiceOptions;
 

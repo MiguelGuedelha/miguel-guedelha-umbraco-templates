@@ -2,7 +2,7 @@
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 
-public class SiteApiException : Exception
+public sealed class SiteApiException : Exception
 {
     public int StatusCode { get; private set; }
 
