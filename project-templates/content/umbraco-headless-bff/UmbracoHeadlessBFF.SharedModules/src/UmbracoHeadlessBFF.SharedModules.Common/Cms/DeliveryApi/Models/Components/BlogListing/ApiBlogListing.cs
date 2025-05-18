@@ -1,7 +1,7 @@
 ﻿using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components.Abstractions;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.Abstractions;
 
-namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components.Blogs.BlogListing;
+namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components.BlogListing;
 
 public sealed class ApiBlogListing : ApiElement<ApiBlogListingProperties>
 {

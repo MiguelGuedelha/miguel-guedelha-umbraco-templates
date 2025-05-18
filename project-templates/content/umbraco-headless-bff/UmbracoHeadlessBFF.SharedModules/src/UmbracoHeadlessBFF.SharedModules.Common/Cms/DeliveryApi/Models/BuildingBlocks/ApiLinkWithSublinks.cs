@@ -10,6 +10,5 @@ public sealed class ApiLinkWithSublinks : ApiElement<ApiLinkWithSublinksProperti
 public sealed class ApiLinkWithSublinksProperties
 {
     public IReadOnlyCollection<ApiLink>? Link { get; init; }
-    public ApiLink? LinkItem => Link?.FirstOrDefault();
     public IReadOnlyCollection<ApiLink>? SubLinks { get; init; }
 }

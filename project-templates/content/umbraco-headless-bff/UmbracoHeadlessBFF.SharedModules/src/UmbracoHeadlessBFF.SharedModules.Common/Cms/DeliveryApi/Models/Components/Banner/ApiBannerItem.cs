@@ -3,7 +3,7 @@ using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.Abstra
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.BlockList;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.RichText;
 
-namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components.Standard.Banner;
+namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components.Banner;
 
 public sealed class ApiBannerItem : ApiElement, IApiHeadingWithSubHeading, IApiRteDescription
 {
@@ -12,5 +12,4 @@ public sealed class ApiBannerItem : ApiElement, IApiHeadingWithSubHeading, IApiR
     public string? SubHeading { get; init; }
     public ApiRichTextItem? Description { get; init; }
     public ApiBlockList? BackgroundMedia { get; init; }
-    public IApiElement? BackgroundMediaItem => BackgroundMedia?.Items.FirstOrDefault()?.Content;
 }

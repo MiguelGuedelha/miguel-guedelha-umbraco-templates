@@ -1,0 +1,10 @@
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Components.Abstractions;
+
+namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Components;
+
+internal sealed class SectionHeader : Component
+{
+    public string? Heading { get; init; }
+    public required string HeadingSize { get; init; }
+    public string? SubHeading { get; init; }
+}

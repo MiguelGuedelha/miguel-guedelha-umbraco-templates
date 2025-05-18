@@ -4,7 +4,7 @@ using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.BlockL
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.Links;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.RichText;
 
-namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components.Standard;
+namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components;
 
 public sealed class ApiSpotlight : ApiElement<ApiSpotlightProperties>
 {
@@ -18,7 +18,5 @@ public sealed class ApiSpotlightProperties : IApiJumpMenuConfiguration, IApiHead
     public string HeadingSize { get; init; } = "h2";
     public ApiRichTextItem? Description { get; init; }
     public IReadOnlyCollection<ApiLink>? Cta { get; init; }
-    public ApiLink? CtaItem => Cta?.FirstOrDefault();
     public ApiBlockList? Media { get; init; }
-    public IApiElement? MediaItem => Media?.Items.FirstOrDefault()?.Content;
 }

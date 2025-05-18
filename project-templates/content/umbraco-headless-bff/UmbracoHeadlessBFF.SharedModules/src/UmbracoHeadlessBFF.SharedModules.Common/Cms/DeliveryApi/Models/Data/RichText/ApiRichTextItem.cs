@@ -5,5 +5,5 @@
 /// </summary>
 public sealed class ApiRichTextItem
 {
-    string? Markup { get; init; }
+    public string? Markup { get; init; }
 }

@@ -9,7 +9,6 @@ public interface IApiListingSettingsProperties
     string? ListingTitle { get; init; }
     string? ListingDescription { get; init; }
     ApiBlockList<ApiResponsiveImage>? ListingImage { get; init; }
-    ApiResponsiveImage? ListingImageItem => ListingImage?.Items.FirstOrDefault()?.Content;
 }
 
 public abstract class ApiListingSettingsProperties : IApiListingSettingsProperties

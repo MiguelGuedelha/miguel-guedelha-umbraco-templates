@@ -3,7 +3,7 @@ using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.Abstra
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.Links;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.RichText;
 
-namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components.Standard;
+namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components;
 
 public sealed class ApiRichTextSection : ApiElement<ApiRichTextSectionProperties>
 {
@@ -15,5 +15,4 @@ public sealed class ApiRichTextSectionProperties : IApiJumpMenuConfiguration
     public string? JumpMenuAnchorId { get; init; }
     public ApiRichTextItem? Text { get; init; }
     public IReadOnlyCollection<ApiLink>? Cta { get; init; }
-    public ApiLink? CtaItem => Cta?.FirstOrDefault();
 }

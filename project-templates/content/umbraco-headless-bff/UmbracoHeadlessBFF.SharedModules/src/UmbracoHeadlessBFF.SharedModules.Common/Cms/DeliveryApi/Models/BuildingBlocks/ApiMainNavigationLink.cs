@@ -11,6 +11,5 @@ public sealed class ApiMainNavigationLink : ApiElement<ApiMainNavigationLinkProp
 public sealed class ApiMainNavigationLinkProperties
 {
     public IReadOnlyCollection<ApiLink>? Link { get; init; }
-    public ApiLink? LinkItem => Link?.FirstOrDefault();
     public ApiBlockList<ApiLinkWithSublinks>? SubLinks { get; init; }
 }

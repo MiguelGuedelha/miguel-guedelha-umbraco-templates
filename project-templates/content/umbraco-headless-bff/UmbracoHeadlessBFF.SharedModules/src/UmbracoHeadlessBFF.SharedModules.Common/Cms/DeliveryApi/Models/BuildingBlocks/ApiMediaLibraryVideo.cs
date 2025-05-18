@@ -10,7 +10,5 @@ public sealed class ApiMediaLibraryVideo : ApiElement<ApiMediaLibraryVideoProper
 public sealed class ApiMediaLibraryVideoProperties
 {
     public IReadOnlyCollection<ApiMediaWithCrops>? Video { get; init; }
-    public ApiMediaWithCrops? VideoItem => Video?.FirstOrDefault();
     public IReadOnlyCollection<ApiMediaWithCrops>? PlaceholderImage { get; init; }
-    public ApiMediaWithCrops? PlaceholderImageItem => PlaceholderImage?.FirstOrDefault();
 }

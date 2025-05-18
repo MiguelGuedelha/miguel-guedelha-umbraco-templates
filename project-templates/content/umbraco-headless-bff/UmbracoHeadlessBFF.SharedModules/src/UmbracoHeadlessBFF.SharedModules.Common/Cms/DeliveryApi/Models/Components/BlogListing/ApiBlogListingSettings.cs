@@ -1,7 +1,7 @@
 ﻿using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.Abstractions;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages.Abstractions;
 
-namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components.Blogs.BlogListing;
+namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components.BlogListing;
 
 public sealed class ApiBlogListingSettings : ApiElement<ApiBlogListingSettingsProperties>
 {
@@ -10,5 +10,4 @@ public sealed class ApiBlogListingSettings : ApiElement<ApiBlogListingSettingsPr
 public sealed class ApiBlogListingSettingsProperties
 {
     public IReadOnlyCollection<IApiContent>? ArticlesContainer { get; init; }
-    public IApiContent? ArticlesContainerItem => ArticlesContainer?.FirstOrDefault();
 }
