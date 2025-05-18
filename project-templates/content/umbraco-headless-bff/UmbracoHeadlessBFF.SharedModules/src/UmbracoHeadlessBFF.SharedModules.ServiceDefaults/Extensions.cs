@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using OpenTelemetry;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
+using UmbracoHeadlessBFF.SharedModules.Common.Environment;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.Hosting;

@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-// ReSharper disable once CheckNamespace
-namespace Microsoft.Extensions.Hosting;
+namespace UmbracoHeadlessBFF.SharedModules.Common.ServiceDiscovery;
 
 public static class ServiceDiscoveryExtensions
 {

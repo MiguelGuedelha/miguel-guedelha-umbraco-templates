@@ -5,6 +5,7 @@ using Umbraco.Cms.Core;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Links;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Preview;
 using UmbracoHeadlessBFF.SharedModules.Common.Correlation;
+using UmbracoHeadlessBFF.SharedModules.Common.Environment;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;

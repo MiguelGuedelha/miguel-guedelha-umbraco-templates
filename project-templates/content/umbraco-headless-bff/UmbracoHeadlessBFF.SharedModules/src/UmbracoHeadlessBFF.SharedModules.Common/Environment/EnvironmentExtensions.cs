@@ -1,5 +1,6 @@
-﻿// ReSharper disable once CheckNamespace
-namespace Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.Hosting;
+
+namespace UmbracoHeadlessBFF.SharedModules.Common.Environment;
 
 public static class EnvironmentExtensions
 {
