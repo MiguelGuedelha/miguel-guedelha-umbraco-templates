@@ -95,7 +95,7 @@ public sealed class SiteResolutionContext
 
             if (!exists)
             {
-                throw new SiteApiException(StatusCodes.Status404NotFound, "No site id present");
+                throw new SiteApiException(StatusCodes.Status404NotFound, "No site present");
             }
 
             return site!;

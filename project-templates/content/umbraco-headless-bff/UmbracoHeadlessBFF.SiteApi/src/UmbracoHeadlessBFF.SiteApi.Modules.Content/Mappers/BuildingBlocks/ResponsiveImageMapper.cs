@@ -10,7 +10,7 @@ internal sealed class ResponsiveImageMapper : IMapper<ApiResponsiveImage, Respon
     private static readonly HashSet<string> s_imageTypes = ["png", "webp", "jpg", "jpeg", "avif", "pjepg", "pjp"];
     private static readonly Uri s_basePlaceholderUrl = new("https://example.com");
 
-    public Task<ResponsiveImage> Map(ApiResponsiveImage apiModel)
+    public Task<ResponsiveImage?> Map(ApiResponsiveImage apiModel)
     {
         var altText = apiModel.Properties.AltText;
 
@@ -28,7 +28,7 @@ internal sealed class ResponsiveImageMapper : IMapper<ApiResponsiveImage, Respon
             altText = imageAlt as string;
         }
 
-        return Task.FromResult(new ResponsiveImage
+        return Task.FromResult<ResponsiveImage?>(new()
         {
             MainImage = MapImage(apiModel.Properties.MainImage?.FirstOrDefault()),
             MobileImage = MapImage(apiModel.Properties.MobileImage?.FirstOrDefault()),

@@ -8,7 +8,6 @@ public sealed record SiteDefinition
     public Guid HomepageId { get; init; }
     public required string CultureInfo { get; init; }
     public IReadOnlyCollection<SiteDefinitionDomain> Domains { get; init; } = [];
-    public required string Path { get; init; }
     public required string BasePath { get; init; }
     public Guid NotFoundPageId { get; set; }
     public Guid SearchPageId { get; set; }

@@ -1,8 +1,8 @@
 ﻿namespace UmbracoHeadlessBFF.Cms.Modules.Common.SiteResolution;
 
-public static class SiteResolutionConstants
+internal static class SiteResolutionConstants
 {
-    public static class Endpoints
+    internal static class Endpoints
     {
         public const string Tag = "Site Resolution";
         public const string Group = "sites";

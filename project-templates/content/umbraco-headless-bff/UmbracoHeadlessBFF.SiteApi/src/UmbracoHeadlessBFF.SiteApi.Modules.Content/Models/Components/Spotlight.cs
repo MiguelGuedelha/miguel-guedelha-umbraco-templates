@@ -9,5 +9,5 @@ internal sealed class Spotlight : Component
     public required string HeadingSize { get; init; }
     public string? Description { get; init; }
     public Link? Cta { get; init; }
-    public ResponsiveImage? Media { get; init; }
+    public <GenericMediaType>? Media { get; init; }
 }

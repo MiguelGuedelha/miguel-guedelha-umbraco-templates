@@ -58,14 +58,19 @@ public sealed class SiteResolutionService
             return null;
         }
 
-        var siteDefinition = sites
-            .Select(x => (x.Key, x.Value))
-            .OrderByDescending(x => x.Value.Path)
-            .FirstOrDefault(x => sitePath.ToString().StartsWith(x.Value.Path) && siteHost.Equals(x.Value.Domain));
+        var path = sitePath.ToString();
 
-        if (siteDefinition.Key is not null && siteDefinition.Value is not null)
+        var sitesByLongestPath = sites
+            .SelectMany(x => x.Value.Domains.Select(y => new { x.Key, SiteDefinitionDomain = y }))
+            .OrderByDescending(x => x.SiteDefinitionDomain.Domain);
+
+        var foundSite = sitesByLongestPath.FirstOrDefault(x =>
+            x.SiteDefinitionDomain.Domain.Equals(siteHost, StringComparison.OrdinalIgnoreCase)
+            && path.StartsWith(x.SiteDefinitionDomain.Path, StringComparison.OrdinalIgnoreCase));
+
+        if (foundSite is not null)
         {
-            return siteDefinition;
+            return (foundSite.Key, sites[foundSite.Key]);
         }
 
         return null;

@@ -20,22 +20,9 @@ public static partial class StringExtensions
 
     public static string CombineUri(this string first, params string[] parts)
     {
-        var uri = first;
-
-        if (parts is { Length: 0 })
-        {
-            return uri;
-        }
-
-        uri = parts[0].TrimEnd(s_uriTrimChars);
-
-        for (var i = 1; i < parts.Length; i++)
-        {
-            uri = $"{uri.TrimEnd(s_uriTrimChars)}/{parts[i].TrimStart(s_uriTrimChars)}";
-
-        }
-
-        return uri;
+        return parts is { Length: 0 }
+            ? first
+            : parts.Aggregate(first, (current, t) => $"{current.TrimEnd(s_uriTrimChars)}/{t.TrimStart(s_uriTrimChars)}");
     }
 
 

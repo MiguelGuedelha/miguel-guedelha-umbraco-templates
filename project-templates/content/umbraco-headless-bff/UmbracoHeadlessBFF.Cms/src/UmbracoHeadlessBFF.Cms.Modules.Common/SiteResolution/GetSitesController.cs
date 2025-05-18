@@ -31,13 +31,13 @@ public sealed class GetSitesController : Controller
     [HttpGet("")]
     public Results<Ok<Dictionary<string, SiteDefinition>>, NotFound, ProblemHttpResult> GetSites(bool preview)
     {
-        var context = _umbracoContextFactory.EnsureUmbracoContext().UmbracoContext;
+        using var context = _umbracoContextFactory.EnsureUmbracoContext();
 
-        var publishedContentCache = context.Content;
+        var publishedContentCache = context.UmbracoContext.Content;
 
         if (publishedContentCache is null)
         {
-            return TypedResults.Problem(new()
+            return TypedResults.Problem(new ProblemDetails
             {
                 Title = "Content cache doesn't exist",
                 Status = StatusCodes.Status500InternalServerError,
@@ -47,7 +47,11 @@ public sealed class GetSitesController : Controller
 
         var root = publishedContentCache.GetAtRoot(preview).ToList();
 
-        var homepages = root.SelectMany(x => x.ChildrenForAllCultures).OfType<Home>().Concat(root.OfType<Home>());
+        var homepages = root
+            .OfType<SiteGrouping>()
+            .SelectMany(x => x.ChildrenForAllCultures)
+            .OfType<Home>()
+            .Concat(root.OfType<Home>());
 
         var domainDefinitions = homepages.Select(x => (x, _domainService.GetAssignedDomains(x.Id, false)));
 
@@ -55,29 +59,36 @@ public sealed class GetSitesController : Controller
 
         foreach (var (homepage, domains) in domainDefinitions)
         {
-            foreach (var domain in domains)
+            var domainsPerLanguage = domains.GroupBy(x => x.LanguageIsoCode);
+
+            foreach (var domainGroup in domainsPerLanguage)
             {
-                if (domain.RootContentId is null || domain.LanguageIsoCode is null)
+                var firstDomain = domainGroup.FirstOrDefault();
+
+                if (firstDomain is null || domainGroup.Key is null)
                 {
                     continue;
                 }
 
-                var siteSettings = homepage.Descendant<SiteSettings>(domain.LanguageIsoCode);
-                var dictionary = homepage.Descendant<SiteDictionary>(domain.LanguageIsoCode);
+                if (firstDomain.RootContentId is null || firstDomain.LanguageIsoCode is null)
+                {
+                    continue;
+                }
+
+                var siteSettings = homepage.Descendant<SiteSettings>(firstDomain.LanguageIsoCode);
+                var dictionary = homepage.Descendant<SiteDictionary>(firstDomain.LanguageIsoCode);
+                var homePageSegment = homepage.UrlSegment(firstDomain.LanguageIsoCode);
                 var notFoundPage = siteSettings?.NotFoundPage;
                 var searchPage = siteSettings?.SearchPage;
-                var homePageSegment = homepage.UrlSegment(domain.LanguageIsoCode);
 
-                if (siteSettings is null || dictionary is null || homePageSegment is null || notFoundPage is null || searchPage is null)
+                if (siteSettings is null || dictionary is null || homePageSegment is null || searchPage is null || notFoundPage is null)
                 {
                     continue;
                 }
-
-                var siteUri = new Uri(domain.DomainName.StartsWith("http") ? domain.DomainName : $"https://{domain.DomainName}");
 
                 var rootContent = homepage.Root();
 
-                siteDefinitions.TryAdd($"{homepage.Key}-{domain.LanguageIsoCode}", new()
+                var siteDefinition = new SiteDefinition
                 {
                     RootId = rootContent.Key,
                     SiteSettingsId = siteSettings.Key,
@@ -85,11 +96,18 @@ public sealed class GetSitesController : Controller
                     SearchPageId = searchPage.Key,
                     DictionaryId = dictionary.Key,
                     HomepageId = homepage.Key,
-                    CultureInfo = domain.LanguageIsoCode,
-                    Domain = siteUri.Authority,
-                    Path = siteUri.AbsolutePath,
+                    CultureInfo = domainGroup.Key,
                     BasePath = $"/{homePageSegment}/"
-                });
+                };
+
+                var siteDomains = domainGroup
+                    .Select(domain => new Uri(domain.DomainName.StartsWith("http") ? domain.DomainName : $"https://{domain.DomainName}"))
+                    .Select(siteUri => new SiteDefinitionDomain { Scheme = siteUri.Scheme, Domain = siteUri.Authority, Path = siteUri.AbsolutePath })
+                    .ToList();
+
+                siteDefinition = siteDefinition with { Domains = siteDomains };
+
+                siteDefinitions.Add($"{homepage.Key}-{domainGroup.Key}", siteDefinition);
             }
         }
 

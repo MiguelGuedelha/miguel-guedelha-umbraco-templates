@@ -21,8 +21,9 @@ public static class ContentConfiguration
 
         // Component Mappers
         builder.Services.AddTransient<IComponentMapper, SpotlightMapper>();
+        builder.Services.AddTransient<IComponentMapper, NullComponentMapper>();
 
-        //Page Mappers
+        // Page Mappers
     }
 
     public static void MapContentEndpoints(this RouteGroupBuilder apiVersionGroup)

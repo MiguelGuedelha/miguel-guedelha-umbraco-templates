@@ -24,7 +24,7 @@ internal sealed class SpotlightMapper : IComponentMapper
         return type == DeliveryApiConstants.ElementTypes.ApiSpotlight;
     }
 
-    public async Task<IComponent> Map(IApiElement model)
+    public async Task<IComponent?> Map(IApiElement model)
     {
         var apiModel = model.ToOrThrow<ApiSpotlight>();
 

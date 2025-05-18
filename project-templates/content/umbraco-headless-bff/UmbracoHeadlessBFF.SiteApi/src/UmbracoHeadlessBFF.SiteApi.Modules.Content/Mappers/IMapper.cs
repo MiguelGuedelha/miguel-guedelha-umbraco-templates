@@ -5,7 +5,7 @@ namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers;
 
 internal interface IMapper<in TIn, TOut>
 {
-    Task<TOut> Map(TIn model);
+    Task<TOut?> Map(TIn model);
 }
 
 internal interface IComponentMapper : IMapper<IApiElement, IComponent>

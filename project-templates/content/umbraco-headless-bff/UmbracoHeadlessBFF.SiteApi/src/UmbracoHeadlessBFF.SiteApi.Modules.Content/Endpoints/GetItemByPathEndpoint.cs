@@ -3,8 +3,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Layouts;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages.Abstractions;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Endpoints;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Endpoints;
 
@@ -19,13 +22,33 @@ public static class GetItemByPathEndpoint
         return builder;
     }
 
-    private static async Task<Results<Ok<IApiContent>, NotFound, UnauthorizedHttpResult>> GetContentHandler(string id, [FromServices] ContentService contentService)
+    private static async Task<Results<Ok<IApiContent>, NotFound, UnauthorizedHttpResult>> GetContentHandler(string id,
+        [FromServices] ContentService contentService,
+        [FromServices] IEnumerable<IComponentMapper> mappers)
     {
         var content = id switch
         {
             _ when Guid.TryParse(id, out var parsedId) => await contentService.GetContentById(parsedId),
             _ => await contentService.GetContentByPath(id)
         };
+
+        var home = content as ApiHome;
+
+        var components = home?.Properties.MainContent.Items
+            .SelectMany(x => x.Areas)
+            .SelectMany(x => x.Items)
+            .Select(x =>
+            {
+                var mapper = mappers.First(mapper => mapper.CanMap(x.Content.ContentType));
+                return mapper.Map(x.Content);
+            }).ToList() ?? [];
+
+        await Task.WhenAll(components);
+
+        var mapped = components
+            .Select(x => x.Result)
+            .Where(x => x is not null)
+            .ToList();
 
         return TypedResults.Ok(content);
     }

@@ -5,6 +5,7 @@ using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Clients;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Clients.Handlers;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Converters;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.Handlers;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.Links.Clients;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.Options;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.Preview.Clients;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.SiteResolution.Clients;
@@ -46,6 +47,15 @@ public static class CmsConfiguration
             .ConfigureHttpClient(c =>
             {
                 c.BaseAddress = new("https://Cms/api/v1.0/sites");
+            })
+            .AddHttpMessageHandler<CmsApiKeyHeaderHandler>()
+            .AddHeaderPropagation();
+
+        // Links
+        builder.Services.AddRefitClient<ILinksApi>()
+            .ConfigureHttpClient(c =>
+            {
+                c.BaseAddress = new("https://Cms/api/v1.0/links");
             })
             .AddHttpMessageHandler<CmsApiKeyHeaderHandler>()
             .AddHeaderPropagation();

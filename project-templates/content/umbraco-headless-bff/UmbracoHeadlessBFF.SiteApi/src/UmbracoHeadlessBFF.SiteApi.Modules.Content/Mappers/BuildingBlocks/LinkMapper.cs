@@ -20,18 +20,23 @@ internal sealed partial class LinkMapper : IMapper<ApiLink, Link>
         _linkService = linkService;
     }
 
-    public async Task<Link> Map(ApiLink apiModel)
+    public async Task<Link?> Map(ApiLink apiModel)
     {
         UriBuilder uriBuilder;
 
         switch (apiModel.LinkType)
         {
             case ApiLinkType.Content:
-                var link = await _linkService.ResolveLink(apiModel.DestinationId!.Value, _siteResolutionContext.Site.CultureInfo);
+                var link = await _linkService.ResolveLink(apiModel.DestinationId!.Value);
+
+                if (link is null)
+                {
+                    return null;
+                }
 
                 if (_siteResolutionContext.Site.Domains.First().Domain == link.Authority)
                 {
-                    return new Link
+                    return new()
                     {
                         Href = link.Path,
                         Title = apiModel.Title,
@@ -41,7 +46,7 @@ internal sealed partial class LinkMapper : IMapper<ApiLink, Link>
 
                 var hostPortSplit = link.Authority.Split(":");
 
-                uriBuilder = new UriBuilder(hostPortSplit[0])
+                uriBuilder = new(hostPortSplit[0])
                 {
                     Path = link.Path,
                     Port = hostPortSplit.Length > 1 ? int.Parse(hostPortSplit[1]) : -1
@@ -55,7 +60,7 @@ internal sealed partial class LinkMapper : IMapper<ApiLink, Link>
             {
                 if (apiModel.Url?.StartsWith("tel:") is true || apiModel.Url?.StartsWith("mailto:") is true)
                 {
-                    return new Link
+                    return new()
                     {
                         Target = null,
                         Href = apiModel.Url,
@@ -63,7 +68,7 @@ internal sealed partial class LinkMapper : IMapper<ApiLink, Link>
                     };
                 }
 
-                uriBuilder = new UriBuilder(apiModel.Url!);
+                uriBuilder = new(apiModel.Url!);
                 break;
             }
         }
@@ -71,7 +76,7 @@ internal sealed partial class LinkMapper : IMapper<ApiLink, Link>
         uriBuilder.Query = apiModel.QueryString ?? uriBuilder.Query;
         uriBuilder.Scheme = "https";
 
-        return new Link
+        return new()
         {
             Target = apiModel.Target,
             Href = uriBuilder.Uri.ToString(),
