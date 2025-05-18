@@ -61,14 +61,14 @@ public sealed class SiteResolutionService
         var path = sitePath.ToString();
 
         var sitesByLongestPath = sites
-            .SelectMany(x => x.Value.Domains.Select(y => new { x.Key, SiteDefinitionDomain = y }))
+            .SelectMany(x => x.Value.Domains.Select(y => (x.Key, SiteDefinitionDomain: y )))
             .OrderByDescending(x => x.SiteDefinitionDomain.Domain);
 
         var foundSite = sitesByLongestPath.FirstOrDefault(x =>
             x.SiteDefinitionDomain.Domain.Equals(siteHost, StringComparison.OrdinalIgnoreCase)
             && path.StartsWith(x.SiteDefinitionDomain.Path, StringComparison.OrdinalIgnoreCase));
 
-        if (foundSite is not null)
+        if (foundSite is { Key: not null, SiteDefinitionDomain: not null })
         {
             return (foundSite.Key, sites[foundSite.Key]);
         }

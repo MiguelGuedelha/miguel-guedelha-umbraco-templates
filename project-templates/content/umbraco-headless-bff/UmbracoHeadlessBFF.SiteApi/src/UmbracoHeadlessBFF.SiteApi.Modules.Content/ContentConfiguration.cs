@@ -2,10 +2,18 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.BuildingBlocks;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.Abstractions;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.Links;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.OEmbed;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Media;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Endpoints;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.BuildingBlocks;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.BuildingBlocks.MediaBlock;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Components;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks.Abstractions;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content;
 
@@ -13,15 +21,26 @@ public static class ContentConfiguration
 {
     public static void AddContent(this WebApplicationBuilder builder)
     {
-        builder.Services.AddTransient<ContentService>();
+        var services = builder.Services;
+
+        services.AddTransient<ContentService>();
 
         // Building Block Mappers
-        builder.Services.AddTransient<LinkMapper>();
-        builder.Services.AddTransient<ResponsiveImageMapper>();
+        services
+            .AddTransient<IMapper<ApiLink, Link>, LinkMapper>()
+            .AddTransient<IMapper<ApiMediaWithCrops, Image>, ImageMapper>()
+            .AddTransient<IMapper<ApiMediaWithCrops, Video>, VideoMapper>()
+            .AddTransient<IMapper<ApiOEmbedItem, EmbedItem>, EmbedItemMapper>()
+            .AddTransient<IMapper<IApiElement, IMediaBlock>, MediaBlockMapper>()
+            .AddTransient<IMapper<ApiEmbedVideo, EmbedVideo>, EmbedVideoMapper>()
+            .AddTransient<IMapper<ApiMediaLibraryVideo, MediaLibraryVideo>, MediaLibraryVideoMapper>()
+            .AddTransient<IMapper<ApiResponsiveImage, ResponsiveImage>, ResponsiveImageMapper>();
+
 
         // Component Mappers
-        builder.Services.AddTransient<IComponentMapper, SpotlightMapper>();
-        builder.Services.AddTransient<IComponentMapper, NullComponentMapper>();
+        services
+            .AddTransient<IComponentMapper, SpotlightMapper>()
+            .AddTransient<IComponentMapper, NullComponentMapper>();
 
         // Page Mappers
     }
