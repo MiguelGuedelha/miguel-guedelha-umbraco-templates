@@ -9,19 +9,19 @@ using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Pages.Shared;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Pages;
 
-internal sealed class HomeMapper : BasePageMapper, IPageMapper
+internal sealed class StandardContentMapper : BasePageMapper, IPageMapper
 {
-    public HomeMapper(ISeoMapper seoMapper, SiteResolutionContext siteResolutionContext,
+    public StandardContentMapper(ISeoMapper seoMapper, SiteResolutionContext siteResolutionContext,
         SiteResolutionService siteResolutionService, IEnumerable<ILayoutMapper> layoutMappers)
         : base(seoMapper, siteResolutionContext, siteResolutionService, layoutMappers)
     {
     }
 
-    public bool CanMap(string type) => type == DeliveryApiConstants.ContentTypes.ApiHome;
+    public bool CanMap(string type) => type == DeliveryApiConstants.ContentTypes.ApiStandardContentPage;
 
     public async Task<IPage?> Map(IApiContent model)
     {
-        if (model is not ApiHome apiModel)
+        if (model is not ApiStandardContentPage apiModel)
         {
             return null;
         }

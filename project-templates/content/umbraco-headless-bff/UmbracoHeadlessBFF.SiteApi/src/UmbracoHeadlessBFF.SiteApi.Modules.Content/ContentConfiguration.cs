@@ -60,7 +60,8 @@ public static class ContentConfiguration
 
         // Page Mappers
         services
-            .AddTransient<IPageMapper, HomeMapper>();
+            .AddTransient<IPageMapper, HomeMapper>()
+            .AddTransient<IPageMapper, SiteSearchMapper>();
 
         services.AddTransient<IPageMapper, FallbackPageMapper>();
     }
@@ -78,6 +79,6 @@ public static class ContentConfiguration
         apiVersionGroup
             .MapGroup("/content")
             .WithTags("Content")
-            .MapGetContent();
+            .MapGetPage();
     }
 }

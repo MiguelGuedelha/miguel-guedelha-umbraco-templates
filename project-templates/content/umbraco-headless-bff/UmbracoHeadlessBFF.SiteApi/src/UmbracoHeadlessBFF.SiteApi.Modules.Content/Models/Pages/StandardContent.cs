@@ -2,6 +2,6 @@
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Pages;
 
-internal sealed class FallbackPage : Page<NoAdditionalProperties>
+internal sealed class StandardContent : Page<EmptyAdditionalProperties>
 {
 }

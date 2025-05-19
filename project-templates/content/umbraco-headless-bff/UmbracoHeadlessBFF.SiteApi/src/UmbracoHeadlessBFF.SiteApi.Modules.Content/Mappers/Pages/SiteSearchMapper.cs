@@ -9,32 +9,27 @@ using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Pages.Shared;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Pages;
 
-internal sealed class HomeMapper : BasePageMapper, IPageMapper
+internal sealed class SiteSearchMapper : BasePageMapper, IPageMapper
 {
-    public HomeMapper(ISeoMapper seoMapper, SiteResolutionContext siteResolutionContext,
+    public SiteSearchMapper(ISeoMapper seoMapper, SiteResolutionContext siteResolutionContext,
         SiteResolutionService siteResolutionService, IEnumerable<ILayoutMapper> layoutMappers)
         : base(seoMapper, siteResolutionContext, siteResolutionService, layoutMappers)
     {
     }
 
-    public bool CanMap(string type) => type == DeliveryApiConstants.ContentTypes.ApiHome;
+    public bool CanMap(string type) => type == DeliveryApiConstants.ContentTypes.ApiSiteSearch;
 
     public async Task<IPage?> Map(IApiContent model)
     {
-        if (model is not ApiHome apiModel)
+        if (model is not ApiSiteSearch apiModel)
         {
             return null;
         }
 
-        return new Home
+        return new SiteSearch
         {
-            Id = model.Id,
-            ContentType = model.ContentType,
-            Content = new()
-            {
-                MainContent = await MapMainContent(apiModel),
-                AdditionalProperties = new()
-            },
+            Id = apiModel.Id,
+            ContentType = apiModel.ContentType,
             Context = await MapPageContext(apiModel)
         };
     }
