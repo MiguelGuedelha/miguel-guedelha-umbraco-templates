@@ -1,4 +1,6 @@
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks.Abstractions;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks.Media;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Components.Abstractions;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Components;
@@ -14,5 +16,5 @@ internal sealed class BannerItem
     public required string HeadingSize { get; init; }
     public string? SubHeading { get; init; }
     public string? Description { get; init; }
-    public ResponsiveImage? BackgroundMedia { get; init; }
+    public IMediaBlock? BackgroundMedia { get; init; }
 }

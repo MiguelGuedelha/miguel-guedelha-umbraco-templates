@@ -9,11 +9,5 @@ internal sealed class Gallery : Component
     public required string HeadingSize { get; init; }
     public string? SubHeading { get; init; }
     public IReadOnlyCollection<Card>? Items { get; init; }
-    public required GallerySettings Settings { get; init; }
-
-}
-
-internal sealed class GallerySettings
-{
     public required int CardsPerRow { get; init; }
 }

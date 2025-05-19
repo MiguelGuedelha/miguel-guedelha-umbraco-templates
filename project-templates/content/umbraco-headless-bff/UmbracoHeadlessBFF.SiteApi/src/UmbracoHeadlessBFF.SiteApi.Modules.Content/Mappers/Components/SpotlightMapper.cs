@@ -2,6 +2,7 @@ using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.Abstractions;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.Links;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Abstractions;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks.Abstractions;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Components;
@@ -20,14 +21,14 @@ internal sealed class SpotlightMapper : IComponentMapper
         _mediaBlockMapper = mediaBlockMapper;
     }
 
-    public bool CanMap(string type)
-    {
-        return type == DeliveryApiConstants.ElementTypes.ApiSpotlight;
-    }
+    public bool CanMap(string type) => type == DeliveryApiConstants.ElementTypes.ApiSpotlight;
 
-    public async Task<IComponent?> Map(IApiElement model)
+    public async Task<IComponent?> Map(IApiElement model, IApiElement? settings)
     {
-        var apiModel = model.ToOrThrow<ApiSpotlight>();
+        if (model is not ApiSpotlight apiModel)
+        {
+            return null;
+        }
 
         var media = apiModel.Properties.Media?.Items
             .Select(x => x.Content)

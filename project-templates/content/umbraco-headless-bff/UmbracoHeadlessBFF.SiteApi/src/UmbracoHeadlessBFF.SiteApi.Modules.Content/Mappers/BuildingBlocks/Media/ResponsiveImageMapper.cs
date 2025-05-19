@@ -1,8 +1,9 @@
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.BuildingBlocks;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Media;
-using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Abstractions;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks.Media;
 
-namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.BuildingBlocks.MediaBlock;
+namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.BuildingBlocks.Media;
 
 internal sealed class ResponsiveImageMapper : IMapper<ApiResponsiveImage, ResponsiveImage>
 {

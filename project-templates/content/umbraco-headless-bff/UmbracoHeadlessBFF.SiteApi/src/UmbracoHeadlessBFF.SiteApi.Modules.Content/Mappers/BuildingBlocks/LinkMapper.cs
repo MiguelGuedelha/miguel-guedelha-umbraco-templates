@@ -1,7 +1,10 @@
 using System.Text.RegularExpressions;
+using Microsoft.Extensions.Options;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.Links;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.Links;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
+using UmbracoHeadlessBFF.SiteApi.Modules.Common.Urls;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Abstractions;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.BuildingBlocks;
@@ -10,15 +13,17 @@ internal sealed partial class LinkMapper : IMapper<ApiLink, Link>
 {
     private readonly SiteResolutionContext _siteResolutionContext;
     private readonly LinkService _linkService;
+    private readonly ApplicationUrlOptions _applicationUrlOptions;
 
-    [GeneratedRegex(@"^https?://([a-zA-Z0-9-\.]+):?(\d+)?$")]
-    public static partial Regex BaseAddressRegex();
-
-    public LinkMapper(SiteResolutionContext siteResolutionContext, LinkService linkService)
+    public LinkMapper(SiteResolutionContext siteResolutionContext, LinkService linkService, IOptionsMonitor<ApplicationUrlOptions> applicationUrlOptions)
     {
         _siteResolutionContext = siteResolutionContext;
         _linkService = linkService;
+        _applicationUrlOptions = applicationUrlOptions.CurrentValue;
     }
+
+    [GeneratedRegex(@"^https?://([a-zA-Z0-9-\.]+):?(\d+)?$")]
+    public static partial Regex DomainRegex();
 
     public async Task<Link?> Map(ApiLink apiModel)
     {
@@ -55,9 +60,24 @@ internal sealed partial class LinkMapper : IMapper<ApiLink, Link>
                 break;
 
             case ApiLinkType.Media:
+                var match = DomainRegex().Match(_applicationUrlOptions.Media);
+
+                if (!match.Success || match.Groups.Count < 2)
+                {
+                    return null;
+                }
+
+                uriBuilder = new() { Host = match.Groups[1].Value };
+
+                if (match.Groups.Count == 3 && int.TryParse(match.Groups[2].Value, out var port))
+                {
+                    uriBuilder.Port = port;
+                    uriBuilder.Path = apiModel.Url;
+                }
+
+                break;
             case ApiLinkType.External:
             default:
-            {
                 if (apiModel.Url?.StartsWith("tel:") is true || apiModel.Url?.StartsWith("mailto:") is true)
                 {
                     return new()
@@ -70,7 +90,6 @@ internal sealed partial class LinkMapper : IMapper<ApiLink, Link>
 
                 uriBuilder = new(apiModel.Url!);
                 break;
-            }
         }
 
         uriBuilder.Query = apiModel.QueryString ?? uriBuilder.Query;

@@ -1,4 +1,4 @@
-namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks;
+namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks.Media;
 
 internal sealed class Image
 {

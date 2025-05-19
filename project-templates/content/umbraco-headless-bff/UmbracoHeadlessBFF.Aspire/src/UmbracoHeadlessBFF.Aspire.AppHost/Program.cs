@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using UmbracoHeadlessBFF.SharedModules.Common.Caching;
+using UmbracoHeadlessBFF.SharedModules.Common.Environment;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
@@ -92,6 +93,7 @@ var siteApi = builder.AddProject<Projects.GeneratedClassNamePrefix_SiteApi_Web>(
     .WithReference(cache)
     .WithReference(cms)
     .WithEnvironment("services__Cms__Parameters__DeliveryApiKey", cmsDeliveryApiKey)
+    .WithEnvironment("ApplicationUrls__Media", () => cms.Resource.GetEndpoint("https").Url)
     .WaitFor(cache)
     .WaitFor(cms);
 
