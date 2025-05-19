@@ -3,20 +3,15 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.BuildingBlocks;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.Abstractions;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.Links;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.OEmbed;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Media;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Converters;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Endpoints;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Abstractions;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.BuildingBlocks;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.BuildingBlocks.Media;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Components;
-using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks;
-using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks.Abstractions;
-using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks.Media;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Layouts;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Pages;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Pages.Shared;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content;
 
@@ -30,16 +25,15 @@ public static class ContentConfiguration
 
         // Building Block Mappers
         services
-            .AddTransient<IMapper<ApiLink, Link>, LinkMapper>()
-            .AddTransient<IMapper<IEnumerable<ApiCard>, IReadOnlyCollection<Card>>, CardMapper>()
-            .AddTransient<IMapper<ApiMediaWithCrops, Image>, ImageMapper>()
-            .AddTransient<IMapper<ApiMediaWithCrops, Video>, VideoMapper>()
-            .AddTransient<IMapper<ApiOEmbedItem, EmbedItem>, EmbedItemMapper>()
-            .AddTransient<IMapper<IApiElement, IMediaBlock>, MediaBlockMapper>()
-            .AddTransient<IMapper<ApiEmbedVideo, EmbedVideo>, EmbedVideoMapper>()
-            .AddTransient<IMapper<ApiMediaLibraryVideo, MediaLibraryVideo>, MediaLibraryVideoMapper>()
-            .AddTransient<IMapper<ApiResponsiveImage, ResponsiveImage>, ResponsiveImageMapper>();
-
+            .AddTransient<ILinkMapper, LinkMapper>()
+            .AddTransient<ICardMapper, CardMapper>()
+            .AddTransient<IImageMapper, ImageMapper>()
+            .AddTransient<IVideoMapper, VideoMapper>()
+            .AddTransient<IEmbedItemMapper, EmbedItemMapper>()
+            .AddTransient<IMediaBlockMapper, MediaBlockMapper>()
+            .AddTransient<IEmbedVideoMapper, EmbedVideoMapper>()
+            .AddTransient<IMediaLibraryVideoMapper, MediaLibraryVideoMapper>()
+            .AddTransient<IResponsiveImageMapper, ResponsiveImageMapper>();
 
         // Component Mappers
         services
@@ -53,13 +47,30 @@ public static class ContentConfiguration
 
         services.AddTransient<IComponentMapper, FallbackComponentMapper>();
 
+        // LayoutMappers
+        services
+            .AddTransient<ILayoutMapper, OneColumnMapper>();
+
+        services.AddTransient<ILayoutMapper, FallbackLayoutMapper>();
+
+
+        // Page related mappers
+        services
+            .AddTransient<ISeoMapper, SeoMapper>();
+
         // Page Mappers
+        services
+            .AddTransient<IPageMapper, HomeMapper>();
+
+        services.AddTransient<IPageMapper, FallbackPageMapper>();
     }
 
     public static void AddContentConverters(this IList<JsonConverter> convertersList)
     {
         convertersList.Add(new ComponentConverter());
         convertersList.Add(new MediaBlockConverter());
+        convertersList.Add(new LayoutConverter());
+        convertersList.Add(new PageConverter());
     }
 
     public static void MapContentEndpoints(this RouteGroupBuilder apiVersionGroup)

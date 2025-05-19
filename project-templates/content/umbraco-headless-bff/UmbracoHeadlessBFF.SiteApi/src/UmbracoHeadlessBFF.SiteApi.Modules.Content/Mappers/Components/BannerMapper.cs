@@ -2,7 +2,7 @@
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components.Banner;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.Abstractions;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Abstractions;
-using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks.Abstractions;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.BuildingBlocks.Media;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Components;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Components.Abstractions;
 
@@ -10,9 +10,9 @@ namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Components;
 
 internal sealed class BannerMapper : IComponentMapper
 {
-    private readonly IMapper<IApiElement, IMediaBlock> _mediaBlockMapper;
+    private readonly IMediaBlockMapper _mediaBlockMapper;
 
-    public BannerMapper(IMapper<IApiElement, IMediaBlock> mediaBlockMapper)
+    public BannerMapper(IMediaBlockMapper mediaBlockMapper)
     {
         _mediaBlockMapper = mediaBlockMapper;
     }
@@ -48,10 +48,10 @@ internal sealed class BannerMapper : IComponentMapper
                 Description = x.Properties.Description?.Markup,
                 BackgroundMedia = media is not null ? await _mediaBlockMapper.Map(media) : null
             };
-        }).ToList();
+        }).ToArray();
 
         await Task.WhenAll(mapTasks);
 
-        return mapTasks.Select(x => x.Result).ToList();
+        return mapTasks.Select(x => x.Result).ToArray();
     }
 }

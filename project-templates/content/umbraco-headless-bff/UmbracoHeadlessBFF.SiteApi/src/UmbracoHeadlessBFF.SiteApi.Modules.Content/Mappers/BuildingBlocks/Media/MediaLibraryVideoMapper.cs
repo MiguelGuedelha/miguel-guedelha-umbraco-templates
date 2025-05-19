@@ -1,17 +1,19 @@
 ﻿using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.BuildingBlocks;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Media;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Abstractions;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks.Media;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.BuildingBlocks.Media;
 
-internal sealed class MediaLibraryVideoMapper : IMapper<ApiMediaLibraryVideo, MediaLibraryVideo>
+internal interface IMediaLibraryVideoMapper : IMapper<ApiMediaLibraryVideo, MediaLibraryVideo>
 {
-    private readonly IMapper<ApiMediaWithCrops, Image> _imageMapper;
-    private readonly IMapper<ApiMediaWithCrops, Video> _videoMapper;
+}
 
-    public MediaLibraryVideoMapper(IMapper<ApiMediaWithCrops, Image> imageMapper,
-        IMapper<ApiMediaWithCrops, Video> videoMapper)
+internal sealed class MediaLibraryVideoMapper : IMediaLibraryVideoMapper
+{
+    private readonly IImageMapper _imageMapper;
+    private readonly IVideoMapper _videoMapper;
+
+    public MediaLibraryVideoMapper(IImageMapper imageMapper, IVideoMapper videoMapper)
     {
         _imageMapper = imageMapper;
         _videoMapper = videoMapper;

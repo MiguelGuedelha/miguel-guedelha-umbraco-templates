@@ -7,7 +7,11 @@ using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks.Media;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.BuildingBlocks.Media;
 
-internal sealed class ImageMapper : IMapper<ApiMediaWithCrops, Image>
+internal interface IImageMapper : IMapper<ApiMediaWithCrops, Image>
+{
+}
+
+internal sealed class ImageMapper : IImageMapper
 {
     private static readonly HashSet<string> s_imageTypes = ["png", "webp", "jpg", "jpeg", "avif", "pjepg", "pjp"];
 

@@ -9,7 +9,11 @@ using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.BuildingBlocks;
 
-internal sealed partial class LinkMapper : IMapper<ApiLink, Link>
+internal interface ILinkMapper : IMapper<ApiLink, Link>
+{
+}
+
+internal sealed partial class LinkMapper : ILinkMapper
 {
     private readonly SiteResolutionContext _siteResolutionContext;
     private readonly LinkService _linkService;

@@ -58,7 +58,8 @@ public sealed class SiteResolutionContext
                 throw new SiteApiException(StatusCodes.Status404NotFound, "No http context found");
             }
 
-            var exists = context.TryGetContextItem<string>(SiteResolutionConstants.TenancyItems.SiteId, out var siteId);
+            var exists = context.TryGetContextItem<string>(SiteResolutionConstants.TenancyItems.SiteId,
+                out var siteId);
 
             if (!exists)
             {
@@ -91,7 +92,8 @@ public sealed class SiteResolutionContext
                 throw new SiteApiException(StatusCodes.Status404NotFound, "No http context found");
             }
 
-            var exists = context.TryGetContextItem<SiteDefinition>(SiteResolutionConstants.TenancyItems.Site, out var site);
+            var exists = context.TryGetContextItem<SiteDefinition>(SiteResolutionConstants.TenancyItems.Site,
+                out var site);
 
             if (!exists)
             {
@@ -110,6 +112,41 @@ public sealed class SiteResolutionContext
             }
 
             context.TryAddContextItem(SiteResolutionConstants.TenancyItems.Site, value);
+        }
+    }
+
+    public IReadOnlyCollection<SiteDefinition> AlternateSites
+    {
+        get
+        {
+            var context = _httpContextAccessor.HttpContext;
+
+            if (context is null)
+            {
+                throw new SiteApiException(StatusCodes.Status404NotFound, "No http context found");
+            }
+
+            var exists = context.TryGetContextItem<IReadOnlyCollection<SiteDefinition>>(
+                SiteResolutionConstants.TenancyItems.AlternateSites,
+                out var alternateSites);
+
+            if (!exists)
+            {
+                throw new SiteApiException(StatusCodes.Status404NotFound, "No alternate sites present");
+            }
+
+            return alternateSites!;
+        }
+        set
+        {
+            var context = _httpContextAccessor.HttpContext;
+
+            if (context is null)
+            {
+                throw new SiteApiException(StatusCodes.Status404NotFound, "No http context found");
+            }
+
+            context.TryAddContextItem(SiteResolutionConstants.TenancyItems.AlternateSites, value);
         }
     }
 }

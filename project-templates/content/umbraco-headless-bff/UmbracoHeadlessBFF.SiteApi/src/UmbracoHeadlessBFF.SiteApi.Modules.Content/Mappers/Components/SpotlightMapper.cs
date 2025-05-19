@@ -1,10 +1,9 @@
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.Abstractions;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.Links;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Abstractions;
-using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks;
-using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks.Abstractions;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.BuildingBlocks;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.BuildingBlocks.Media;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Components;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Components.Abstractions;
 
@@ -12,10 +11,10 @@ namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Components;
 
 internal sealed class SpotlightMapper : IComponentMapper
 {
-    private readonly IMapper<ApiLink, Link> _linkMapper;
-    private readonly IMapper<IApiElement, IMediaBlock> _mediaBlockMapper;
+    private readonly ILinkMapper _linkMapper;
+    private readonly IMediaBlockMapper _mediaBlockMapper;
 
-    public SpotlightMapper(IMapper<ApiLink, Link> linkMapper, IMapper<IApiElement, IMediaBlock> mediaBlockMapper)
+    public SpotlightMapper(ILinkMapper linkMapper, IMediaBlockMapper mediaBlockMapper)
     {
         _linkMapper = linkMapper;
         _mediaBlockMapper = mediaBlockMapper;

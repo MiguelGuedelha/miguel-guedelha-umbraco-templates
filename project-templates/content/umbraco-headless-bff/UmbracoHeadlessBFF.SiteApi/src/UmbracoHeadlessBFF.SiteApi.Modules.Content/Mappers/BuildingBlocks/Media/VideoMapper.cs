@@ -6,7 +6,11 @@ using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks.Media;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.BuildingBlocks.Media;
 
-internal sealed class VideoMapper : IMapper<ApiMediaWithCrops, Video>
+internal interface IVideoMapper : IMapper<ApiMediaWithCrops, Video>
+{
+}
+
+internal sealed class VideoMapper : IVideoMapper
 {
     private readonly ApplicationUrlOptions _applicationUrlOptions;
 

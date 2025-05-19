@@ -1,6 +1,10 @@
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Pages.Abstractions;
 
-internal interface IPage<T>
+internal interface IPage
+{
+}
+
+internal interface IPage<T> : IPage
     where T : IAdditionalProperties
 {
     PageContext Context { get; init; }

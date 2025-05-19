@@ -4,7 +4,11 @@ using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks.Media;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.BuildingBlocks.Media;
 
-internal sealed class EmbedItemMapper : IMapper<ApiOEmbedItem, EmbedItem>
+internal interface IEmbedItemMapper : IMapper<ApiOEmbedItem, EmbedItem>
+{
+}
+
+internal sealed class EmbedItemMapper : IEmbedItemMapper
 {
     public Task<EmbedItem?> Map(ApiOEmbedItem model)
     {

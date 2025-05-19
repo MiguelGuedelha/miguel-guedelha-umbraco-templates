@@ -1,9 +1,8 @@
 ﻿using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.BuildingBlocks;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.Abstractions;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Abstractions;
-using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.BuildingBlocks;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Components;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Components.Abstractions;
 
@@ -11,11 +10,11 @@ namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Components;
 
 internal sealed class CarouselMapper : IComponentMapper
 {
-    private readonly IMapper<IEnumerable<ApiCard>, IReadOnlyCollection<Card>> _cardsMapper;
+    private readonly ICardMapper _cardMapper;
 
-    public CarouselMapper(IMapper<IEnumerable<ApiCard>, IReadOnlyCollection<Card>> cardsMapper)
+    public CarouselMapper(ICardMapper cardMapper)
     {
-        _cardsMapper = cardsMapper;
+        _cardMapper = cardMapper;
     }
 
     public bool CanMap(string type) => type == DeliveryApiConstants.ElementTypes.ApiCarousel;
@@ -34,7 +33,7 @@ internal sealed class CarouselMapper : IComponentMapper
             Heading = apiModel.Properties.Heading,
             HeadingSize = apiModel.Properties.HeadingSize,
             SubHeading = apiModel.Properties.SubHeading,
-            Cards = await _cardsMapper.Map(apiModel.Properties.Cards?.Items.Select(x => x.Content) ?? [])
+            Cards = await _cardMapper.Map(apiModel.Properties.Cards?.Items.Select(x => x.Content) ?? [])
         };
     }
 }

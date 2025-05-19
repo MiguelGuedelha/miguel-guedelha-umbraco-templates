@@ -2,19 +2,21 @@
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.Abstractions;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Abstractions;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks.Abstractions;
-using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks.Media;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.BuildingBlocks.Media;
 
-internal sealed class MediaBlockMapper : IMapper<IApiElement, IMediaBlock>
+internal interface IMediaBlockMapper : IMapper<IApiElement, IMediaBlock>
 {
-    private readonly IMapper<ApiEmbedVideo, EmbedVideo> _embedVideoMapper;
-    private readonly IMapper<ApiResponsiveImage, ResponsiveImage> _responsiveImageMapper;
-    private readonly IMapper<ApiMediaLibraryVideo, MediaLibraryVideo> _mediaLibraryVideoMapper;
+}
 
-    public MediaBlockMapper(IMapper<ApiEmbedVideo, EmbedVideo> embedVideoMapper,
-        IMapper<ApiResponsiveImage, ResponsiveImage> responsiveImageMapper,
-        IMapper<ApiMediaLibraryVideo, MediaLibraryVideo> mediaLibraryVideoMapper)
+internal sealed class MediaBlockMapper : IMediaBlockMapper
+{
+    private readonly IEmbedVideoMapper _embedVideoMapper;
+    private readonly IResponsiveImageMapper _responsiveImageMapper;
+    private readonly IMediaLibraryVideoMapper _mediaLibraryVideoMapper;
+
+    public MediaBlockMapper(IEmbedVideoMapper embedVideoMapper,
+        IResponsiveImageMapper responsiveImageMapper, IMediaLibraryVideoMapper mediaLibraryVideoMapper)
     {
         _embedVideoMapper = embedVideoMapper;
         _responsiveImageMapper = responsiveImageMapper;

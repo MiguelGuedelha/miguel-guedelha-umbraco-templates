@@ -1,9 +1,8 @@
 ﻿using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.Abstractions;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.Links;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Abstractions;
-using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.BuildingBlocks;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Components;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Components.Abstractions;
 
@@ -11,9 +10,9 @@ namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Components;
 
 internal sealed class RichTextSectionMapper : IComponentMapper
 {
-    private readonly IMapper<ApiLink, Link> _linkMapper;
+    private readonly ILinkMapper _linkMapper;
 
-    public RichTextSectionMapper(IMapper<ApiLink, Link> linkMapper)
+    public RichTextSectionMapper(ILinkMapper linkMapper)
     {
         _linkMapper = linkMapper;
     }

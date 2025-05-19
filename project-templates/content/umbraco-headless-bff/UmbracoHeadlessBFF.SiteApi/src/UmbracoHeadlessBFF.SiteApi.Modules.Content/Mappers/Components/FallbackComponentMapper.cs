@@ -7,14 +7,11 @@ namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Components;
 
 internal sealed class FallbackComponentMapper : IComponentMapper
 {
-    public bool CanMap(string type)
-    {
-        return true;
-    }
+    public bool CanMap(string type) => true;
 
     public Task<IComponent?> Map(IApiElement model, IApiElement? settings)
     {
-        return Task.FromResult<IComponent?>(new Fallback
+        return Task.FromResult<IComponent?>(new FallbackComponent
         {
             Id = model.Id,
             ContentType = model.ContentType,

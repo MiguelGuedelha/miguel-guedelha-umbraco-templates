@@ -2,6 +2,7 @@
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.SiteResolution.Clients;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.SiteResolution.Contracts;
 using UmbracoHeadlessBFF.SharedModules.Common.Correlation;
+using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
 
@@ -19,13 +20,13 @@ public sealed class SiteResolutionService
         _siteResolutionContext = siteResolutionContext;
     }
 
-    public async Task<(string SiteId, SiteDefinition SiteDefinition)?> ResolveSite()
+    public async Task<(string SiteId, SiteDefinition SiteDefinition)> ResolveSite()
     {
         var context = _httpContextAccessor.HttpContext;
 
         if (context is null)
         {
-            return null;
+            throw new SiteApiException("No http context");
         }
 
         var hasSiteId = context.Request.Headers.TryGetValue(CorrelationConstants.Headers.SiteId, out var siteId);
@@ -38,7 +39,7 @@ public sealed class SiteResolutionService
 
         if (!sitesResponse.IsSuccessStatusCode || sitesResponse.Content is null)
         {
-            return null;
+            throw new SiteApiException((int)sitesResponse.StatusCode, "Couldn't get sites", sitesResponse.Error);
         }
 
         var sites = sitesResponse.Content;
@@ -55,7 +56,7 @@ public sealed class SiteResolutionService
 
         if (!hasSiteHost || !hasSitePath)
         {
-            return null;
+            throw new SiteApiException(StatusCodes.Status400BadRequest, "Missing correlation headers");
         }
 
         var path = sitePath.ToString();
@@ -73,6 +74,25 @@ public sealed class SiteResolutionService
             return (foundSite.Key, sites[foundSite.Key]);
         }
 
-        return null;
+        throw new SiteApiException(StatusCodes.Status404NotFound, "No site found");
+    }
+
+    public async Task<IReadOnlyCollection<SiteDefinition>> GetAlternateSites(SiteDefinition site)
+    {
+        var isPreview = _siteResolutionContext.IsPreview;
+
+        var sitesResponse = await _siteResolutionApi.GetSites(isPreview);
+
+        if (!sitesResponse.IsSuccessStatusCode || sitesResponse.Content is null)
+        {
+            throw new SiteApiException((int)sitesResponse.StatusCode, "Couldn't get sites", sitesResponse.Error);
+        }
+
+        var alternateSites = sitesResponse.Content
+            .Where(x => x.Value.HomepageId == site.HomepageId && x.Value.CultureInfo != site.CultureInfo)
+            .Select(x => x.Value)
+            .ToArray();
+
+        return alternateSites;
     }
 }

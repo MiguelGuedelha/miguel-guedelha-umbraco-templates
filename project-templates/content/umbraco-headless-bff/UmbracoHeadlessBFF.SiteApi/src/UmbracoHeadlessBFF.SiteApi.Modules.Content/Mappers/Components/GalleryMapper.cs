@@ -1,9 +1,8 @@
 ﻿using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.BuildingBlocks;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components.Gallery;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.Abstractions;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Abstractions;
-using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.BuildingBlocks;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Components;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Components.Abstractions;
 
@@ -11,11 +10,11 @@ namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Components;
 
 internal sealed class GalleryMapper : IComponentMapper
 {
-    private readonly IMapper<IEnumerable<ApiCard>, IReadOnlyCollection<Card>> _cardsMapper;
+    private readonly ICardMapper _cardMapper;
 
-    public GalleryMapper(IMapper<IEnumerable<ApiCard>, IReadOnlyCollection<Card>> cardsMapper)
+    public GalleryMapper(ICardMapper cardMapper)
     {
-        _cardsMapper = cardsMapper;
+        _cardMapper = cardMapper;
     }
 
     public bool CanMap(string type) => type == DeliveryApiConstants.ElementTypes.ApiGallery;
@@ -34,7 +33,7 @@ internal sealed class GalleryMapper : IComponentMapper
             Heading = apiModel.Properties.Heading,
             HeadingSize = apiModel.Properties.HeadingSize,
             SubHeading = apiModel.Properties.SubHeading,
-            Items = await _cardsMapper.Map(apiModel.Properties.Items?.Items.Select(x => x.Content) ?? []),
+            Items = await _cardMapper.Map(apiModel.Properties.Items?.Items.Select(x => x.Content) ?? []),
             CardsPerRow = apiSettings.Properties.CardsPerRow
         };
     }

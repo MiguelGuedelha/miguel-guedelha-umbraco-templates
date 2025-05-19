@@ -23,14 +23,8 @@ public sealed class SiteResolutionMiddleware : IMiddleware
 
         var site = await _siteResolutionService.ResolveSite();
 
-        if (site is null)
-        {
-            await next(context);
-            return;
-        }
-
-        _siteResolutionContext.SiteId = site.Value.Item1;
-        _siteResolutionContext.Site = site.Value.Item2;
+        _siteResolutionContext.SiteId = site.SiteId;
+        _siteResolutionContext.Site = site.SiteDefinition;
 
         context.Response.OnStarting(() =>
         {
@@ -43,7 +37,7 @@ public sealed class SiteResolutionMiddleware : IMiddleware
 
             if (!headerExists)
             {
-                context.Response.Headers.Append(CorrelationConstants.Headers.SiteId, site.Value.SiteId);
+                context.Response.Headers.Append(CorrelationConstants.Headers.SiteId, site.SiteId);
             }
 
             return Task.CompletedTask;

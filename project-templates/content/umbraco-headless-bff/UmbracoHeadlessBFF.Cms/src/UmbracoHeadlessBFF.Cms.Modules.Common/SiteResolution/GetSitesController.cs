@@ -45,7 +45,7 @@ public sealed class GetSitesController : Controller
             });
         }
 
-        var root = publishedContentCache.GetAtRoot(preview).ToList();
+        var root = publishedContentCache.GetAtRoot(preview).ToArray();
 
         var homepages = root
             .OfType<SiteGrouping>()
@@ -103,7 +103,7 @@ public sealed class GetSitesController : Controller
                 var siteDomains = domainGroup
                     .Select(domain => new Uri(domain.DomainName.StartsWith("http") ? domain.DomainName : $"https://{domain.DomainName}"))
                     .Select(siteUri => new SiteDefinitionDomain { Scheme = siteUri.Scheme, Domain = siteUri.Authority, Path = siteUri.AbsolutePath })
-                    .ToList();
+                    .ToArray();
 
                 siteDefinition = siteDefinition with { Domains = siteDomains };
 

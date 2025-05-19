@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages.Abstractions;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Endpoints;
+using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Abstractions;
-using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Components.Abstractions;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Pages.Abstractions;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Endpoints;
 
@@ -21,9 +23,9 @@ public static class GetItemByPathEndpoint
         return builder;
     }
 
-    private static async Task<Results<Ok<List<IComponent?>>, NotFound, UnauthorizedHttpResult>> GetContentHandler(string id,
+    private static async Task<Results<Ok<IPage>, NotFound, UnauthorizedHttpResult>> GetContentHandler(string id,
         [FromServices] ContentService contentService,
-        [FromServices] IEnumerable<IComponentMapper> mappers)
+        [FromServices] IEnumerable<IPageMapper> mappers)
     {
         var content = id switch
         {
@@ -31,25 +33,17 @@ public static class GetItemByPathEndpoint
             _ => await contentService.GetContentByPath(id)
         };
 
-        /* TODO: Temporary Debug - Remove */
-        var home = content as ApiHome;
+        if (content is null)
+        {
+            return TypedResults.NotFound();
+        }
 
-        var components = home?.Properties.MainContent.Items
-            .SelectMany(x => x.Areas)
-            .SelectMany(x => x.Items)
-            .Select(x =>
-            {
-                var mapper = mappers.First(mapper => mapper.CanMap(x.Content.ContentType));
-                return mapper.Map(x.Content, x.Settings);
-            }).ToList() ?? [];
+        var mapped = await mappers.First(x => x.CanMap(content.ContentType)).Map(content);
 
-        await Task.WhenAll(components);
-
-        var mapped = components
-            .Select(x => x.Result)
-            .Where(x => x is not null)
-            .ToList();
-        /*-------------------------------*/
+        if (mapped is null)
+        {
+            throw new SiteApiException($"Error mapping content for id = {id}");
+        }
 
         return TypedResults.Ok(mapped);
     }

@@ -1,18 +1,19 @@
 ﻿using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.BuildingBlocks;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.OEmbed;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Media;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Abstractions;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks.Media;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.BuildingBlocks.Media;
 
-internal sealed class EmbedVideoMapper : IMapper<ApiEmbedVideo, EmbedVideo>
+internal interface IEmbedVideoMapper : IMapper<ApiEmbedVideo, EmbedVideo>
 {
-    private readonly IMapper<ApiMediaWithCrops, Image> _imageMapper;
-    private readonly IMapper<ApiOEmbedItem, EmbedItem> _embedItemMapper;
+}
 
-    public EmbedVideoMapper(IMapper<ApiMediaWithCrops, Image> imageMapper,
-        IMapper<ApiOEmbedItem, EmbedItem> embedItemMapper)
+internal sealed class EmbedVideoMapper : IEmbedVideoMapper
+{
+    private readonly IImageMapper _imageMapper;
+    private readonly IEmbedItemMapper _embedItemMapper;
+
+    public EmbedVideoMapper(IImageMapper imageMapper, IEmbedItemMapper embedItemMapper)
     {
         _imageMapper = imageMapper;
         _embedItemMapper = embedItemMapper;

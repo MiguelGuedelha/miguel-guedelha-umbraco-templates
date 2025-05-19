@@ -1,0 +1,46 @@
+﻿using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.BlockGrid;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Layouts;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Abstractions;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Components.Abstractions;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Layouts;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Layouts.Abstractions;
+
+namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Layouts;
+
+internal sealed class OneColumnMapper : ILayoutMapper
+{
+    private readonly IEnumerable<IComponentMapper> _componentMappers;
+
+    public OneColumnMapper(IEnumerable<IComponentMapper> componentMappers)
+    {
+        _componentMappers = componentMappers;
+    }
+
+    public bool CanMap(string type) => type == DeliveryApiConstants.ElementTypes.ApiOneColumn;
+
+    public async Task<ILayout?> Map(IApiBlockGridItem model)
+    {
+        if (model.Content is not ApiOneColumn)
+        {
+            return null;
+        }
+
+        var componentMappingTasks = model.Areas
+            .FirstOrDefault()?
+            .Items
+            .Select(item => _componentMappers
+                .First(mapper => mapper.CanMap(item.Content.ContentType))
+                .Map(item.Content, item.Settings))
+            .ToArray() ?? [];
+
+        await Task.WhenAll(componentMappingTasks);
+
+        return new OneColumn
+        {
+            Id = model.Content.Id,
+            ContentType = model.Content.ContentType,
+            Single = componentMappingTasks.Select(x => x.Result).OfType<IComponent>().ToArray()
+        };
+    }
+}
