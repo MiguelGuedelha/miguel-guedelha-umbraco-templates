@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Routing;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Endpoints;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Abstractions;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Pages;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Endpoints;
 
@@ -43,11 +44,11 @@ public static class GetPageByIdOrPathEndpoint
 
         var mapped = await mapper.Map(content);
 
-        if (mapped is null)
+        return mapped switch
         {
-            return TypedResults.NotFound();
-        }
-
-        return TypedResults.Ok(mapped);
+            null => TypedResults.NotFound(),
+            Redirect redirect => TypedResults.Redirect(redirect.RedirectUrl),
+            _ => TypedResults.Ok(mapped)
+        };
     }
 }

@@ -18,24 +18,14 @@ using Umbraco.Extensions;
 
 namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels
 {
-	// Mixin Content Type with alias "mandatoryRteDescription"
-	/// <summary>Mandatory RTE Description</summary>
-	public partial interface IMandatoryRteDescription : IPublishedElement
-	{
-		/// <summary>Description</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		global::Umbraco.Cms.Core.Strings.IHtmlEncodedString Description { get; }
-	}
-
-	/// <summary>Mandatory RTE Description</summary>
-	[PublishedModel("mandatoryRteDescription")]
-	public partial class MandatoryRteDescription : PublishedElementModel, IMandatoryRteDescription
+	/// <summary>Redirect</summary>
+	[PublishedModel("redirect")]
+	public partial class Redirect : PublishedContentModel, IRedirectSettings
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		public new const string ModelTypeAlias = "mandatoryRteDescription";
+		public new const string ModelTypeAlias = "redirect";
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
@@ -44,14 +34,14 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels
 			=> PublishedModelUtility.GetModelContentType(publishedSnapshotAccessor, ModelItemType, ModelTypeAlias);
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		public static IPublishedPropertyType GetModelPropertyType<TValue>(IPublishedSnapshotAccessor publishedSnapshotAccessor, Expression<Func<MandatoryRteDescription, TValue>> selector)
+		public static IPublishedPropertyType GetModelPropertyType<TValue>(IPublishedSnapshotAccessor publishedSnapshotAccessor, Expression<Func<Redirect, TValue>> selector)
 			=> PublishedModelUtility.GetModelPropertyType(GetModelContentType(publishedSnapshotAccessor), selector);
 #pragma warning restore 0109
 
 		private IPublishedValueFallback _publishedValueFallback;
 
 		// ctor
-		public MandatoryRteDescription(IPublishedElement content, IPublishedValueFallback publishedValueFallback)
+		public Redirect(IPublishedContent content, IPublishedValueFallback publishedValueFallback)
 			: base(content, publishedValueFallback)
 		{
 			_publishedValueFallback = publishedValueFallback;
@@ -60,16 +50,18 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels
 		// properties
 
 		///<summary>
-		/// Description
+		/// Redirect Direction: Find and redirect to first page that is "viewable" in the direction selected
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[ImplementPropertyType("redirectDirection")]
+		public virtual global::UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.DataList.RedirectFallbackDirection RedirectDirection => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.RedirectSettings.GetRedirectDirection(this, _publishedValueFallback);
+
+		///<summary>
+		/// Redirect Link: Direct link to a page, url, etc
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("description")]
-		public virtual global::Umbraco.Cms.Core.Strings.IHtmlEncodedString Description => GetDescription(this, _publishedValueFallback);
-
-		/// <summary>Static getter for Description</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		public static global::Umbraco.Cms.Core.Strings.IHtmlEncodedString GetDescription(IMandatoryRteDescription that, IPublishedValueFallback publishedValueFallback) => that.Value<global::Umbraco.Cms.Core.Strings.IHtmlEncodedString>(publishedValueFallback, "description");
+		[ImplementPropertyType("redirectLink")]
+		public virtual global::Umbraco.Cms.Core.Models.Link RedirectLink => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.RedirectSettings.GetRedirectLink(this, _publishedValueFallback);
 	}
 }

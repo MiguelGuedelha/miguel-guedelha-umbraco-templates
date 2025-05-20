@@ -26,6 +26,7 @@ public static class DeliveryApiConstants
         public const string ApiBlogMonth = "blogMonth";
         public const string ApiBlogArticle = "blogArticle";
         public const string ApiSiteSettings = "siteSettings";
+        public const string ApiRedirect = "redirect";
 
         public static readonly Dictionary<string, Type> TypesMap = new()
         {
@@ -40,6 +41,7 @@ public static class DeliveryApiConstants
             { ApiBlogMonth, typeof(ApiBlogMonth) },
             { ApiBlogArticle, typeof(ApiBlogArticle) },
             { ApiSiteSettings, typeof(ApiSiteSettings) },
+            { ApiRedirect, typeof(ApiRedirect) }
         };
     }
 

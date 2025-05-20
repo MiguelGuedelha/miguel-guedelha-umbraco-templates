@@ -18,29 +18,28 @@ using Umbraco.Extensions;
 
 namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels
 {
-	// Mixin Content Type with alias "mandatoryHeading"
-	/// <summary>Mandatory Heading</summary>
-	public partial interface IMandatoryHeading : IPublishedElement
+	// Mixin Content Type with alias "redirectSettings"
+	/// <summary>Redirect Settings</summary>
+	public partial interface IRedirectSettings : IPublishedElement
 	{
-		/// <summary>Heading</summary>
+		/// <summary>Redirect Direction</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		string Heading { get; }
+		global::UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.DataList.RedirectFallbackDirection RedirectDirection { get; }
 
-		/// <summary>Heading Size</summary>
+		/// <summary>Redirect Link</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		string HeadingSize { get; }
+		global::Umbraco.Cms.Core.Models.Link RedirectLink { get; }
 	}
 
-	/// <summary>Mandatory Heading</summary>
-	[PublishedModel("mandatoryHeading")]
-	public partial class MandatoryHeading : PublishedElementModel, IMandatoryHeading
+	/// <summary>Redirect Settings</summary>
+	[PublishedModel("redirectSettings")]
+	public partial class RedirectSettings : PublishedElementModel, IRedirectSettings
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		public new const string ModelTypeAlias = "mandatoryHeading";
+		public new const string ModelTypeAlias = "redirectSettings";
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
@@ -49,14 +48,14 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels
 			=> PublishedModelUtility.GetModelContentType(publishedSnapshotAccessor, ModelItemType, ModelTypeAlias);
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		public static IPublishedPropertyType GetModelPropertyType<TValue>(IPublishedSnapshotAccessor publishedSnapshotAccessor, Expression<Func<MandatoryHeading, TValue>> selector)
+		public static IPublishedPropertyType GetModelPropertyType<TValue>(IPublishedSnapshotAccessor publishedSnapshotAccessor, Expression<Func<RedirectSettings, TValue>> selector)
 			=> PublishedModelUtility.GetModelPropertyType(GetModelContentType(publishedSnapshotAccessor), selector);
 #pragma warning restore 0109
 
 		private IPublishedValueFallback _publishedValueFallback;
 
 		// ctor
-		public MandatoryHeading(IPublishedElement content, IPublishedValueFallback publishedValueFallback)
+		public RedirectSettings(IPublishedElement content, IPublishedValueFallback publishedValueFallback)
 			: base(content, publishedValueFallback)
 		{
 			_publishedValueFallback = publishedValueFallback;
@@ -65,29 +64,27 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels
 		// properties
 
 		///<summary>
-		/// Heading
+		/// Redirect Direction: Find and redirect to first page that is "viewable" in the direction selected
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("heading")]
-		public virtual string Heading => GetHeading(this, _publishedValueFallback);
+		[ImplementPropertyType("redirectDirection")]
+		public virtual global::UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.DataList.RedirectFallbackDirection RedirectDirection => GetRedirectDirection(this, _publishedValueFallback);
 
-		/// <summary>Static getter for Heading</summary>
+		/// <summary>Static getter for Redirect Direction</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		public static string GetHeading(IMandatoryHeading that, IPublishedValueFallback publishedValueFallback) => that.Value<string>(publishedValueFallback, "heading");
+		public static global::UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.DataList.RedirectFallbackDirection GetRedirectDirection(IRedirectSettings that, IPublishedValueFallback publishedValueFallback) => that.Value<global::UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.DataList.RedirectFallbackDirection>(publishedValueFallback, "redirectDirection");
 
 		///<summary>
-		/// Heading Size
+		/// Redirect Link: Direct link to a page, url, etc
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("headingSize")]
-		public virtual string HeadingSize => GetHeadingSize(this, _publishedValueFallback);
+		[ImplementPropertyType("redirectLink")]
+		public virtual global::Umbraco.Cms.Core.Models.Link RedirectLink => GetRedirectLink(this, _publishedValueFallback);
 
-		/// <summary>Static getter for Heading Size</summary>
+		/// <summary>Static getter for Redirect Link</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		public static string GetHeadingSize(IMandatoryHeading that, IPublishedValueFallback publishedValueFallback) => that.Value<string>(publishedValueFallback, "headingSize");
+		public static global::Umbraco.Cms.Core.Models.Link GetRedirectLink(IRedirectSettings that, IPublishedValueFallback publishedValueFallback) => that.Value<global::Umbraco.Cms.Core.Models.Link>(publishedValueFallback, "redirectLink");
 	}
 }

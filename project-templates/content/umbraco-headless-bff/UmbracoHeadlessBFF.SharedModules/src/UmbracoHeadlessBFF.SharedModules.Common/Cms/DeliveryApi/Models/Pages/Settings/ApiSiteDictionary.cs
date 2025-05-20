@@ -6,7 +6,7 @@ public sealed class ApiSiteDictionary : ApiContent<ApiSiteDictionaryProperties>
 {
 }
 
-public sealed class ApiSiteDictionaryProperties
+public sealed class ApiSiteDictionaryProperties : RedirectSettingsProperties
 {
     public string? GeneralButtonsNextText { get; init; }
     public string? GeneralButtonsBackText { get; init; }

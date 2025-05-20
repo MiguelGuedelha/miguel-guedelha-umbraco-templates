@@ -2,6 +2,10 @@
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages.Blogs;
 
-public sealed class ApiBlogMonth : ApiContent
+public sealed class ApiBlogMonth : ApiContent<ApiBlogMonthProperties>
+{
+}
+
+public sealed class ApiBlogMonthProperties : RedirectSettingsProperties
 {
 }

@@ -10,7 +10,7 @@ public sealed class ApiSiteSettings : ApiContent<ApiSiteSettingsProperties>
 {
 }
 
-public sealed class ApiSiteSettingsProperties
+public sealed class ApiSiteSettingsProperties : RedirectSettingsProperties
 {
     public IReadOnlyCollection<ApiMediaWithCrops>? HeaderLogo { get; init; }
     public IReadOnlyCollection<ApiLink>? HeaderQuickLinks { get; init; }

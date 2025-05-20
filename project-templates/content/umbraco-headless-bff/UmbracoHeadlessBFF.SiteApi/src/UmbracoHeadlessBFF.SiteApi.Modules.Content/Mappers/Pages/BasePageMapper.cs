@@ -23,16 +23,17 @@ internal abstract class BasePageMapper
         _layoutMappers = layoutMappers;
     }
 
-    protected async Task<PageContext> MapPageContext<T>(ApiContent<T> model)
-        where T : IApiSeoSettingsProperties
+    protected async Task<PageContext> MapPageContext<T>(IApiContent<T> model)
     {
         var site = _siteResolutionContext.Site;
 
         var alternateSites = await _siteResolutionService.GetAlternateSites(site);
 
+        var seo = model as IApiContent<IApiSeoSettingsProperties>;
+
         return new()
         {
-            Seo = await _seoMapper.Map(model.Properties),
+            Seo = seo is not null ? await _seoMapper.Map(seo.Properties) : null,
             Site = new()
             {
                 Locale = site.CultureInfo,
