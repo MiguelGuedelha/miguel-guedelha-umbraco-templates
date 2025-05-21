@@ -20,7 +20,7 @@ public sealed class SiteResolutionService
         _siteResolutionContext = siteResolutionContext;
     }
 
-    public async Task<(string SiteId, SiteDefinition SiteDefinition)> ResolveSite()
+    public async Task<(string SiteId, SiteDefinition SiteDefinition)?> ResolveSite()
     {
         var context = _httpContextAccessor.HttpContext;
 
@@ -56,7 +56,7 @@ public sealed class SiteResolutionService
 
         if (!hasSiteHost || !hasSitePath)
         {
-            throw new SiteApiException(StatusCodes.Status400BadRequest, "Missing correlation headers");
+            return null;
         }
 
         var path = sitePath.ToString();

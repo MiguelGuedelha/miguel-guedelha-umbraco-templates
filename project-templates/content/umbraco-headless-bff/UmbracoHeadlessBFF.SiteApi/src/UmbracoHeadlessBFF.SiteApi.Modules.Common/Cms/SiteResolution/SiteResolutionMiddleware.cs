@@ -23,8 +23,20 @@ public sealed class SiteResolutionMiddleware : IMiddleware
 
         var site = await _siteResolutionService.ResolveSite();
 
-        _siteResolutionContext.SiteId = site.SiteId;
-        _siteResolutionContext.Site = site.SiteDefinition;
+        if (site is null)
+        {
+            await next(context);
+            return;
+        }
+
+        _siteResolutionContext.SiteId = site.Value.SiteId;
+        _siteResolutionContext.Site = site.Value.SiteDefinition;
+
+        var hasSiteHost = context.Request.Headers.TryGetValue(CorrelationConstants.Headers.SiteHost, out var siteHost);
+        if (hasSiteHost)
+        {
+            _siteResolutionContext.Domain = siteHost.ToString();
+        }
 
         context.Response.OnStarting(() =>
         {
@@ -37,7 +49,7 @@ public sealed class SiteResolutionMiddleware : IMiddleware
 
             if (!headerExists)
             {
-                context.Response.Headers.Append(CorrelationConstants.Headers.SiteId, site.SiteId);
+                context.Response.Headers.Append(CorrelationConstants.Headers.SiteId, site.Value.SiteId);
             }
 
             return Task.CompletedTask;

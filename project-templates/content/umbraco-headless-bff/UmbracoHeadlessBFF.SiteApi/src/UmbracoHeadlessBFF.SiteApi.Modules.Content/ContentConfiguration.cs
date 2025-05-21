@@ -62,7 +62,7 @@ public static class ContentConfiguration
         services
             .AddTransient<IPageMapper, HomeMapper>()
             .AddTransient<IPageMapper, SiteSearchMapper>()
-            .AddTransient<IPageMapper, RedirectMapper>();
+            .AddTransient<IPageMapper, StandardContentMapper>();
 
         services.AddTransient<IPageMapper, FallbackPageMapper>();
     }

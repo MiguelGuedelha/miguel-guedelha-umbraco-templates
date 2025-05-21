@@ -47,7 +47,6 @@ public static class GetPageByIdOrPathEndpoint
         return mapped switch
         {
             null => TypedResults.NotFound(),
-            Redirect redirect => TypedResults.Redirect(redirect.RedirectUrl),
             _ => TypedResults.Ok(mapped)
         };
     }

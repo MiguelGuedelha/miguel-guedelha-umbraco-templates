@@ -102,7 +102,7 @@ public sealed class GetSitesController : Controller
 
                 var siteDomains = domainGroup
                     .Select(domain => new Uri(domain.DomainName.StartsWith("http") ? domain.DomainName : $"https://{domain.DomainName}"))
-                    .Select(siteUri => new SiteDefinitionDomain { Scheme = siteUri.Scheme, Domain = siteUri.Authority, Path = siteUri.AbsolutePath })
+                    .Select(siteUri => new SiteDefinitionDomain { Scheme = siteUri.Scheme, Domain = siteUri.Authority, Path = $"/{siteUri.AbsolutePath.Trim('/')}/" })
                     .ToArray();
 
                 siteDefinition = siteDefinition with { Domains = siteDomains };

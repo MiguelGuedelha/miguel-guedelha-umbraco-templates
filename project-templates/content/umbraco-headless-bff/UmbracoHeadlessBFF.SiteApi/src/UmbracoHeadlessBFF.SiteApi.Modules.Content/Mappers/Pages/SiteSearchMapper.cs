@@ -30,7 +30,7 @@ internal sealed class SiteSearchMapper : BasePageMapper, IPageMapper
         {
             Id = apiModel.Id,
             ContentType = apiModel.ContentType,
-            Context = await MapPageContext(apiModel)
+            Context = await MapPageContext(apiModel.Properties)
         };
     }
 }

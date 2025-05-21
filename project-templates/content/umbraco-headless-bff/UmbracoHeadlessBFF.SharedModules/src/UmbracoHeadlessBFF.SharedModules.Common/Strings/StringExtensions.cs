@@ -26,10 +26,8 @@ public static partial class StringExtensions
     }
 
 
-    public static string SanitiseLeadingSlashes(this string path)
+    public static string SanitisePathSlashes(this string path)
     {
-        return !path.StartsWith('/')
-            ? $"/{path}"
-            : LeadingSlashesRegex().Replace(path, "/");
+        return $"/{path.Trim('/')}/";
     }
 }

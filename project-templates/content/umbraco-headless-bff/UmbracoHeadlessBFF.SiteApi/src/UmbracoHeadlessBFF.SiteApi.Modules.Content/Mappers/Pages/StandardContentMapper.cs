@@ -35,7 +35,7 @@ internal sealed class StandardContentMapper : BasePageMapper, IPageMapper
                 MainContent = await MapMainContent(apiModel),
                 AdditionalProperties = new()
             },
-            Context = await MapPageContext(apiModel)
+            Context = await MapPageContext(apiModel.Properties)
         };
     }
 }

@@ -8,5 +8,6 @@ public static class SiteResolutionConstants
         public const string SiteId = "site-id";
         public const string Site = "site";
         public const string AlternateSites =  "alternate-sites";
+        public const string Domain = "domain";
     }
 }

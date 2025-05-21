@@ -23,12 +23,12 @@ internal sealed class SeoMapper : ISeoMapper
         var metaImage = model.MetaImage?.FirstOrDefault();
         var ogImage = model.OgImage?.FirstOrDefault();
 
-
+        var mappedMetaImage = metaImage is not null ? await _imageMapper.Map(metaImage) : null;
 
         var mappedOgImage = (ogImage, metaImage) switch
         {
             (not null, _) => await _imageMapper.Map(ogImage),
-            (_, not null) => await _imageMapper.Map(metaImage),
+            (_, not null) => mappedMetaImage,
             _ => null
         };
 
@@ -36,9 +36,9 @@ internal sealed class SeoMapper : ISeoMapper
         {
             MetaTitle = model.MetaTitle,
             MetaDescription = model.MetaDescription,
-            MetaImage = metaImage is not null ? (await _imageMapper.Map(metaImage))?.Src : null,
+            MetaImage = mappedMetaImage?.Src,
             OgType = model.OgType,
-            OgDescription = model.OgDescription,
+            OgDescription = string.IsNullOrWhiteSpace(model.OgDescription) ? model.MetaDescription : model.OgDescription,
             OgImage = mappedOgImage?.Src,
             RobotsIndexOptions = string.Join(' ', model.RobotsIndexOptions ?? []),
             RobotsUnavailableAfter = model.RobotsUnavailableAfter

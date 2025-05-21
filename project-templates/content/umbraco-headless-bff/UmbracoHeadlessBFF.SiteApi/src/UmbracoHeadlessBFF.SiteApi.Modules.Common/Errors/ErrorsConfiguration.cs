@@ -20,7 +20,9 @@ public static class ErrorsConfiguration
                 context.ProblemDetails.Extensions.TryAdd("correlationId", context.HttpContext.Request.Headers[CorrelationConstants.Headers.CorrelationId].ToString());
             };
         });
-        builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+        builder.Services.AddExceptionHandler<RedirectApiExceptionHandler>();
+        builder.Services.AddExceptionHandler<SiteApiExceptionHandler>();
+        builder.Services.AddExceptionHandler<FallbackExceptionHandler>();
     }
 
     public static void UseErrors(this WebApplication app)
