@@ -1,4 +1,4 @@
-﻿namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.SiteResolution.Contracts;
+﻿namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.SiteResolution.Models;
 
 public sealed record SiteDefinition
 {

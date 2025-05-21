@@ -77,7 +77,7 @@ internal sealed class ContentService
 
             if (redirectResponse.IsSuccessStatusCode)
             {
-                throw new RedirectApiException(StatusCodes.Status302Found, redirectResponse.Content!);
+                throw new RedirectApiException(redirectResponse.Content!.StatusCode, redirectResponse.Content!.Location);
             }
         }
 

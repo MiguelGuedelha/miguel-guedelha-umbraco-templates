@@ -2,7 +2,7 @@
 using Umbraco.Cms.Core.Web;
 using Umbraco.Extensions;
 using UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.Links.Contracts;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.Links.Models;
 using UmbracoHeadlessBFF.SharedModules.Common.Strings;
 
 namespace UmbracoHeadlessBFF.Cms.Modules.Common.Links;

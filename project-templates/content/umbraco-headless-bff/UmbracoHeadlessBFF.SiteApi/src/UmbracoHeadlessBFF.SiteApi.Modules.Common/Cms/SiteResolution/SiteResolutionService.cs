@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.SiteResolution.Clients;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.SiteResolution.Contracts;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.SiteResolution.Models;
 using UmbracoHeadlessBFF.SharedModules.Common.Correlation;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 

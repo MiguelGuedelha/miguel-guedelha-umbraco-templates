@@ -1,4 +1,4 @@
-﻿namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.Links.Contracts;
+﻿namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.Links.Models;
 
 public sealed record Link
 {

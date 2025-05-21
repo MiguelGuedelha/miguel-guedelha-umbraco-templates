@@ -1,5 +1,5 @@
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.Links.Clients;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.Links.Contracts;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.Links.Models;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.Links;

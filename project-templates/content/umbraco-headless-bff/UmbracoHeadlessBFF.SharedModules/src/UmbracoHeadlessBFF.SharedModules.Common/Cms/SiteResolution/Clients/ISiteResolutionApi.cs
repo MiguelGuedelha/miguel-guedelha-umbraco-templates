@@ -1,5 +1,5 @@
 ﻿using Refit;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.SiteResolution.Contracts;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.SiteResolution.Models;
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.SiteResolution.Clients;
 

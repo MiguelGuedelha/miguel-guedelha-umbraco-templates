@@ -15,6 +15,7 @@ using UmbracoHeadlessBFF.Cms.Modules.Common.Authentication.Attributes;
 using UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Urls;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.DataList;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.Links.Models;
 using NotFound = Microsoft.AspNetCore.Http.HttpResults.NotFound;
 
 namespace UmbracoHeadlessBFF.Cms.Modules.Common.Links;
@@ -51,7 +52,7 @@ public sealed class GetRedirectLinkController : Controller
     }
 
     [HttpGet("redirects/{path}")]
-    public async Task<Results<Ok<string>, NotFound>> GetRedirect(string path, Guid siteId, string culture)
+    public async Task<Results<Ok<RedirectLink>, NotFound>> GetRedirect(string path, Guid siteId, string culture)
     {
         _variationContextAccessor.VariationContext = new(culture);
 
@@ -86,7 +87,11 @@ public sealed class GetRedirectLinkController : Controller
             if (destination is not null)
             {
                 var destinationUrl = destination.Url(_publishedUrlProvider, latestRedirect.Culture, UrlMode.Absolute);
-                return TypedResults.Ok(destinationUrl);
+                return TypedResults.Ok(new RedirectLink
+                {
+                    Location = destinationUrl,
+                    StatusCode = StatusCodes.Status302Found
+                });
             }
         }
 
@@ -116,7 +121,11 @@ public sealed class GetRedirectLinkController : Controller
             return TypedResults.NotFound();
         }
 
-        return TypedResults.Ok(url);
+        return TypedResults.Ok(new RedirectLink
+        {
+            Location = url,
+            StatusCode = StatusCodes.Status302Found
+        });
     }
 
     private string? GenerateFallbackUrl(IPublishedContent item, RedirectFallbackDirection redirectDirection, string culture)
