@@ -17,9 +17,9 @@ internal sealed class ImageMapper : IImageMapper
 
     private readonly ApplicationUrlOptions _applicationUrlOptions;
 
-    public ImageMapper(IOptionsMonitor<ApplicationUrlOptions> applicationUrlOptions)
+    public ImageMapper(IOptionsSnapshot<ApplicationUrlOptions> applicationUrlOptions)
     {
-        _applicationUrlOptions = applicationUrlOptions.CurrentValue;
+        _applicationUrlOptions = applicationUrlOptions.Value;
     }
 
     public Task<Image?> Map(ApiMediaWithCrops media)

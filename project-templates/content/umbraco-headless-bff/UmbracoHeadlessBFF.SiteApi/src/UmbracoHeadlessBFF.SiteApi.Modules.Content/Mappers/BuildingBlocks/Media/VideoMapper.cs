@@ -14,9 +14,9 @@ internal sealed class VideoMapper : IVideoMapper
 {
     private readonly ApplicationUrlOptions _applicationUrlOptions;
 
-    public VideoMapper(IOptionsMonitor<ApplicationUrlOptions> applicationUrlOptions)
+    public VideoMapper(IOptionsSnapshot<ApplicationUrlOptions> applicationUrlOptions)
     {
-        _applicationUrlOptions = applicationUrlOptions.CurrentValue;
+        _applicationUrlOptions = applicationUrlOptions.Value;
     }
 
     public Task<Video?> Map(ApiMediaWithCrops model)

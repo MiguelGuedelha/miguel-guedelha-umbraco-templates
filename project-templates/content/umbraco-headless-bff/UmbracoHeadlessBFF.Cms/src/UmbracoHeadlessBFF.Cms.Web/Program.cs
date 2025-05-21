@@ -4,6 +4,7 @@ using Umbraco.Cms.Api.Common.DependencyInjection;
 using Umbraco.Cms.Core;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Links;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Preview;
+using UmbracoHeadlessBFF.Cms.Modules.Common.Urls;
 using UmbracoHeadlessBFF.SharedModules.Common.Correlation;
 using UmbracoHeadlessBFF.SharedModules.Common.Environment;
 
@@ -25,6 +26,7 @@ builder.AddServiceDefaults();
 builder.AddCorrelationSharedModules();
 builder.AddPreview();
 builder.AddLinks();
+builder.AddUrls();
 
 if (environment.IsLocal())
 {

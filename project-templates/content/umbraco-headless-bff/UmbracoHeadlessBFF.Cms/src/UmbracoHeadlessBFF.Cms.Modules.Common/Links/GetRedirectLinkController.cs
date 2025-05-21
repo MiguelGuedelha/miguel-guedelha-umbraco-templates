@@ -1,14 +1,21 @@
-﻿using System.Net;
+﻿using System.Diagnostics;
+using System.Net;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Core.Routing;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Core.Web;
 using Umbraco.Extensions;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Authentication.Attributes;
+using UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels;
+using UmbracoHeadlessBFF.Cms.Modules.Common.Urls;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.DataList;
+using NotFound = Microsoft.AspNetCore.Http.HttpResults.NotFound;
 
 namespace UmbracoHeadlessBFF.Cms.Modules.Common.Links;
 
@@ -23,15 +30,24 @@ public sealed class GetRedirectLinkController : Controller
     private readonly IVariationContextAccessor _variationContextAccessor;
     private readonly IRedirectUrlService _redirectUrlService;
     private readonly IPublishedUrlProvider _publishedUrlProvider;
+    private readonly ApplicationUrlOptions _applicationUrlOptions;
+
+    private static readonly HashSet<string> s_nonValidDestinationPageTypes = [
+        SiteSettings.ModelTypeAlias,
+        SiteDictionary.ModelTypeAlias,
+        SiteGrouping.ModelTypeAlias,
+        UmbracoModels.NotFound.ModelTypeAlias,
+    ];
 
     public GetRedirectLinkController(IUmbracoContextFactory umbracoContextFactory,
         IVariationContextAccessor variationContextAccessor, IRedirectUrlService redirectUrlService,
-        IPublishedUrlProvider publishedUrlProvider)
+        IPublishedUrlProvider publishedUrlProvider, IOptionsSnapshot<ApplicationUrlOptions> applicationUrlOptions)
     {
         _umbracoContextFactory = umbracoContextFactory;
         _variationContextAccessor = variationContextAccessor;
         _redirectUrlService = redirectUrlService;
         _publishedUrlProvider = publishedUrlProvider;
+        _applicationUrlOptions = applicationUrlOptions.Value;
     }
 
     [HttpGet("redirects/{path}")]
@@ -60,15 +76,17 @@ public sealed class GetRedirectLinkController : Controller
             return TypedResults.NotFound();
         }
 
-        var latestRedirect = await _redirectUrlService.GetMostRecentRedirectUrlAsync($"{siteRoot.Id}/{path.Trim('/')}", culture);
+        var itemRoute = $"{siteRoot.Id}/{path.Trim('/')}";
+
+        var latestRedirect = await _redirectUrlService.GetMostRecentRedirectUrlAsync(itemRoute, culture);
 
         if (latestRedirect is not null)
         {
             var destination = contentCache.GetById(latestRedirect.ContentId);
             if (destination is not null)
             {
-                var url = destination.Url(_publishedUrlProvider, latestRedirect.Culture, UrlMode.Absolute);
-                return TypedResults.Ok(url);
+                var destinationUrl = destination.Url(_publishedUrlProvider, latestRedirect.Culture, UrlMode.Absolute);
+                return TypedResults.Ok(destinationUrl);
             }
         }
 
@@ -76,6 +94,44 @@ public sealed class GetRedirectLinkController : Controller
         // such as Skybrud here, as a fallback after umbraco ones,
         // or replace the above with said custom redirects
 
-        return TypedResults.NotFound();
+
+        // Handles all the pages which have the Redirect Settings composition and are not meant to be displayed on the site
+        var item = contentCache.GetByRoute(itemRoute);
+
+        if (item is not IRedirectSettings redirectSettings)
+        {
+            return TypedResults.NotFound();
+        }
+
+        var url = redirectSettings.RedirectLink switch
+        {
+            { Type: LinkType.Content } => redirectSettings.RedirectLink.Content?.Url(_publishedUrlProvider, culture, UrlMode.Absolute),
+            { Type: LinkType.Media } => new Uri(new(_applicationUrlOptions.Media), redirectSettings.RedirectLink.Url).ToString(),
+            { Type: LinkType.External } => redirectSettings.RedirectLink.Url!,
+            _ => GenerateFallbackUrl(item, redirectSettings.RedirectDirection, culture)
+        };
+
+        if (url is null)
+        {
+            return TypedResults.NotFound();
+        }
+
+        return TypedResults.Ok(url);
+    }
+
+    private string? GenerateFallbackUrl(IPublishedContent item, RedirectFallbackDirection redirectDirection, string culture)
+    {
+        var possibleItems = redirectDirection switch
+        {
+            RedirectFallbackDirection.Ancestor => item.Ancestors(),
+            RedirectFallbackDirection.Descendant => item.Descendants(),
+            RedirectFallbackDirection.Sibling => item.Siblings(),
+            _ => throw new UnreachableException("Shouldn't happen, non existent redirect direction")
+        };
+
+        var destination = possibleItems
+            ?.FirstOrDefault(x => !s_nonValidDestinationPageTypes.Contains(x.ContentType.Alias) && x is not IRedirectSettings);
+
+        return destination?.Url(_publishedUrlProvider, culture, UrlMode.Absolute);
     }
 }

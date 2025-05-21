@@ -53,8 +53,9 @@ var cmsDeliveryApiKey = builder.AddParameter("CmsDeliveryApiKey");
 // Only compilable when testing/running during template development
 // It should always be GeneratedClassNamePrefix_Cms_Web when committed to remote
 #endif
-var cms = builder.AddProject<Projects.GeneratedClassNamePrefix_Cms_Web>("Cms", launchProfileName: "single")
-    .WithExternalHttpEndpoints()
+var cms = builder.AddProject<Projects.GeneratedClassNamePrefix_Cms_Web>("Cms", launchProfileName: "single");
+
+cms.WithExternalHttpEndpoints()
     .WithReference(umbracoDb, connectionName: "umbracoDbDSN")
     .WithReference(cache)
     //Only needed to add this reference on local so we can connect to the client in a standard way and ensure the blob container exists before booting up umbraco
@@ -64,6 +65,7 @@ var cms = builder.AddProject<Projects.GeneratedClassNamePrefix_Cms_Web>("Cms", l
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Password", smtpPassword)
     .WithEnvironment("Umbraco__Storage__AzureBlob__Media__ConnectionString", umbracoBlob.Resource.ConnectionStringExpression)
     .WithEnvironment("Umbraco__CMS__DeliveryApi__ApiKey", cmsDeliveryApiKey)
+    .WithEnvironment("ApplicationUrls__Media", () => cms.Resource.GetEndpoint("https").Url)
     .WaitFor(mailServer)
     .WaitFor(umbracoDb)
     .WaitFor(cache)

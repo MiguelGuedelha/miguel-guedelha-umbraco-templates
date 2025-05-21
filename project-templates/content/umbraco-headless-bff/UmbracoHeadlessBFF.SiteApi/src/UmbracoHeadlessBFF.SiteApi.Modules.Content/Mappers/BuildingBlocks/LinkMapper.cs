@@ -19,11 +19,11 @@ internal sealed partial class LinkMapper : ILinkMapper
     private readonly LinkService _linkService;
     private readonly ApplicationUrlOptions _applicationUrlOptions;
 
-    public LinkMapper(SiteResolutionContext siteResolutionContext, LinkService linkService, IOptionsMonitor<ApplicationUrlOptions> applicationUrlOptions)
+    public LinkMapper(SiteResolutionContext siteResolutionContext, LinkService linkService, IOptionsSnapshot<ApplicationUrlOptions> applicationUrlOptions)
     {
         _siteResolutionContext = siteResolutionContext;
         _linkService = linkService;
-        _applicationUrlOptions = applicationUrlOptions.CurrentValue;
+        _applicationUrlOptions = applicationUrlOptions.Value;
     }
 
     [GeneratedRegex(@"^https?://([a-zA-Z0-9-\.]+):?(\d+)?$")]
