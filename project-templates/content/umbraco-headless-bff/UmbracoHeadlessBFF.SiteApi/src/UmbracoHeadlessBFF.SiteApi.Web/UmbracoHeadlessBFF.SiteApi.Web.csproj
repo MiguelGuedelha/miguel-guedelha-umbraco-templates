@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\UmbracoHeadlessBFF.SharedModules\src\UmbracoHeadlessBFF.SharedModules.Common.Content\UmbracoHeadlessBFF.SharedModules.Common.Content.csproj" />
     <ProjectReference Include="..\..\..\UmbracoHeadlessBFF.SharedModules\src\UmbracoHeadlessBFF.SharedModules.Common\UmbracoHeadlessBFF.SharedModules.Common.csproj" />
     <ProjectReference
       Include="..\..\..\UmbracoHeadlessBFF.SharedModules\src\UmbracoHeadlessBFF.SharedModules.ServiceDefaults\UmbracoHeadlessBFF.SharedModules.ServiceDefaults.csproj" />

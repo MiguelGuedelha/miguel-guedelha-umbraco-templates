@@ -1,4 +1,4 @@
-namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Pages.Abstractions;
+namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Pages.Shared;
 
 internal sealed class SiteInformation
 {

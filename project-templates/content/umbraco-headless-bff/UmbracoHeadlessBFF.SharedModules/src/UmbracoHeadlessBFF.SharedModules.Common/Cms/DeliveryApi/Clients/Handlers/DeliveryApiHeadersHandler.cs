@@ -3,7 +3,7 @@ using UmbracoHeadlessBFF.SharedModules.Common.Cms.Options;
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Clients.Handlers;
 
-internal sealed class DeliveryApiHeadersHandler : DelegatingHandler
+public sealed class DeliveryApiHeadersHandler : DelegatingHandler
 {
     private readonly IOptionsMonitor<CmsServiceOptions> _cmsServiceOptions;
 

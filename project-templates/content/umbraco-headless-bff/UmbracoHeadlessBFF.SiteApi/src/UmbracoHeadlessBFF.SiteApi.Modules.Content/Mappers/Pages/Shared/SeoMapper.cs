@@ -2,6 +2,7 @@
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Abstractions;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.BuildingBlocks.Media;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Pages.Abstractions;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Pages.Shared;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Pages.Shared;
 
