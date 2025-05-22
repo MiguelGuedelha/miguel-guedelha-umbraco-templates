@@ -11,7 +11,7 @@ using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.BuildingBlocks.Media;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Components;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Layouts;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Pages;
-using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Pages.Shared;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Pages.Shared;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content;
 

@@ -1,6 +1,7 @@
 ﻿using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Media;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages.Abstractions;
 
-namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages.Abstractions;
+namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages.Shared;
 
 public abstract class ApiBaseNonSearchablePageProperties : IApiSeoSettingsProperties
 {

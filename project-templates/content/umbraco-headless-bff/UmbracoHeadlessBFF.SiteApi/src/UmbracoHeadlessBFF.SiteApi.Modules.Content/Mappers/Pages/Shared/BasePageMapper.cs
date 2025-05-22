@@ -3,9 +3,8 @@ using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Abstractions;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Layouts.Abstractions;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Pages.Abstractions;
-using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Pages.Shared;
 
-namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Pages;
+namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Pages.Shared;
 
 internal abstract class BasePageMapper
 {
