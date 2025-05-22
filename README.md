@@ -7,11 +7,13 @@ This repository contains .NET templates for Umbraco, designed to streamline the 
 - Pre-configured .NET templates for Umbraco
 - Optimized project structure
 - Easy installation and usage
-- Regular updates to align with new Aspire or Umbraco updates, etc
+- Regular updates to align with new upstream package updates, etc
 
 ## Available Templates
 
-- `umbraco-headless-bff` - This is the main template which contains a set of 3 projects in a monorepo (CMS, Content API, Astro frontend)
+The templates are orchestrated with .NET Aspire for a ready-to-go, batteries included developer experience
+
+- `umbraco-headless-bff` - This is the main template which contains both CMS project and a BFF Api layer
 
 ## Installation
 
@@ -44,7 +46,10 @@ This project is licensed under the MIT License. See the LICENSE file for details
 ### Notes
 
 - Ensure you have .NET SDK 8+ installed.
-- These templates are tested with the latest LTS version of Umbraco.
+- These templates are maintained and versioned alongside Umbraco versioning.
+  - MiguelGuedelha.UmbracoTemplates::13.x.x -> Umbraco 13
+  - MiguelGuedelha.UmbracoTemplates::16.x.x -> Umbraco 16
+  - etc...
 - Feedback and suggestions are highly appreciated!
 
 Happy coding! 🚀
