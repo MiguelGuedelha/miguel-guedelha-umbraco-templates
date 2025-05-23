@@ -2,8 +2,11 @@
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components;
 
-public sealed class ApiBannerItem : ApiElement<ApiBannerItemProperties>
+public sealed class ApiBannerItem : IApiElement<ApiBannerItemProperties>
 {
+    public required Guid Id { get; init; }
+    public required string ContentType { get; init; }
+    public required ApiBannerItemProperties Properties { get; init; }
 }
 
 public sealed class ApiBannerItemProperties : IApiHeadingWithSubHeading, IApiRteDescription

@@ -1,9 +1,21 @@
-﻿namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages;
+﻿using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data;
 
-public sealed class ApiRedirect : ApiContent<ApiRedirectProperties>
+namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages;
+
+public sealed class ApiRedirect : IApiContent<ApiRedirectProperties>
 {
+    public Guid Id { get; init; }
+    public required string ContentType { get; init; }
+    public required string Name { get; init; }
+    public DateTime CreateDate { get; init; }
+    public DateTime UpdateDate { get; init; }
+    public required ApiContentRoute Route { get; init; }
+    public Dictionary<string, ApiContentRoute> Cultures { get; init; } = [];
+    public required ApiRedirectProperties Properties { get; init; }
 }
 
-public sealed class ApiRedirectProperties : RedirectSettingsProperties
+public sealed class ApiRedirectProperties : IRedirectSettingsProperties
 {
+    public IReadOnlyCollection<ApiLink>? RedirectLink { get; init; }
+    public RedirectFallbackDirection? RedirectDirection { get; init; }
 }

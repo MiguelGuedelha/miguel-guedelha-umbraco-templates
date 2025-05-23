@@ -20,7 +20,7 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels
 {
 	// Mixin Content Type with alias "redirectSettings"
 	/// <summary>Redirect Settings</summary>
-	public partial interface IRedirectSettings : IPublishedElement
+	public partial interface IRedirectSettings : IPublishedContent
 	{
 		/// <summary>Redirect Direction</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
@@ -34,7 +34,7 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels
 
 	/// <summary>Redirect Settings</summary>
 	[PublishedModel("redirectSettings")]
-	public partial class RedirectSettings : PublishedElementModel, IRedirectSettings
+	public partial class RedirectSettings : PublishedContentModel, IRedirectSettings
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
@@ -55,7 +55,7 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels
 		private IPublishedValueFallback _publishedValueFallback;
 
 		// ctor
-		public RedirectSettings(IPublishedElement content, IPublishedValueFallback publishedValueFallback)
+		public RedirectSettings(IPublishedContent content, IPublishedValueFallback publishedValueFallback)
 			: base(content, publishedValueFallback)
 		{
 			_publishedValueFallback = publishedValueFallback;

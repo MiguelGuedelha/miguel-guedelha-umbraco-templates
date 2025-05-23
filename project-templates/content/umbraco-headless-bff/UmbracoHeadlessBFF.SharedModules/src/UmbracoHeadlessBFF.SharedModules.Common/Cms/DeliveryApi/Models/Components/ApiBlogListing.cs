@@ -2,8 +2,11 @@
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components;
 
-public sealed class ApiBlogListing : ApiElement<ApiBlogListingProperties>
+public sealed class ApiBlogListing : IApiElement<ApiBlogListingProperties>
 {
+    public required Guid Id { get; init; }
+    public required string ContentType { get; init; }
+    public required ApiBlogListingProperties Properties { get; init; }
 }
 
 public sealed class ApiBlogListingProperties : IApiJumpMenuConfiguration, IApiHeadingWithSubHeading

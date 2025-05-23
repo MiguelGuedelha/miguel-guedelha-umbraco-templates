@@ -15,26 +15,3 @@ public interface IApiContent<T> : IApiContent
 {
     T Properties { get; init; }
 }
-
-public abstract class ApiContent<T> : IApiContent<T>
-{
-    public Guid Id { get; init; }
-    public required string ContentType { get; init; }
-    public required string Name { get; init; }
-    public DateTime CreateDate { get; init; }
-    public DateTime UpdateDate { get; init; }
-    public required ApiContentRoute Route { get; init; }
-    public Dictionary<string, ApiContentRoute> Cultures { get; init; } = [];
-    public required T Properties { get; init; }
-}
-
-public abstract class ApiContent : IApiContent
-{
-    public Guid Id { get; init; }
-    public required string ContentType { get; init; }
-    public required string Name { get; init; }
-    public DateTime CreateDate { get; init; }
-    public DateTime UpdateDate { get; init; }
-    public required ApiContentRoute Route { get; init; }
-    public Dictionary<string, ApiContentRoute> Cultures { get; init; } = [];
-}

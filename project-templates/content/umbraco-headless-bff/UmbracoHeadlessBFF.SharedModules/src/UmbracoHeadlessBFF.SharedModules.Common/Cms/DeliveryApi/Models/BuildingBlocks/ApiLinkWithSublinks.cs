@@ -2,8 +2,11 @@
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.BuildingBlocks;
 
-public sealed class ApiLinkWithSublinks : ApiElement<ApiLinkWithSublinksProperties>
+public sealed class ApiLinkWithSublinks : IApiElement<ApiLinkWithSublinksProperties>
 {
+    public required Guid Id { get; init; }
+    public required string ContentType { get; init; }
+    public required ApiLinkWithSublinksProperties Properties { get; init; }
 }
 
 public sealed class ApiLinkWithSublinksProperties

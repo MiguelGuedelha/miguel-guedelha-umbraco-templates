@@ -7,18 +7,8 @@ internal interface IPage
     PageContext Context { get; init; }
 }
 
-internal abstract class Page : IPage
-{
-    public required Guid Id { get; init; }
-    public required string ContentType { get; init; }
-    public required PageContext Context { get; init; }
-}
-
-internal abstract class Page<T> : IPage
+internal interface IPage<T> : IPage
     where T : IAdditionalProperties
 {
-    public required Guid Id { get; init; }
-    public required string ContentType { get; init; }
-    public required PageContext Context { get; init; }
-    public required PageContent<T> Content { get; init; }
+    public PageContent<T> Content { get; init; }
 }

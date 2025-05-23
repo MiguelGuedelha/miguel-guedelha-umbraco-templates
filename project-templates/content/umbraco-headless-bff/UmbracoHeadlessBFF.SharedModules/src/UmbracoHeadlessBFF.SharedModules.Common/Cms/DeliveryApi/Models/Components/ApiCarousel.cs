@@ -3,8 +3,11 @@ using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data;
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components;
 
-public sealed class ApiCarousel : ApiElement<ApiCarouselProperties>
+public sealed class ApiCarousel : IApiElement<ApiCarouselProperties>
 {
+    public required Guid Id { get; init; }
+    public required string ContentType { get; init; }
+    public required ApiCarouselProperties Properties { get; init; }
 }
 
 public sealed class ApiCarouselProperties : IApiJumpMenuConfiguration, IApiHeadingWithSubHeading

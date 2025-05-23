@@ -48,7 +48,7 @@ internal abstract class BasePageMapper
         };
     }
 
-    protected async Task<IReadOnlyCollection<ILayout>> MapMainContent<T>(ApiContent<T> model)
+    protected async Task<IReadOnlyCollection<ILayout>> MapMainContent<T>(IApiContent<T> model)
         where T : IApiPageContent
     {
         var contentMappingTasks = model.Properties.MainContent.Items

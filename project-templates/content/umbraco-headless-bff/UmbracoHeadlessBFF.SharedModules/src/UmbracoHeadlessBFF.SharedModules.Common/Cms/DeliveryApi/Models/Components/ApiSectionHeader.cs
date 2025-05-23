@@ -2,8 +2,11 @@
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components;
 
-public sealed class ApiSectionHeader : ApiElement<ApiSectionHeaderProperties>
+public sealed class ApiSectionHeader : IApiElement<ApiSectionHeaderProperties>
 {
+    public required Guid Id { get; init; }
+    public required string ContentType { get; init; }
+    public required ApiSectionHeaderProperties Properties { get; init; }
 }
 
 public sealed class ApiSectionHeaderProperties : IApiJumpMenuConfiguration, IApiHeadingWithSubHeading

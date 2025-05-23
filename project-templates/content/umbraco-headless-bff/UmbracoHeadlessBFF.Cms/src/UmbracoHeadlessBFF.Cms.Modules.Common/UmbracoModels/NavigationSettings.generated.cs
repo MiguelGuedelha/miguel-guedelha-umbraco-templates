@@ -18,14 +18,32 @@ using Umbraco.Extensions;
 
 namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels
 {
-	/// <summary>Blog Repository</summary>
-	[PublishedModel("blogRepository")]
-	public partial class BlogRepository : PublishedContentModel, INavigationSettings, IRedirectSettings
+	// Mixin Content Type with alias "navigationSettings"
+	/// <summary>Navigation Settings</summary>
+	public partial interface INavigationSettings : IPublishedContent
+	{
+		/// <summary>Breadcrumb Name Override</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		string BreadcrumbNameOverride { get; }
+
+		/// <summary>Show Breadcrumbs</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		bool ShowBreadcrumbs { get; }
+
+		/// <summary>Show In Breadcrumbs</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		bool ShowInBreadcrumbs { get; }
+	}
+
+	/// <summary>Navigation Settings</summary>
+	[PublishedModel("navigationSettings")]
+	public partial class NavigationSettings : PublishedContentModel, INavigationSettings
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		public new const string ModelTypeAlias = "blogRepository";
+		public new const string ModelTypeAlias = "navigationSettings";
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
@@ -34,14 +52,14 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels
 			=> PublishedModelUtility.GetModelContentType(publishedSnapshotAccessor, ModelItemType, ModelTypeAlias);
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		public static IPublishedPropertyType GetModelPropertyType<TValue>(IPublishedSnapshotAccessor publishedSnapshotAccessor, Expression<Func<BlogRepository, TValue>> selector)
+		public static IPublishedPropertyType GetModelPropertyType<TValue>(IPublishedSnapshotAccessor publishedSnapshotAccessor, Expression<Func<NavigationSettings, TValue>> selector)
 			=> PublishedModelUtility.GetModelPropertyType(GetModelContentType(publishedSnapshotAccessor), selector);
 #pragma warning restore 0109
 
 		private IPublishedValueFallback _publishedValueFallback;
 
 		// ctor
-		public BlogRepository(IPublishedContent content, IPublishedValueFallback publishedValueFallback)
+		public NavigationSettings(IPublishedContent content, IPublishedValueFallback publishedValueFallback)
 			: base(content, publishedValueFallback)
 		{
 			_publishedValueFallback = publishedValueFallback;
@@ -55,35 +73,33 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("breadcrumbNameOverride")]
-		public virtual string BreadcrumbNameOverride => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.NavigationSettings.GetBreadcrumbNameOverride(this, _publishedValueFallback);
+		public virtual string BreadcrumbNameOverride => GetBreadcrumbNameOverride(this, _publishedValueFallback);
+
+		/// <summary>Static getter for Breadcrumb Name Override</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		public static string GetBreadcrumbNameOverride(INavigationSettings that, IPublishedValueFallback publishedValueFallback) => that.Value<string>(publishedValueFallback, "breadcrumbNameOverride");
 
 		///<summary>
 		/// Show Breadcrumbs: Show breadcrumb chain for page
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[ImplementPropertyType("showBreadcrumbs")]
-		public virtual bool ShowBreadcrumbs => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.NavigationSettings.GetShowBreadcrumbs(this, _publishedValueFallback);
+		public virtual bool ShowBreadcrumbs => GetShowBreadcrumbs(this, _publishedValueFallback);
+
+		/// <summary>Static getter for Show Breadcrumbs</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		public static bool GetShowBreadcrumbs(INavigationSettings that, IPublishedValueFallback publishedValueFallback) => that.Value<bool>(publishedValueFallback, "showBreadcrumbs");
 
 		///<summary>
 		/// Show In Breadcrumbs: Show this page's breadcrumb in other pages
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[ImplementPropertyType("showInBreadcrumbs")]
-		public virtual bool ShowInBreadcrumbs => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.NavigationSettings.GetShowInBreadcrumbs(this, _publishedValueFallback);
+		public virtual bool ShowInBreadcrumbs => GetShowInBreadcrumbs(this, _publishedValueFallback);
 
-		///<summary>
-		/// Redirect Direction: Find and redirect to first page that is "viewable" in the direction selected
-		///</summary>
+		/// <summary>Static getter for Show In Breadcrumbs</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		[ImplementPropertyType("redirectDirection")]
-		public virtual global::UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.RedirectFallbackDirection RedirectDirection => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.RedirectSettings.GetRedirectDirection(this, _publishedValueFallback);
-
-		///<summary>
-		/// Redirect Link: Direct link to a page, url, etc
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("redirectLink")]
-		public virtual global::Umbraco.Cms.Core.Models.Link RedirectLink => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.RedirectSettings.GetRedirectLink(this, _publishedValueFallback);
+		public static bool GetShowInBreadcrumbs(INavigationSettings that, IPublishedValueFallback publishedValueFallback) => that.Value<bool>(publishedValueFallback, "showInBreadcrumbs");
 	}
 }

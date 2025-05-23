@@ -10,11 +10,3 @@ public interface IApiListingSettingsProperties
     string? ListingDescription { get; init; }
     ApiBlockList<ApiResponsiveImage>? ListingImage { get; init; }
 }
-
-public abstract class ApiListingSettingsProperties : IApiListingSettingsProperties
-{
-    public bool ExcludeFromSearch { get; init; }
-    public string? ListingTitle { get; init; }
-    public string? ListingDescription { get; init; }
-    public ApiBlockList<ApiResponsiveImage>? ListingImage { get; init; }
-}

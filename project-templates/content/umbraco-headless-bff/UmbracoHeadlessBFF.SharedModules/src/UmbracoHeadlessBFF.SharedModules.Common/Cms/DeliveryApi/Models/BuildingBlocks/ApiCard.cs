@@ -3,8 +3,11 @@ using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data;
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.BuildingBlocks;
 
-public sealed class ApiCard : ApiElement<ApiCardProperties>
+public sealed class ApiCard : IApiElement<ApiCardProperties>
 {
+    public required Guid Id { get; init; }
+    public required string ContentType { get; init; }
+    public required ApiCardProperties Properties { get; init; }
 }
 
 public sealed class ApiCardProperties : IApiHeadingWithSubHeading

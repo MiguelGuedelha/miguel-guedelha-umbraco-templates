@@ -2,8 +2,11 @@
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components;
 
-public sealed class ApiSpotlight : ApiElement<ApiSpotlightProperties>
+public sealed class ApiSpotlight : IApiElement<ApiSpotlightProperties>
 {
+    public required Guid Id { get; init; }
+    public required string ContentType { get; init; }
+    public required ApiSpotlightProperties Properties { get; init; }
 }
 
 public sealed class ApiSpotlightProperties : IApiJumpMenuConfiguration, IApiHeading, IApiRteDescription

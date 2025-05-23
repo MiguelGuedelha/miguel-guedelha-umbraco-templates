@@ -2,8 +2,11 @@ using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data;
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.BuildingBlocks;
 
-public sealed class ApiResponsiveImage : ApiElement<ApiResponsiveImageProperties>
+public sealed class ApiResponsiveImage : IApiElement<ApiResponsiveImageProperties>
 {
+    public required Guid Id { get; init; }
+    public required string ContentType { get; init; }
+    public required ApiResponsiveImageProperties Properties { get; init; }
 }
 
 public sealed class ApiResponsiveImageProperties

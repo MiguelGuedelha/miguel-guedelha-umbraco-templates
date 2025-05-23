@@ -6,8 +6,3 @@ public interface IApiPageContent
 {
     public ApiBlockGrid MainContent { get; init; }
 }
-
-public abstract class ApiPageContent : IApiPageContent
-{
-    public required ApiBlockGrid MainContent { get; init; }
-}

@@ -1,7 +1,7 @@
 ﻿namespace UmbracoHeadlessBFF.SharedModules.Common.Urls;
 
-public abstract class BaseApplicationUrlOptions
+public interface IApplicationUrlOptions
 {
     public const string SectionName = "ApplicationUrls";
-    public required string Media { get; init; }
+    string Media { get; init; }
 }

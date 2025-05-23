@@ -20,7 +20,7 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels
 {
 	/// <summary>Blog Year</summary>
 	[PublishedModel("blogYear")]
-	public partial class BlogYear : PublishedContentModel, IRedirectSettings
+	public partial class BlogYear : PublishedContentModel, INavigationSettings, IRedirectSettings
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
@@ -48,6 +48,28 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels
 		}
 
 		// properties
+
+		///<summary>
+		/// Breadcrumb Name Override: Override breadcrumb shown (empty = name of page)
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("breadcrumbNameOverride")]
+		public virtual string BreadcrumbNameOverride => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.NavigationSettings.GetBreadcrumbNameOverride(this, _publishedValueFallback);
+
+		///<summary>
+		/// Show Breadcrumbs: Show breadcrumb chain for page
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[ImplementPropertyType("showBreadcrumbs")]
+		public virtual bool ShowBreadcrumbs => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.NavigationSettings.GetShowBreadcrumbs(this, _publishedValueFallback);
+
+		///<summary>
+		/// Show In Breadcrumbs: Show this page's breadcrumb in other pages
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[ImplementPropertyType("showInBreadcrumbs")]
+		public virtual bool ShowInBreadcrumbs => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.NavigationSettings.GetShowInBreadcrumbs(this, _publishedValueFallback);
 
 		///<summary>
 		/// Redirect Direction: Find and redirect to first page that is "viewable" in the direction selected

@@ -8,6 +8,6 @@ public static class UrlsConfiguration
 {
     public static void AddUrls(this WebApplicationBuilder builder)
     {
-        builder.Services.Configure<ApplicationUrlOptions>(builder.Configuration.GetSection(BaseApplicationUrlOptions.SectionName));
+        builder.Services.Configure<ApplicationUrlOptions>(builder.Configuration.GetSection(IApplicationUrlOptions.SectionName));
     }
 }

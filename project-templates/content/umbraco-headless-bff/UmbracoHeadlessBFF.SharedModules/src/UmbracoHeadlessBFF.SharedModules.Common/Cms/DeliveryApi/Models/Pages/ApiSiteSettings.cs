@@ -3,11 +3,19 @@ using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data;
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages;
 
-public sealed class ApiSiteSettings : ApiContent<ApiSiteSettingsProperties>
+public sealed class ApiSiteSettings : IApiContent<ApiSiteSettingsProperties>
 {
+    public Guid Id { get; init; }
+    public required string ContentType { get; init; }
+    public required string Name { get; init; }
+    public DateTime CreateDate { get; init; }
+    public DateTime UpdateDate { get; init; }
+    public required ApiContentRoute Route { get; init; }
+    public Dictionary<string, ApiContentRoute> Cultures { get; init; } = [];
+    public required ApiSiteSettingsProperties Properties { get; init; }
 }
 
-public sealed class ApiSiteSettingsProperties : RedirectSettingsProperties
+public sealed class ApiSiteSettingsProperties
 {
     public IReadOnlyCollection<ApiMediaWithCrops>? HeaderLogo { get; init; }
     public IReadOnlyCollection<ApiLink>? HeaderQuickLinks { get; init; }

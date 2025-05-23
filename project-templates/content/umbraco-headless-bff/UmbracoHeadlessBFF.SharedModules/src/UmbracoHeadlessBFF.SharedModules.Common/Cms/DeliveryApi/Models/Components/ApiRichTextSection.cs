@@ -2,8 +2,11 @@
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components;
 
-public sealed class ApiRichTextSection : ApiElement<ApiRichTextSectionProperties>
+public sealed class ApiRichTextSection : IApiElement<ApiRichTextSectionProperties>
 {
+    public required Guid Id { get; init; }
+    public required string ContentType { get; init; }
+    public required ApiRichTextSectionProperties Properties { get; init; }
 }
 
 public sealed class ApiRichTextSectionProperties : IApiJumpMenuConfiguration
