@@ -1,9 +1,8 @@
 ﻿using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.BuildingBlocks;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data;
-using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Abstractions;
-using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks.Abstractions;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks;
 
-namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.BuildingBlocks.Media;
+namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.BuildingBlocks;
 
 internal interface IMediaBlockMapper : IMapper<IApiElement, IMediaBlock>
 {

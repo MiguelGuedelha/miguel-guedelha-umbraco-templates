@@ -1,5 +1,3 @@
-using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks.Media;
-
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks;
 
 internal sealed class Card

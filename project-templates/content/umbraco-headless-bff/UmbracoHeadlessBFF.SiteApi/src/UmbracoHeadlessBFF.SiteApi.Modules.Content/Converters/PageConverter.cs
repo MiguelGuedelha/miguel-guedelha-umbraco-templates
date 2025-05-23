@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Pages.Abstractions;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Pages;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Converters;
 

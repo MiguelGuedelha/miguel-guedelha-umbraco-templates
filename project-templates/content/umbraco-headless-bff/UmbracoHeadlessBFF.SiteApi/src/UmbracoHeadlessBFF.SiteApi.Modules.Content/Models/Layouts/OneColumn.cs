@@ -1,5 +1,4 @@
-﻿using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Components.Abstractions;
-using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Layouts.Abstractions;
+﻿using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Components;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Layouts;
 

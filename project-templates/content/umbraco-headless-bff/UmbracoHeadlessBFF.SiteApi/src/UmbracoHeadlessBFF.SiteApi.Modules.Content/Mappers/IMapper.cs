@@ -1,4 +1,4 @@
-namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Abstractions;
+namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers;
 
 internal interface IMapper<in TIn, TOut>
 {

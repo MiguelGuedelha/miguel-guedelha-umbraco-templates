@@ -1,5 +1,4 @@
-using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks.Media;
-using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Components.Abstractions;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Components;
 

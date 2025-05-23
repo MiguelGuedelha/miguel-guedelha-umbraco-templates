@@ -1,4 +1,4 @@
-namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Pages.Shared;
+namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Pages;
 
 internal sealed class PageContext
 {

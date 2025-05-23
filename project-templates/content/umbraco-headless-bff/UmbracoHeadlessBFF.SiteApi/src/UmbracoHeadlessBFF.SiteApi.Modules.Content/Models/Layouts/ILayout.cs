@@ -1,4 +1,4 @@
-﻿namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Layouts.Abstractions;
+﻿namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Layouts;
 
 internal interface ILayout
 {

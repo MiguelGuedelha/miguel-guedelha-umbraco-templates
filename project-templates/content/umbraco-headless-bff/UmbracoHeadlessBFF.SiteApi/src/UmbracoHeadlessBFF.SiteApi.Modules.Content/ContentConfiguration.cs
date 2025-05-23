@@ -5,13 +5,11 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Converters;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Endpoints;
-using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Abstractions;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.BuildingBlocks;
-using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.BuildingBlocks.Media;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Components;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Layouts;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Pages;
-using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Pages.Shared;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content;
 

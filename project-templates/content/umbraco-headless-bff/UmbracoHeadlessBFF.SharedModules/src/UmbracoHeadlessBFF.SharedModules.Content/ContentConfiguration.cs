@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Refit;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi;
-using UmbracoHeadlessBFF.SharedModules.Content.Sitemaps.Clients;
+using UmbracoHeadlessBFF.SharedModules.Content.Sitemaps;
 
 namespace UmbracoHeadlessBFF.SharedModules.Content;
 

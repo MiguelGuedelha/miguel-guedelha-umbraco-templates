@@ -1,4 +1,4 @@
-﻿namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks.Abstractions;
+﻿namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks;
 
 internal interface IMediaBlock
 {

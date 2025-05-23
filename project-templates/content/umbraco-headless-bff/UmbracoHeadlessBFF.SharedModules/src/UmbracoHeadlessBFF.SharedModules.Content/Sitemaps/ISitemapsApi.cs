@@ -1,7 +1,6 @@
 ﻿using Refit;
-using UmbracoHeadlessBFF.SharedModules.Content.Sitemaps.Models;
 
-namespace UmbracoHeadlessBFF.SharedModules.Content.Sitemaps.Clients;
+namespace UmbracoHeadlessBFF.SharedModules.Content.Sitemaps;
 
 public interface ISitemapsApi
 {

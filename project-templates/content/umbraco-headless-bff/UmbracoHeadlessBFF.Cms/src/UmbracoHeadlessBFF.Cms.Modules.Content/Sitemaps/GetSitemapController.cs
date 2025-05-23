@@ -7,10 +7,10 @@ using Umbraco.Cms.Core.Web;
 using Umbraco.Extensions;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Authentication;
 using UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels;
-using UmbracoHeadlessBFF.SharedModules.Content.Sitemaps.Models;
+using UmbracoHeadlessBFF.SharedModules.Content.Sitemaps;
 using NotFound = Microsoft.AspNetCore.Http.HttpResults.NotFound;
 
-namespace UmbracoHeadlessBFF.Cms.Modules.Content.Sitemaps.Controllers;
+namespace UmbracoHeadlessBFF.Cms.Modules.Content.Sitemaps;
 
 [ApiController]
 [Route($"api/v{{version:apiVersion}}/{ContentConstants.Endpoints.Group}")]

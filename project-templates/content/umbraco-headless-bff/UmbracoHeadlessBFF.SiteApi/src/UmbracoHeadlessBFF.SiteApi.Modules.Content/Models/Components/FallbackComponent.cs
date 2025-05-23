@@ -1,6 +1,4 @@
-﻿using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Components.Abstractions;
-
-namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Components;
+﻿namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Components;
 
 internal sealed class FallbackComponent : Component
 {

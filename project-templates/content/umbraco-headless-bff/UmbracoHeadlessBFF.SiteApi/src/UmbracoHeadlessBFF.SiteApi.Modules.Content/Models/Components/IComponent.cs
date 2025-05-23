@@ -1,4 +1,4 @@
-namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Components.Abstractions;
+namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Components;
 
 internal interface IComponent
 {

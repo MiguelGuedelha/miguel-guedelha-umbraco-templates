@@ -1,9 +1,8 @@
 ﻿using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages;
-using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Abstractions;
-using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.BuildingBlocks.Media;
-using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Pages.Shared;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.BuildingBlocks;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Pages;
 
-namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Pages.Shared;
+namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Pages;
 
 internal interface ISeoMapper : IMapper<IApiSeoSettingsProperties, Seo>
 {
