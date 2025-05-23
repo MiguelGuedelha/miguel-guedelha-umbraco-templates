@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages.Abstractions;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Abstractions;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Pages.Abstractions;
 

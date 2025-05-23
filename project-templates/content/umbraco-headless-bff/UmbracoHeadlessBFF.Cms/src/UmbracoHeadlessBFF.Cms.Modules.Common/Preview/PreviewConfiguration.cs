@@ -9,7 +9,7 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.Preview;
 
 public static class FeaturesConfiguration
 {
-    public static WebApplicationBuilder AddPreview(this WebApplicationBuilder builder)
+    public static void AddPreview(this WebApplicationBuilder builder)
     {
         builder.Services.Configure<PreviewOptions>(
             builder.Configuration.GetSection(PreviewOptions.SectionName));
@@ -35,7 +35,5 @@ public static class FeaturesConfiguration
                 ValidateAudience = false
             };
         });
-
-        return builder;
     }
 }

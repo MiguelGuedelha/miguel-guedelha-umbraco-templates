@@ -68,7 +68,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoHeadlessBFF.SiteApi.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoHeadlessBFF.Cms.Modules.Content", "UmbracoHeadlessBFF.Cms\src\UmbracoHeadlessBFF.Cms.Modules.Content\UmbracoHeadlessBFF.Cms.Modules.Content.csproj", "{F05A9177-34B2-4EA4-958D-543B370DD042}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoHeadlessBFF.SharedModules.Common.Content", "UmbracoHeadlessBFF.SharedModules\src\UmbracoHeadlessBFF.SharedModules.Common.Content\UmbracoHeadlessBFF.SharedModules.Common.Content.csproj", "{4C835A98-77C1-40FD-9082-1CD086721B5E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoHeadlessBFF.SharedModules.Content", "UmbracoHeadlessBFF.SharedModules\src\UmbracoHeadlessBFF.SharedModules.Content\UmbracoHeadlessBFF.SharedModules.Content.csproj", "{4C835A98-77C1-40FD-9082-1CD086721B5E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

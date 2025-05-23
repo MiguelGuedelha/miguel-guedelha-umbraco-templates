@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Routing;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Endpoints;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Abstractions;
-using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Pages;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Endpoints;
 

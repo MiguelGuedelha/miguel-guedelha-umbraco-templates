@@ -6,10 +6,9 @@ using Scalar.AspNetCore;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using UmbracoHeadlessBFF.SharedModules.Common.Caching;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Converters;
-using UmbracoHeadlessBFF.SharedModules.Common.Content;
 using UmbracoHeadlessBFF.SharedModules.Common.Correlation;
 using UmbracoHeadlessBFF.SharedModules.Common.Environment;
+using UmbracoHeadlessBFF.SharedModules.Content;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Urls;
@@ -26,8 +25,9 @@ builder.Services.AddSwaggerGen(options =>
 {
     // add a custom operation filter which sets default values
     options.OperationFilter<SwaggerDefaultValues>();
-    options.OperationFilter<HostAndPathParameters>();
-    options.OperationFilter<PreviewModeParameters>();
+    options.OperationFilter<CmsSwaggerParameters>();
+    options.OperationFilter<CorrelationSwaggerParameters>();
+    options.OperationFilter<PreviewModeSwaggerParameters>();
 });
 
 builder.Services
@@ -47,8 +47,7 @@ builder.Services
 builder.Services.ConfigureHttpJsonOptions(options =>
 {
     options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
-    options.SerializerOptions.Converters.Add(new ApiContentConverter());
-    options.SerializerOptions.Converters.Add(new ApiElementConverter());
+    options.SerializerOptions.Converters.AddDeliveryApiConverters();
     options.SerializerOptions.Converters.AddContentConverters();
 });
 

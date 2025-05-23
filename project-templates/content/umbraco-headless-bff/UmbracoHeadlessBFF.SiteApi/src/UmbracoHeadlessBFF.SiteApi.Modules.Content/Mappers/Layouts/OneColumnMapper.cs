@@ -1,5 +1,5 @@
 ﻿using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.BlockGrid;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Layouts;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Abstractions;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Components.Abstractions;

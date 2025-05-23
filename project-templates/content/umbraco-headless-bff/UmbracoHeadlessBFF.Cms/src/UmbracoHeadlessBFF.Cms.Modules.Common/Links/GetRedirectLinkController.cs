@@ -11,11 +11,11 @@ using Umbraco.Cms.Core.Routing;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Core.Web;
 using Umbraco.Extensions;
-using UmbracoHeadlessBFF.Cms.Modules.Common.Authentication.Attributes;
+using UmbracoHeadlessBFF.Cms.Modules.Common.Authentication;
 using UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Urls;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.DataList;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.Links.Models;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.Links;
 using NotFound = Microsoft.AspNetCore.Http.HttpResults.NotFound;
 
 namespace UmbracoHeadlessBFF.Cms.Modules.Common.Links;

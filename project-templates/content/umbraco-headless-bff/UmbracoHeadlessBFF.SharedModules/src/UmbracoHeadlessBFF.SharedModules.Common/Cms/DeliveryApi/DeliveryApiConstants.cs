@@ -1,18 +1,13 @@
 ﻿using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.BuildingBlocks;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components.Banner;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components.BlogListing;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components.Gallery;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Layouts;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages.Blogs;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages.Errors;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages.Settings;
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi;
 
 public static class DeliveryApiConstants
 {
+    public const string ApiKeyHeaderName = "Api-Key";
     public static class ContentTypes
     {
         public const string ApiSiteGrouping = "siteGrouping";

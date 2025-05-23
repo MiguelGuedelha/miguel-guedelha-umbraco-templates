@@ -54,7 +54,7 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[ImplementPropertyType("redirectDirection")]
-		public virtual global::UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.DataList.RedirectFallbackDirection RedirectDirection => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.RedirectSettings.GetRedirectDirection(this, _publishedValueFallback);
+		public virtual global::UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.RedirectFallbackDirection RedirectDirection => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.RedirectSettings.GetRedirectDirection(this, _publishedValueFallback);
 
 		///<summary>
 		/// Redirect Link: Direct link to a page, url, etc

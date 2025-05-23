@@ -1,14 +1,12 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Refit;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Clients;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Clients.Handlers;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Converters;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.Handlers;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.Links.Clients;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.Links;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.Options;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.Preview.Clients;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.SiteResolution.Clients;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.Preview;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.SiteResolution;
 using UmbracoHeadlessBFF.SharedModules.Common.Serialisation;
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Cms;
@@ -42,13 +40,13 @@ public static class CmsConfiguration
             .AddHeaderPropagation();
 
         // Site Resolution
-        builder.Services.AddTransient<CmsApiKeyHeaderHandler>();
+        builder.Services.AddTransient<DeliveryApiHeadersHandler>();
         builder.Services.AddRefitClient<ISiteResolutionApi>()
             .ConfigureHttpClient(c =>
             {
                 c.BaseAddress = new("https://Cms/api/v1.0/sites");
             })
-            .AddHttpMessageHandler<CmsApiKeyHeaderHandler>()
+            .AddHttpMessageHandler<DeliveryApiHeadersHandler>()
             .AddHeaderPropagation();
 
         // Links
@@ -57,7 +55,7 @@ public static class CmsConfiguration
             {
                 c.BaseAddress = new("https://Cms/api/v1.0/links");
             })
-            .AddHttpMessageHandler<CmsApiKeyHeaderHandler>()
+            .AddHttpMessageHandler<DeliveryApiHeadersHandler>()
             .AddHeaderPropagation();
 
         // Preview
@@ -67,5 +65,11 @@ public static class CmsConfiguration
                 c.BaseAddress = new("https://Cms/api/v1.0/preview");
             })
             .AddHeaderPropagation();
+    }
+
+    public static void AddDeliveryApiConverters(this IList<JsonConverter> convertersList)
+    {
+        convertersList.Add(new ApiElementConverter());
+        convertersList.Add(new ApiContentConverter());
     }
 }

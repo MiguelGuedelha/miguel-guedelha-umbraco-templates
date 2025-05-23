@@ -1,7 +1,7 @@
-﻿namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Urls;
+﻿using UmbracoHeadlessBFF.SharedModules.Common.Urls;
 
-public sealed class ApplicationUrlOptions
+namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Urls;
+
+public sealed class ApplicationUrlOptions : BaseApplicationUrlOptions
 {
-    public const string SectionName = "ApplicationUrls";
-    public required string Media { get; init; }
 }

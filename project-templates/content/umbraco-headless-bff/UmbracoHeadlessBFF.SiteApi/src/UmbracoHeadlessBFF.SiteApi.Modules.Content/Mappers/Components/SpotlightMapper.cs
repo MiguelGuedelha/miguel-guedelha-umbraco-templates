@@ -1,6 +1,6 @@
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.Abstractions;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Abstractions;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.BuildingBlocks;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.BuildingBlocks.Media;
