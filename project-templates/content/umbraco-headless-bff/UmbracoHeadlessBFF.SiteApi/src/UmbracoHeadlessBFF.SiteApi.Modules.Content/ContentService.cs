@@ -14,12 +14,8 @@ internal sealed class ContentService
     private readonly SiteResolutionContext _siteResolutionContext;
     private readonly ILinksApi _linksApi;
 
-    private static readonly HttpStatusCode[] s_redirectCodes = [
-        HttpStatusCode.Found,
-        HttpStatusCode.Moved,
-        HttpStatusCode.TemporaryRedirect,
-        HttpStatusCode.PermanentRedirect
-    ];
+    private static readonly string s_levelOneExpandFieldsLevel = new FieldsExpandProperties(1).ToString();
+    private static readonly string s_defaultExpandFieldsLevel = new FieldsExpandProperties(5).ToString();
 
     public ContentService(IUmbracoDeliveryApi umbracoDeliveryApi, SiteResolutionContext siteResolutionContext, ILinksApi linksApi)
     {
@@ -34,22 +30,17 @@ internal sealed class ContentService
 
         var response = await _umbracoDeliveryApi.GetItemById(
             id: id,
-            expand: DeliveryApiRequestHelper.GeneratePropertiesAllValue(5),
+            expand: s_defaultExpandFieldsLevel,
             acceptLanguage: site.CultureInfo,
             preview: _siteResolutionContext.IsPreview,
             startItem: site.RootId.ToString());
 
-        if (response.IsSuccessStatusCode)
-        {
-            return response.Content;
-        }
-
-        if (!s_redirectCodes.Contains(response.StatusCode))
+        if (!response.IsSuccessStatusCode)
         {
             throw new SiteApiException((int)response.StatusCode, response.ReasonPhrase);
         }
 
-        throw new RedirectApiException((int)response.StatusCode, response.Headers.Location!.ToString());
+        return response.Content;
     }
 
     public async Task<IApiContent?> GetContentByPath(string path)
@@ -84,10 +75,39 @@ internal sealed class ContentService
 
         var response = await _umbracoDeliveryApi.GetItemByPath(
             path: deliveryApiPath,
-            expand: DeliveryApiRequestHelper.GeneratePropertiesAllValue(5),
+            expand: s_defaultExpandFieldsLevel,
             acceptLanguage: site.CultureInfo,
             preview: _siteResolutionContext.IsPreview,
             startItem: site.RootId.ToString());
+
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new SiteApiException((int)response.StatusCode, response.ReasonPhrase);
+        }
+
+        return response.Content;
+    }
+
+    public async Task<PagedApiContent?> GetPagedContent(
+        int skip = 0,
+        int take = 10,
+        ContentFetchType? fetch = null,
+        IReadOnlyList<ContentFilterType>? filter = null,
+        ContentSortType? sort = null,
+        string? startItem = null)
+    {
+        var site = _siteResolutionContext.Site;
+
+        var response = await _umbracoDeliveryApi.GetContent(
+            fetch?.ToString(),
+            filter?.Select(x => x.ToString()),
+            sort?.ToString(),
+            skip,
+            take,
+            s_levelOneExpandFieldsLevel,
+            acceptLanguage: site.CultureInfo,
+            preview: _siteResolutionContext.IsPreview,
+            startItem: startItem);
 
         if (!response.IsSuccessStatusCode)
         {

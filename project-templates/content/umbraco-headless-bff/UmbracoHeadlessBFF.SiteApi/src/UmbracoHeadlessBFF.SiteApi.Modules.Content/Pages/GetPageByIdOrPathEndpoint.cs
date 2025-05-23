@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Endpoints;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
@@ -21,9 +20,9 @@ public static class GetPageByIdOrPathEndpoint
         return builder;
     }
 
-    private static async Task<Results<Ok<IPage>, NotFound>> GetPageHandler(string id,
-        [FromServices] ContentService contentService,
-        [FromServices] IEnumerable<IPageMapper> mappers)
+    private static async Task<Results<Ok<IPage>, NotFound>> GetPageHandler([AsParameters] string id,
+        ContentService contentService,
+        IEnumerable<IPageMapper> mappers)
     {
         var content = id switch
         {
