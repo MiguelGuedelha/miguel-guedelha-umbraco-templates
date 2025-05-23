@@ -29,7 +29,7 @@ public sealed class GetSitemapController : Controller
     }
 
     [HttpGet("sitemap")]
-    public Results<Ok<Sitemap>, NotFound> GetSitemap(Guid siteId, string culture)
+    public Results<Ok<SharedModules.Content.Sitemaps.SitemapData>, NotFound> GetSitemap(Guid siteId, string culture)
     {
         _variationContextAccessor.VariationContext = new(culture);
         var context = _umbracoContextFactory.EnsureUmbracoContext().UmbracoContext;
@@ -71,7 +71,7 @@ public sealed class GetSitemapController : Controller
             });
 
 
-        return TypedResults.Ok(new Sitemap
+        return TypedResults.Ok(new SharedModules.Content.Sitemaps.SitemapData
         {
             Items = sitemapPages.ToArray()
         });

@@ -50,7 +50,6 @@ internal sealed class ContentService
         }
 
         throw new RedirectApiException((int)response.StatusCode, response.Headers.Location!.ToString());
-
     }
 
     public async Task<IApiContent?> GetContentByPath(string path)

@@ -12,7 +12,7 @@ using UmbracoHeadlessBFF.SharedModules.Content;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Urls;
-using UmbracoHeadlessBFF.SiteApi.Modules.Content;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages;
 using UmbracoHeadlessBFF.SiteApi.Web.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -48,7 +48,7 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 {
     options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
     options.SerializerOptions.Converters.AddDeliveryApiConverters();
-    options.SerializerOptions.Converters.AddContentConverters();
+    options.SerializerOptions.Converters.AddPagesConverters();
 });
 
 builder.AddServiceDefaults();
@@ -59,7 +59,7 @@ builder.AddCmsSharedModules();
 builder.AddContentSharedModules();
 builder.AddErrors();
 builder.AddCms();
-builder.AddContent();
+builder.AddPages();
 builder.AddUrls();
 
 if (environment.IsLocal())
@@ -109,7 +109,7 @@ var versionGroup = app
     .MapGroup("/v{version:apiVersion}")
     .WithApiVersionSet(apiVersionSet);
 
-versionGroup.MapContentEndpoints();
+versionGroup.MapPagesEndpoints();
 
 if (app.Environment.IsLocal())
 {
