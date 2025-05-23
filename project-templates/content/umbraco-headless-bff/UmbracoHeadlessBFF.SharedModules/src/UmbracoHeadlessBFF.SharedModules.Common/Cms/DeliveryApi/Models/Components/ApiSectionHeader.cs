@@ -1,11 +1,12 @@
-﻿using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data;
+﻿using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components.Compositions;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data;
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components;
 
 public sealed class ApiSectionHeader : IApiElement<ApiSectionHeaderProperties>
 {
     public required Guid Id { get; init; }
-    public required string ContentType { get; init; }
+    public string ContentType => DeliveryApiConstants.ElementTypes.ApiSectionHeader;
     public required ApiSectionHeaderProperties Properties { get; init; }
 }
 

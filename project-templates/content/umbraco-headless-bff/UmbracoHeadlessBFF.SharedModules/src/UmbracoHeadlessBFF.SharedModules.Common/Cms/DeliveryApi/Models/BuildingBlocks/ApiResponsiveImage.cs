@@ -5,7 +5,7 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Buildin
 public sealed class ApiResponsiveImage : IApiElement<ApiResponsiveImageProperties>
 {
     public required Guid Id { get; init; }
-    public required string ContentType { get; init; }
+    public string ContentType => DeliveryApiConstants.ElementTypes.ApiResponsiveImage;
     public required ApiResponsiveImageProperties Properties { get; init; }
 }
 

@@ -3,7 +3,7 @@
 public interface IApiElement
 {
     Guid Id { get; init; }
-    string ContentType { get; init; }
+    string ContentType { get; }
 }
 
 public interface IApiElement<T> : IApiElement

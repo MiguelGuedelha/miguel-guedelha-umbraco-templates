@@ -6,7 +6,7 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages;
 public sealed class ApiSiteSettings : IApiContent<ApiSiteSettingsProperties>
 {
     public Guid Id { get; init; }
-    public required string ContentType { get; init; }
+    public string ContentType => DeliveryApiConstants.ContentTypes.ApiSiteSettings;
     public required string Name { get; init; }
     public DateTime CreateDate { get; init; }
     public DateTime UpdateDate { get; init; }

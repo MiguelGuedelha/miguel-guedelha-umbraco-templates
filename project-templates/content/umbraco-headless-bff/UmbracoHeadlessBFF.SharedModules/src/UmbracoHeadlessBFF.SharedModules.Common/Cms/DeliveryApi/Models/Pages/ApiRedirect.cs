@@ -1,11 +1,12 @@
 ﻿using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages.Compositions;
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages;
 
 public sealed class ApiRedirect : IApiContent<ApiRedirectProperties>
 {
     public Guid Id { get; init; }
-    public required string ContentType { get; init; }
+    public string ContentType => DeliveryApiConstants.ContentTypes.ApiRedirect;
     public required string Name { get; init; }
     public DateTime CreateDate { get; init; }
     public DateTime UpdateDate { get; init; }

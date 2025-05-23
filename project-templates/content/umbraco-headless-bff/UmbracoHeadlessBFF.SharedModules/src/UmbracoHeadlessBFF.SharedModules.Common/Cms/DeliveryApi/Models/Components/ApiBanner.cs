@@ -1,3 +1,4 @@
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components.Compositions;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data;
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components;
@@ -5,7 +6,7 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Compone
 public sealed class ApiBanner : IApiElement<ApiBannerProperties>
 {
     public required Guid Id { get; init; }
-    public required string ContentType { get; init; }
+    public string ContentType => DeliveryApiConstants.ElementTypes.ApiBanner;
     public required ApiBannerProperties Properties { get; init; }
 }
 

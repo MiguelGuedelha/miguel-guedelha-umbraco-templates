@@ -3,7 +3,7 @@
 public interface IApiContent
 {
     Guid Id { get; init; }
-    string ContentType { get; init; }
+    string ContentType { get; }
     string Name { get; init; }
     DateTime CreateDate { get; init; }
     DateTime UpdateDate { get; init; }

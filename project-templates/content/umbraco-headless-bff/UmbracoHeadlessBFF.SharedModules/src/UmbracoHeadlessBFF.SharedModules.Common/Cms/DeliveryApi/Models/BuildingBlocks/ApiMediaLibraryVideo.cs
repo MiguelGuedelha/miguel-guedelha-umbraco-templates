@@ -5,7 +5,7 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Buildin
 public sealed class ApiMediaLibraryVideo : IApiElement<ApiMediaLibraryVideoProperties>
 {
     public required Guid Id { get; init; }
-    public required string ContentType { get; init; }
+    public string ContentType => DeliveryApiConstants.ElementTypes.ApiMediaLibraryVideo;
     public required ApiMediaLibraryVideoProperties Properties { get; init; }
 }
 

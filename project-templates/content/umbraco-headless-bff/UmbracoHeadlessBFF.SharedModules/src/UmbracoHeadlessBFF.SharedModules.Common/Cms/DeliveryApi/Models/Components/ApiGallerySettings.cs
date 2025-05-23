@@ -5,7 +5,7 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Compone
 public sealed class ApiGallerySettings : IApiElement<ApiGallerySettingsProperties>
 {
     public required Guid Id { get; init; }
-    public required string ContentType { get; init; }
+    public string ContentType => DeliveryApiConstants.ElementTypes.ApiGallerySettings;
     public required ApiGallerySettingsProperties Properties { get; init; }
 }
 

@@ -6,7 +6,7 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Compone
 public sealed class ApiBlogListingSettings : IApiElement<ApiBlogListingSettingsProperties>
 {
     public required Guid Id { get; init; }
-    public required string ContentType { get; init; }
+    public string ContentType => DeliveryApiConstants.ElementTypes.ApiBlogListingSettings;
     public required ApiBlogListingSettingsProperties Properties { get; init; }
 }
 
