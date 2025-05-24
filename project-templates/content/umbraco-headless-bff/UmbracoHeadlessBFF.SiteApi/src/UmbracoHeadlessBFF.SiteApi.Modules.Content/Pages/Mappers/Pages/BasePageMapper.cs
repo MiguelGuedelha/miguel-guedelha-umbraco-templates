@@ -6,30 +6,36 @@ using UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Models.Pages;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Mappers.Pages;
 
-internal abstract class BasePageMapper
+internal sealed class BasePageMapper
 {
     private readonly ISeoMapper _seoMapper;
     private readonly SiteResolutionContext _siteResolutionContext;
     private readonly SiteResolutionService _siteResolutionService;
     private readonly IEnumerable<ILayoutMapper> _layoutMappers;
+    private readonly ContentService _contentService;
 
-    protected BasePageMapper(ISeoMapper seoMapper, SiteResolutionContext siteResolutionContext,
-        SiteResolutionService siteResolutionService, IEnumerable<ILayoutMapper> layoutMappers)
+    public BasePageMapper(ISeoMapper seoMapper, SiteResolutionContext siteResolutionContext,
+        SiteResolutionService siteResolutionService, IEnumerable<ILayoutMapper> layoutMappers,
+        ContentService contentService)
     {
         _seoMapper = seoMapper;
         _siteResolutionContext = siteResolutionContext;
         _siteResolutionService = siteResolutionService;
         _layoutMappers = layoutMappers;
+        _contentService = contentService;
     }
 
-    protected async Task<PageContext> MapPageContext<T>(T? pageProperties)
-        where T : IApiSeoSettingsProperties
+    public async Task<PageContext> MapPageContext<T>(IApiContent<T> model)
     {
         var site = _siteResolutionContext.Site;
 
         var alternateSites = await _siteResolutionService.GetAlternateSites(site);
 
-        var seo = pageProperties as IApiSeoSettingsProperties;
+        var seo = model.Properties as IApiSeoSettingsProperties;
+
+
+
+        var ancestors = _contentService.GetPagedContent();
 
         return new()
         {
@@ -49,7 +55,7 @@ internal abstract class BasePageMapper
         };
     }
 
-    protected async Task<IReadOnlyCollection<ILayout>> MapMainContent<T>(IApiContent<T> model)
+    public async Task<IReadOnlyCollection<ILayout>> MapMainContent<T>(IApiContent<T> model)
         where T : IApiPageContent
     {
         var contentMappingTasks = model.Properties.MainContent.Items

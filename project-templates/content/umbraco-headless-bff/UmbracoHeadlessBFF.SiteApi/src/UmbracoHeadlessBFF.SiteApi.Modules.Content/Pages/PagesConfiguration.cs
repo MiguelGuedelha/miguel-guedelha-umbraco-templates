@@ -53,6 +53,7 @@ public static class PagesConfiguration
 
         // Page related mappers
         services
+            .AddTransient<BasePageMapper>()
             .AddTransient<ISeoMapper, SeoMapper>();
 
         // Page Mappers

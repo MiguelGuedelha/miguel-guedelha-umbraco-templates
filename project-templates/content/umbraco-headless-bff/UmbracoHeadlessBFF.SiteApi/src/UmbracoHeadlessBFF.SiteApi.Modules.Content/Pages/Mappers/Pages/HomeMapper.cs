@@ -5,12 +5,13 @@ using UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Models.Pages;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Mappers.Pages;
 
-internal sealed class HomeMapper : BasePageMapper, IPageMapper
+internal sealed class HomeMapper : IPageMapper
 {
-    public HomeMapper(ISeoMapper seoMapper, SiteResolutionContext siteResolutionContext,
-        SiteResolutionService siteResolutionService, IEnumerable<ILayoutMapper> layoutMappers)
-        : base(seoMapper, siteResolutionContext, siteResolutionService, layoutMappers)
+    private readonly BasePageMapper _basePageMapper;
+
+    public HomeMapper(BasePageMapper basePageMapper)
     {
+        _basePageMapper = basePageMapper;
     }
 
     public bool CanMap(string type) => type == DeliveryApiConstants.ContentTypes.ApiHome;
@@ -28,10 +29,10 @@ internal sealed class HomeMapper : BasePageMapper, IPageMapper
             ContentType = model.ContentType,
             Content = new()
             {
-                MainContent = await MapMainContent(apiModel),
+                MainContent = await _basePageMapper.MapMainContent(apiModel),
                 AdditionalProperties = new()
             },
-            Context = await MapPageContext(apiModel.Properties)
+            Context = await _basePageMapper.MapPageContext(apiModel)
         };
     }
 }
