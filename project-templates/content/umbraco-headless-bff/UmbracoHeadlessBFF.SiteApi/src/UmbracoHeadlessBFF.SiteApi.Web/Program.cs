@@ -25,7 +25,6 @@ builder.Services.AddSwaggerGen(options =>
 {
     // add a custom operation filter which sets default values
     options.OperationFilter<SwaggerDefaultValues>();
-    options.OperationFilter<CmsSwaggerParameters>();
     options.OperationFilter<CorrelationSwaggerParameters>();
     options.OperationFilter<PreviewModeSwaggerParameters>();
 });

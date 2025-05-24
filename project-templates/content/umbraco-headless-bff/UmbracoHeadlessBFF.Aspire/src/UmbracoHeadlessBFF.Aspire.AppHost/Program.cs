@@ -34,17 +34,22 @@ var cache = builder
     .AddRedis(CachingConstants.ConnectionStringName)
     .WithRedisInsight();
 
-var blobStorage = builder.AddAzureStorage("BlobStorage");
+var azureStorage = builder
+    .AddAzureStorage("AzureStorage");
 
 if (builder.Environment.IsLocal())
 {
-    blobStorage.RunAsEmulator(c =>
+    azureStorage.RunAsEmulator(c =>
     {
-        c.WithDataVolume("UmbracoHeadlessBFF-blob-storage");
+        c.WithDataVolume("UmbracoHeadlessBFF-azure-storage");
     });
 }
 
-var umbracoBlob = blobStorage.AddBlobs("blobs");
+var blobs = azureStorage.AddBlobs("blobs");
+
+var cmsUmbracoBlobContainer = builder.AddParameter("CmsUmbracoBlobContainer");
+
+var umbracoMediaBlob = blobs.AddBlobContainer(cmsUmbracoBlobContainer.Resource.Value);
 
 var cmsDeliveryApiKey = builder.AddParameter("CmsDeliveryApiKey");
 
@@ -59,17 +64,19 @@ cms.WithExternalHttpEndpoints()
     .WithReference(umbracoDb, connectionName: "umbracoDbDSN")
     .WithReference(cache)
     //Only needed to add this reference on local so we can connect to the client in a standard way and ensure the blob container exists before booting up umbraco
-    .WithReference(umbracoBlob)
+    .WithReference(blobs)
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Port", smtpPort)
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Username", smtpUser)
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Password", smtpPassword)
-    .WithEnvironment("Umbraco__Storage__AzureBlob__Media__ConnectionString", umbracoBlob.Resource.ConnectionStringExpression)
+    .WithEnvironment("Umbraco__Storage__AzureBlob__Media__ConnectionString", blobs)
+    .WithEnvironment("Umbraco__Storage__AzureBlob__Media__ContainerName", cmsUmbracoBlobContainer)
     .WithEnvironment("Umbraco__CMS__DeliveryApi__ApiKey", cmsDeliveryApiKey)
     .WithEnvironment("ApplicationUrls__Media", () => cms.Resource.GetEndpoint("https").Url)
     .WaitFor(mailServer)
     .WaitFor(umbracoDb)
     .WaitFor(cache)
-    .WaitFor(umbracoBlob);
+    .WaitFor(blobs)
+    .WaitFor(umbracoMediaBlob);
 
 cms.WithUrls(context =>
 {

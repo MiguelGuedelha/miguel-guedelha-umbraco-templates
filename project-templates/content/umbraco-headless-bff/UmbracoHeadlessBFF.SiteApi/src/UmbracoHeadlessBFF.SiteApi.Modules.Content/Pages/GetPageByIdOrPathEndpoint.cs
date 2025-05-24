@@ -20,7 +20,7 @@ public static class GetPageByIdOrPathEndpoint
         return builder;
     }
 
-    private static async Task<Results<Ok<IPage>, NotFound>> GetPageHandler([AsParameters] string id,
+    private static async Task<Results<Ok<IPage>, NotFound>> GetPageHandler(string id,
         ContentService contentService,
         IEnumerable<IPageMapper> mappers)
     {
