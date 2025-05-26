@@ -16,7 +16,7 @@ public sealed class ApiBlogArticle : IApiContent<ApiBlogArticleProperties>
     public required ApiBlogArticleProperties Properties { get; init; }
 }
 
-public sealed class ApiBlogArticleProperties : IApiSeoSettingsProperties, IApiListingSettingsProperties, IApiPageContent
+public sealed class ApiBlogArticleProperties : IApiSeoSettingsProperties, IApiListingSettingsProperties, IApiNavigationSettingsProperties, IApiPageContent
 {
     public string? MetaTitle { get; init; }
     public string? MetaDescription { get; init; }
@@ -34,5 +34,9 @@ public sealed class ApiBlogArticleProperties : IApiSeoSettingsProperties, IApiLi
     public string? ListingTitle { get; init; }
     public string? ListingDescription { get; init; }
     public ApiBlockList<ApiResponsiveImage>? ListingImage { get; init; }
+    public bool ShowBreadcrumbs { get; init; }
+    public bool ShowInBreadcrumbs { get; init; }
+    public string? BreadcrumbNameOverride { get; init; }
+    public bool ShowBreadcrumbLink { get; init; }
     public required ApiBlockGrid MainContent { get; init; }
 }

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Routing;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Endpoints;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
-using UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Mappers;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Mappers.Pages;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Models.Pages;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages;
@@ -24,6 +24,11 @@ public static class GetPageByIdOrPathEndpoint
         ContentService contentService,
         IEnumerable<IPageMapper> mappers)
     {
+        if (string.IsNullOrWhiteSpace(id))
+        {
+            throw new SiteApiException(StatusCodes.Status400BadRequest, "No page id provided (path or key)");
+        }
+
         var content = id switch
         {
             _ when Guid.TryParse(id, out var parsedId) => await contentService.GetContentById(parsedId),

@@ -26,7 +26,8 @@ var database = builder
     .WithDataVolume("UmbracoHeadlessBFF-db-data")
     .WithVolume("UmbracoHeadlessBFF-db-log", "/var/opt/mssql/log")
     .WithVolume("UmbracoHeadlessBFF-db-secrets", "/var/opt/mssql/secrets")
-    .WithContainerRuntimeArgs("--user", "root");
+    .WithContainerRuntimeArgs("--user", "root")
+    .WithLifetime(ContainerLifetime.Persistent);
 
 var umbracoDb = database.AddDatabase("Database", "umbraco-cms");
 

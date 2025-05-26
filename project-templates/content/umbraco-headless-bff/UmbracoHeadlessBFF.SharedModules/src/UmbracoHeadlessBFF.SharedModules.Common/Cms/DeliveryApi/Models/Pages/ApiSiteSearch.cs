@@ -15,7 +15,7 @@ public sealed class ApiSiteSearch : IApiContent<ApiSiteSearchProperties>
     public required ApiSiteSearchProperties Properties { get; init; }
 }
 
-public sealed class ApiSiteSearchProperties : IApiSeoSettingsProperties
+public sealed class ApiSiteSearchProperties : IApiSeoSettingsProperties, IApiNavigationSettingsProperties
 {
     public string? MetaTitle { get; init; }
     public string? MetaDescription { get; init; }
@@ -29,4 +29,8 @@ public sealed class ApiSiteSearchProperties : IApiSeoSettingsProperties
     public string? SitemapChangeFrequency { get; init; }
     public decimal SitemapPriority { get; init; }
     public DateTime? SitemapLastModifiedOverwrite { get; init; }
+    public bool ShowBreadcrumbs { get; init; }
+    public bool ShowInBreadcrumbs { get; init; }
+    public string? BreadcrumbNameOverride { get; init; }
+    public bool ShowBreadcrumbLink { get; init; }
 }

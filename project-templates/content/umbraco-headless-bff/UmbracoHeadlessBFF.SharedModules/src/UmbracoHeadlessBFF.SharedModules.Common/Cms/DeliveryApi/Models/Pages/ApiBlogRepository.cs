@@ -15,8 +15,12 @@ public sealed class ApiBlogRepository : IApiContent<ApiBlogRepositoryProperties>
     public required ApiBlogRepositoryProperties Properties { get; init; }
 }
 
-public sealed class ApiBlogRepositoryProperties : IRedirectSettingsProperties
+public sealed class ApiBlogRepositoryProperties : IApiRedirectSettingsProperties, IApiNavigationSettingsProperties
 {
     public IReadOnlyCollection<ApiLink>? RedirectLink { get; init; }
     public RedirectFallbackDirection? RedirectDirection { get; init; }
+    public bool ShowBreadcrumbs { get; init; }
+    public bool ShowInBreadcrumbs { get; init; }
+    public string? BreadcrumbNameOverride { get; init; }
+    public bool ShowBreadcrumbLink { get; init; }
 }

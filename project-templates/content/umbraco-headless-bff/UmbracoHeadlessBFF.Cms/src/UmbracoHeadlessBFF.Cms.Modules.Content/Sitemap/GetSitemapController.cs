@@ -7,10 +7,10 @@ using Umbraco.Cms.Core.Web;
 using Umbraco.Extensions;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Authentication;
 using UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels;
-using UmbracoHeadlessBFF.SharedModules.Content.Sitemaps;
+using UmbracoHeadlessBFF.SharedModules.Content.Sitemap;
 using NotFound = Microsoft.AspNetCore.Http.HttpResults.NotFound;
 
-namespace UmbracoHeadlessBFF.Cms.Modules.Content.Sitemaps;
+namespace UmbracoHeadlessBFF.Cms.Modules.Content.Sitemap;
 
 [ApiController]
 [Route($"api/v{{version:apiVersion}}/{ContentConstants.Endpoints.Group}")]
@@ -29,7 +29,7 @@ public sealed class GetSitemapController : Controller
     }
 
     [HttpGet("sitemap")]
-    public Results<Ok<SharedModules.Content.Sitemaps.SitemapData>, NotFound> GetSitemap(Guid siteId, string culture)
+    public Results<Ok<SitemapData>, NotFound> GetSitemap(Guid siteId, string culture)
     {
         _variationContextAccessor.VariationContext = new(culture);
         var context = _umbracoContextFactory.EnsureUmbracoContext().UmbracoContext;
@@ -61,7 +61,7 @@ public sealed class GetSitemapController : Controller
                 ChangeFrequency = x.SitemapChangeFrequency,
                 Priority = x.SitemapPriority,
                 AlternateLanguages = x.Cultures
-                    .Where(nodeCulture => nodeCulture.Value.Culture != culture)
+                    .Where(nodeCulture => !culture.InvariantEquals(nodeCulture.Value.Culture))
                     .Select(nodeCulture => new SitemapItemAlternateLanguage
                     {
                         HrefLang = nodeCulture.Value.Culture,
@@ -71,7 +71,7 @@ public sealed class GetSitemapController : Controller
             });
 
 
-        return TypedResults.Ok(new SharedModules.Content.Sitemaps.SitemapData
+        return TypedResults.Ok(new SitemapData
         {
             Items = sitemapPages.ToArray()
         });

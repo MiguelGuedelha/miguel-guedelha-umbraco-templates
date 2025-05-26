@@ -27,6 +27,10 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		string BreadcrumbNameOverride { get; }
 
+		/// <summary>Show Breadcrumb Link</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		bool ShowBreadcrumbLink { get; }
+
 		/// <summary>Show Breadcrumbs</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		bool ShowBreadcrumbs { get; }
@@ -79,6 +83,17 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		public static string GetBreadcrumbNameOverride(INavigationSettings that, IPublishedValueFallback publishedValueFallback) => that.Value<string>(publishedValueFallback, "breadcrumbNameOverride");
+
+		///<summary>
+		/// Show Breadcrumb Link
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[ImplementPropertyType("showBreadcrumbLink")]
+		public virtual bool ShowBreadcrumbLink => GetShowBreadcrumbLink(this, _publishedValueFallback);
+
+		/// <summary>Static getter for Show Breadcrumb Link</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		public static bool GetShowBreadcrumbLink(INavigationSettings that, IPublishedValueFallback publishedValueFallback) => that.Value<bool>(publishedValueFallback, "showBreadcrumbLink");
 
 		///<summary>
 		/// Show Breadcrumbs: Show breadcrumb chain for page

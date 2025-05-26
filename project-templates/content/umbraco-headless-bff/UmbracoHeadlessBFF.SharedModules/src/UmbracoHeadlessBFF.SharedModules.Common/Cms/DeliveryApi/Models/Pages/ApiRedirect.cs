@@ -15,8 +15,12 @@ public sealed class ApiRedirect : IApiContent<ApiRedirectProperties>
     public required ApiRedirectProperties Properties { get; init; }
 }
 
-public sealed class ApiRedirectProperties : IRedirectSettingsProperties
+public sealed class ApiRedirectProperties : IApiRedirectSettingsProperties, IApiNavigationSettingsProperties
 {
     public IReadOnlyCollection<ApiLink>? RedirectLink { get; init; }
     public RedirectFallbackDirection? RedirectDirection { get; init; }
+    public bool ShowBreadcrumbs { get; init; }
+    public bool ShowInBreadcrumbs { get; init; }
+    public string? BreadcrumbNameOverride { get; init; }
+    public bool ShowBreadcrumbLink { get; init; }
 }

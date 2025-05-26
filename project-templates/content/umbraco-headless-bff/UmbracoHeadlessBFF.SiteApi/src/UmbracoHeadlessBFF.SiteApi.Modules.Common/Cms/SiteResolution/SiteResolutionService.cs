@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.SiteResolution;
 using UmbracoHeadlessBFF.SharedModules.Common.Correlation;
+using UmbracoHeadlessBFF.SharedModules.Common.Strings;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
@@ -58,7 +59,7 @@ public sealed class SiteResolutionService
             return null;
         }
 
-        var path = sitePath.ToString();
+        var path = sitePath.ToString().SanitisePathSlashes();
 
         var sitesByLongestPath = sites
             .SelectMany(x => x.Value.Domains.Select(y => (x.Key, SiteDefinitionDomain: y)))

@@ -1,6 +1,4 @@
-﻿using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data;
-
-namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages;
+﻿namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages;
 
 public sealed class ApiSiteDictionary : IApiContent<ApiSiteDictionaryProperties>
 {

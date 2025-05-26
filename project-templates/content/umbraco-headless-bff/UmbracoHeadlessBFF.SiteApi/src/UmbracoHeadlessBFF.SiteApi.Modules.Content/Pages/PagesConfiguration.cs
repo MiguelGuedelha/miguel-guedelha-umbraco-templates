@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Converters;
-using UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Mappers;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Mappers.BuildingBlocks;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Mappers.Components;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Mappers.Layouts;
@@ -60,7 +59,8 @@ public static class PagesConfiguration
         services
             .AddTransient<IPageMapper, HomeMapper>()
             .AddTransient<IPageMapper, SiteSearchMapper>()
-            .AddTransient<IPageMapper, StandardContentMapper>();
+            .AddTransient<IPageMapper, StandardContentMapper>()
+            .AddTransient<IPageMapper, BlogArticleMapper>();
 
         services.AddTransient<IPageMapper, FallbackPageMapper>();
     }

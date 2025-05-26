@@ -58,6 +58,13 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels
 		public virtual string BreadcrumbNameOverride => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.NavigationSettings.GetBreadcrumbNameOverride(this, _publishedValueFallback);
 
 		///<summary>
+		/// Show Breadcrumb Link
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[ImplementPropertyType("showBreadcrumbLink")]
+		public virtual bool ShowBreadcrumbLink => global::UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels.NavigationSettings.GetShowBreadcrumbLink(this, _publishedValueFallback);
+
+		///<summary>
 		/// Show Breadcrumbs: Show breadcrumb chain for page
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]

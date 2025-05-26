@@ -4,28 +4,33 @@ using UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Models.Pages;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Mappers.Pages;
 
-internal sealed class SiteSearchMapper : IPageMapper
+internal sealed class BlogArticleMapper : IPageMapper
 {
     private readonly BasePageMapper _basePageMapper;
 
-    public SiteSearchMapper(BasePageMapper basePageMapper)
+    public BlogArticleMapper(BasePageMapper basePageMapper)
     {
         _basePageMapper = basePageMapper;
     }
 
-    public bool CanMap(string type) => type == DeliveryApiConstants.ContentTypes.ApiSiteSearch;
+    public bool CanMap(string type) => type == DeliveryApiConstants.ContentTypes.ApiBlogArticle;
 
     public async Task<IPage?> Map(IApiContent model)
     {
-        if (model is not ApiSiteSearch apiModel)
+        if (model is not ApiBlogArticle apiModel)
         {
             return null;
         }
 
-        return new SiteSearch
+        return new BlogArticle
         {
-            Id = apiModel.Id,
-            ContentType = apiModel.ContentType,
+            Id = model.Id,
+            ContentType = model.ContentType,
+            Content = new()
+            {
+                MainContent = await _basePageMapper.MapMainContent(apiModel),
+                AdditionalProperties = new()
+            },
             Context = await _basePageMapper.MapPageContext(apiModel)
         };
     }

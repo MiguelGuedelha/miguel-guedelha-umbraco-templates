@@ -13,6 +13,7 @@ using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Urls;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Sitemap;
 using UmbracoHeadlessBFF.SiteApi.Web.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -109,6 +110,7 @@ var versionGroup = app
     .WithApiVersionSet(apiVersionSet);
 
 versionGroup.MapPagesEndpoints();
+versionGroup.MapSitemapEndpoints();
 
 if (app.Environment.IsLocal())
 {

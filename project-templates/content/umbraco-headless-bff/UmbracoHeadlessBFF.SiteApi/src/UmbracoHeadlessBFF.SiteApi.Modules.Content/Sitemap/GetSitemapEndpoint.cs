@@ -2,18 +2,18 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Routing;
-using UmbracoHeadlessBFF.SiteApi.Modules.Common.Endpoints;
-using UmbracoHeadlessBFF.SharedModules.Content.Sitemaps;
+using UmbracoHeadlessBFF.SharedModules.Content.Sitemap;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
+using UmbracoHeadlessBFF.SiteApi.Modules.Common.Endpoints;
 
-namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Sitemaps;
+namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Sitemap;
 
 public static class GetSitemapEndpoint
 {
     public static RouteGroupBuilder MapGetSitemap(this RouteGroupBuilder builder)
     {
         builder
-            .MapGet("/sitemap", GetSitemapHandler)
+            .MapGet("/", GetSitemapHandler)
             .MapToApiVersion(EndpointConstants.Versions.V1);
 
         return builder;

@@ -12,7 +12,7 @@ public sealed record ContentFetchType
     }.ToFrozenDictionary();
 
     public required string IdOrPath { get; init; }
-    public Options FetchType { get; init; }
+    public required Options FetchType { get; init; }
 
     public override string ToString()
     {

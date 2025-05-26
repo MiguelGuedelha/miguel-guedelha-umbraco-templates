@@ -15,8 +15,12 @@ public sealed class ApiBlogYear : IApiContent<ApiBlogYearProperties>
     public required ApiBlogYearProperties Properties { get; init; }
 }
 
-public sealed class ApiBlogYearProperties : IRedirectSettingsProperties
+public sealed class ApiBlogYearProperties : IApiRedirectSettingsProperties, IApiNavigationSettingsProperties
 {
     public IReadOnlyCollection<ApiLink>? RedirectLink { get; init; }
     public RedirectFallbackDirection? RedirectDirection { get; init; }
+    public bool ShowBreadcrumbs { get; init; }
+    public bool ShowInBreadcrumbs { get; init; }
+    public string? BreadcrumbNameOverride { get; init; }
+    public bool ShowBreadcrumbLink { get; init; }
 }

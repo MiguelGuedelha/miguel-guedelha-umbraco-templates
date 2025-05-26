@@ -1,6 +1,7 @@
 ﻿using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Layouts;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Mappers.Components;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Models.Components;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Models.Layouts;
 

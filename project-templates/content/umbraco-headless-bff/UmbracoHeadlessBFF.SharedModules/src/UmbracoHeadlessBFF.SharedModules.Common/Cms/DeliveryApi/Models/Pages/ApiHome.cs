@@ -15,7 +15,7 @@ public sealed class ApiHome : IApiContent<ApiHomeProperties>
     public required ApiHomeProperties Properties { get; init; }
 }
 
-public sealed class ApiHomeProperties : IApiSeoSettingsProperties, IApiPageContent
+public sealed class ApiHomeProperties : IApiSeoSettingsProperties, IApiNavigationSettingsProperties, IApiPageContent
 {
     public string? MetaTitle { get; init; }
     public string? MetaDescription { get; init; }
@@ -29,5 +29,9 @@ public sealed class ApiHomeProperties : IApiSeoSettingsProperties, IApiPageConte
     public string? SitemapChangeFrequency { get; init; }
     public decimal SitemapPriority { get; init; }
     public DateTime? SitemapLastModifiedOverwrite { get; init; }
+    public bool ShowBreadcrumbs { get; init; }
+    public bool ShowInBreadcrumbs { get; init; }
+    public string? BreadcrumbNameOverride { get; init; }
+    public bool ShowBreadcrumbLink { get; init; }
     public required ApiBlockGrid MainContent { get; init; }
 }
