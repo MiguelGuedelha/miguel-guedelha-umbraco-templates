@@ -13,7 +13,6 @@ internal interface IContentService
     Task<IApiContent?> GetContentByPath(string path);
     Task<PagedApiContent?> GetPagedContent(int skip = 0, int take = 10, ContentFetchType? fetch = null,
         IReadOnlyList<ContentFilterType>? filter = null, ContentSortType? sort = null, string? startItem = null);
-    Task<ApiSiteSettings?> GetSiteSettings();
 }
 
 internal sealed class ContentService : IContentService
@@ -123,12 +122,5 @@ internal sealed class ContentService : IContentService
         }
 
         return response.Content;
-    }
-
-    public async Task<ApiSiteSettings?> GetSiteSettings()
-    {
-        var siteSettingsContent = await GetContentById(_siteResolutionContext.Site.SiteSettingsId);
-
-        return siteSettingsContent as ApiSiteSettings;
     }
 }

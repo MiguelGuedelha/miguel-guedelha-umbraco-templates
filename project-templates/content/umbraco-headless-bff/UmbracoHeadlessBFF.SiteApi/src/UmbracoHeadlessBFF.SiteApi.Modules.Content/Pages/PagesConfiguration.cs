@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Converters;
+using UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Endpoints;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Mappers.BuildingBlocks;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Mappers.Components;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Mappers.Layouts;
@@ -65,7 +66,8 @@ public static class PagesConfiguration
             .AddTransient<IPageMapper, HomeMapper>()
             .AddTransient<IPageMapper, SiteSearchMapper>()
             .AddTransient<IPageMapper, StandardContentMapper>()
-            .AddTransient<IPageMapper, BlogArticleMapper>();
+            .AddTransient<IPageMapper, BlogArticleMapper>()
+            .AddTransient<IPageMapper, NotFoundMapper>();
 
         services.AddTransient<IPageMapper, FallbackPageMapper>();
     }
@@ -83,6 +85,7 @@ public static class PagesConfiguration
         apiVersionGroup
             .MapGroup("/content")
             .WithTags("Content")
-            .MapGetPage();
+            .MapGetPageByIdOrPath()
+            .MapGetNotFoundPage();
     }
 }

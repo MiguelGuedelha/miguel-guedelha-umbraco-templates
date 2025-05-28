@@ -1,5 +1,5 @@
-﻿using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages.Compositions;
-using UmbracoHeadlessBFF.SharedModules.Common.Strings;
+﻿using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages;
+using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages.Compositions;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Mappers.BuildingBlocks;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Models.Pages;
@@ -37,7 +37,7 @@ internal sealed class SeoMapper : ISeoMapper
             _ => null
         };
 
-        var siteSettings = await _contentService.GetSiteSettings();
+        var siteSettings = await _contentService.GetContentById(_siteResolutionContext.Site.SiteSettingsId) as ApiSiteSettings;
 
         var titlePrefix = siteSettings?.Properties.PageTitlePrefix;
         var domain = _siteResolutionContext.Site.Domains.First();

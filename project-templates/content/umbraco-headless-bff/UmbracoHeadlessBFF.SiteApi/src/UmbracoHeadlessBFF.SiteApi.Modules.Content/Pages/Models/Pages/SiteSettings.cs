@@ -6,7 +6,6 @@ internal sealed class SiteSettings
 {
     public required Header Header { get; init; }
     public required Footer Footer { get; init; }
-    public required string? NotFoundPage { get; init; }
     public required string? SearchPage { get; init; }
 }
 

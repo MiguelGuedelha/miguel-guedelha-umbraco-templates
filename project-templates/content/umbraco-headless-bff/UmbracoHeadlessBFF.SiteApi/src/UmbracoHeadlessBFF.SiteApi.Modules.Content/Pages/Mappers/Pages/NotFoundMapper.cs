@@ -4,25 +4,25 @@ using UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Models.Pages;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Mappers.Pages;
 
-internal sealed class StandardContentMapper : IPageMapper
+internal sealed class NotFoundMapper : IPageMapper
 {
     private readonly BasePageMapper _basePageMapper;
 
-    public StandardContentMapper(BasePageMapper basePageMapper)
+    public NotFoundMapper(BasePageMapper basePageMapper)
     {
         _basePageMapper = basePageMapper;
     }
 
-    public bool CanMap(string type) => type == DeliveryApiConstants.ContentTypes.ApiStandardContentPage;
+    public bool CanMap(string type) => type == DeliveryApiConstants.ContentTypes.ApiNotFound;
 
     public async Task<IPage?> Map(IApiContent model)
     {
-        if (model is not ApiStandardContentPage apiModel)
+        if (model is not ApiNotFound apiModel)
         {
             return null;
         }
 
-        return new StandardContent
+        return new NotFound
         {
             Id = model.Id,
             ContentType = model.ContentType,

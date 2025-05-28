@@ -6,21 +6,22 @@ using UmbracoHeadlessBFF.SiteApi.Modules.Common.Endpoints;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Mappers.Pages;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Models.Pages;
+using NotFound = Microsoft.AspNetCore.Http.HttpResults.NotFound;
 
-namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages;
+namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Endpoints;
 
 public static class GetPageByIdOrPathEndpoint
 {
-    public static RouteGroupBuilder MapGetPage(this RouteGroupBuilder builder)
+    public static RouteGroupBuilder MapGetPageByIdOrPath(this RouteGroupBuilder builder)
     {
         builder
-            .MapGet("/page", GetPageHandler)
+            .MapGet("/page", Handler)
             .MapToApiVersion(EndpointConstants.Versions.V1);
 
         return builder;
     }
 
-    private static async Task<Results<Ok<IPage>, NotFound>> GetPageHandler(string id,
+    private static async Task<Results<Ok<IPage>, NotFound>> Handler(string id,
         IContentService contentService,
         IEnumerable<IPageMapper> mappers)
     {

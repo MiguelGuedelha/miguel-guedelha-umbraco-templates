@@ -53,7 +53,6 @@ internal sealed class SiteSettingsMapper : ISiteSettingsMapper
 
         return new()
         {
-            NotFoundPage = model.Properties.NotFoundPage?.FirstOrDefault()?.Route.Path,
             SearchPage = model.Properties.SearchPage?.FirstOrDefault()?.Route.Path,
             Header = new()
             {
