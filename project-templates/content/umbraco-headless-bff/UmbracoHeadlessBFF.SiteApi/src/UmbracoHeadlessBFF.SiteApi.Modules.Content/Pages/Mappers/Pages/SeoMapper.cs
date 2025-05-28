@@ -1,4 +1,6 @@
 ﻿using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages.Compositions;
+using UmbracoHeadlessBFF.SharedModules.Common.Strings;
+using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Mappers.BuildingBlocks;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Models.Pages;
 
@@ -11,10 +13,14 @@ internal interface ISeoMapper : IMapper<IApiSeoSettingsProperties, Seo>
 internal sealed class SeoMapper : ISeoMapper
 {
     private readonly IImageMapper _imageMapper;
+    private readonly IContentService _contentService;
+    private readonly SiteResolutionContext _siteResolutionContext;
 
-    public SeoMapper(IImageMapper imageMapper)
+    public SeoMapper(IImageMapper imageMapper, IContentService contentService, SiteResolutionContext siteResolutionContext)
     {
         _imageMapper = imageMapper;
+        _contentService = contentService;
+        _siteResolutionContext = siteResolutionContext;
     }
 
     public async Task<Seo?> Map(IApiSeoSettingsProperties model)
@@ -31,9 +37,17 @@ internal sealed class SeoMapper : ISeoMapper
             _ => null
         };
 
+        var siteSettings = await _contentService.GetSiteSettings();
+
+        var titlePrefix = siteSettings?.Properties.PageTitlePrefix;
+        var domain = _siteResolutionContext.Site.Domains.First();
+        var canonical = siteSettings?.Properties.CanonicalDomainOverride
+            ?? $"{domain.Scheme}://{domain.Domain}";
+
         return new()
         {
-            MetaTitle = model.MetaTitle,
+            CanonicalUrl = new Uri(new(canonical), _siteResolutionContext.Path).ToString(),
+            MetaTitle = titlePrefix is null ? model.MetaTitle : $"{titlePrefix}{model.MetaTitle}",
             MetaDescription = model.MetaDescription,
             MetaImage = mappedMetaImage?.Src,
             OgType = model.OgType,

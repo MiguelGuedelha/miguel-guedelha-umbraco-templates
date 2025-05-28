@@ -21,7 +21,7 @@ public static class GetPageByIdOrPathEndpoint
     }
 
     private static async Task<Results<Ok<IPage>, NotFound>> GetPageHandler(string id,
-        ContentService contentService,
+        IContentService contentService,
         IEnumerable<IPageMapper> mappers)
     {
         if (string.IsNullOrWhiteSpace(id))

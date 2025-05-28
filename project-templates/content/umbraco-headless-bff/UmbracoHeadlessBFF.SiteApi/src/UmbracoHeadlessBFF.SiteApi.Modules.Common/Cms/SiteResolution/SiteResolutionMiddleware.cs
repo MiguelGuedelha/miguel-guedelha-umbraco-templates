@@ -38,6 +38,12 @@ public sealed class SiteResolutionMiddleware : IMiddleware
             _siteResolutionContext.Domain = siteHost.ToString();
         }
 
+        var hasSitePath = context.Request.Headers.TryGetValue(CorrelationConstants.Headers.SitePath, out var sitePath);
+        if (hasSitePath)
+        {
+            _siteResolutionContext.Path = sitePath.ToString();
+        }
+
         context.Response.OnStarting(() =>
         {
             if (context.Response.StatusCode > 299)

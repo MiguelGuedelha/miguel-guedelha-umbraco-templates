@@ -17,7 +17,7 @@ public static class PagesConfiguration
     {
         var services = builder.Services;
 
-        services.AddTransient<ContentService>();
+        services.AddTransient<IContentService, ContentService>();
 
         // Building Block Mappers
         services
@@ -29,7 +29,11 @@ public static class PagesConfiguration
             .AddTransient<IMediaBlockMapper, MediaBlockMapper>()
             .AddTransient<IEmbedVideoMapper, EmbedVideoMapper>()
             .AddTransient<IMediaLibraryVideoMapper, MediaLibraryVideoMapper>()
-            .AddTransient<IResponsiveImageMapper, ResponsiveImageMapper>();
+            .AddTransient<IResponsiveImageMapper, ResponsiveImageMapper>()
+            .AddTransient<INavigationLinkMapper, NavigationLinkMapper>()
+            .AddTransient<ILinkWithSublinksMapper, LinkWithSublinksMapper>()
+            .AddTransient<IHeadingWithLinksMapper, HeadingWithLinksMapper>()
+            .AddTransient<IHeadingWithSocialLinksMapper, HeadingWithSocialLinksMapper>();
 
         // Component Mappers
         services
@@ -53,7 +57,8 @@ public static class PagesConfiguration
         // Page related mappers
         services
             .AddTransient<BasePageMapper>()
-            .AddTransient<ISeoMapper, SeoMapper>();
+            .AddTransient<ISeoMapper, SeoMapper>()
+            .AddTransient<ISiteSettingsMapper, SiteSettingsMapper>();
 
         // Page Mappers
         services

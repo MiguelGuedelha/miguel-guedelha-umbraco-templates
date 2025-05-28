@@ -8,6 +8,7 @@ using Umbraco.Extensions;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Authentication;
 using UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.SiteResolution;
+using UmbracoHeadlessBFF.SharedModules.Common.Strings;
 using NotFound = Microsoft.AspNetCore.Http.HttpResults.NotFound;
 
 namespace UmbracoHeadlessBFF.Cms.Modules.Common.SiteResolution;
@@ -102,7 +103,7 @@ public sealed class GetSitesController : Controller
 
                 var siteDomains = domainGroup
                     .Select(domain => new Uri(domain.DomainName.StartsWith("http") ? domain.DomainName : $"https://{domain.DomainName}"))
-                    .Select(siteUri => new SiteDefinitionDomain { Scheme = siteUri.Scheme, Domain = siteUri.Authority, Path = $"/{siteUri.AbsolutePath.Trim('/')}/" })
+                    .Select(siteUri => new SiteDefinitionDomain { Scheme = siteUri.Scheme, Domain = siteUri.Authority, Path = siteUri.AbsolutePath.SanitisePathSlashes() })
                     .ToArray();
 
                 siteDefinition = siteDefinition with { Domains = siteDomains };

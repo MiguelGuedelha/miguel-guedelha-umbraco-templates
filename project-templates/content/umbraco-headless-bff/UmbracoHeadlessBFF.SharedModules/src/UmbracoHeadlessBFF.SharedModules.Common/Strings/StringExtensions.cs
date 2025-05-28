@@ -28,6 +28,6 @@ public static partial class StringExtensions
 
     public static string SanitisePathSlashes(this string path)
     {
-        return $"/{path.Trim('/')}/";
+        return path.Equals("/") ? path : $"/{path.Trim('/')}/";
     }
 }

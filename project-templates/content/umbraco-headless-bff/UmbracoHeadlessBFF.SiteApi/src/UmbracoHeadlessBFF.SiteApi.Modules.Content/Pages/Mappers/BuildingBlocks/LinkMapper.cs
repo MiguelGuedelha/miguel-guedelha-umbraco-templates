@@ -26,7 +26,7 @@ internal sealed partial class LinkMapper : ILinkMapper
     }
 
     [GeneratedRegex(@"^https?://([a-zA-Z0-9-\.]+):?(\d+)?$")]
-    public static partial Regex DomainRegex();
+    private static partial Regex DomainRegex();
 
     public async Task<Link?> Map(ApiLink apiModel)
     {

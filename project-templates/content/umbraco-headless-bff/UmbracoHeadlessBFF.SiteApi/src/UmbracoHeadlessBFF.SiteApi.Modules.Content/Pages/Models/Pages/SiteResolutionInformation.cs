@@ -1,6 +1,6 @@
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Models.Pages;
 
-internal sealed class SiteInformation
+internal sealed class SiteResolutionInformation
 {
     public required string Locale { get; init; }
     public required string Domain { get; init; }

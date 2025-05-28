@@ -12,20 +12,22 @@ namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Mappers.Pages;
 internal sealed class BasePageMapper
 {
     private readonly ISeoMapper _seoMapper;
+    private readonly ISiteSettingsMapper _siteSettingsMapper;
     private readonly SiteResolutionContext _siteResolutionContext;
     private readonly SiteResolutionService _siteResolutionService;
     private readonly IEnumerable<ILayoutMapper> _layoutMappers;
-    private readonly ContentService _contentService;
+    private readonly IContentService _contentService;
 
-    public BasePageMapper(ISeoMapper seoMapper, SiteResolutionContext siteResolutionContext,
-        SiteResolutionService siteResolutionService, IEnumerable<ILayoutMapper> layoutMappers,
-        ContentService contentService)
+    public BasePageMapper(ISeoMapper seoMapper, ISiteSettingsMapper siteSettingsMapper,
+        SiteResolutionContext siteResolutionContext, SiteResolutionService siteResolutionService,
+        IEnumerable<ILayoutMapper> layoutMappers, IContentService contentService)
     {
         _seoMapper = seoMapper;
         _siteResolutionContext = siteResolutionContext;
         _siteResolutionService = siteResolutionService;
         _layoutMappers = layoutMappers;
         _contentService = contentService;
+        _siteSettingsMapper = siteSettingsMapper;
     }
 
     public async Task<PageContext> MapPageContext<T>(IApiContent<T> model)
@@ -36,11 +38,16 @@ internal sealed class BasePageMapper
 
         var seo = model.Properties as IApiSeoSettingsProperties;
 
+        var siteSettings = await _contentService.GetSiteSettings();
+
         return new()
         {
             Seo = seo is not null ? await _seoMapper.Map(seo) : null,
+            SiteSettings = siteSettings is not null
+                ? await _siteSettingsMapper.Map(siteSettings)
+                : null,
             Breadcrumbs = await MapBreadcrumbs(model),
-            Site = new()
+            SiteResolution = new()
             {
                 Locale = site.CultureInfo,
                 Domain = site.Domains.First().Domain,

@@ -2,6 +2,7 @@ namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Models.Pages;
 
 internal sealed class Seo
 {
+    public required string CanonicalUrl { get; init; }
     public string? MetaTitle { get; init; }
     public string? MetaDescription { get; init; }
     public string? MetaImage { get; init; }

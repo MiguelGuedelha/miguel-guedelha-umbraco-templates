@@ -115,6 +115,40 @@ public sealed class SiteResolutionContext
         }
     }
 
+    public string Path
+    {
+        get
+        {
+            var context = _httpContextAccessor.HttpContext;
+
+            if (context is null)
+            {
+                throw new SiteApiException(StatusCodes.Status404NotFound, "No http context found");
+            }
+
+            var exists = context.TryGetContextItem<string>(SiteResolutionConstants.TenancyItems.Path,
+                out var domain);
+
+            if (!exists)
+            {
+                throw new SiteApiException(StatusCodes.Status404NotFound, "No domain present");
+            }
+
+            return domain!;
+        }
+        set
+        {
+            var context = _httpContextAccessor.HttpContext;
+
+            if (context is null)
+            {
+                throw new SiteApiException(StatusCodes.Status404NotFound, "No http context found");
+            }
+
+            context.TryAddContextItem(SiteResolutionConstants.TenancyItems.Path, value);
+        }
+    }
+
     public SiteDefinition Site
     {
         get
