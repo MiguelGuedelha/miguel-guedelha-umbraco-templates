@@ -1,6 +1,6 @@
 ﻿namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Models.BuildingBlocks;
 
-internal sealed class EmbedItem
+internal sealed record EmbedItem
 {
     public string? Url { get; init; }
     public int Width { get; init; }

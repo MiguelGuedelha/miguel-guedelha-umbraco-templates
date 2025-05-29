@@ -1,6 +1,6 @@
 namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data;
 
-public sealed class ApiOEmbedItem
+public sealed record ApiOEmbedItem
 {
     public string? Url { get; init; }
     public int Width { get; init; }

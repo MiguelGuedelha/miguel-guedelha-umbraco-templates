@@ -4,7 +4,7 @@ using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi;
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Cms;
 
-public class CmsSwaggerParameters : IOperationFilter
+public sealed class CmsSwaggerParameters : IOperationFilter
 {
     public void Apply(OpenApiOperation operation, OperationFilterContext context)
     {

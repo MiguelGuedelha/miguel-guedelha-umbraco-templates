@@ -2,7 +2,7 @@ using UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Models.BuildingBlocks;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Models.Components;
 
-internal sealed class Spotlight : IComponent
+internal sealed record Spotlight : IComponent
 {
     public required Guid Id { get; init; }
     public required string ContentType { get; init; }

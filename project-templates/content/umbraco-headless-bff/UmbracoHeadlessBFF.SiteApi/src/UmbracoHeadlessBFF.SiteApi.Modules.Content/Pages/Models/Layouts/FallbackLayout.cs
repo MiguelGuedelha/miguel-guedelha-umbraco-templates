@@ -1,6 +1,6 @@
 ﻿namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Models.Layouts;
 
-internal sealed class FallbackLayout : ILayout
+internal sealed record FallbackLayout : ILayout
 {
     public required Guid Id { get; init; }
     public required string ContentType { get; init; }

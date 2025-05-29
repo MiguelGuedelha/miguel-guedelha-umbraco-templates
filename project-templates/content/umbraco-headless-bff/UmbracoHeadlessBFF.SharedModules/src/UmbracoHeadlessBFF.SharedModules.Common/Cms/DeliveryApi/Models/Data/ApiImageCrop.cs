@@ -1,6 +1,6 @@
 ﻿namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data;
 
-public sealed class ApiImageCrop
+public sealed record ApiImageCrop
 {
     public string? Alias { get; init; }
     public int Width { get; init; }

@@ -1,6 +1,6 @@
 ﻿namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Models.Components;
 
-internal sealed class FallbackComponent : IComponent
+internal sealed record FallbackComponent : IComponent
 {
     public required Guid Id { get; init; }
     public required string ContentType { get; init; }

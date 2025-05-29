@@ -1,6 +1,6 @@
 ﻿namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data;
 
-public sealed class ApiBlockGridItem : IApiBlockGridItem
+public sealed record ApiBlockGridItem : IApiBlockGridItem
 {
     public int RowSpan { get; init; }
     public int ColumnSpan { get; init; }

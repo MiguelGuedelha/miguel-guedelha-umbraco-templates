@@ -2,7 +2,7 @@
 
 namespace UmbracoHeadlessBFF.Cms.Modules.Common.Urls;
 
-public sealed class ApplicationUrlOptions : IApplicationUrlOptions
+public sealed record ApplicationUrlOptions : IApplicationUrlOptions
 {
     public required string Media { get; init; }
 }

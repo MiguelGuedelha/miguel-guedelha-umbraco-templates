@@ -1,5 +1,5 @@
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Models.Pages;
 
-internal sealed class EmptyAdditionalProperties : IAdditionalProperties
+internal sealed record EmptyAdditionalProperties : IAdditionalProperties
 {
 }

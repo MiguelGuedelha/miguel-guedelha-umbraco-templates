@@ -3,14 +3,14 @@ using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data;
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components;
 
-public sealed class ApiRichTextSection : IApiElement<ApiRichTextSectionProperties>
+public sealed record ApiRichTextSection : IApiElement<ApiRichTextSectionProperties>
 {
     public required Guid Id { get; init; }
     public string ContentType => DeliveryApiConstants.ElementTypes.ApiRichTextSection;
     public required ApiRichTextSectionProperties Properties { get; init; }
 }
 
-public sealed class ApiRichTextSectionProperties : IApiJumpMenuConfiguration
+public sealed record ApiRichTextSectionProperties : IApiJumpMenuConfiguration
 {
     public string? JumpMenuHeading { get; init; }
     public string? JumpMenuAnchorId { get; init; }

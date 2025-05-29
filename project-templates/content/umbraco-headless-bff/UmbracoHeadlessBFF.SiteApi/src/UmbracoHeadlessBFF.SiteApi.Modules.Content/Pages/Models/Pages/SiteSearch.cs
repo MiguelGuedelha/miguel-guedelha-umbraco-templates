@@ -1,6 +1,6 @@
 ﻿namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Models.Pages;
 
-internal sealed class SiteSearch : IPage
+internal sealed record SiteSearch : IPage
 {
     public required Guid Id { get; init; }
     public required string ContentType { get; init; }

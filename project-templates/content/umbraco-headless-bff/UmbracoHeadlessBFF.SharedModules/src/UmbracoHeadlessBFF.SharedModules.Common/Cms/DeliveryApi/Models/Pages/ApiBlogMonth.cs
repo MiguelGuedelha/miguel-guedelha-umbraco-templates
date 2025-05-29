@@ -3,7 +3,7 @@ using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages.Compo
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages;
 
-public sealed class ApiBlogMonth : IApiContent<ApiBlogMonthProperties>
+public sealed record ApiBlogMonth : IApiContent<ApiBlogMonthProperties>
 {
     public Guid Id { get; init; }
     public string ContentType => DeliveryApiConstants.ContentTypes.ApiBlogMonth;
@@ -15,7 +15,7 @@ public sealed class ApiBlogMonth : IApiContent<ApiBlogMonthProperties>
     public required ApiBlogMonthProperties Properties { get; init; }
 }
 
-public sealed class ApiBlogMonthProperties : IApiRedirectSettingsProperties, IApiNavigationSettingsProperties
+public sealed record ApiBlogMonthProperties : IApiRedirectSettingsProperties, IApiNavigationSettingsProperties
 {
     public IReadOnlyCollection<ApiLink>? RedirectLink { get; init; }
     public RedirectFallbackDirection? RedirectDirection { get; init; }

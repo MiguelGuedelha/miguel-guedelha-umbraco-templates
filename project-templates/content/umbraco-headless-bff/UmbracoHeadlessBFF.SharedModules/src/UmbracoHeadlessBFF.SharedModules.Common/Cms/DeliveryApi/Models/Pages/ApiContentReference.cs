@@ -1,6 +1,6 @@
 ﻿namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages;
 
-public sealed class ApiContentReference : IApiContent
+public sealed record ApiContentReference : IApiContent
 {
     public Guid Id { get; init; }
     public required string ContentType { get; init; }

@@ -1,6 +1,6 @@
 ﻿namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Models.BuildingBlocks;
 
-internal sealed class SocialLink
+internal sealed record SocialLink
 {
     public string? Network { get; init; }
     public string? Name { get; init; }

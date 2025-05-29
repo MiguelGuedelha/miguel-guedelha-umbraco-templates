@@ -4,7 +4,7 @@ using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages.Compo
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages;
 
-public sealed class ApiStandardContentPage : IApiContent<ApiStandardContentPageProperties>
+public sealed record ApiStandardContentPage : IApiContent<ApiStandardContentPageProperties>
 {
     public Guid Id { get; init; }
     public string ContentType => DeliveryApiConstants.ContentTypes.ApiStandardContentPage;
@@ -16,7 +16,7 @@ public sealed class ApiStandardContentPage : IApiContent<ApiStandardContentPageP
     public required ApiStandardContentPageProperties Properties { get; init; }
 }
 
-public sealed class ApiStandardContentPageProperties : IApiSeoSettingsProperties, IApiListingSettingsProperties, IApiNavigationSettingsProperties, IApiPageContent
+public sealed record ApiStandardContentPageProperties : IApiSeoSettingsProperties, IApiListingSettingsProperties, IApiNavigationSettingsProperties, IApiPageContent
 {
     public string? MetaTitle { get; init; }
     public string? MetaDescription { get; init; }

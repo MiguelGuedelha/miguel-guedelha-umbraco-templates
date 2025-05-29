@@ -1,6 +1,6 @@
 ﻿namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data;
 
-public sealed class ApiMediaWithCrops
+public sealed record ApiMediaWithCrops
 {
     public required string Name { get; init; }
     public required string MediaType { get; init; }

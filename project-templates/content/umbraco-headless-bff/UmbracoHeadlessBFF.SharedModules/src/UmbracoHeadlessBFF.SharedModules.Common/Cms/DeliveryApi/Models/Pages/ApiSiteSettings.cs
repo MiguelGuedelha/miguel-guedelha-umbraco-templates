@@ -3,7 +3,7 @@ using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data;
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages;
 
-public sealed class ApiSiteSettings : IApiContent<ApiSiteSettingsProperties>
+public sealed record ApiSiteSettings : IApiContent<ApiSiteSettingsProperties>
 {
     public Guid Id { get; init; }
     public string ContentType => DeliveryApiConstants.ContentTypes.ApiSiteSettings;
@@ -15,7 +15,7 @@ public sealed class ApiSiteSettings : IApiContent<ApiSiteSettingsProperties>
     public required ApiSiteSettingsProperties Properties { get; init; }
 }
 
-public sealed class ApiSiteSettingsProperties
+public sealed record ApiSiteSettingsProperties
 {
     public IReadOnlyCollection<ApiMediaWithCrops>? HeaderLogo { get; init; }
     public IReadOnlyCollection<ApiLink>? HeaderQuickLinks { get; init; }

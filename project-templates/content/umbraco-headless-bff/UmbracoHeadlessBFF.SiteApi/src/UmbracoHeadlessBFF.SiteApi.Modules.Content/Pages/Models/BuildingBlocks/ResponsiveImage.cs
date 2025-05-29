@@ -1,6 +1,6 @@
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Models.BuildingBlocks;
 
-internal sealed class ResponsiveImage : IMediaBlock
+internal sealed record ResponsiveImage : IMediaBlock
 {
     public Image? MainImage { get; init; }
     public Image? MobileImage { get; init; }

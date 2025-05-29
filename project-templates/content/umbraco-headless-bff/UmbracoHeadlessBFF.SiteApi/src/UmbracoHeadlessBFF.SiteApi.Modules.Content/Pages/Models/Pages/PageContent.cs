@@ -2,12 +2,12 @@ using UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Models.Layouts;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Models.Pages;
 
-internal class PageContent
+internal record PageContent
 {
     public required IReadOnlyCollection<ILayout> MainContent { get; init; }
 }
 
-internal sealed class PageContent<T> : PageContent
+internal sealed record PageContent<T> : PageContent
     where T : IAdditionalProperties
 {
     public required T AdditionalProperties { get; init; }

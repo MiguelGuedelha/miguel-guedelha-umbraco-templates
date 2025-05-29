@@ -1,6 +1,6 @@
 ﻿namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data;
 
-public sealed class ApiImageFocalPoint
+public sealed record ApiImageFocalPoint
 {
     public decimal Left { get; init; }
     public decimal Top { get; init; }

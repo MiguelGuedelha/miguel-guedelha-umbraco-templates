@@ -1,8 +1,8 @@
 ﻿namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Models.BuildingBlocks;
 
-internal sealed class HeadingWithLinks
+internal sealed record HeadingWithLinks
 {
-    public required string? Heading { get; init; }
+    public string? Heading { get; init; }
     public required string HeadingSize { get; init; }
-    public required IReadOnlyCollection<Link>? Links { get; init; }
+    public IReadOnlyCollection<Link>? Links { get; init; }
 }

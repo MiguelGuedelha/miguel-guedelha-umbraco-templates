@@ -3,7 +3,7 @@ using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages.Compo
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages;
 
-public sealed class ApiBlogRepository : IApiContent<ApiBlogRepositoryProperties>
+public sealed record ApiBlogRepository : IApiContent<ApiBlogRepositoryProperties>
 {
     public Guid Id { get; init; }
     public string ContentType => DeliveryApiConstants.ContentTypes.ApiBlogRepository;
@@ -15,7 +15,7 @@ public sealed class ApiBlogRepository : IApiContent<ApiBlogRepositoryProperties>
     public required ApiBlogRepositoryProperties Properties { get; init; }
 }
 
-public sealed class ApiBlogRepositoryProperties : IApiRedirectSettingsProperties, IApiNavigationSettingsProperties
+public sealed record ApiBlogRepositoryProperties : IApiRedirectSettingsProperties, IApiNavigationSettingsProperties
 {
     public IReadOnlyCollection<ApiLink>? RedirectLink { get; init; }
     public RedirectFallbackDirection? RedirectDirection { get; init; }

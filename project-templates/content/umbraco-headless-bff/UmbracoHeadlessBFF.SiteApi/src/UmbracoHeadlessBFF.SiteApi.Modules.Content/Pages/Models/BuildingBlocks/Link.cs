@@ -1,6 +1,6 @@
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Models.BuildingBlocks;
 
-internal sealed class Link
+internal sealed record Link
 {
     public required string Href { get; init; }
     public string? Target { get; init; }

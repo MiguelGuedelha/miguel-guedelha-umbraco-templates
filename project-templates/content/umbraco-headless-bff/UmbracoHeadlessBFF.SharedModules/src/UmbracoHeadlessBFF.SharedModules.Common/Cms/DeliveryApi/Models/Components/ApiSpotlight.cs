@@ -3,14 +3,14 @@ using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data;
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components;
 
-public sealed class ApiSpotlight : IApiElement<ApiSpotlightProperties>
+public sealed record ApiSpotlight : IApiElement<ApiSpotlightProperties>
 {
     public required Guid Id { get; init; }
     public string ContentType => DeliveryApiConstants.ElementTypes.ApiSpotlight;
     public required ApiSpotlightProperties Properties { get; init; }
 }
 
-public sealed class ApiSpotlightProperties : IApiJumpMenuConfiguration, IApiHeading, IApiRteDescription
+public sealed record ApiSpotlightProperties : IApiJumpMenuConfiguration, IApiHeading, IApiRteDescription
 {
     public string? JumpMenuHeading { get; init; }
     public string? JumpMenuAnchorId { get; init; }

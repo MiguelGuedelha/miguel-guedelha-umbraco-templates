@@ -1,13 +1,13 @@
 ﻿namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Models.BuildingBlocks;
 
-internal sealed class NavigationLink
+internal sealed record NavigationLink
 {
-    public required Link? Link { get; init; }
-    public required IReadOnlyCollection<LinkWithSublinks>? SubLinks { get; init; }
+    public Link? Link { get; init; }
+    public IReadOnlyCollection<LinkWithSublinks>? SubLinks { get; init; }
 }
 
-internal sealed class LinkWithSublinks
+internal sealed record LinkWithSublinks
 {
-    public required Link? Link { get; init; }
-    public required IReadOnlyCollection<Link>? Sublinks { get; init; }
+    public Link? Link { get; init; }
+    public IReadOnlyCollection<Link>? Sublinks { get; init; }
 }

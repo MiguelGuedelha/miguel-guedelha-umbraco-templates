@@ -4,14 +4,14 @@ using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data;
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components;
 
-public sealed class ApiCarousel : IApiElement<ApiCarouselProperties>
+public sealed record ApiCarousel : IApiElement<ApiCarouselProperties>
 {
     public required Guid Id { get; init; }
     public string ContentType => DeliveryApiConstants.ElementTypes.ApiCarousel;
     public required ApiCarouselProperties Properties { get; init; }
 }
 
-public sealed class ApiCarouselProperties : IApiJumpMenuConfiguration, IApiHeadingWithSubHeading
+public sealed record ApiCarouselProperties : IApiJumpMenuConfiguration, IApiHeadingWithSubHeading
 {
     public string? JumpMenuHeading { get; init; }
     public string? JumpMenuAnchorId { get; init; }

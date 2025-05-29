@@ -1,6 +1,6 @@
 ﻿namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data;
 
-public sealed class ApiSocialLink
+public sealed record ApiSocialLink
 {
     public string? Network { get; init; }
     public string? Name { get; init; }

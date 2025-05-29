@@ -2,7 +2,7 @@
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data;
 
-public sealed class ApiLink
+public sealed record ApiLink
 {
     public string? Url { get; init; }
     public string? QueryString { get; init; }

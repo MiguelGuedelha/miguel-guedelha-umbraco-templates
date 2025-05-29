@@ -3,7 +3,7 @@ using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages.Compo
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages;
 
-public sealed class ApiNotFound : IApiContent<ApiNotFoundProperties>
+public sealed record ApiNotFound : IApiContent<ApiNotFoundProperties>
 {
     public Guid Id { get; init; }
     public string ContentType => DeliveryApiConstants.ContentTypes.ApiNotFound;
@@ -15,7 +15,7 @@ public sealed class ApiNotFound : IApiContent<ApiNotFoundProperties>
     public required ApiNotFoundProperties Properties { get; init; }
 }
 
-public sealed class ApiNotFoundProperties : IApiPageContent
+public sealed record ApiNotFoundProperties : IApiPageContent
 {
     public required ApiBlockGrid MainContent { get; init; }
 }

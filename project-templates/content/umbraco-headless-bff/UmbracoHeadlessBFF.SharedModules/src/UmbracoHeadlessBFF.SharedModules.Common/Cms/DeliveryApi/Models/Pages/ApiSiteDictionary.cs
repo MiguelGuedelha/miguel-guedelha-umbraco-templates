@@ -1,6 +1,6 @@
 ﻿namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages;
 
-public sealed class ApiSiteDictionary : IApiContent<ApiSiteDictionaryProperties>
+public sealed record ApiSiteDictionary : IApiContent<ApiSiteDictionaryProperties>
 {
     public Guid Id { get; init; }
     public string ContentType => DeliveryApiConstants.ContentTypes.ApiSiteDictionary;
@@ -12,7 +12,7 @@ public sealed class ApiSiteDictionary : IApiContent<ApiSiteDictionaryProperties>
     public required ApiSiteDictionaryProperties Properties { get; init; }
 }
 
-public sealed class ApiSiteDictionaryProperties
+public sealed record ApiSiteDictionaryProperties
 {
     public string? GeneralButtonsNextText { get; init; }
     public string? GeneralButtonsBackText { get; init; }

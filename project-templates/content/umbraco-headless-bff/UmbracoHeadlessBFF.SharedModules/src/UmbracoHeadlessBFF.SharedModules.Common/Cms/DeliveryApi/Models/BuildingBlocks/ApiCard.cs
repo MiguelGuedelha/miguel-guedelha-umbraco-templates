@@ -3,14 +3,14 @@ using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data;
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.BuildingBlocks;
 
-public sealed class ApiCard : IApiElement<ApiCardProperties>
+public sealed record ApiCard : IApiElement<ApiCardProperties>
 {
     public required Guid Id { get; init; }
     public string ContentType => DeliveryApiConstants.ElementTypes.ApiCard;
     public required ApiCardProperties Properties { get; init; }
 }
 
-public sealed class ApiCardProperties : IApiHeadingWithSubHeading
+public sealed record ApiCardProperties : IApiHeadingWithSubHeading
 {
     public string? Heading { get; init; }
     public string HeadingSize { get; init; } = "h3";

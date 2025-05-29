@@ -3,7 +3,7 @@ using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages.Compo
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages;
 
-public sealed class ApiSiteSearch : IApiContent<ApiSiteSearchProperties>
+public sealed record ApiSiteSearch : IApiContent<ApiSiteSearchProperties>
 {
     public Guid Id { get; init; }
     public string ContentType => DeliveryApiConstants.ContentTypes.ApiSiteSearch;
@@ -15,7 +15,7 @@ public sealed class ApiSiteSearch : IApiContent<ApiSiteSearchProperties>
     public required ApiSiteSearchProperties Properties { get; init; }
 }
 
-public sealed class ApiSiteSearchProperties : IApiSeoSettingsProperties, IApiNavigationSettingsProperties
+public sealed record ApiSiteSearchProperties : IApiSeoSettingsProperties, IApiNavigationSettingsProperties
 {
     public string? MetaTitle { get; init; }
     public string? MetaDescription { get; init; }

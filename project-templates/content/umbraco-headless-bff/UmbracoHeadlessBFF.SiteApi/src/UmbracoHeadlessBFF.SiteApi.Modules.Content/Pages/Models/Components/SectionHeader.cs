@@ -1,6 +1,6 @@
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Models.Components;
 
-internal sealed class SectionHeader : IComponent
+internal sealed record SectionHeader : IComponent
 {
     public required Guid Id { get; init; }
     public required string ContentType { get; init; }

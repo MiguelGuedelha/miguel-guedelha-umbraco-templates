@@ -1,6 +1,6 @@
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Models.Pages;
 
-internal sealed class SiteResolutionInformation
+internal sealed record SiteResolutionInformation
 {
     public required string Locale { get; init; }
     public required string Domain { get; init; }
@@ -8,7 +8,7 @@ internal sealed class SiteResolutionInformation
     public required IReadOnlyCollection<AlternateSites> AlternateLanguages { get; init; }
 }
 
-internal sealed class AlternateSites
+internal sealed record AlternateSites
 {
     public required string Locale { get; init; }
     public required string Domain { get; init; }

@@ -2,25 +2,25 @@
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Pages.Models.Pages;
 
-internal sealed class SiteSettings
+internal sealed record SiteSettings
 {
     public required Header Header { get; init; }
     public required Footer Footer { get; init; }
-    public required string? SearchPage { get; init; }
+    public string? SearchPage { get; init; }
 }
 
-internal sealed class Header
+internal sealed record Header
 {
-    public required string? Logo { get; init; }
-    public required IReadOnlyCollection<Link>? QuickLinks { get; init; }
-    public required IReadOnlyCollection<NavigationLink>? Navigation { get; init; }
+    public string? Logo { get; init; }
+    public IReadOnlyCollection<Link>? QuickLinks { get; init; }
+    public IReadOnlyCollection<NavigationLink>? Navigation { get; init; }
 }
 
-internal sealed class Footer
+internal sealed record Footer
 {
-    public required string? Logo { get; init; }
-    public required IReadOnlyCollection<HeadingWithLinks>? Links { get; init; }
-    public required HeadingWithSocialLinks? SocialLinks { get; init; }
-    public required IReadOnlyCollection<Link>? FootnoteLinks { get; init; }
-    public required string? Copyright { get; init; }
+    public string? Logo { get; init; }
+    public IReadOnlyCollection<HeadingWithLinks>? Links { get; init; }
+    public HeadingWithSocialLinks? SocialLinks { get; init; }
+    public IReadOnlyCollection<Link>? FootnoteLinks { get; init; }
+    public string? Copyright { get; init; }
 }
