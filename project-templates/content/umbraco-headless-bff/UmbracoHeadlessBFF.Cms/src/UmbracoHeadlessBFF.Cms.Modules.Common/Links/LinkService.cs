@@ -1,7 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using Umbraco.Cms.Core.Web;
 using Umbraco.Extensions;
-using UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels;
+using UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Models;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.Links;
 using UmbracoHeadlessBFF.SharedModules.Common.Strings;
 

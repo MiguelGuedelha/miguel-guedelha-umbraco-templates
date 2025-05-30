@@ -6,7 +6,7 @@ using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Core.Web;
 using Umbraco.Extensions;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Authentication;
-using UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels;
+using UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Models;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.SiteResolution;
 using UmbracoHeadlessBFF.SharedModules.Common.Strings;
 using NotFound = Microsoft.AspNetCore.Http.HttpResults.NotFound;

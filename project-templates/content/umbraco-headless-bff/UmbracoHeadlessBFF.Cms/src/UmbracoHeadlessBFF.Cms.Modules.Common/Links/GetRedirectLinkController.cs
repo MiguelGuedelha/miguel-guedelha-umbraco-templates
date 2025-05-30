@@ -12,7 +12,7 @@ using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Core.Web;
 using Umbraco.Extensions;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Authentication;
-using UmbracoHeadlessBFF.Cms.Modules.Common.UmbracoModels;
+using UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Models;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Urls;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data;
 using UmbracoHeadlessBFF.SharedModules.Common.Cms.Links;
@@ -37,7 +37,7 @@ public sealed class GetRedirectLinkController : Controller
         SiteSettings.ModelTypeAlias,
         SiteDictionary.ModelTypeAlias,
         SiteGrouping.ModelTypeAlias,
-        UmbracoModels.NotFound.ModelTypeAlias,
+        Umbraco.Models.NotFound.ModelTypeAlias,
     ];
 
     public GetRedirectLinkController(IUmbracoContextFactory umbracoContextFactory,
