@@ -16,7 +16,7 @@ public sealed class SiteResolutionMiddleware : IMiddleware
 
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
-        _ = context.Request.Query.TryGetValue("preview", out var preview);
+        _ = context.Request.Headers.TryGetValue("preview", out var preview);
         _ = bool.TryParse(preview, out var isPreview);
 
         _siteResolutionContext.IsPreview = isPreview;
