@@ -24,14 +24,12 @@ public sealed class PreviewMiddleware : IMiddleware
             return;
         }
 
-        var exists = context.Request.Query.TryGetValue("previewToken", out var previewToken);
+        var token = _siteResolutionContext.PreviewToken;
 
-        if (!exists)
+        if (string.IsNullOrWhiteSpace(token))
         {
             throw new SiteApiException(StatusCodes.Status401Unauthorized, "No preview token found");
         }
-
-        var token = previewToken.ToString();
 
         var response = await _previewVerificationApi.VerifyPreviewMode($"Bearer {token}");
 

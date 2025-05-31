@@ -23,7 +23,7 @@ internal static class GetSitemapEndpoint
         ISitemapsApi sitemapsApi,
         SiteResolutionContext siteResolutionContext)
     {
-        var response = await sitemapsApi.GetSitemap(siteResolutionContext.Site.HomepageId, siteResolutionContext.Site.CultureInfo);
+        var response = await sitemapsApi.GetSitemap(siteResolutionContext.Site.HomepageId, siteResolutionContext.Site.CultureInfo, siteResolutionContext.IsPreview);
 
         return response switch
         {

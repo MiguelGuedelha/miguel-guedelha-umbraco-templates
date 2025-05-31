@@ -18,32 +18,23 @@ public sealed class SiteResolutionContext
     {
         get
         {
-            var context = _httpContextAccessor.HttpContext;
-
-            if (context is null)
-            {
-                throw new SiteApiException(StatusCodes.Status404NotFound, "No http context found");
-            }
-
-            var exists = context.TryGetContextItem<bool>(SiteResolutionConstants.TenancyItems.IsPreview, out var isPreview);
-
-            if (!exists)
-            {
-                throw new SiteApiException(StatusCodes.Status404NotFound, "No preview info present");
-            }
-
-            return isPreview;
+            return GetContextItem<bool>(SiteResolutionConstants.TenancyItems.IsPreview);
         }
         set
         {
-            var context = _httpContextAccessor.HttpContext;
+            SetContextItem(SiteResolutionConstants.TenancyItems.IsPreview, value);
+        }
+    }
 
-            if (context is null)
-            {
-                throw new SiteApiException(StatusCodes.Status404NotFound, "No http context found");
-            }
-
-            context.TryAddContextItem(SiteResolutionConstants.TenancyItems.IsPreview, value);
+    public string PreviewToken
+    {
+        get
+        {
+            return GetContextItem<string>(SiteResolutionConstants.TenancyItems.PreviewToken);
+        }
+        set
+        {
+            SetContextItem(SiteResolutionConstants.TenancyItems.PreviewToken, value);
         }
     }
 
@@ -51,33 +42,11 @@ public sealed class SiteResolutionContext
     {
         get
         {
-            var context = _httpContextAccessor.HttpContext;
-
-            if (context is null)
-            {
-                throw new SiteApiException(StatusCodes.Status404NotFound, "No http context found");
-            }
-
-            var exists = context.TryGetContextItem<string>(SiteResolutionConstants.TenancyItems.SiteId,
-                out var siteId);
-
-            if (!exists)
-            {
-                throw new SiteApiException(StatusCodes.Status404NotFound, "No site id present");
-            }
-
-            return siteId!;
+            return GetContextItem<string>(SiteResolutionConstants.TenancyItems.SiteId);
         }
         set
         {
-            var context = _httpContextAccessor.HttpContext;
-
-            if (context is null)
-            {
-                throw new SiteApiException(StatusCodes.Status404NotFound, "No http context found");
-            }
-
-            context.TryAddContextItem(SiteResolutionConstants.TenancyItems.SiteId, value);
+            SetContextItem(SiteResolutionConstants.TenancyItems.SiteId, value);
         }
     }
 
@@ -85,33 +54,11 @@ public sealed class SiteResolutionContext
     {
         get
         {
-            var context = _httpContextAccessor.HttpContext;
-
-            if (context is null)
-            {
-                throw new SiteApiException(StatusCodes.Status404NotFound, "No http context found");
-            }
-
-            var exists = context.TryGetContextItem<string>(SiteResolutionConstants.TenancyItems.Domain,
-                out var domain);
-
-            if (!exists)
-            {
-                throw new SiteApiException(StatusCodes.Status404NotFound, "No domain present");
-            }
-
-            return domain!;
+            return GetContextItem<string>(SiteResolutionConstants.TenancyItems.Domain);
         }
         set
         {
-            var context = _httpContextAccessor.HttpContext;
-
-            if (context is null)
-            {
-                throw new SiteApiException(StatusCodes.Status404NotFound, "No http context found");
-            }
-
-            context.TryAddContextItem(SiteResolutionConstants.TenancyItems.Domain, value);
+            SetContextItem(SiteResolutionConstants.TenancyItems.Domain, value);
         }
     }
 
@@ -119,33 +66,11 @@ public sealed class SiteResolutionContext
     {
         get
         {
-            var context = _httpContextAccessor.HttpContext;
-
-            if (context is null)
-            {
-                throw new SiteApiException(StatusCodes.Status404NotFound, "No http context found");
-            }
-
-            var exists = context.TryGetContextItem<string>(SiteResolutionConstants.TenancyItems.Path,
-                out var domain);
-
-            if (!exists)
-            {
-                throw new SiteApiException(StatusCodes.Status404NotFound, "No domain present");
-            }
-
-            return domain!;
+            return GetContextItem<string>(SiteResolutionConstants.TenancyItems.Path);
         }
         set
         {
-            var context = _httpContextAccessor.HttpContext;
-
-            if (context is null)
-            {
-                throw new SiteApiException(StatusCodes.Status404NotFound, "No http context found");
-            }
-
-            context.TryAddContextItem(SiteResolutionConstants.TenancyItems.Path, value);
+            SetContextItem(SiteResolutionConstants.TenancyItems.Path, value);
         }
     }
 
@@ -153,33 +78,11 @@ public sealed class SiteResolutionContext
     {
         get
         {
-            var context = _httpContextAccessor.HttpContext;
-
-            if (context is null)
-            {
-                throw new SiteApiException(StatusCodes.Status404NotFound, "No http context found");
-            }
-
-            var exists = context.TryGetContextItem<SiteDefinition>(SiteResolutionConstants.TenancyItems.Site,
-                out var site);
-
-            if (!exists)
-            {
-                throw new SiteApiException(StatusCodes.Status404NotFound, "No site present");
-            }
-
-            return site!;
+            return GetContextItem<SiteDefinition>(SiteResolutionConstants.TenancyItems.Site);
         }
         set
         {
-            var context = _httpContextAccessor.HttpContext;
-
-            if (context is null)
-            {
-                throw new SiteApiException(StatusCodes.Status404NotFound, "No http context found");
-            }
-
-            context.TryAddContextItem(SiteResolutionConstants.TenancyItems.Site, value);
+            SetContextItem(SiteResolutionConstants.TenancyItems.Site, value);
         }
     }
 
@@ -187,34 +90,42 @@ public sealed class SiteResolutionContext
     {
         get
         {
-            var context = _httpContextAccessor.HttpContext;
-
-            if (context is null)
-            {
-                throw new SiteApiException(StatusCodes.Status404NotFound, "No http context found");
-            }
-
-            var exists = context.TryGetContextItem<IReadOnlyCollection<SiteDefinition>>(
-                SiteResolutionConstants.TenancyItems.AlternateSites,
-                out var alternateSites);
-
-            if (!exists)
-            {
-                throw new SiteApiException(StatusCodes.Status404NotFound, "No alternate sites present");
-            }
-
-            return alternateSites!;
+            return GetContextItem<IReadOnlyCollection<SiteDefinition>>(SiteResolutionConstants.TenancyItems.AlternateSites);
         }
         set
         {
-            var context = _httpContextAccessor.HttpContext;
-
-            if (context is null)
-            {
-                throw new SiteApiException(StatusCodes.Status404NotFound, "No http context found");
-            }
-
-            context.TryAddContextItem(SiteResolutionConstants.TenancyItems.AlternateSites, value);
+            SetContextItem(SiteResolutionConstants.TenancyItems.AlternateSites, value);
         }
+    }
+
+    private T GetContextItem<T>(string key)
+    {
+        var context = _httpContextAccessor.HttpContext;
+
+        if (context is null)
+        {
+            throw new SiteApiException(StatusCodes.Status404NotFound, "No http context found");
+        }
+
+        var exists = context.TryGetContextItem<T>(key, out var value);
+
+        if (!exists)
+        {
+            throw new SiteApiException(StatusCodes.Status404NotFound, $"No {key} present");
+        }
+
+        return value!;
+    }
+
+    private void SetContextItem<T>(string key, T value)
+    {
+        var context = _httpContextAccessor.HttpContext;
+
+        if (context is null)
+        {
+            throw new SiteApiException(StatusCodes.Status404NotFound, "No http context found");
+        }
+
+        context.TryAddContextItem(key, value);
     }
 }

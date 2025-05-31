@@ -1,4 +1,5 @@
-﻿using Asp.Versioning;
+﻿using System.Globalization;
+using Asp.Versioning;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +7,7 @@ using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Core.Web;
 using Umbraco.Extensions;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Authentication;
+using UmbracoHeadlessBFF.Cms.Modules.Common.Links;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Models;
 using UmbracoHeadlessBFF.SharedModules.Content.Sitemap;
 using NotFound = Microsoft.AspNetCore.Http.HttpResults.NotFound;
@@ -21,15 +23,18 @@ public sealed class GetSitemapController : Controller
 {
     private readonly IUmbracoContextFactory _umbracoContextFactory;
     private readonly IVariationContextAccessor _variationContextAccessor;
+    private readonly LinkService _linkService;
 
-    public GetSitemapController(IUmbracoContextFactory umbracoContextFactory, IVariationContextAccessor variationContextAccessor)
+    public GetSitemapController(IUmbracoContextFactory umbracoContextFactory,
+        IVariationContextAccessor variationContextAccessor, LinkService linkService)
     {
         _umbracoContextFactory = umbracoContextFactory;
         _variationContextAccessor = variationContextAccessor;
+        _linkService = linkService;
     }
 
     [HttpGet("sitemap")]
-    public Results<Ok<SitemapData>, NotFound> GetSitemap(Guid siteId, string culture)
+    public Results<Ok<SitemapData>, NotFound> GetSitemap(Guid siteId, string culture, bool preview)
     {
         _variationContextAccessor.VariationContext = new(culture);
         var context = _umbracoContextFactory.EnsureUmbracoContext().UmbracoContext;
@@ -41,7 +46,7 @@ public sealed class GetSitemapController : Controller
             return TypedResults.NotFound();
         }
 
-        var siteNode = contentCache.GetById(siteId);
+        var siteNode = contentCache.GetById(preview, siteId);
 
         if (siteNode is null)
         {
@@ -54,7 +59,7 @@ public sealed class GetSitemapController : Controller
             .Where(x => x.SitemapShow)
             .Select(x => new SitemapItem
             {
-                Loc = x.Url(mode: UrlMode.Absolute, culture: culture),
+                Loc = _linkService.GetUriByContentId(x.Key, culture, preview)?.AbsoluteUri ?? string.Empty,
                 LastMod = x.SitemapLastModifiedOverwrite != default
                     ? DateOnly.FromDateTime(x.SitemapLastModifiedOverwrite)
                     : DateOnly.FromDateTime(x.UpdateDate),
@@ -62,10 +67,16 @@ public sealed class GetSitemapController : Controller
                 Priority = x.SitemapPriority,
                 AlternateLanguages = x.Cultures
                     .Where(nodeCulture => !culture.InvariantEquals(nodeCulture.Value.Culture))
-                    .Select(nodeCulture => new SitemapItemAlternateLanguage
+                    .Select(nodeCulture =>
                     {
-                        HrefLang = nodeCulture.Value.Culture,
-                        Href = x.Url(mode: UrlMode.Absolute, culture: nodeCulture.Value.Culture)
+                        var cultureInfo = new CultureInfo(nodeCulture.Value.Culture);
+
+                        return new SitemapItemAlternateLanguage
+                        {
+                            HrefLang = nodeCulture.Value.Culture,
+                            Href = _linkService.GetUriByContentId(x.Key, cultureInfo.Name, preview)
+                                ?.AbsoluteUri ?? string.Empty
+                        };
                     })
                     .ToArray()
             });

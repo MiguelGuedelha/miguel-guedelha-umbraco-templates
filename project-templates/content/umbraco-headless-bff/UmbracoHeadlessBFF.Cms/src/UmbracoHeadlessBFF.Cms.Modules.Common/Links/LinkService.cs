@@ -19,7 +19,7 @@ public sealed partial class LinkService
         _umbracoContextFactory = umbracoContextFactory;
     }
 
-    public Link? GetLinkByContentId(Guid linkId, string culture, bool preview)
+    public Uri? GetUriByContentId(Guid linkId, string culture, bool preview)
     {
         using var context = _umbracoContextFactory.EnsureUmbracoContext();
 
@@ -59,8 +59,22 @@ public sealed partial class LinkService
 
         route = ResolvedRouteRegex().Replace(route, domainName.CombineUri("$1"));
 
-        var uri = new Uri(route);
+        return new(route);
+    }
 
-        return new() { Authority = uri.Authority, Path = uri.PathAndQuery };
+    public Link? GetLinkByContentId(Guid linkId, string culture, bool preview)
+    {
+        var uri = GetUriByContentId(linkId, culture, preview);
+
+        if (uri is null)
+        {
+            return null;
+        }
+
+        return new()
+        {
+            Authority = uri.Authority,
+            Path = uri.PathAndQuery
+        };
     }
 }

@@ -32,5 +32,21 @@ public sealed class CorrelationSwaggerParameters : IOperationFilter
             In = ParameterLocation.Header,
             Required = false
         });
+
+        operation.Parameters.Add(new()
+        {
+            Name = CorrelationConstants.Headers.PreviewMode,
+            Description = "Whether or not the API should return preview content",
+            In = ParameterLocation.Header,
+            Required = false
+        });
+
+        operation.Parameters.Add(new()
+        {
+            Name = CorrelationConstants.Headers.PreviewToken,
+            Description = "The preview token to be used when preview mode is true",
+            In = ParameterLocation.Header,
+            Required = false
+        });
     }
 }

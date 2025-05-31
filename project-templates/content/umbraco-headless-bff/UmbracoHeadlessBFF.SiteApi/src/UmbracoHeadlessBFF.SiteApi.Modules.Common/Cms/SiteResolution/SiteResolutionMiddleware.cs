@@ -16,10 +16,13 @@ public sealed class SiteResolutionMiddleware : IMiddleware
 
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
-        _ = context.Request.Headers.TryGetValue("preview", out var preview);
+        _ = context.Request.Headers.TryGetValue(CorrelationConstants.Headers.PreviewMode, out var preview);
         _ = bool.TryParse(preview, out var isPreview);
 
+        context.Request.Headers.TryGetValue(CorrelationConstants.Headers.PreviewToken, out var previewToken);
+
         _siteResolutionContext.IsPreview = isPreview;
+        _siteResolutionContext.PreviewToken = previewToken.ToString();
 
         var site = await _siteResolutionService.ResolveSite();
 
