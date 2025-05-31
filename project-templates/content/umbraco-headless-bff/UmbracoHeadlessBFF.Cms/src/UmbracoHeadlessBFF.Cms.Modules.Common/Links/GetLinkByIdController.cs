@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Authentication;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.Links;
+using UmbracoHeadlessBFF.SharedModules.Cms.Links;
 
 namespace UmbracoHeadlessBFF.Cms.Modules.Common.Links;
 

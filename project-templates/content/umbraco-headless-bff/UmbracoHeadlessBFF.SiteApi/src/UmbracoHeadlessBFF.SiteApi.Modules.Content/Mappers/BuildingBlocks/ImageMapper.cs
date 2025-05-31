@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.Options;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data;
+using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Data;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Urls;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks;
 

@@ -1,4 +1,4 @@
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.Links;
+using UmbracoHeadlessBFF.SharedModules.Cms.Links;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.Links;

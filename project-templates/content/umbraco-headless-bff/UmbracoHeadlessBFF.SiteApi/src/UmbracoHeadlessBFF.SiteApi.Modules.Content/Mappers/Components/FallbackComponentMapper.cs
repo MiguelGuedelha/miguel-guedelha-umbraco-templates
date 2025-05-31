@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data;
+using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Data;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Components;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Components;

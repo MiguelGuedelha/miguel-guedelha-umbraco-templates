@@ -24,7 +24,7 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Models
 	{
 		/// <summary>Redirect Direction</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		global::UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.RedirectFallbackDirection RedirectDirection { get; }
+		global::UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Data.RedirectFallbackDirection RedirectDirection { get; }
 
 		/// <summary>Redirect Link</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
@@ -68,11 +68,11 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Models
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[ImplementPropertyType("redirectDirection")]
-		public virtual global::UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.RedirectFallbackDirection RedirectDirection => GetRedirectDirection(this, _publishedValueFallback);
+		public virtual global::UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Data.RedirectFallbackDirection RedirectDirection => GetRedirectDirection(this, _publishedValueFallback);
 
 		/// <summary>Static getter for Redirect Direction</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		public static global::UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.RedirectFallbackDirection GetRedirectDirection(IRedirectSettings that, IPublishedValueFallback publishedValueFallback) => that.Value<global::UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data.RedirectFallbackDirection>(publishedValueFallback, "redirectDirection");
+		public static global::UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Data.RedirectFallbackDirection GetRedirectDirection(IRedirectSettings that, IPublishedValueFallback publishedValueFallback) => that.Value<global::UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Data.RedirectFallbackDirection>(publishedValueFallback, "redirectDirection");
 
 		///<summary>
 		/// Redirect Link: Direct link to a page, url, etc

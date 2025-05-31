@@ -38,7 +38,11 @@ public sealed class CorrelationSwaggerParameters : IOperationFilter
             Name = CorrelationConstants.Headers.PreviewMode,
             Description = "Whether or not the API should return preview content",
             In = ParameterLocation.Header,
-            Required = false
+            Required = false,
+            Schema = new()
+            {
+                Type = "boolean"
+            }
         });
 
         operation.Parameters.Add(new()

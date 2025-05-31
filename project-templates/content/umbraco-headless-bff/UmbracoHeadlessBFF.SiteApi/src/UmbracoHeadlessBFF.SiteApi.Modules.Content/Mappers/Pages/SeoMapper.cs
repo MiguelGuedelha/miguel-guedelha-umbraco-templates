@@ -1,5 +1,5 @@
-﻿using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages.Compositions;
+﻿using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Pages;
+using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Pages.Compositions;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.BuildingBlocks;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Pages;

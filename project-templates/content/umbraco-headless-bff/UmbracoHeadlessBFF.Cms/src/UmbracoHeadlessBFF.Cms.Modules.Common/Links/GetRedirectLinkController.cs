@@ -14,8 +14,8 @@ using Umbraco.Extensions;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Authentication;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Models;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Urls;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.Links;
+using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Data;
+using UmbracoHeadlessBFF.SharedModules.Cms.Links;
 using NotFound = Microsoft.AspNetCore.Http.HttpResults.NotFound;
 
 namespace UmbracoHeadlessBFF.Cms.Modules.Common.Links;

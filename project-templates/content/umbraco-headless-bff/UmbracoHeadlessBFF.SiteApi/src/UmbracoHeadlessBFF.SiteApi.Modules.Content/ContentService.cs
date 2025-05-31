@@ -1,6 +1,6 @@
-﻿using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.Links;
+﻿using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi;
+using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Pages;
+using UmbracoHeadlessBFF.SharedModules.Cms.Links;
 using UmbracoHeadlessBFF.SharedModules.Common.Strings;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;

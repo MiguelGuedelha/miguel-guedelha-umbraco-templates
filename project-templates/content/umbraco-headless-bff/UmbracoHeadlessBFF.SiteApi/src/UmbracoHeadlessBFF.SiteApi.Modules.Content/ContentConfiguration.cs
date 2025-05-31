@@ -14,7 +14,7 @@ namespace UmbracoHeadlessBFF.SiteApi.Modules.Content;
 
 public static class ContentConfiguration
 {
-    public static void AddContent(this WebApplicationBuilder builder)
+    public static void AddContentModule(this WebApplicationBuilder builder)
     {
         var services = builder.Services;
 

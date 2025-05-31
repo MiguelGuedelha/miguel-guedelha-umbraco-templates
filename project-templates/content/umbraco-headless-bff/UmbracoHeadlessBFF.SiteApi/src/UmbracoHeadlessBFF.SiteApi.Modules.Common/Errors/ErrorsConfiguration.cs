@@ -7,7 +7,7 @@ namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 
 public static class ErrorsConfiguration
 {
-    public static void AddErrors(this WebApplicationBuilder builder)
+    public static void AddErrorsModule(this WebApplicationBuilder builder)
     {
         builder.Services.AddProblemDetails(options =>
         {
@@ -23,10 +23,5 @@ public static class ErrorsConfiguration
         builder.Services.AddExceptionHandler<RedirectApiExceptionHandler>();
         builder.Services.AddExceptionHandler<SiteApiExceptionHandler>();
         builder.Services.AddExceptionHandler<FallbackExceptionHandler>();
-    }
-
-    public static void UseErrors(this WebApplication app)
-    {
-        app.UseExceptionHandler();
     }
 }

@@ -1,11 +1,11 @@
 using Scalar.AspNetCore;
 using Umbraco.Cms.Api.Common.DependencyInjection;
 using Umbraco.Cms.Core;
+using UmbracoHeadlessBFF.Cms.Modules.Common.Authentication;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Links;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Preview;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Urls;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms;
 using UmbracoHeadlessBFF.SharedModules.Common.Correlation;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,13 +23,13 @@ builder.AddServiceDefaults();
 
 builder.Services.AddSwaggerGen(options =>
 {
-    options.OperationFilter<CmsSwaggerParameters>();
+    options.OperationFilter<AuthenticationSwaggerParameters>();
 });
 
-builder.AddCorrelationSharedModules();
-builder.AddPreview();
-builder.AddLinks();
-builder.AddUrls();
+builder.AddCorrelationSharedModule();
+builder.AddPreviewModule();
+builder.AddLinksModule();
+builder.AddUrlsModule();
 builder.AddUmbracoOverrides();
 
 builder.Services.AddControllers().AddJsonOptions(Constants.JsonOptionsNames.DeliveryApi, options =>

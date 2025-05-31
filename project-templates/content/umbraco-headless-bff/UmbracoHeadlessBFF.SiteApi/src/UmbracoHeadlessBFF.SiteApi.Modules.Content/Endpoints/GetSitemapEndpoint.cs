@@ -10,6 +10,8 @@ namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Endpoints;
 
 internal static class GetSitemapEndpoint
 {
+    private static readonly string s_sitemapSegment = "sitemap.xml";
+
     public static RouteGroupBuilder MapGetSitemap(this RouteGroupBuilder builder)
     {
         builder
@@ -23,6 +25,19 @@ internal static class GetSitemapEndpoint
         ISitemapsApi sitemapsApi,
         SiteResolutionContext siteResolutionContext)
     {
+        var path = siteResolutionContext.Path;
+        var domain = siteResolutionContext.Domain;
+
+        var domainEntry = siteResolutionContext.Site.Domains
+            .First(x => x.Domain.Equals(domain, StringComparison.OrdinalIgnoreCase));
+
+        var sitemapPath = path.Replace(domainEntry.Path, string.Empty);
+
+        if (!sitemapPath.Equals(s_sitemapSegment, StringComparison.OrdinalIgnoreCase))
+        {
+            return TypedResults.NotFound();
+        }
+
         var response = await sitemapsApi.GetSitemap(siteResolutionContext.Site.HomepageId, siteResolutionContext.Site.CultureInfo, siteResolutionContext.IsPreview);
 
         return response switch

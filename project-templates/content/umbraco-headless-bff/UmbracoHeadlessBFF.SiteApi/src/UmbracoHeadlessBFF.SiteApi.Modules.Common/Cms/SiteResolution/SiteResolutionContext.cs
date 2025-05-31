@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.SiteResolution;
+using UmbracoHeadlessBFF.SharedModules.Cms.SiteResolution;
 using UmbracoHeadlessBFF.SharedModules.Common.Http;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 
@@ -126,6 +126,6 @@ public sealed class SiteResolutionContext
             throw new SiteApiException(StatusCodes.Status404NotFound, "No http context found");
         }
 
-        context.TryAddContextItem(key, value);
+        context.AddContextItem(key, value);
     }
 }

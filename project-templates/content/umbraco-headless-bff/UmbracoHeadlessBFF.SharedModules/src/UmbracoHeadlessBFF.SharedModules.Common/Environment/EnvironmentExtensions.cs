@@ -2,14 +2,26 @@
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Environment;
 
+/// <summary>
+/// Environment name check is case-insensitive
+/// </summary>
 public static class EnvironmentExtensions
 {
-    //comparisons are case-insensitive
-    public static bool IsLocal(this IHostEnvironment environment) => environment.IsEnvironment("Local");
+    /// <inheritdoc cref="EnvironmentExtensions"/>
+    public static bool IsLocal(this IHostEnvironment environment) => environment.IsEnvironment("local");
 
-    public static bool IsDev(this IHostEnvironment environment) => environment.IsEnvironment("DEV");
+    /// <inheritdoc cref="EnvironmentExtensions"/>
+    public static bool IsDev(this IHostEnvironment environment) => environment.IsEnvironment("dev") || environment.IsDevelopment();
 
-    public static bool IsUat(this IHostEnvironment environment) => environment.IsEnvironment("UAT");
+    /// <inheritdoc cref="EnvironmentExtensions"/>
+    public static bool IsQa(this IHostEnvironment environment) => environment.IsEnvironment("qa");
 
-    public static bool IsProd(this IHostEnvironment environment) => environment.IsEnvironment("PROD");
+    /// <inheritdoc cref="EnvironmentExtensions"/>
+    public static bool IsUat(this IHostEnvironment environment) => environment.IsEnvironment("uat");
+
+    /// <inheritdoc cref="EnvironmentExtensions"/>
+    public static bool IsStaging(this IHostEnvironment environment) => environment.IsEnvironment("stg") || environment.IsStaging();
+
+    /// <inheritdoc cref="EnvironmentExtensions"/>
+    public static bool IsProd(this IHostEnvironment environment) => environment.IsEnvironment("prod") || environment.IsProduction();
 }

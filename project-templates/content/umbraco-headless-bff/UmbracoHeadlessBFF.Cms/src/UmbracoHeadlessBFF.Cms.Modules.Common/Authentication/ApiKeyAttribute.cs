@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Umbraco.Cms.Core.Configuration.Models;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi;
+using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi;
 
 namespace UmbracoHeadlessBFF.Cms.Modules.Common.Authentication;
 

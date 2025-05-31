@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 using Scalar.AspNetCore;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using UmbracoHeadlessBFF.SharedModules.Common.Caching;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms;
+using UmbracoHeadlessBFF.SharedModules.Cms;
 using UmbracoHeadlessBFF.SharedModules.Common.Correlation;
 using UmbracoHeadlessBFF.SharedModules.Common.Environment;
 using UmbracoHeadlessBFF.SharedModules.Content;
@@ -26,7 +26,6 @@ builder.Services.AddSwaggerGen(options =>
     // add a custom operation filter which sets default values
     options.OperationFilter<SwaggerDefaultValues>();
     options.OperationFilter<CorrelationSwaggerParameters>();
-    options.OperationFilter<PreviewModeSwaggerParameters>();
 });
 
 builder.Services
@@ -52,14 +51,13 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 
 builder.AddServiceDefaults();
 
-builder.AddCachingSharedModules();
-builder.AddCorrelationSharedModules();
-builder.AddCmsSharedModules();
-builder.AddContentSharedModules();
-builder.AddErrors();
-builder.AddCms();
-builder.AddContent();
-builder.AddUrls();
+builder.AddCachingSharedModule();
+builder.AddCorrelationSharedModule();
+builder.AddCmsSharedModule();
+builder.AddErrorsModule();
+builder.AddCmsModule();
+builder.AddContentModule();
+builder.AddUrlsModule();
 
 if (environment.IsLocal())
 {
@@ -94,8 +92,8 @@ if (!app.Environment.IsProduction())
     });
 }
 
-app.UseErrors();
-app.UseCms();
+app.UseExceptionHandler();
+app.UseCmsModuleMiddleware();
 
 app.MapDefaultEndpoints();
 

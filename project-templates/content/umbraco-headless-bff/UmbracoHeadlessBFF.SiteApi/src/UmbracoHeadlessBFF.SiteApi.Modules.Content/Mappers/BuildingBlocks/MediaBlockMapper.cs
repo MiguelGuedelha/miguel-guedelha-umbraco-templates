@@ -1,5 +1,5 @@
-﻿using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.BuildingBlocks;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data;
+﻿using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.BuildingBlocks;
+using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Data;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.BuildingBlocks;

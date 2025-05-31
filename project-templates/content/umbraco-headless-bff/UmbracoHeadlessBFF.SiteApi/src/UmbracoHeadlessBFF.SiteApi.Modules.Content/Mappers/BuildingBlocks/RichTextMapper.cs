@@ -1,5 +1,5 @@
 ﻿using HtmlAgilityPack;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data;
+using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Data;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.BuildingBlocks;
 

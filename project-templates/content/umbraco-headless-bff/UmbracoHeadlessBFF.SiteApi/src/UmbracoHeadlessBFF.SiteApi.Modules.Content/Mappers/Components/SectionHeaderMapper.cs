@@ -1,6 +1,6 @@
-﻿using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Components;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Data;
+﻿using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi;
+using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Components;
+using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Data;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Components;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Components;

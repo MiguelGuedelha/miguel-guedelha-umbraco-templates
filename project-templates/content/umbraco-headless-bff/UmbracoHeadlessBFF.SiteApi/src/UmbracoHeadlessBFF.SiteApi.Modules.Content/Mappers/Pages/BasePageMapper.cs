@@ -1,7 +1,7 @@
-﻿using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages.Compositions;
-using UmbracoHeadlessBFF.SharedModules.Common.Cms.DeliveryApi.Models.Pages.Extensions;
+﻿using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi;
+using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Pages;
+using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Pages.Compositions;
+using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Pages.Extensions;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Layouts;
 using UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.Layouts;
@@ -103,7 +103,7 @@ internal sealed class BasePageMapper
         {
             var hasProps = ancestor.TryGetProperties<IApiNavigationSettingsProperties>(out var props);
 
-            if (!hasProps || props is not { ShowInBreadcrumbs: true})
+            if (!hasProps || props is not { ShowInBreadcrumbs: true })
             {
                 continue;
             }

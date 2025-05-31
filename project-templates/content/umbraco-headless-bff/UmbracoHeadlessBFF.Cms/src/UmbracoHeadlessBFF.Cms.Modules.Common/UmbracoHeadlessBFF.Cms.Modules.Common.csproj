@@ -14,6 +14,7 @@
       <PackageReference Include="Umbraco.Community.Contentment" />
     </ItemGroup>
     <ItemGroup>
+      <ProjectReference Include="..\..\..\UmbracoHeadlessBFF.SharedModules\src\UmbracoHeadlessBFF.SharedModules.Cms\UmbracoHeadlessBFF.SharedModules.Cms.csproj" />
       <ProjectReference Include="..\..\..\UmbracoHeadlessBFF.SharedModules\src\UmbracoHeadlessBFF.SharedModules.Common\UmbracoHeadlessBFF.SharedModules.Common.csproj" />
     </ItemGroup>
 </Project>
