@@ -9,10 +9,12 @@ namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Components;
 internal sealed class RichTextSectionMapper : IComponentMapper
 {
     private readonly ILinkMapper _linkMapper;
+    private readonly IRichTextMapper _richTextMapper;
 
-    public RichTextSectionMapper(ILinkMapper linkMapper)
+    public RichTextSectionMapper(ILinkMapper linkMapper, IRichTextMapper richTextMapper)
     {
         _linkMapper = linkMapper;
+        _richTextMapper = richTextMapper;
     }
 
     public bool CanMap(string type) => type == DeliveryApiConstants.ElementTypes.ApiRichTextSection;
@@ -24,12 +26,13 @@ internal sealed class RichTextSectionMapper : IComponentMapper
         }
 
         var link = apiModel.Properties.Cta?.FirstOrDefault();
+        var text = apiModel.Properties.Text;
 
         return new RichTextSection
         {
             Id = apiModel.Id,
             ContentType = apiModel.ContentType,
-            Text = apiModel.Properties.Text?.Markup,
+            Text = text is not null ?  await _richTextMapper.Map(text) : null,
             Cta = link is not null ? await _linkMapper.Map(link) : null
         };
     }

@@ -34,7 +34,8 @@ public static class ContentConfiguration
             .AddTransient<INavigationLinkMapper, NavigationLinkMapper>()
             .AddTransient<ILinkWithSublinksMapper, LinkWithSublinksMapper>()
             .AddTransient<IHeadingWithLinksMapper, HeadingWithLinksMapper>()
-            .AddTransient<IHeadingWithSocialLinksMapper, HeadingWithSocialLinksMapper>();
+            .AddTransient<IHeadingWithSocialLinksMapper, HeadingWithSocialLinksMapper>()
+            .AddTransient<IRichTextMapper, RichTextMapper>();
 
         // Component Mappers
         services

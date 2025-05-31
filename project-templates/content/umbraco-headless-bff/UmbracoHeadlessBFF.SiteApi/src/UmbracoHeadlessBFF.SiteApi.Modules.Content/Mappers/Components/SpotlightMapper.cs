@@ -10,11 +10,13 @@ internal sealed class SpotlightMapper : IComponentMapper
 {
     private readonly ILinkMapper _linkMapper;
     private readonly IMediaBlockMapper _mediaBlockMapper;
+    private readonly IRichTextMapper _richTextMapper;
 
-    public SpotlightMapper(ILinkMapper linkMapper, IMediaBlockMapper mediaBlockMapper)
+    public SpotlightMapper(ILinkMapper linkMapper, IMediaBlockMapper mediaBlockMapper, IRichTextMapper richTextMapper)
     {
         _linkMapper = linkMapper;
         _mediaBlockMapper = mediaBlockMapper;
+        _richTextMapper = richTextMapper;
     }
 
     public bool CanMap(string type) => type == DeliveryApiConstants.ElementTypes.ApiSpotlight;
@@ -31,6 +33,7 @@ internal sealed class SpotlightMapper : IComponentMapper
             .FirstOrDefault();
 
         var cta = apiModel.Properties.Cta?.FirstOrDefault();
+        var description = apiModel.Properties.Description;
 
         return new Spotlight
         {
@@ -38,7 +41,7 @@ internal sealed class SpotlightMapper : IComponentMapper
             ContentType = apiModel.ContentType,
             Heading = apiModel.Properties.Heading,
             HeadingSize = apiModel.Properties.HeadingSize,
-            Description = apiModel.Properties.Description?.Markup,
+            Description = description is not null ? await _richTextMapper.Map(description) : null,
             Media = media is not null ? await _mediaBlockMapper.Map(media) : null,
             Cta = cta is not null ? await _linkMapper.Map(cta) : null
         };

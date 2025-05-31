@@ -9,10 +9,12 @@ namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Mappers.Components;
 internal sealed class BannerMapper : IComponentMapper
 {
     private readonly IMediaBlockMapper _mediaBlockMapper;
+    private readonly IRichTextMapper _richTextMapper;
 
-    public BannerMapper(IMediaBlockMapper mediaBlockMapper)
+    public BannerMapper(IMediaBlockMapper mediaBlockMapper, IRichTextMapper richTextMapper)
     {
         _mediaBlockMapper = mediaBlockMapper;
+        _richTextMapper = richTextMapper;
     }
 
     public bool CanMap(string type) => type == DeliveryApiConstants.ElementTypes.ApiBanner;
@@ -37,13 +39,14 @@ internal sealed class BannerMapper : IComponentMapper
         var mapTasks = bannerItems.Select(async x =>
         {
             var media = x.Properties.BackgroundMedia?.Items.FirstOrDefault()?.Content;
+            var description = x.Properties.Description;
 
             return new BannerItem
             {
                 Heading = x.Properties.Heading,
                 HeadingSize = x.Properties.HeadingSize,
                 SubHeading = x.Properties.SubHeading,
-                Description = x.Properties.Description?.Markup,
+                Description = description is not null ? await _richTextMapper.Map(description) : null,
                 BackgroundMedia = media is not null ? await _mediaBlockMapper.Map(media) : null
             };
         }).ToArray();
