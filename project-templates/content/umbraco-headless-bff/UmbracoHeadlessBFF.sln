@@ -64,7 +64,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoHeadlessBFF.Cms.Modu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoHeadlessBFF.SiteApi.Modules.Common", "UmbracoHeadlessBFF.SiteApi\src\UmbracoHeadlessBFF.SiteApi.Modules.Common\UmbracoHeadlessBFF.SiteApi.Modules.Common.csproj", "{AD95BB74-6A13-4C7F-89C1-5EE950B07400}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoHeadlessBFF.SiteApi.Modules.Content", "UmbracoHeadlessBFF.SiteApi\src\UmbracoHeadlessBFF.SiteApi.Modules.Content\UmbracoHeadlessBFF.SiteApi.Modules.Content.csproj", "{7E4919F0-E290-4B96-ABD4-6C3406448C13}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoHeadlessBFF.SiteApi.Modules.Pages", "UmbracoHeadlessBFF.SiteApi\src\UmbracoHeadlessBFF.SiteApi.Modules.Pages\UmbracoHeadlessBFF.SiteApi.Modules.Pages.csproj", "{7E4919F0-E290-4B96-ABD4-6C3406448C13}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoHeadlessBFF.Cms.Modules.Content", "UmbracoHeadlessBFF.Cms\src\UmbracoHeadlessBFF.Cms.Modules.Content\UmbracoHeadlessBFF.Cms.Modules.Content.csproj", "{F05A9177-34B2-4EA4-958D-543B370DD042}"
 EndProject

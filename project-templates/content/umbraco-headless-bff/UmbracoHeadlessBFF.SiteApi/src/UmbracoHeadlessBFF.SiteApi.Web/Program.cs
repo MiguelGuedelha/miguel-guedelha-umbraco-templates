@@ -10,9 +10,9 @@ using UmbracoHeadlessBFF.SharedModules.Common.Correlation;
 using UmbracoHeadlessBFF.SharedModules.Common.Environment;
 using UmbracoHeadlessBFF.SharedModules.Content;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms;
+using UmbracoHeadlessBFF.SiteApi.Modules.Common.Configuration;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
-using UmbracoHeadlessBFF.SiteApi.Modules.Common.Urls;
-using UmbracoHeadlessBFF.SiteApi.Modules.Content;
+using UmbracoHeadlessBFF.SiteApi.Modules.Pages;
 using UmbracoHeadlessBFF.SiteApi.Web.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -57,7 +57,7 @@ builder.AddCmsSharedModule();
 builder.AddErrorsModule();
 builder.AddCmsModule();
 builder.AddContentModule();
-builder.AddUrlsModule();
+builder.AddConfigurationModule();
 
 if (environment.IsLocal())
 {
@@ -106,7 +106,7 @@ var versionGroup = app
     .MapGroup("/v{version:apiVersion}")
     .WithApiVersionSet(apiVersionSet);
 
-versionGroup.MapContentEndpoints();
+versionGroup.MapPagesEndpoints();
 
 if (app.Environment.IsLocal())
 {

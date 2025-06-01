@@ -1,7 +1,0 @@
-﻿namespace UmbracoHeadlessBFF.SiteApi.Modules.Content.Models.BuildingBlocks;
-
-internal sealed record EmbedVideo : IMediaBlock
-{
-    public EmbedItem? Video { get; init; }
-    public Image? PlaceholderImage { get; init; }
-}
