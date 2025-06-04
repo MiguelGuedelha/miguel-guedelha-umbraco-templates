@@ -51,7 +51,7 @@ public sealed class GetRedirectLinkController : Controller
         _applicationUrlOptions = applicationUrlOptions.Value;
     }
 
-    [HttpGet("redirects/{path}")]
+    [HttpGet("redirects/{**path}")]
     public async Task<Results<Ok<RedirectLink>, NotFound>> GetRedirect(string path, Guid siteId, string culture)
     {
         _variationContextAccessor.VariationContext = new(culture);
@@ -90,7 +90,7 @@ public sealed class GetRedirectLinkController : Controller
                 return TypedResults.Ok(new RedirectLink
                 {
                     Location = destinationUrl,
-                    StatusCode = StatusCodes.Status302Found
+                    StatusCode = StatusCodes.Status308PermanentRedirect
                 });
             }
         }
@@ -124,7 +124,7 @@ public sealed class GetRedirectLinkController : Controller
         return TypedResults.Ok(new RedirectLink
         {
             Location = url,
-            StatusCode = StatusCodes.Status302Found
+            StatusCode = StatusCodes.Status307TemporaryRedirect
         });
     }
 
