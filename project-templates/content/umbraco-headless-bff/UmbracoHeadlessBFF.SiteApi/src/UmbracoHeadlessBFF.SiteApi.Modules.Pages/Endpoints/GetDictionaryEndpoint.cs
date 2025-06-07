@@ -14,15 +14,15 @@ internal static class GetDictionaryEndpoint
     public static RouteGroupBuilder MapGetDictionary(this RouteGroupBuilder builder)
     {
         builder
-            .MapGet("/dictionary", Handler)
+            .MapGet("/dictionary", Handle)
             .MapToApiVersion(EndpointConstants.Versions.V1);
 
         return builder;
     }
 
-    private static async Task<Results<Ok<SiteDictionary>, NotFound>> Handler(SiteResolutionContext context, IPageService pageService)
+    private static async Task<Results<Ok<SiteDictionary>, NotFound>> Handle(SiteResolutionContext context, IPageService pageService)
     {
-        var content = await pageService.GetPageById(context.Site.DictionaryId);
+        var content = await pageService.GetPage(context.Site.DictionaryId);
 
         if (content is not ApiSiteDictionary dictionary)
         {

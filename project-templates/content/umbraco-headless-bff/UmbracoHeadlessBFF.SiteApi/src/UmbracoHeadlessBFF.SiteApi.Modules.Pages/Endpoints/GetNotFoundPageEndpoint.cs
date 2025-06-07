@@ -17,18 +17,18 @@ internal static class GetNotFoundPageEndpoint
     public static RouteGroupBuilder MapGetNotFoundPage(this RouteGroupBuilder builder)
     {
         builder
-            .MapGet("/not-found", Handler)
+            .MapGet("/not-found", Handle)
             .MapToApiVersion(EndpointConstants.Versions.V1);
 
         return builder;
     }
 
-    private static async Task<Results<Ok<IPage>, NotFound>> Handler(IPageService pageService,
+    private static async Task<Results<Ok<IPage>, NotFound>> Handle(IPageService pageService,
         IEnumerable<IPageMapper> mappers, SiteResolutionContext siteResolutionContext)
     {
         var notFoundId = siteResolutionContext.Site.NotFoundPageId;
 
-        var data = await pageService.GetPageById(notFoundId);
+        var data = await pageService.GetPage(notFoundId);
 
         if (data is not ApiNotFound notFoundPage)
         {

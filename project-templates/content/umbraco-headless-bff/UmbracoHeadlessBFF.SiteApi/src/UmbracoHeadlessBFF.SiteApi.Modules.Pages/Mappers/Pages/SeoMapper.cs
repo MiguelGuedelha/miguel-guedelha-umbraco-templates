@@ -37,7 +37,7 @@ internal sealed class SeoMapper : ISeoMapper
             _ => null
         };
 
-        var siteSettings = await _pageService.GetPageById(_siteResolutionContext.Site.SiteSettingsId) as ApiSiteSettings;
+        var siteSettings = await _pageService.GetPage(_siteResolutionContext.Site.SiteSettingsId) as ApiSiteSettings;
 
         var titlePrefix = siteSettings?.Properties.PageTitlePrefix;
         var domain = _siteResolutionContext.Site.Domains.First();

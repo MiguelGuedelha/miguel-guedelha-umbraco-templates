@@ -17,7 +17,10 @@ internal sealed class FallbackPageMapper : IPageMapper
 
     public Task<IPage?> Map(IApiContent model)
     {
-        _logger.LogWarning("Fallback: Page {Id} of type {ContentType}", model.Id, model.ContentType);
+        if (_logger.IsEnabled(LogLevel.Warning))
+        {
+            _logger.LogWarning("Fallback: Page {Id} of type {ContentType}", model.Id, model.ContentType);
+        }
         return Task.FromResult<IPage?>(null);
     }
 }

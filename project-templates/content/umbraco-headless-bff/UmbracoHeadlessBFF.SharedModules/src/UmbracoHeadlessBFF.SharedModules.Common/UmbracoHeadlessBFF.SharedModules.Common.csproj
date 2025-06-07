@@ -11,4 +11,8 @@
     <PackageReference Include="ZiggyCreatures.FusionCache.Serialization.NewtonsoftJson" />
     <PackageReference Include="Microsoft.AspNetCore.HeaderPropagation" />
   </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="UmbracoHeadlessBFF.Aspire.AppHost" />
+  </ItemGroup>
 </Project>

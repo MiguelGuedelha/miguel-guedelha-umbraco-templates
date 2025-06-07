@@ -32,7 +32,10 @@ internal sealed class PreviewUrlNotificationHandler : INotificationHandler<Sendi
     {
         if (string.IsNullOrWhiteSpace(_previewOptions.SecretKey) || Encoding.UTF8.GetByteCount(_previewOptions.SecretKey) < 64)
         {
-            _logger.LogWarning("No preview secret configured or is under required 512 byte length, skipping headless preview URL generation");
+            if (_logger.IsEnabled(LogLevel.Warning))
+            {
+                _logger.LogWarning("No preview secret configured or is under required 512 byte length, skipping headless preview URL generation");
+            }
             return;
         }
 

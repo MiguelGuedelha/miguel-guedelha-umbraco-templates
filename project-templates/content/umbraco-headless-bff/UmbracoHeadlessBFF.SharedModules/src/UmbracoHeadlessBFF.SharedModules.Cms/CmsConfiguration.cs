@@ -7,8 +7,8 @@ using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi;
 using UmbracoHeadlessBFF.SharedModules.Cms.Links;
 using UmbracoHeadlessBFF.SharedModules.Cms.Options;
 using UmbracoHeadlessBFF.SharedModules.Cms.Preview;
+using UmbracoHeadlessBFF.SharedModules.Cms.Sitemap;
 using UmbracoHeadlessBFF.SharedModules.Cms.SiteResolution;
-using UmbracoHeadlessBFF.SharedModules.Content.Sitemap;
 
 namespace UmbracoHeadlessBFF.SharedModules.Cms;
 

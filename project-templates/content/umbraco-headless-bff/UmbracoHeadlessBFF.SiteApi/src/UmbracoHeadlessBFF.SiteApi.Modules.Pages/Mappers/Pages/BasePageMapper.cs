@@ -38,7 +38,7 @@ internal sealed class BasePageMapper
 
         var seo = model.Properties as IApiSeoSettingsProperties;
 
-        var siteSettings = await _pageService.GetPageById(site.SiteSettingsId) as ApiSiteSettings;
+        var siteSettings = await _pageService.GetPage(site.SiteSettingsId) as ApiSiteSettings;
 
         return new()
         {

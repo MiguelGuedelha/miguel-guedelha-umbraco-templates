@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UmbracoHeadlessBFF.SharedModules.Common.Environment;
+using ZiggyCreatures.Caching.Fusion;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 
@@ -17,10 +18,16 @@ internal sealed class SiteApiExceptionHandler : IExceptionHandler
         _environment = environment;
     }
 
-
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
-        if (exception is not SiteApiException siteApiException)
+        var siteApiException = exception as SiteApiException;
+
+        if (siteApiException is null && exception is FusionCacheFactoryException factoryException)
+        {
+            siteApiException = factoryException.InnerException as SiteApiException;
+        }
+
+        if (siteApiException is null)
         {
             return false;
         }

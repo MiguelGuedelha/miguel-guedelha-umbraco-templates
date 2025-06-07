@@ -3,6 +3,7 @@ using UmbracoHeadlessBFF.SharedModules.Cms.SiteResolution;
 using UmbracoHeadlessBFF.SharedModules.Common.Correlation;
 using UmbracoHeadlessBFF.SharedModules.Common.Strings;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
+using ZiggyCreatures.Caching.Fusion;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
 
@@ -11,13 +12,18 @@ public sealed class SiteResolutionService
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly ISiteResolutionApi _siteResolutionApi;
     private readonly SiteResolutionContext _siteResolutionContext;
+    private readonly IFusionCache _fusionCache;
 
-    public SiteResolutionService(IHttpContextAccessor httpContextAccessor, ISiteResolutionApi siteResolutionApi,
-        SiteResolutionContext siteResolutionContext)
+    public SiteResolutionService(
+        IHttpContextAccessor httpContextAccessor,
+        ISiteResolutionApi siteResolutionApi,
+        SiteResolutionContext siteResolutionContext,
+        IFusionCache fusionCache)
     {
         _httpContextAccessor = httpContextAccessor;
         _siteResolutionApi = siteResolutionApi;
         _siteResolutionContext = siteResolutionContext;
+        _fusionCache = fusionCache;
     }
 
     public async Task<(string SiteId, SiteDefinition SiteDefinition)?> ResolveSite()
@@ -33,16 +39,7 @@ public sealed class SiteResolutionService
         var hasSitePath = context.Request.Headers.TryGetValue(CorrelationConstants.Headers.SitePath, out var sitePath);
         var hasSiteHost = context.Request.Headers.TryGetValue(CorrelationConstants.Headers.SiteHost, out var siteHost);
 
-        var isPreview = _siteResolutionContext.IsPreview;
-
-        var sitesResponse = await _siteResolutionApi.GetSites(isPreview);
-
-        if (!sitesResponse.IsSuccessStatusCode || sitesResponse.Content is null)
-        {
-            throw new SiteApiException((int)sitesResponse.StatusCode, "Couldn't get sites", sitesResponse.Error);
-        }
-
-        var sites = sitesResponse.Content;
+        var sites = await GetSitesInternal();
 
         if (hasSiteId)
         {
@@ -81,18 +78,37 @@ public sealed class SiteResolutionService
     {
         var isPreview = _siteResolutionContext.IsPreview;
 
-        var sitesResponse = await _siteResolutionApi.GetSites(isPreview);
+        var sites = await GetSitesInternal();
 
-        if (!sitesResponse.IsSuccessStatusCode || sitesResponse.Content is null)
-        {
-            throw new SiteApiException((int)sitesResponse.StatusCode, "Couldn't get sites", sitesResponse.Error);
-        }
-
-        var alternateSites = sitesResponse.Content
+        var alternateSites = sites
             .Where(x => x.Value.HomepageId == site.HomepageId && x.Value.CultureInfo != site.CultureInfo)
             .Select(x => x.Value)
             .ToArray();
 
         return alternateSites;
+    }
+
+    private async Task<Dictionary<string, SiteDefinition>> GetSitesInternal()
+    {
+        if (_siteResolutionContext.IsPreview)
+        {
+            return await GetSitesFactory();
+        }
+
+        return await _fusionCache.GetOrSetAsync<Dictionary<string, SiteDefinition>>(
+            "sites",
+            async (_, ct) => await GetSitesFactory(ct));
+
+        async Task<Dictionary<string, SiteDefinition>> GetSitesFactory(CancellationToken cancellationToken = default)
+        {
+            var response = await _siteResolutionApi.GetSites(_siteResolutionContext.IsPreview, cancellationToken);
+
+            if (response is { IsSuccessful: true, Content: not null })
+            {
+                return response.Content;
+            }
+
+            throw new SiteApiException((int)response.StatusCode, "Couldn't get sites", response.Error);
+        }
     }
 }

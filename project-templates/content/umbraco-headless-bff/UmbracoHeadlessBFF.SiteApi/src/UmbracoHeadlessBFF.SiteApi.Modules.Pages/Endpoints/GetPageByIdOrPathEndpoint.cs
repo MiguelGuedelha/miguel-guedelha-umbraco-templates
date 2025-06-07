@@ -15,13 +15,13 @@ internal static class GetPageByIdOrPathEndpoint
     public static RouteGroupBuilder MapGetPageByIdOrPath(this RouteGroupBuilder builder)
     {
         builder
-            .MapGet("/page", Handler)
+            .MapGet("/page", Handle)
             .MapToApiVersion(EndpointConstants.Versions.V1);
 
         return builder;
     }
 
-    private static async Task<Results<Ok<IPage>, NotFound>> Handler(string id,
+    private static async Task<Results<Ok<IPage>, NotFound>> Handle(string id,
         IPageService pageService,
         IEnumerable<IPageMapper> mappers)
     {
@@ -32,8 +32,8 @@ internal static class GetPageByIdOrPathEndpoint
 
         var content = id switch
         {
-            _ when Guid.TryParse(id, out var parsedId) => await pageService.GetPageById(parsedId),
-            _ => await pageService.GetPageByPath(id)
+            _ when Guid.TryParse(id, out var parsedId) => await pageService.GetPage(parsedId),
+            _ => await pageService.GetPage(id)
         };
 
         if (content is null)

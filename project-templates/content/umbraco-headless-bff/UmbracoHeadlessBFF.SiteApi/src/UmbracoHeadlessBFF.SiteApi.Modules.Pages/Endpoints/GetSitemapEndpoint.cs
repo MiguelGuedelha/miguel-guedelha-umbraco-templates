@@ -1,29 +1,36 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.Net;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Routing;
-using UmbracoHeadlessBFF.SharedModules.Content.Sitemap;
+using Refit;
+using UmbracoHeadlessBFF.SharedModules.Cms.Sitemap;
+using UmbracoHeadlessBFF.SharedModules.Common.Caching;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Endpoints;
+using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
+using ZiggyCreatures.Caching.Fusion;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Pages.Endpoints;
 
 internal static class GetSitemapEndpoint
 {
-    private static readonly string s_sitemapSegment = "sitemap.xml";
+    private const string SitemapSegment = "sitemap.xml";
 
     public static RouteGroupBuilder MapGetSitemap(this RouteGroupBuilder builder)
     {
         builder
-            .MapGet("/sitemap", Handler)
+            .MapGet("/sitemap", Handle)
             .MapToApiVersion(EndpointConstants.Versions.V1);
 
         return builder;
     }
 
-    private static async Task<Results<Ok<SitemapData>, NotFound>> Handler(
+    private static async Task<Results<Ok<SitemapData>, NotFound>> Handle(
         ISitemapsApi sitemapsApi,
-        SiteResolutionContext siteResolutionContext)
+        SiteResolutionContext siteResolutionContext,
+        IFusionCache fusionCache,
+        DefaultCachingOptions defaultCachingOptions)
     {
         var path = siteResolutionContext.Path;
         var domain = siteResolutionContext.Domain;
@@ -33,17 +40,56 @@ internal static class GetSitemapEndpoint
 
         var sitemapPath = path.Replace(domainEntry.Path, string.Empty);
 
-        if (!sitemapPath.Equals(s_sitemapSegment, StringComparison.OrdinalIgnoreCase))
+        if (!sitemapPath.Equals(SitemapSegment, StringComparison.OrdinalIgnoreCase))
         {
             return TypedResults.NotFound();
         }
 
-        var response = await sitemapsApi.GetSitemap(siteResolutionContext.Site.HomepageId, siteResolutionContext.Site.CultureInfo, siteResolutionContext.IsPreview);
+        var homepage = siteResolutionContext.Site.HomepageId;
+        var culture = siteResolutionContext.Site.CultureInfo;
+        var isPreview = siteResolutionContext.IsPreview;
 
-        return response switch
+        if (isPreview)
         {
-            { Content: { Items.Count: > 0 } content } => TypedResults.Ok(content),
+            var response = await GetSitemapFactory();
+
+            return response switch
+            {
+                { Content: { Items.Count: > 0 } content } => TypedResults.Ok(content),
+                _ => TypedResults.NotFound(),
+            };
+        }
+
+        var data = await fusionCache.GetOrSetAsync<SitemapData?>(
+            $"sitemap:{homepage}:{culture}",
+            async (ctx, ct) =>
+            {
+                var response = await GetSitemapFactory(ct);
+
+                if (response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    ctx.Options.SetDuration(TimeSpan.FromSeconds(defaultCachingOptions.NullDuration));
+                }
+
+                return response.Content;
+            });
+
+        return data switch
+        {
+            { Items.Count: > 0 } => TypedResults.Ok(data),
             _ => TypedResults.NotFound(),
         };
+
+        async Task<IApiResponse<SitemapData>> GetSitemapFactory(CancellationToken cancellationToken = default)
+        {
+            var response = await sitemapsApi.GetSitemap(siteResolutionContext.Site.HomepageId, siteResolutionContext.Site.CultureInfo, siteResolutionContext.IsPreview, cancellationToken);
+
+            if (response is { IsSuccessful: false, StatusCode: not HttpStatusCode.NotFound })
+            {
+                throw new SiteApiException((int)response.StatusCode, response.ReasonPhrase);
+            }
+
+            return response;
+        }
     }
 }

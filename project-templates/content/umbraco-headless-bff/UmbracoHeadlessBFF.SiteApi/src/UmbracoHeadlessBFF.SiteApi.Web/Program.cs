@@ -8,7 +8,6 @@ using UmbracoHeadlessBFF.SharedModules.Common.Caching;
 using UmbracoHeadlessBFF.SharedModules.Cms;
 using UmbracoHeadlessBFF.SharedModules.Common.Correlation;
 using UmbracoHeadlessBFF.SharedModules.Common.Environment;
-using UmbracoHeadlessBFF.SharedModules.Content;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Configuration;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
@@ -46,17 +45,17 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 {
     options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
     options.SerializerOptions.Converters.AddDeliveryApiConverters();
-    options.SerializerOptions.Converters.AddContentConverters();
+    options.SerializerOptions.Converters.AddPagesConverters();
 });
 
 builder.AddServiceDefaults();
 
-builder.AddCachingSharedModule();
+builder.AddCachingSharedModule("SiteApi");
 builder.AddCorrelationSharedModule();
 builder.AddCmsSharedModule();
 builder.AddErrorsModule();
 builder.AddCmsModule();
-builder.AddContentModule();
+builder.AddPagesModule();
 builder.AddConfigurationModule();
 
 if (environment.IsLocal())

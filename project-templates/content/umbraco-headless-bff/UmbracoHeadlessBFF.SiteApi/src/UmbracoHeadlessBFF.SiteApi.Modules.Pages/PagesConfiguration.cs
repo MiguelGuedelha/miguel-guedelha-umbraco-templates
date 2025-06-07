@@ -12,9 +12,9 @@ using UmbracoHeadlessBFF.SiteApi.Modules.Pages.Mappers.Pages;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Pages;
 
-public static class ContentConfiguration
+public static class PagesConfiguration
 {
-    public static void AddContentModule(this WebApplicationBuilder builder)
+    public static void AddPagesModule(this WebApplicationBuilder builder)
     {
         var services = builder.Services;
 
@@ -73,7 +73,7 @@ public static class ContentConfiguration
         services.AddTransient<IPageMapper, FallbackPageMapper>();
     }
 
-    public static void AddContentConverters(this IList<JsonConverter> convertersList)
+    public static void AddPagesConverters(this IList<JsonConverter> convertersList)
     {
         convertersList.Add(new ComponentConverter());
         convertersList.Add(new MediaBlockConverter());

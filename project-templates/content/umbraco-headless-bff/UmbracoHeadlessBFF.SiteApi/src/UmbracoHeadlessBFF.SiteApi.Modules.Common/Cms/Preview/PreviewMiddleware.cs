@@ -41,7 +41,10 @@ public sealed class PreviewMiddleware : IMiddleware
                 throw new SiteApiException(StatusCodes.Status401Unauthorized, "No preview token found");
             }
 
-            _logger.LogInformation("No preview token found, but is local environment, will allow through");
+            if (_logger.IsEnabled(LogLevel.Information))
+            {
+                _logger.LogInformation("No preview token found, but is local environment, will allow through");
+            }
             await next(context);
             return;
         }

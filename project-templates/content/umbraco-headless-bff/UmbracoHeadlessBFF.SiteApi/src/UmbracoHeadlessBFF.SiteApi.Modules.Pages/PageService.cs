@@ -1,16 +1,21 @@
-﻿using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi;
+﻿using System.Net;
+using Microsoft.Extensions.Options;
+using Refit;
+using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi;
 using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Pages;
 using UmbracoHeadlessBFF.SharedModules.Cms.Links;
+using UmbracoHeadlessBFF.SharedModules.Common.Caching;
 using UmbracoHeadlessBFF.SharedModules.Common.Strings;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
+using ZiggyCreatures.Caching.Fusion;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Pages;
 
 internal interface IPageService
 {
-    Task<IApiContent?> GetPageById(Guid id);
-    Task<IApiContent?> GetPageByPath(string path);
+    Task<IApiContent?> GetPage(Guid id);
+    Task<IApiContent?> GetPage(string path);
     Task<PagedApiContent?> GetPages(int skip = 0, int take = 10, ContentFetchType? fetch = null,
         IReadOnlyList<ContentFilterType>? filter = null, ContentSortType? sort = null, string? startItem = null);
 }
@@ -20,37 +25,72 @@ internal sealed class PageService : IPageService
     private readonly IUmbracoDeliveryApi _umbracoDeliveryApi;
     private readonly SiteResolutionContext _siteResolutionContext;
     private readonly ILinksApi _linksApi;
+    private readonly IFusionCache _fusionCache;
+    private readonly IOptionsSnapshot<DefaultCachingOptions> _defaultCachingOptions;
 
     private static readonly string s_levelOneExpandFieldsLevel = new FieldsExpandProperties(1).ToString();
     private static readonly string s_defaultExpandFieldsLevel = new FieldsExpandProperties(5).ToString();
 
-    public PageService(IUmbracoDeliveryApi umbracoDeliveryApi, SiteResolutionContext siteResolutionContext, ILinksApi linksApi)
+    public PageService(
+        IUmbracoDeliveryApi umbracoDeliveryApi,
+        SiteResolutionContext siteResolutionContext,
+        ILinksApi linksApi, IFusionCache fusionCache,
+        IOptionsSnapshot<DefaultCachingOptions> defaultCachingOptions)
     {
         _umbracoDeliveryApi = umbracoDeliveryApi;
         _siteResolutionContext = siteResolutionContext;
         _linksApi = linksApi;
+        _fusionCache = fusionCache;
+        _defaultCachingOptions = defaultCachingOptions;
     }
 
-    public async Task<IApiContent?> GetPageById(Guid id)
+    public async Task<IApiContent?> GetPage(Guid id)
     {
         var site = _siteResolutionContext.Site;
 
-        var response = await _umbracoDeliveryApi.GetItemById(
-            id: id,
-            expand: s_defaultExpandFieldsLevel,
-            acceptLanguage: site.CultureInfo,
-            preview: _siteResolutionContext.IsPreview,
-            startItem: site.RootId.ToString());
-
-        if (!response.IsSuccessStatusCode)
+        if (_siteResolutionContext.IsPreview)
         {
-            throw new SiteApiException((int)response.StatusCode, response.ReasonPhrase);
+            var response = await GetPageByIdFactory();
+            return response.Content;
         }
 
-        return response.Content;
+        var page = await _fusionCache.GetOrSetAsync<IApiContent?>(
+            $"page:{id}",
+            async (ctx, ct) =>
+            {
+                var response = await GetPageByIdFactory(ct);
+
+                if (response.Content is null)
+                {
+                    ctx.Options.SetDuration(TimeSpan.FromSeconds(_defaultCachingOptions.Value.NullDuration));
+                }
+
+                return response.Content;
+            });
+
+        return page;
+
+        async Task<IApiResponse<IApiContent?>> GetPageByIdFactory(CancellationToken cancellationToken = default)
+        {
+            var response = await _umbracoDeliveryApi.GetItemById(
+                id: id,
+                expand: s_defaultExpandFieldsLevel,
+                acceptLanguage: site.CultureInfo,
+                preview: _siteResolutionContext.IsPreview,
+                startItem: site.RootId.ToString(),
+                cancellationToken: cancellationToken);
+
+            if (response.IsSuccessStatusCode || response.StatusCode == HttpStatusCode.NotFound)
+            {
+                return response;
+            }
+
+            throw new SiteApiException((int)response.StatusCode, response.ReasonPhrase);
+
+        }
     }
 
-    public async Task<IApiContent?> GetPageByPath(string path)
+    public async Task<IApiContent?> GetPage(string path)
     {
         var sanitizedPath = path.SanitisePathSlashes();
 

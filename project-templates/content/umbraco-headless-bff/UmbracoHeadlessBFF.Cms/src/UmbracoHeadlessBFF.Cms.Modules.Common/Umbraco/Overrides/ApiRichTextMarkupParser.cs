@@ -41,7 +41,10 @@ internal sealed partial class ApiRichTextMarkupParser : IApiRichTextMarkupParser
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Could not parse rich text HTML, see exception for details");
+            if (_logger.IsEnabled(LogLevel.Error))
+            {
+                _logger.LogError(ex, "Could not parse rich text HTML, see exception for details");
+            }
             return html;
         }
     }
