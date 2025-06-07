@@ -32,7 +32,7 @@ internal sealed class RichTextSectionMapper : IComponentMapper
         {
             Id = apiModel.Id,
             ContentType = apiModel.ContentType,
-            Text = text is not null ?  await _richTextMapper.Map(text) : null,
+            Text = text is not null ? await _richTextMapper.Map(text) : null,
             Cta = link is not null ? await _linkMapper.Map(link) : null
         };
     }

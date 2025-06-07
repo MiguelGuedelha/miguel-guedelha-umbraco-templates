@@ -4,7 +4,7 @@ namespace UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Pages.Extensions;
 
 public static class ApiContentExtensions
 {
-    public static bool TryGetProperties<TOut>(this IApiContent content, [NotNullWhen(true)]out TOut? outValue)
+    public static bool TryGetProperties<TOut>(this IApiContent content, [NotNullWhen(true)] out TOut? outValue)
         where TOut : class
     {
         outValue = null;
