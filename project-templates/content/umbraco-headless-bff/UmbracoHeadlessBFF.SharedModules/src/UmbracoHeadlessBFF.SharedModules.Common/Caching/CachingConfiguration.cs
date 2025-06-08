@@ -66,26 +66,23 @@ public static class CachingConfiguration
             })
             .WithDefaultEntryOptions(o =>
             {
-                //General
                 o.Duration = TimeSpan.FromSeconds(defaultCachingOptions.Duration);
 
-                //Failsafe
                 o.IsFailSafeEnabled = defaultCachingOptions.FailSafeIsEnabled;
                 o.FailSafeMaxDuration = TimeSpan.FromSeconds(defaultCachingOptions.FailSafeMaxDuration);
                 o.FailSafeThrottleDuration = TimeSpan.FromSeconds(defaultCachingOptions.FailSafeThrottleDuration);
 
-                //Factory Timeouts
                 o.FactorySoftTimeout = TimeSpan.FromMilliseconds(defaultCachingOptions.FactorySoftTimeoutMs);
                 o.FactoryHardTimeout = TimeSpan.FromSeconds(defaultCachingOptions.FactoryHardTimeout);
 
-                //Distributed Cache Options
                 o.DistributedCacheSoftTimeout = TimeSpan.FromMilliseconds(defaultCachingOptions.DistributedCacheSoftTimeoutMs);
                 o.DistributedCacheHardTimeout = TimeSpan.FromSeconds(defaultCachingOptions.DistributedCacheHardTimeout);
                 o.AllowBackgroundDistributedCacheOperations = defaultCachingOptions.AllowBackgroundDistributedCacheOperations;
                 o.AllowBackgroundBackplaneOperations = defaultCachingOptions.AllowBackgroundBackplaneOperations;
 
-                //Jitter
                 o.JitterMaxDuration = TimeSpan.FromSeconds(defaultCachingOptions.JitterMaxDuration);
+
+                o.EagerRefreshThreshold = defaultCachingOptions.EagerRefreshThreshold;
 
                 configureEntryOptions?.Invoke(o);
             })

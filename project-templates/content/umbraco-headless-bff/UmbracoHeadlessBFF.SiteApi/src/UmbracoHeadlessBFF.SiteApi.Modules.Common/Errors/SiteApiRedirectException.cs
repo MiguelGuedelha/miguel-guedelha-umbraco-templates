@@ -2,18 +2,18 @@
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 
-public sealed class RedirectApiException : Exception
+public sealed class SiteApiRedirectException : Exception
 {
     public string Location { get; private set; }
     public bool IsPermanent { get; private set; }
 
-    public RedirectApiException(string location)
+    public SiteApiRedirectException(string location)
     {
         Location = location;
         IsPermanent = false;
     }
 
-    public RedirectApiException(int statusCode, string location)
+    public SiteApiRedirectException(int statusCode, string location)
     {
         Location = location;
         IsPermanent = statusCode is StatusCodes.Status301MovedPermanently or StatusCodes.Status308PermanentRedirect;

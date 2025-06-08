@@ -4,15 +4,15 @@ using ZiggyCreatures.Caching.Fusion;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 
-internal sealed class RedirectApiExceptionHandler : IExceptionHandler
+internal sealed class SiteApiRedirectExceptionHandler : IExceptionHandler
 {
     public ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
-        var redirectApiException = exception as RedirectApiException;
+        var redirectApiException = exception as SiteApiRedirectException;
 
         if (redirectApiException is null && exception is FusionCacheFactoryException factoryException)
         {
-            redirectApiException = factoryException.InnerException as RedirectApiException;
+            redirectApiException = factoryException.InnerException as SiteApiRedirectException;
         }
 
         if (redirectApiException is null)

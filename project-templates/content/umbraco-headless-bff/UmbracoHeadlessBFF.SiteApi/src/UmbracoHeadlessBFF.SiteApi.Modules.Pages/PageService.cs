@@ -54,8 +54,8 @@ internal sealed class PageService : IPageService
             return response.Content;
         }
 
-        var page = await _fusionCache.GetOrSetAsync<IApiContent?>(
-            $"page:{id}",
+        return await _fusionCache.GetOrSetAsync<IApiContent?>(
+            $"page:{site.HomepageId}:{site.CultureInfo}:{id}",
             async (ctx, ct) =>
             {
                 var response = await GetPageByIdFactory(ct);
@@ -68,9 +68,7 @@ internal sealed class PageService : IPageService
                 return response.Content;
             });
 
-        return page;
-
-        async Task<IApiResponse<IApiContent?>> GetPageByIdFactory(CancellationToken cancellationToken = default)
+        async Task<IApiResponse<IApiContent>> GetPageByIdFactory(CancellationToken cancellationToken = default)
         {
             var response = await _umbracoDeliveryApi.GetItemById(
                 id: id,
@@ -86,7 +84,6 @@ internal sealed class PageService : IPageService
             }
 
             throw new SiteApiException((int)response.StatusCode, response.ReasonPhrase);
-
         }
     }
 
@@ -96,23 +93,37 @@ internal sealed class PageService : IPageService
 
         var site = _siteResolutionContext.Site;
 
-        var matchingDomain = site.Domains.FirstOrDefault(x => path.StartsWith(x.Path) && _siteResolutionContext.Domain == x.Domain)
-                             ?? site.Domains.First();
+        var matchingDomain = site.Domains.FirstOrDefault(x => path.StartsWith(x.Path) && _siteResolutionContext.Domain == x.Domain);
 
         if (matchingDomain is null)
         {
-            throw new SiteApiException(404, "No matching domain found");
+            return null;
         }
 
         if (!_siteResolutionContext.IsPreview)
         {
             var redirectPath = sanitizedPath.Replace(matchingDomain.Path, "/");
 
-            var redirectResponse = await _linksApi.GetRedirect(redirectPath, _siteResolutionContext.Site.HomepageId, _siteResolutionContext.Site.CultureInfo);
+            var redirect = await _fusionCache.GetOrSetAsync<RedirectLink?>(
+                $"redirects:{site.HomepageId}:{site.CultureInfo}:{sanitizedPath}",
+                async (ctx, ct) =>
+                {
+                    var redirectResponse = await _linksApi.GetRedirect(redirectPath,
+                        site.HomepageId,
+                        site.CultureInfo,
+                        ct);
 
-            if (redirectResponse.IsSuccessStatusCode)
+                    if (!redirectResponse.IsSuccessStatusCode && redirectResponse.StatusCode != HttpStatusCode.NotFound)
+                    {
+                        throw new SiteApiException((int)redirectResponse.StatusCode, redirectResponse.ReasonPhrase);
+                    }
+
+                    return redirectResponse.Content;
+                });
+
+            if (redirect is not null)
             {
-                throw new RedirectApiException(redirectResponse.Content!.StatusCode, redirectResponse.Content!.Location);
+                throw new SiteApiRedirectException(redirect.StatusCode, redirect.Location);
             }
         }
 
@@ -120,19 +131,43 @@ internal sealed class PageService : IPageService
             ? sanitizedPath.Replace(matchingDomain.Path, "/").SanitisePathSlashes()
             : sanitizedPath.Replace(matchingDomain.Path, site.BasePath).SanitisePathSlashes();
 
-        var response = await _umbracoDeliveryApi.GetItemByPath(
-            path: deliveryApiPath,
-            expand: s_defaultExpandFieldsLevel,
-            acceptLanguage: site.CultureInfo,
-            preview: _siteResolutionContext.IsPreview,
-            startItem: site.RootId.ToString());
-
-        if (!response.IsSuccessStatusCode)
+        if (_siteResolutionContext.IsPreview)
         {
-            throw new SiteApiException((int)response.StatusCode, response.ReasonPhrase);
+            var response = await GetPageByPathFactory();
+            return response.Content;
         }
 
-        return response.Content;
+        return await _fusionCache.GetOrSetAsync<IApiContent?>(
+            $"page:{site.HomepageId}:{site.CultureInfo}:{sanitizedPath}",
+            async (ctx, ct) =>
+            {
+                var response = await GetPageByPathFactory(ct);
+
+                if (response.Content is null)
+                {
+                    ctx.Options.SetDuration(TimeSpan.FromSeconds(_defaultCachingOptions.Value.NullDuration));
+                }
+
+                return response.Content;
+            });
+
+        async Task<IApiResponse<IApiContent>> GetPageByPathFactory(CancellationToken cancellationToken = default)
+        {
+            var response = await _umbracoDeliveryApi.GetItemByPath(
+                path: deliveryApiPath,
+                expand: s_defaultExpandFieldsLevel,
+                acceptLanguage: site.CultureInfo,
+                preview: _siteResolutionContext.IsPreview,
+                startItem: site.RootId.ToString(),
+                cancellationToken: cancellationToken);
+
+            if (response.IsSuccessStatusCode || response.StatusCode == HttpStatusCode.NotFound)
+            {
+                return response;
+            }
+
+            throw new SiteApiException((int)response.StatusCode, response.ReasonPhrase);
+        }
     }
 
     public async Task<PagedApiContent?> GetPages(
@@ -145,22 +180,54 @@ internal sealed class PageService : IPageService
     {
         var site = _siteResolutionContext.Site;
 
-        var response = await _umbracoDeliveryApi.GetContent(
-            fetch?.ToString(),
-            filter?.Select(x => x.ToString()),
-            sort?.ToString(),
-            skip,
-            take,
-            s_levelOneExpandFieldsLevel,
-            acceptLanguage: site.CultureInfo,
-            preview: _siteResolutionContext.IsPreview,
-            startItem: startItem);
-
-        if (!response.IsSuccessStatusCode)
+        if (_siteResolutionContext.IsPreview)
         {
-            throw new SiteApiException((int)response.StatusCode, response.ReasonPhrase);
+            var response = await GetPagesFactory();
+            return response.Content;
         }
 
-        return response.Content;
+        var startItemSegment = startItem ?? "no-start-item";
+        var fetchSegment = fetch is null ? "no-fetch" : fetch.ToString().Replace(':', '-');
+        var filterSegment = filter is null or [] ? "no-filter" : string.Join("-", filter.Select(x => x.ToString()).Order());
+        var sortSegment = sort is null ? "no-sort" : sort.ToString().Replace(':', '-');
+        var sizeSegment = $"{skip}-{take}";
+
+        var data = await _fusionCache.GetOrSetAsync<PagedApiContent?>(
+            $"pages:{startItemSegment}:{site.CultureInfo}:{sizeSegment}:{fetchSegment}:{filterSegment}:{sortSegment}",
+            async (ctx, ct) =>
+            {
+                var response = await GetPagesFactory(ct);
+
+                if (response.Content is null)
+                {
+                    ctx.Options.SetDuration(TimeSpan.FromSeconds(_defaultCachingOptions.Value.NullDuration));
+                }
+
+                return response.Content;
+            });
+
+        return data;
+
+        async Task<IApiResponse<PagedApiContent>> GetPagesFactory(CancellationToken cancellationToken = default)
+        {
+            var response = await _umbracoDeliveryApi.GetContent(
+                fetch?.ToString(),
+                filter?.Select(x => x.ToString()),
+                sort?.ToString(),
+                skip,
+                take,
+                s_levelOneExpandFieldsLevel,
+                acceptLanguage: site.CultureInfo,
+                preview: _siteResolutionContext.IsPreview,
+                startItem: startItem,
+                cancellationToken: cancellationToken);
+
+            if (response.IsSuccessStatusCode || response.StatusCode == HttpStatusCode.NotFound)
+            {
+                return response;
+            }
+
+            throw new SiteApiException((int)response.StatusCode, response.ReasonPhrase);
+        }
     }
 }

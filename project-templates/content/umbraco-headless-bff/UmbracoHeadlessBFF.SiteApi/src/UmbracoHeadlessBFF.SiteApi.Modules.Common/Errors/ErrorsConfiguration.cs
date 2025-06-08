@@ -20,7 +20,7 @@ public static class ErrorsConfiguration
                 context.ProblemDetails.Extensions.TryAdd("correlationId", context.HttpContext.Request.Headers[CorrelationConstants.Headers.CorrelationId].ToString());
             };
         });
-        builder.Services.AddExceptionHandler<RedirectApiExceptionHandler>();
+        builder.Services.AddExceptionHandler<SiteApiRedirectExceptionHandler>();
         builder.Services.AddExceptionHandler<SiteApiExceptionHandler>();
         builder.Services.AddExceptionHandler<FallbackExceptionHandler>();
     }
