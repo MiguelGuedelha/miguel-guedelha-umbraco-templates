@@ -37,15 +37,15 @@ public static class CachingConfiguration
 
         builder.AddRedisDistributedCache(CachingConstants.ConnectionStringName);
 
-        builder.Services.AddFusionCacheStackExchangeRedisBackplane();
-
         builder.Services.AddFusionCache()
             .WithOptions(o =>
             {
                 if (cachePrefix is not null)
                 {
-                    o.CacheKeyPrefix = cachePrefix;
-                    o.BackplaneChannelPrefix = cachePrefix;
+                    var cleanPrefix = cachePrefix.TrimEnd(':');
+                    var cachePrefixWithSeparator = $"{cleanPrefix}:";
+                    o.CacheKeyPrefix = cachePrefixWithSeparator;
+                    o.BackplaneChannelPrefix = cleanPrefix;
                 }
 
                 //Backs off the Distributed Cache if having issues
@@ -88,7 +88,10 @@ public static class CachingConfiguration
             })
             .WithSerializer(new FusionCacheNewtonsoftJsonSerializer())
             .WithRegisteredDistributedCache()
-            .WithRegisteredBackplane();
+            .WithStackExchangeRedisBackplane(o =>
+            {
+                o.Configuration = builder.Configuration.GetConnectionString(CachingConstants.ConnectionStringName);
+            });
 
         builder.Services.AddOpenTelemetry()
             .WithTracing(tracing => tracing.AddFusionCacheInstrumentation())

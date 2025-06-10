@@ -55,7 +55,7 @@ internal sealed class PageService : IPageService
         }
 
         return await _fusionCache.GetOrSetAsync<IApiContent?>(
-            $"page:{site.HomepageId}:{site.CultureInfo}:{id}",
+            $"page:home-id:{site.HomepageId}:culture:{site.CultureInfo}:page-id:{id}",
             async (ctx, ct) =>
             {
                 var response = await GetPageByIdFactory(ct);
@@ -93,7 +93,7 @@ internal sealed class PageService : IPageService
 
         var site = _siteResolutionContext.Site;
 
-        var matchingDomain = site.Domains.FirstOrDefault(x => path.StartsWith(x.Path) && _siteResolutionContext.Domain == x.Domain);
+        var matchingDomain = site.Domains.FirstOrDefault(x => sanitizedPath.StartsWith(x.Path) && _siteResolutionContext.Domain == x.Domain);
 
         if (matchingDomain is null)
         {
@@ -105,7 +105,7 @@ internal sealed class PageService : IPageService
             var redirectPath = sanitizedPath.Replace(matchingDomain.Path, "/");
 
             var redirect = await _fusionCache.GetOrSetAsync<RedirectLink?>(
-                $"redirects:{site.HomepageId}:{site.CultureInfo}:{sanitizedPath}",
+                $"redirects:home-id:{site.HomepageId}:culture:{site.CultureInfo}:path:{sanitizedPath}",
                 async (ctx, ct) =>
                 {
                     var redirectResponse = await _linksApi.GetRedirect(redirectPath,
@@ -138,7 +138,7 @@ internal sealed class PageService : IPageService
         }
 
         return await _fusionCache.GetOrSetAsync<IApiContent?>(
-            $"page:{site.HomepageId}:{site.CultureInfo}:{sanitizedPath}",
+            $"page:home-id:{site.HomepageId}:culture:{site.CultureInfo}:path:{sanitizedPath}",
             async (ctx, ct) =>
             {
                 var response = await GetPageByPathFactory(ct);
@@ -186,14 +186,14 @@ internal sealed class PageService : IPageService
             return response.Content;
         }
 
-        var startItemSegment = startItem ?? "no-start-item";
+        var startItemSegment = startItem ?? "none";
         var fetchSegment = fetch is null ? "no-fetch" : fetch.ToString().Replace(':', '-');
         var filterSegment = filter is null or [] ? "no-filter" : string.Join("-", filter.Select(x => x.ToString()).Order());
         var sortSegment = sort is null ? "no-sort" : sort.ToString().Replace(':', '-');
         var sizeSegment = $"{skip}-{take}";
 
         var data = await _fusionCache.GetOrSetAsync<PagedApiContent?>(
-            $"pages:{startItemSegment}:{site.CultureInfo}:{sizeSegment}:{fetchSegment}:{filterSegment}:{sortSegment}",
+            $"pages:start-item:{startItemSegment}:culture:{site.CultureInfo}:params:{sizeSegment}_{fetchSegment}_{filterSegment}_{sortSegment}",
             async (ctx, ct) =>
             {
                 var response = await GetPagesFactory(ct);

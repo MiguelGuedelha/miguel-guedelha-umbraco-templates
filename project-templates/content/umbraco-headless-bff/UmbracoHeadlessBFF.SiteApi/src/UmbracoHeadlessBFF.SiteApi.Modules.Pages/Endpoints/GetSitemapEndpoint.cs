@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Options;
 using Refit;
 using UmbracoHeadlessBFF.SharedModules.Cms.Sitemap;
 using UmbracoHeadlessBFF.SharedModules.Common.Caching;
@@ -30,7 +31,7 @@ internal static class GetSitemapEndpoint
         ISitemapsApi sitemapsApi,
         SiteResolutionContext siteResolutionContext,
         IFusionCache fusionCache,
-        DefaultCachingOptions defaultCachingOptions)
+        IOptionsSnapshot<DefaultCachingOptions> defaultCachingOptions)
     {
         var path = siteResolutionContext.Path;
         var domain = siteResolutionContext.Domain;
@@ -61,14 +62,14 @@ internal static class GetSitemapEndpoint
         }
 
         var data = await fusionCache.GetOrSetAsync<SitemapData?>(
-            $"sitemap:{homepage}:{culture}",
+            $"sitemap:home-id:{homepage}:culture:{culture}",
             async (ctx, ct) =>
             {
                 var response = await GetSitemapFactory(ct);
 
                 if (response.StatusCode == HttpStatusCode.NotFound)
                 {
-                    ctx.Options.SetDuration(TimeSpan.FromSeconds(defaultCachingOptions.NullDuration));
+                    ctx.Options.SetDuration(TimeSpan.FromSeconds(defaultCachingOptions.Value.NullDuration));
                 }
 
                 return response.Content;

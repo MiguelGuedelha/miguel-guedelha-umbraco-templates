@@ -34,7 +34,7 @@ public sealed class LinkService
 
 
         var data = await _fusionCache.GetOrSetAsync<Link?>(
-            $"links:{id}:{_siteResolutionContext.Site.CultureInfo}",
+            $"links:id:{id}:culture:{_siteResolutionContext.Site.CultureInfo}",
             async (ctx, ct) =>
             {
                 var response = await _linksApi.GetLink(id, _siteResolutionContext.Site.CultureInfo, _siteResolutionContext.IsPreview, ct);
