@@ -25,7 +25,6 @@ public sealed record ApiSiteSettingsProperties
     public ApiBlockList<ApiHeadingWithSocialLinks>? FooterSocialLinks { get; init; }
     public IReadOnlyCollection<ApiLink>? FooterFootnoteLinks { get; init; }
     public string? Copyright { get; init; }
-    public IReadOnlyCollection<ApiContentReference>? NotFoundPage { get; init; }
     public IReadOnlyCollection<ApiContentReference>? SearchPage { get; init; }
     public string? CanonicalDomainOverride { get; init; }
     public string? PageTitlePrefix { get; init; }

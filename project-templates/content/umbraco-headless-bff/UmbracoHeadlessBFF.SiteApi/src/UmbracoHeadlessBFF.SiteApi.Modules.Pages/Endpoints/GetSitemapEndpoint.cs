@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using Refit;
 using UmbracoHeadlessBFF.SharedModules.Cms.Sitemap;
 using UmbracoHeadlessBFF.SharedModules.Common.Caching;
+using UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Endpoints;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
@@ -73,7 +74,8 @@ internal static class GetSitemapEndpoint
                 }
 
                 return response.Content;
-            });
+            },
+            tags: [CacheTagConstants.Sitemaps]);
 
         return data switch
         {
@@ -83,7 +85,7 @@ internal static class GetSitemapEndpoint
 
         async Task<IApiResponse<SitemapData>> GetSitemapFactory(CancellationToken cancellationToken = default)
         {
-            var response = await sitemapsApi.GetSitemap(siteResolutionContext.Site.HomepageId, siteResolutionContext.Site.CultureInfo, siteResolutionContext.IsPreview, cancellationToken);
+            var response = await sitemapsApi.GetSitemap(homepage, culture, isPreview, cancellationToken);
 
             if (response is { IsSuccessful: false, StatusCode: not HttpStatusCode.NotFound })
             {

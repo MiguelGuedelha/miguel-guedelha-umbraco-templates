@@ -4,8 +4,10 @@ using Refit;
 using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi;
 using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Pages;
 using UmbracoHeadlessBFF.SharedModules.Cms.Links;
+using UmbracoHeadlessBFF.SharedModules.Cms.SiteResolution;
 using UmbracoHeadlessBFF.SharedModules.Common.Caching;
 using UmbracoHeadlessBFF.SharedModules.Common.Strings;
+using UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 using ZiggyCreatures.Caching.Fusion;
@@ -14,7 +16,7 @@ namespace UmbracoHeadlessBFF.SiteApi.Modules.Pages;
 
 internal interface IPageService
 {
-    Task<IApiContent?> GetPage(Guid id);
+    Task<IApiContent?> GetPage(Guid id, bool? isPreview = null, SiteDefinition? site = null);
     Task<IApiContent?> GetPage(string path);
     Task<PagedApiContent?> GetPages(int skip = 0, int take = 10, ContentFetchType? fetch = null,
         IReadOnlyList<ContentFilterType>? filter = null, ContentSortType? sort = null, string? startItem = null);
@@ -44,21 +46,23 @@ internal sealed class PageService : IPageService
         _defaultCachingOptions = defaultCachingOptions;
     }
 
-    public async Task<IApiContent?> GetPage(Guid id)
+    public async Task<IApiContent?> GetPage(Guid id, bool? isPreview = null, SiteDefinition? site = null)
     {
-        var site = _siteResolutionContext.Site;
+        var requestSite = site ?? _siteResolutionContext.Site;
 
-        if (_siteResolutionContext.IsPreview)
+        var requestPreview = isPreview ?? _siteResolutionContext.IsPreview;
+
+        if (requestPreview)
         {
-            var response = await GetPageByIdFactory();
+            var response = await GetPageByIdFactory(true, requestSite);
             return response.Content;
         }
 
         return await _fusionCache.GetOrSetAsync<IApiContent?>(
-            $"page:home-id:{site.HomepageId}:culture:{site.CultureInfo}:page-id:{id}",
+            $"page:home-id:{requestSite.HomepageId}:culture:{requestSite.CultureInfo}:page-id:{id}",
             async (ctx, ct) =>
             {
-                var response = await GetPageByIdFactory(ct);
+                var response = await GetPageByIdFactory(false, requestSite, ct);
 
                 if (response.Content is null)
                 {
@@ -66,16 +70,17 @@ internal sealed class PageService : IPageService
                 }
 
                 return response.Content;
-            });
+            },
+            tags: [CacheTagConstants.Pages]);
 
-        async Task<IApiResponse<IApiContent>> GetPageByIdFactory(CancellationToken cancellationToken = default)
+        async Task<IApiResponse<IApiContent>> GetPageByIdFactory(bool factoryPreview, SiteDefinition factorySite, CancellationToken cancellationToken = default)
         {
             var response = await _umbracoDeliveryApi.GetItemById(
                 id: id,
                 expand: s_defaultExpandFieldsLevel,
-                acceptLanguage: site.CultureInfo,
-                preview: _siteResolutionContext.IsPreview,
-                startItem: site.RootId.ToString(),
+                acceptLanguage: factorySite.CultureInfo,
+                preview: factoryPreview,
+                startItem: factorySite.RootId.ToString(),
                 cancellationToken: cancellationToken);
 
             if (response.IsSuccessStatusCode || response.StatusCode == HttpStatusCode.NotFound)
@@ -119,7 +124,8 @@ internal sealed class PageService : IPageService
                     }
 
                     return redirectResponse.Content;
-                });
+                },
+                tags: [CacheTagConstants.Redirects]);
 
             if (redirect is not null)
             {
@@ -149,7 +155,8 @@ internal sealed class PageService : IPageService
                 }
 
                 return response.Content;
-            });
+            },
+            tags: [CacheTagConstants.Pages]);
 
         async Task<IApiResponse<IApiContent>> GetPageByPathFactory(CancellationToken cancellationToken = default)
         {
@@ -204,7 +211,8 @@ internal sealed class PageService : IPageService
                 }
 
                 return response.Content;
-            });
+            },
+            tags: [CacheTagConstants.Pages]);
 
         return data;
 

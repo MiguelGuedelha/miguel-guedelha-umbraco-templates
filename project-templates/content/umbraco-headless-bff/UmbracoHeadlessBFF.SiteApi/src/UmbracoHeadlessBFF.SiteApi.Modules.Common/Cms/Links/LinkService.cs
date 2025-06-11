@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Options;
 using UmbracoHeadlessBFF.SharedModules.Cms.Links;
 using UmbracoHeadlessBFF.SharedModules.Common.Caching;
+using UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
 using ZiggyCreatures.Caching.Fusion;
 
@@ -47,7 +48,8 @@ public sealed class LinkService
                 ctx.Options.Duration = TimeSpan.FromSeconds(_defaultCachingOptions.Value.NullDuration);
 
                 return null;
-            });
+            },
+            tags: [CacheTagConstants.Links]);
 
         return data;
     }

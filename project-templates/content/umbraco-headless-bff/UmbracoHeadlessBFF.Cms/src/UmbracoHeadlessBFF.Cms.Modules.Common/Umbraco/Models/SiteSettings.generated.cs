@@ -138,6 +138,14 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Models
 		public virtual string PageTitlePrefix => this.Value<string>(_publishedValueFallback, "pageTitlePrefix");
 
 		///<summary>
+		/// File Content
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("robotsTxtFileContent")]
+		public virtual string RobotsTxtFileContent => this.Value<string>(_publishedValueFallback, "robotsTxtFileContent");
+
+		///<summary>
 		/// Search Page
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]

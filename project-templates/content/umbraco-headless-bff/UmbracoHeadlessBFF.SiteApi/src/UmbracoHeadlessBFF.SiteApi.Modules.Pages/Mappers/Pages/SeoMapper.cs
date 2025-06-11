@@ -41,8 +41,7 @@ internal sealed class SeoMapper : ISeoMapper
 
         var titlePrefix = siteSettings?.Properties.PageTitlePrefix;
         var domain = _siteResolutionContext.Site.Domains.First();
-        var canonical = siteSettings?.Properties.CanonicalDomainOverride
-            ?? $"{domain.Scheme}://{domain.Domain}";
+        var canonical = siteSettings?.Properties.CanonicalDomainOverride ?? $"{domain.Scheme}://{domain.Domain}";
 
         return new()
         {

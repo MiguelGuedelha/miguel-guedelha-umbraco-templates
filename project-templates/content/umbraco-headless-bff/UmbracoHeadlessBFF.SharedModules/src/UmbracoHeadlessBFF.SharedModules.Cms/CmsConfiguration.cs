@@ -7,6 +7,7 @@ using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi;
 using UmbracoHeadlessBFF.SharedModules.Cms.Links;
 using UmbracoHeadlessBFF.SharedModules.Cms.Options;
 using UmbracoHeadlessBFF.SharedModules.Cms.Preview;
+using UmbracoHeadlessBFF.SharedModules.Cms.Robots;
 using UmbracoHeadlessBFF.SharedModules.Cms.Sitemap;
 using UmbracoHeadlessBFF.SharedModules.Cms.SiteResolution;
 
@@ -71,6 +72,15 @@ public static class CmsConfiguration
 
         // Sitemap
         builder.Services.AddRefitClient<ISitemapsApi>()
+            .ConfigureHttpClient(c =>
+            {
+                c.BaseAddress = new("https://Cms/api/v1.0/content");
+            })
+            .AddHttpMessageHandler<DeliveryApiHeadersHandler>()
+            .AddHeaderPropagation();
+
+        // Robots
+        builder.Services.AddRefitClient<IRobotsApi>()
             .ConfigureHttpClient(c =>
             {
                 c.BaseAddress = new("https://Cms/api/v1.0/content");

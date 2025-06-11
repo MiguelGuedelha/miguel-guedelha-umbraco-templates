@@ -89,6 +89,7 @@ public static class PagesConfiguration
             .MapGetPageByIdOrPath()
             .MapGetNotFoundPage()
             .MapGetSitemap()
+            .MapGetRobots()
             .MapGetDictionary();
     }
 }

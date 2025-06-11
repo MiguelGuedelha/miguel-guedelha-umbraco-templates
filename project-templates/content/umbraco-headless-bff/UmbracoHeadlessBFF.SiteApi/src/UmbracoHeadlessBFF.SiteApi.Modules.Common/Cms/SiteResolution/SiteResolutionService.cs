@@ -2,6 +2,7 @@
 using UmbracoHeadlessBFF.SharedModules.Cms.SiteResolution;
 using UmbracoHeadlessBFF.SharedModules.Common.Correlation;
 using UmbracoHeadlessBFF.SharedModules.Common.Strings;
+using UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 using ZiggyCreatures.Caching.Fusion;
 
@@ -76,8 +77,6 @@ public sealed class SiteResolutionService
 
     public async Task<IReadOnlyCollection<SiteDefinition>> GetAlternateSites(SiteDefinition site)
     {
-        var isPreview = _siteResolutionContext.IsPreview;
-
         var sites = await GetSitesInternal();
 
         var alternateSites = sites
@@ -97,7 +96,8 @@ public sealed class SiteResolutionService
 
         return await _fusionCache.GetOrSetAsync<Dictionary<string, SiteDefinition>>(
             "sites",
-            async (_, ct) => await GetSitesFactory(ct));
+            async (_, ct) => await GetSitesFactory(ct),
+            tags: [CacheTagConstants.Sites]);
 
         async Task<Dictionary<string, SiteDefinition>> GetSitesFactory(CancellationToken cancellationToken = default)
         {
