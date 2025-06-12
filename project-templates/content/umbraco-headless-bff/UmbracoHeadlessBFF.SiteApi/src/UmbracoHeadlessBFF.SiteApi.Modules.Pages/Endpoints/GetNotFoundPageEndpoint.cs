@@ -23,12 +23,12 @@ internal static class GetNotFoundPageEndpoint
         return builder;
     }
 
-    private static async Task<Results<Ok<IPage>, NotFound>> Handle(IPageService pageService,
+    private static async Task<Results<Ok<IPage>, NotFound>> Handle(IPagesService pagesService,
         IEnumerable<IPageMapper> mappers, SiteResolutionContext siteResolutionContext)
     {
         var notFoundId = siteResolutionContext.Site.NotFoundPageId;
 
-        var data = await pageService.GetPage(notFoundId);
+        var data = await pagesService.GetPage(notFoundId);
 
         if (data is not ApiNotFound notFoundPage)
         {

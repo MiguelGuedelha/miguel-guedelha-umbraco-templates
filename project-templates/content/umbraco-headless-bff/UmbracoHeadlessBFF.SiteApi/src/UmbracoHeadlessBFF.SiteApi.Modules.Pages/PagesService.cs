@@ -14,7 +14,7 @@ using ZiggyCreatures.Caching.Fusion;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Pages;
 
-internal interface IPageService
+internal interface IPagesService
 {
     Task<IApiContent?> GetPage(Guid id, bool? isPreview = null, SiteDefinition? site = null);
     Task<IApiContent?> GetPage(string path);
@@ -22,7 +22,7 @@ internal interface IPageService
         IReadOnlyList<ContentFilterType>? filter = null, ContentSortType? sort = null, string? startItem = null);
 }
 
-internal sealed class PageService : IPageService
+internal sealed class PagesService : IPagesService
 {
     private readonly IUmbracoDeliveryApi _umbracoDeliveryApi;
     private readonly SiteResolutionContext _siteResolutionContext;
@@ -33,7 +33,7 @@ internal sealed class PageService : IPageService
     private static readonly string s_levelOneExpandFieldsLevel = new FieldsExpandProperties(1).ToString();
     private static readonly string s_defaultExpandFieldsLevel = new FieldsExpandProperties(5).ToString();
 
-    public PageService(
+    public PagesService(
         IUmbracoDeliveryApi umbracoDeliveryApi,
         SiteResolutionContext siteResolutionContext,
         ILinksApi linksApi, IFusionCache fusionCache,
@@ -71,7 +71,7 @@ internal sealed class PageService : IPageService
 
                 return response.Content;
             },
-            tags: [CacheTagConstants.Pages]);
+            tags: [CacheTagConstants.Pages, id.ToString()]);
 
         async Task<IApiResponse<IApiContent>> GetPageByIdFactory(bool factoryPreview, SiteDefinition factorySite, CancellationToken cancellationToken = default)
         {
@@ -154,6 +154,11 @@ internal sealed class PageService : IPageService
                     ctx.Options.SetDuration(TimeSpan.FromSeconds(_defaultCachingOptions.Value.NullDuration));
                 }
 
+                if (response.Content is { } page)
+                {
+                    ctx.Tags = ctx.Tags?.Append(page.Id.ToString()).ToArray();
+                }
+
                 return response.Content;
             },
             tags: [CacheTagConstants.Pages]);
@@ -199,6 +204,24 @@ internal sealed class PageService : IPageService
         var sortSegment = sort is null ? "no-sort" : sort.ToString().Replace(':', '-');
         var sizeSegment = $"{skip}-{take}";
 
+        var tags = new List<string> { CacheTagConstants.Pages };
+
+        if (fetch is not null)
+        {
+            var isGuid = Guid.TryParse(fetch.IdOrPath, out var relatedId);
+
+            var id = isGuid switch
+            {
+                true => relatedId,
+                false => (await GetPage(fetch.IdOrPath))?.Id
+            };
+
+            if (id is not null)
+            {
+                tags.Add(id.Value.ToString());
+            }
+        }
+
         var data = await _fusionCache.GetOrSetAsync<PagedApiContent?>(
             $"pages:start-item:{startItemSegment}:culture:{site.CultureInfo}:params:{sizeSegment}_{fetchSegment}_{filterSegment}_{sortSegment}",
             async (ctx, ct) =>
@@ -212,7 +235,7 @@ internal sealed class PageService : IPageService
 
                 return response.Content;
             },
-            tags: [CacheTagConstants.Pages]);
+            tags: tags);
 
         return data;
 

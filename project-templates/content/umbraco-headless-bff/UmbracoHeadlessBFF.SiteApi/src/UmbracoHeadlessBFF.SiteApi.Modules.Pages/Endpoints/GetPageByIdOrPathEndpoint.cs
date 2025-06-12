@@ -22,7 +22,7 @@ internal static class GetPageByIdOrPathEndpoint
     }
 
     private static async Task<Results<Ok<IPage>, NotFound>> Handle(string id,
-        IPageService pageService,
+        IPagesService pagesService,
         IEnumerable<IPageMapper> mappers)
     {
         if (string.IsNullOrWhiteSpace(id))
@@ -32,8 +32,8 @@ internal static class GetPageByIdOrPathEndpoint
 
         var content = id switch
         {
-            _ when Guid.TryParse(id, out var parsedId) => await pageService.GetPage(parsedId),
-            _ => await pageService.GetPage(id)
+            _ when Guid.TryParse(id, out var parsedId) => await pagesService.GetPage(parsedId),
+            _ => await pagesService.GetPage(id)
         };
 
         if (content is null)

@@ -18,7 +18,7 @@ public static class PagesConfiguration
     {
         var services = builder.Services;
 
-        services.AddTransient<IPageService, PageService>();
+        services.AddTransient<IPagesService, PagesService>();
 
         // Building Block Mappers
         services
@@ -84,8 +84,8 @@ public static class PagesConfiguration
     public static void MapPagesEndpoints(this RouteGroupBuilder apiVersionGroup)
     {
         apiVersionGroup
-            .MapGroup("/content")
-            .WithTags("Content")
+            .MapGroup("/pages")
+            .WithTags("Pages")
             .MapGetPageByIdOrPath()
             .MapGetNotFoundPage()
             .MapGetSitemap()

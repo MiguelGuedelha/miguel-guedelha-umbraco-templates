@@ -12,11 +12,11 @@ using UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Models;
 using UmbracoHeadlessBFF.SharedModules.Cms.Sitemap;
 using NotFound = Microsoft.AspNetCore.Http.HttpResults.NotFound;
 
-namespace UmbracoHeadlessBFF.Cms.Modules.Content.Sitemap;
+namespace UmbracoHeadlessBFF.Cms.Modules.Pages.Sitemap;
 
 [ApiController]
-[Route($"api/v{{version:apiVersion}}/{ContentConstants.Endpoints.Group}")]
-[Tags(ContentConstants.Endpoints.Tag)]
+[Route($"api/v{{version:apiVersion}}/{PagesConstants.Endpoints.Group}")]
+[Tags(PagesConstants.Endpoints.Tag)]
 [ApiVersion(1)]
 [ApiKey]
 public sealed class GetSitemapController : Controller

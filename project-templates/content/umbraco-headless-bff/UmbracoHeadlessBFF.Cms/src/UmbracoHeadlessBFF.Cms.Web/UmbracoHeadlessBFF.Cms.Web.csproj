@@ -26,7 +26,7 @@
     <ProjectReference
       Include="..\..\..\UmbracoHeadlessBFF.SharedModules\src\UmbracoHeadlessBFF.SharedModules.ServiceDefaults\UmbracoHeadlessBFF.SharedModules.ServiceDefaults.csproj" />
     <ProjectReference Include="..\UmbracoHeadlessBFF.Cms.Modules.Common\UmbracoHeadlessBFF.Cms.Modules.Common.csproj" />
-    <ProjectReference Include="..\UmbracoHeadlessBFF.Cms.Modules.Content\UmbracoHeadlessBFF.Cms.Modules.Content.csproj" />
+    <ProjectReference Include="..\UmbracoHeadlessBFF.Cms.Modules.Pages\UmbracoHeadlessBFF.Cms.Modules.Pages.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

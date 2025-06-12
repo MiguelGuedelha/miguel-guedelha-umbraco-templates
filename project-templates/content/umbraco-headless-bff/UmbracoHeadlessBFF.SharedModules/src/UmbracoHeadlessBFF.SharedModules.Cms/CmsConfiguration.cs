@@ -74,7 +74,7 @@ public static class CmsConfiguration
         builder.Services.AddRefitClient<ISitemapsApi>()
             .ConfigureHttpClient(c =>
             {
-                c.BaseAddress = new("https://Cms/api/v1.0/content");
+                c.BaseAddress = new("https://Cms/api/v1.0/pages");
             })
             .AddHttpMessageHandler<DeliveryApiHeadersHandler>()
             .AddHeaderPropagation();
@@ -83,7 +83,7 @@ public static class CmsConfiguration
         builder.Services.AddRefitClient<IRobotsApi>()
             .ConfigureHttpClient(c =>
             {
-                c.BaseAddress = new("https://Cms/api/v1.0/content");
+                c.BaseAddress = new("https://Cms/api/v1.0/pages");
             })
             .AddHttpMessageHandler<DeliveryApiHeadersHandler>()
             .AddHeaderPropagation();

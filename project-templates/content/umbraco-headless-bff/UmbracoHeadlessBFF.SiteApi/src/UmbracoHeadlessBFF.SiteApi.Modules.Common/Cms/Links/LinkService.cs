@@ -49,7 +49,7 @@ public sealed class LinkService
 
                 return null;
             },
-            tags: [CacheTagConstants.Links]);
+            tags: [CacheTagConstants.Links, id.ToString()]);
 
         return data;
     }

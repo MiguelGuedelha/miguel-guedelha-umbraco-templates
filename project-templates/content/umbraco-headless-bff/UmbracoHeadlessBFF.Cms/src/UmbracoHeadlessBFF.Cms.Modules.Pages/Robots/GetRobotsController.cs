@@ -10,11 +10,11 @@ using UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Models;
 using UmbracoHeadlessBFF.SharedModules.Cms.Robots;
 using NotFound = Microsoft.AspNetCore.Http.HttpResults.NotFound;
 
-namespace UmbracoHeadlessBFF.Cms.Modules.Content.Robots;
+namespace UmbracoHeadlessBFF.Cms.Modules.Pages.Robots;
 
 [ApiController]
-[Route($"api/v{{version:apiVersion}}/{ContentConstants.Endpoints.Group}")]
-[Tags(ContentConstants.Endpoints.Tag)]
+[Route($"api/v{{version:apiVersion}}/{PagesConstants.Endpoints.Group}")]
+[Tags(PagesConstants.Endpoints.Tag)]
 [ApiVersion(1)]
 [ApiKey]
 public sealed class GetRobotsController : Controller

@@ -37,7 +37,7 @@ internal static class GetRobotsEndpoint
         SiteResolutionContext siteResolutionContext,
         IFusionCache fusionCache,
         IOptionsSnapshot<DefaultCachingOptions> defaultCachingOptions,
-        IPageService pageService,
+        IPagesService pagesService,
         SiteResolutionService siteResolutionService)
     {
         var path = siteResolutionContext.Path;
@@ -90,7 +90,7 @@ internal static class GetRobotsEndpoint
             return TypedResults.NotFound();
         }
 
-        var siteSettings = await pageService.GetPage(siteResolutionContext.Site.SiteSettingsId) as ApiSiteSettings;
+        var siteSettings = await pagesService.GetPage(siteResolutionContext.Site.SiteSettingsId) as ApiSiteSettings;
         var siteDomain = siteResolutionContext.Site.Domains.First();
         var canonicalDomain = siteSettings?.Properties.CanonicalDomainOverride ?? $"{siteDomain.Scheme}://{siteDomain.Domain}{siteDomain.Path}";
 
@@ -99,7 +99,7 @@ internal static class GetRobotsEndpoint
         var alternateSites = await siteResolutionService.GetAlternateSites(siteResolutionContext.Site);
 
         var alternateCanonicalTasks = alternateSites
-            .Select(x => pageService.GetPage(siteResolutionContext.Site.SiteSettingsId, isPreview, x))
+            .Select(x => pagesService.GetPage(siteResolutionContext.Site.SiteSettingsId, isPreview, x))
             .ToArray();
 
         await Task.WhenAll(alternateCanonicalTasks);

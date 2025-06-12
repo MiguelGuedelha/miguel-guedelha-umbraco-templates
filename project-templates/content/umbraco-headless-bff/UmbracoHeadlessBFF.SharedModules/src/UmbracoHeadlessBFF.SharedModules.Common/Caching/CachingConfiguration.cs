@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.Text.Json;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -6,13 +7,17 @@ using Microsoft.Extensions.Logging;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
 using ZiggyCreatures.Caching.Fusion;
-using ZiggyCreatures.Caching.Fusion.Serialization.NewtonsoftJson;
+using ZiggyCreatures.Caching.Fusion.Serialization.SystemTextJson;
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Caching;
 
 public static class CachingConfiguration
 {
-    public static void AddCachingSharedModule(this WebApplicationBuilder builder, string? cachePrefix = null, Action<FusionCacheOptions>? configureOptions = null, Action<FusionCacheEntryOptions>? configureEntryOptions = null)
+    public static void AddCachingSharedModule(this WebApplicationBuilder builder,
+        string? cachePrefix = null,
+        Action<FusionCacheOptions>? configureOptions = null,
+        Action<FusionCacheEntryOptions>? configureEntryOptions = null,
+        Action<JsonSerializerOptions>? configureJsonSerializerOptions = null)
     {
         var section = builder.Configuration
             .GetSection(DefaultCachingOptions.SectionName);
@@ -36,6 +41,9 @@ public static class CachingConfiguration
         builder.Services.AddMemoryCache();
 
         builder.AddRedisDistributedCache(CachingConstants.ConnectionStringName);
+
+        var jsonOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web);
+        configureJsonSerializerOptions?.Invoke(jsonOptions);
 
         builder.Services.AddFusionCache()
             .WithOptions(o =>
@@ -86,7 +94,7 @@ public static class CachingConfiguration
 
                 configureEntryOptions?.Invoke(o);
             })
-            .WithSerializer(new FusionCacheNewtonsoftJsonSerializer())
+            .WithSerializer(new FusionCacheSystemTextJsonSerializer(jsonOptions))
             .WithRegisteredDistributedCache()
             .WithStackExchangeRedisBackplane(o =>
             {

@@ -13,13 +13,13 @@ internal interface ISeoMapper : IMapper<IApiSeoSettingsProperties, Seo>
 internal sealed class SeoMapper : ISeoMapper
 {
     private readonly IImageMapper _imageMapper;
-    private readonly IPageService _pageService;
+    private readonly IPagesService _pagesService;
     private readonly SiteResolutionContext _siteResolutionContext;
 
-    public SeoMapper(IImageMapper imageMapper, IPageService pageService, SiteResolutionContext siteResolutionContext)
+    public SeoMapper(IImageMapper imageMapper, IPagesService pagesService, SiteResolutionContext siteResolutionContext)
     {
         _imageMapper = imageMapper;
-        _pageService = pageService;
+        _pagesService = pagesService;
         _siteResolutionContext = siteResolutionContext;
     }
 
@@ -37,7 +37,7 @@ internal sealed class SeoMapper : ISeoMapper
             _ => null
         };
 
-        var siteSettings = await _pageService.GetPage(_siteResolutionContext.Site.SiteSettingsId) as ApiSiteSettings;
+        var siteSettings = await _pagesService.GetPage(_siteResolutionContext.Site.SiteSettingsId) as ApiSiteSettings;
 
         var titlePrefix = siteSettings?.Properties.PageTitlePrefix;
         var domain = _siteResolutionContext.Site.Domains.First();

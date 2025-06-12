@@ -16,17 +16,17 @@ internal sealed class BasePageMapper
     private readonly SiteResolutionContext _siteResolutionContext;
     private readonly SiteResolutionService _siteResolutionService;
     private readonly IEnumerable<ILayoutMapper> _layoutMappers;
-    private readonly IPageService _pageService;
+    private readonly IPagesService _pagesService;
 
     public BasePageMapper(ISeoMapper seoMapper, ISiteSettingsMapper siteSettingsMapper,
         SiteResolutionContext siteResolutionContext, SiteResolutionService siteResolutionService,
-        IEnumerable<ILayoutMapper> layoutMappers, IPageService pageService)
+        IEnumerable<ILayoutMapper> layoutMappers, IPagesService pagesService)
     {
         _seoMapper = seoMapper;
         _siteResolutionContext = siteResolutionContext;
         _siteResolutionService = siteResolutionService;
         _layoutMappers = layoutMappers;
-        _pageService = pageService;
+        _pagesService = pagesService;
         _siteSettingsMapper = siteSettingsMapper;
     }
 
@@ -38,7 +38,7 @@ internal sealed class BasePageMapper
 
         var seo = model.Properties as IApiSeoSettingsProperties;
 
-        var siteSettings = await _pageService.GetPage(site.SiteSettingsId) as ApiSiteSettings;
+        var siteSettings = await _pagesService.GetPage(site.SiteSettingsId) as ApiSiteSettings;
 
         return new()
         {
@@ -92,7 +92,7 @@ internal sealed class BasePageMapper
             SortType = ContentSortType.Options.LevelAscending
         };
 
-        var ancestors = await _pageService.GetPages(
+        var ancestors = await _pagesService.GetPages(
             fetch: fetch,
             sort: sort,
             startItem: _siteResolutionContext.Site.RootId.ToString());
