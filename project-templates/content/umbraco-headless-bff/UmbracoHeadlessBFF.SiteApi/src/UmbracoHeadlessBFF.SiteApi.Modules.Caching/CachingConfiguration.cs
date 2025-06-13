@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using UmbracoHeadlessBFF.SiteApi.Modules.Caching.DeleteCacheWebhook;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Caching;
 
@@ -12,6 +13,7 @@ public static class CachingConfiguration
             .MapGroup("/caching")
             .WithTags("Caching")
             .MapDeleteCacheByTag()
-            .MapDeleteCacheByTags();
+            .MapDeleteCacheByTags()
+            .DeleteCacheWebhook();
     }
 }
