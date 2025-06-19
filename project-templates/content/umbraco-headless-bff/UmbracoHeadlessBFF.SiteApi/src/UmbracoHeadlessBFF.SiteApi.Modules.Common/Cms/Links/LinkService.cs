@@ -16,12 +16,12 @@ public sealed class LinkService
 
     public LinkService(ILinksApi linksApi,
         SiteResolutionContext siteResolutionContext,
-        IFusionCache fusionCache,
+        IFusionCacheProvider fusionCacheProvider,
         IOptionsSnapshot<DefaultCachingOptions> defaultCachingOptions)
     {
         _linksApi = linksApi;
         _siteResolutionContext = siteResolutionContext;
-        _fusionCache = fusionCache;
+        _fusionCache = fusionCacheProvider.GetCache(CachingConstants.SiteApiCacheName);
         _defaultCachingOptions = defaultCachingOptions;
     }
 

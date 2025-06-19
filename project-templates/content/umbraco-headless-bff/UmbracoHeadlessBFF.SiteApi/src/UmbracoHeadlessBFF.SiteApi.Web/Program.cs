@@ -51,12 +51,14 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 
 builder.AddServiceDefaults();
 
-builder.AddCachingSharedModule("SiteApi", configureJsonSerializerOptions: options =>
-{
-    options.Converters.Add(new JsonStringEnumConverter());
-    options.Converters.AddDeliveryApiConverters();
-    options.Converters.AddPagesConverters();
-});
+builder.AddCachingSharedModule(CachingConstants.SiteApiCacheName,
+    configureJsonSerializerOptions: options =>
+    {
+        options.Converters.Add(new JsonStringEnumConverter());
+        options.Converters.AddDeliveryApiConverters();
+        options.Converters.AddPagesConverters();
+    });
+
 builder.AddCorrelationSharedModule();
 builder.AddCmsSharedModule();
 builder.AddErrorsModule();

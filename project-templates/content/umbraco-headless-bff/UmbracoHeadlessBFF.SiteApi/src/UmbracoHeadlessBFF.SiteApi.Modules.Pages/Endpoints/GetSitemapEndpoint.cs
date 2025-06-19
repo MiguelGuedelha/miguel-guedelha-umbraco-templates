@@ -31,7 +31,7 @@ internal static class GetSitemapEndpoint
     private static async Task<Results<Ok<SitemapData>, NotFound>> Handle(
         ISitemapsApi sitemapsApi,
         SiteResolutionContext siteResolutionContext,
-        IFusionCache fusionCache,
+        IFusionCacheProvider fusionCacheProvider,
         IOptionsSnapshot<DefaultCachingOptions> defaultCachingOptions)
     {
         var path = siteResolutionContext.Path;
@@ -61,6 +61,8 @@ internal static class GetSitemapEndpoint
                 _ => TypedResults.NotFound(),
             };
         }
+
+        var fusionCache = fusionCacheProvider.GetCache(CachingConstants.SiteApiCacheName);
 
         var data = await fusionCache.GetOrSetAsync<SitemapData?>(
             $"sitemap:home-id:{homepage}:culture:{culture}",

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Routing;
+using UmbracoHeadlessBFF.SharedModules.Common.Caching;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Endpoints;
 using ZiggyCreatures.Caching.Fusion;
 
@@ -20,9 +21,11 @@ internal static class DeleteCacheByTagEndpoint
 
     private static async Task<Ok> Handle(
         string tag,
-        IFusionCache fusionCache,
+        IFusionCacheProvider fusionCacheProvider,
         CancellationToken cancellationToken)
     {
+        var fusionCache = fusionCacheProvider.GetCache(CachingConstants.SiteApiCacheName);
+
         await fusionCache.RemoveByTagAsync(tag, token: cancellationToken);
 
         return TypedResults.Ok();

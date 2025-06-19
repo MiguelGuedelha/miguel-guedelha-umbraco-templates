@@ -35,7 +35,7 @@ internal static class GetRobotsEndpoint
     private static async Task<Results<Ok<RobotsTxt>, NotFound>> Handle(
         IRobotsApi robotsApi,
         SiteResolutionContext siteResolutionContext,
-        IFusionCache fusionCache,
+        IFusionCacheProvider fusionCacheProvider,
         IOptionsSnapshot<DefaultCachingOptions> defaultCachingOptions,
         IPagesService pagesService,
         SiteResolutionService siteResolutionService)
@@ -67,6 +67,8 @@ internal static class GetRobotsEndpoint
         }
         else
         {
+            var fusionCache = fusionCacheProvider.GetCache(CachingConstants.SiteApiCacheName);
+
             var data = await fusionCache.GetOrSetAsync<RobotsData?>(
                 $"robots:home-id:{homepage}:culture:{culture}",
                 async (ctx, ct) =>

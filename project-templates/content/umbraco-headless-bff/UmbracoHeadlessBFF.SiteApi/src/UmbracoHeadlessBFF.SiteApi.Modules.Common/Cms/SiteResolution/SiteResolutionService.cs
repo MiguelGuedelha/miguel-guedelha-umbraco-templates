@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using UmbracoHeadlessBFF.SharedModules.Cms.SiteResolution;
+using UmbracoHeadlessBFF.SharedModules.Common.Caching;
 using UmbracoHeadlessBFF.SharedModules.Common.Correlation;
 using UmbracoHeadlessBFF.SharedModules.Common.Strings;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching;
@@ -19,12 +20,12 @@ public sealed class SiteResolutionService
         IHttpContextAccessor httpContextAccessor,
         ISiteResolutionApi siteResolutionApi,
         SiteResolutionContext siteResolutionContext,
-        IFusionCache fusionCache)
+        IFusionCacheProvider fusionCacheProvider)
     {
         _httpContextAccessor = httpContextAccessor;
         _siteResolutionApi = siteResolutionApi;
         _siteResolutionContext = siteResolutionContext;
-        _fusionCache = fusionCache;
+        _fusionCache = fusionCacheProvider.GetCache(CachingConstants.SiteApiCacheName);
     }
 
     public async Task<(string SiteId, SiteDefinition SiteDefinition)?> ResolveSite()

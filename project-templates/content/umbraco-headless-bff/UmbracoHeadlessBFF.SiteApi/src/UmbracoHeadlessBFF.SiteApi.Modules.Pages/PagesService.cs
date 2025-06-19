@@ -36,13 +36,13 @@ internal sealed class PagesService : IPagesService
     public PagesService(
         IUmbracoDeliveryApi umbracoDeliveryApi,
         SiteResolutionContext siteResolutionContext,
-        ILinksApi linksApi, IFusionCache fusionCache,
+        ILinksApi linksApi, IFusionCacheProvider fusionCacheProvider,
         IOptionsSnapshot<DefaultCachingOptions> defaultCachingOptions)
     {
         _umbracoDeliveryApi = umbracoDeliveryApi;
         _siteResolutionContext = siteResolutionContext;
         _linksApi = linksApi;
-        _fusionCache = fusionCache;
+        _fusionCache = fusionCacheProvider.GetCache(CachingConstants.SiteApiCacheName);
         _defaultCachingOptions = defaultCachingOptions;
     }
 
