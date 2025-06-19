@@ -59,21 +59,11 @@ var cmsDeliveryApiKey = builder.AddParameter("CmsDeliveryApiKey");
 // Only compilable when testing/running during template development
 // It should always be GeneratedClassNamePrefix_Cms_Web when committed to remote
 #endif
-var cms = builder
-    .AddProject<Projects.GeneratedClassNamePrefix_Cms_Web>("Cms", launchProfileName: "single")
-    .WithExternalHttpEndpoints();
-
-#if (false)
-// Don't commit actual name as below, it should not be compilable inside this template
-// Only compilable when testing/running during template development
-// It should always be GeneratedClassNamePrefix_SiteApi_Web when committed to remote
-#endif
-var siteApi = builder.AddProject<Projects.GeneratedClassNamePrefix_SiteApi_Web>("SiteApi")
+var cms = builder.AddProject<Projects.GeneratedClassNamePrefix_Cms_Web>("Cms", launchProfileName: "single")
     .WithExternalHttpEndpoints();
 
 cms.WithReference(umbracoDb, connectionName: "umbracoDbDSN")
     .WithReference(cache)
-    .WithReference(siteApi)
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Port", smtpPort)
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Username", smtpUser)
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Password", smtpPassword)
@@ -99,7 +89,14 @@ cms.WithUrls(context =>
     context.Urls.Add(new() { Url = $"{httpsEndpointUrl}/umbraco/swagger/index.html", DisplayText = "Swagger - Default API", Endpoint = httpsEndpoint });
 });
 
-siteApi.WithReference(cache)
+#if (false)
+// Don't commit actual name as below, it should not be compilable inside this template
+// Only compilable when testing/running during template development
+// It should always be GeneratedClassNamePrefix_SiteApi_Web when committed to remote
+#endif
+var siteApi = builder.AddProject<Projects.GeneratedClassNamePrefix_SiteApi_Web>("SiteApi")
+    .WithExternalHttpEndpoints()
+    .WithReference(cache)
     .WithReference(cms)
     .WithEnvironment("services__Cms__Parameters__DeliveryApiKey", cmsDeliveryApiKey)
     .WithEnvironment("ApplicationUrls__Media", () => cms.Resource.GetEndpoint("https").Url)
