@@ -14,7 +14,7 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.Caching;
 public static class CachingConfiguration
 {
     public static void AddCachingSharedModule(this WebApplicationBuilder builder,
-        string? cachePrefix = null,
+        string? cacheName = null,
         Action<FusionCacheOptions>? configureOptions = null,
         Action<FusionCacheEntryOptions>? configureEntryOptions = null,
         Action<JsonSerializerOptions>? configureJsonSerializerOptions = null)
@@ -45,17 +45,10 @@ public static class CachingConfiguration
         var jsonOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web);
         configureJsonSerializerOptions?.Invoke(jsonOptions);
 
-        builder.Services.AddFusionCache()
+        builder.Services.AddFusionCache(cacheName ?? FusionCacheOptions.DefaultCacheName)
+            .WithCacheKeyPrefix()
             .WithOptions(o =>
             {
-                if (cachePrefix is not null)
-                {
-                    var cleanPrefix = cachePrefix.TrimEnd(':');
-                    var cachePrefixWithSeparator = $"{cleanPrefix}:";
-                    o.CacheKeyPrefix = cachePrefixWithSeparator;
-                    o.BackplaneChannelPrefix = cleanPrefix;
-                }
-
                 //Backs off the Distributed Cache if having issues
                 o.DistributedCacheCircuitBreakerDuration = TimeSpan.FromSeconds(defaultCachingOptions.DistributedCacheCircuitBreakerDuration);
 
