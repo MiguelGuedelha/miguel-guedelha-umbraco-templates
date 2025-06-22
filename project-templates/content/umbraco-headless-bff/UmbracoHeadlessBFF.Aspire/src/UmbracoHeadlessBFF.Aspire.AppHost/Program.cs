@@ -13,21 +13,22 @@ var smtpUser = builder.AddParameter("SmtpUser");
 var smtpPassword = builder.AddParameter("SmtpPassword", true);
 var smtpPort = builder.AddParameter("SmtpPort");
 
+const string baseBindPath = "../../../";
+
 var mailServer = builder.AddContainer("MailServer", "rnwood/smtp4dev")
     .WithHttpEndpoint(34523, 80, "ui")
     .WithHttpEndpoint(int.Parse(smtpPort.Resource.Value), 25, "smtp")
-    .WithBindMount("../local-data/mail-server/data", "/stmp4dev")
+    .WithBindMount(Path.Join(baseBindPath, "local-data/mail-server/data"), "/stmp4dev")
     .WithEnvironment("ServerOptions__AuthenticationRequired", "true")
     .WithEnvironment("ServerOptions__Users__0__Username", smtpUser)
     .WithEnvironment("ServerOptions__Users__0__Password", smtpPassword);
 
 var database = builder
     .AddSqlServer("SqlServer")
-    .WithDataBindMount("../local-data/database/data")
-    .WithBindMount("../local-data/database/logs", "/var/opt/mssql/log")
-    .WithBindMount("../local-data/database/secrets", "/var/opt/mssql/secrets")
-    .WithContainerRuntimeArgs("--user", "root")
-    .WithLifetime(ContainerLifetime.Persistent);
+    .WithDataBindMount(Path.Join(baseBindPath, "local-data/database/data"))
+    .WithBindMount(Path.Join(baseBindPath, "local-data/database/logs"), "/var/opt/mssql/log")
+    .WithBindMount(Path.Join(baseBindPath, "local-data/database/secrets"), "/var/opt/mssql/secrets")
+    .WithContainerRuntimeArgs("--user", "root");
 
 var umbracoDb = database.AddDatabase("Database", "umbraco-cms");
 
@@ -36,15 +37,11 @@ var cache = builder
     .WithRedisInsight();
 
 var azureStorage = builder
-    .AddAzureStorage("AzureStorage");
-
-if (builder.Environment.IsLocal())
-{
-    azureStorage.RunAsEmulator(c =>
+    .AddAzureStorage("Storage")
+    .RunAsEmulator(c =>
     {
-        c.WithDataBindMount("../local-data/azure-storage/data");
+        c.WithDataBindMount(Path.Join(baseBindPath, "local-data/azure-storage/data"));
     });
-}
 
 var blobs = azureStorage.AddBlobs("blobs");
 
@@ -53,6 +50,18 @@ var cmsUmbracoBlobContainer = builder.AddParameter("CmsUmbracoBlobContainer");
 var umbracoMediaBlob = blobs.AddBlobContainer(cmsUmbracoBlobContainer.Resource.Value);
 
 var cmsDeliveryApiKey = builder.AddParameter("CmsDeliveryApiKey");
+
+var serviceBus = builder
+    .AddAzureServiceBus("ServiceBus")
+    .RunAsEmulator();
+
+var cmsCacheTopic = serviceBus.AddServiceBusTopic("CmsCacheTopic");
+
+cmsCacheTopic.AddServiceBusSubscription("CmsCacheTopicSiteApiSub")
+    .WithProperties(sub =>
+    {
+        sub.MaxDeliveryCount = 5;
+    });
 
 #if (false)
 // Don't commit actual name as below, it should not be compilable inside this template
@@ -64,6 +73,7 @@ var cms = builder.AddProject<Projects.GeneratedClassNamePrefix_Cms_Web>("Cms", l
 
 cms.WithReference(umbracoDb, connectionName: "umbracoDbDSN")
     .WithReference(cache)
+    .WithReference(serviceBus)
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Port", smtpPort)
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Username", smtpUser)
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Password", smtpPassword)
@@ -74,7 +84,8 @@ cms.WithReference(umbracoDb, connectionName: "umbracoDbDSN")
     .WaitFor(mailServer)
     .WaitFor(umbracoDb)
     .WaitFor(cache)
-    .WaitFor(umbracoMediaBlob);
+    .WaitFor(umbracoMediaBlob)
+    .WaitFor(serviceBus);
 
 cms.WithUrls(context =>
 {
@@ -98,10 +109,12 @@ var siteApi = builder.AddProject<Projects.GeneratedClassNamePrefix_SiteApi_Web>(
     .WithExternalHttpEndpoints()
     .WithReference(cache)
     .WithReference(cms)
+    .WithReference(serviceBus)
     .WithEnvironment("services__Cms__Parameters__DeliveryApiKey", cmsDeliveryApiKey)
     .WithEnvironment("ApplicationUrls__Media", () => cms.Resource.GetEndpoint("https").Url)
     .WaitFor(cache)
-    .WaitFor(cms);
+    .WaitFor(cms)
+    .WaitFor(serviceBus);
 
 siteApi.WithUrls(context =>
 {

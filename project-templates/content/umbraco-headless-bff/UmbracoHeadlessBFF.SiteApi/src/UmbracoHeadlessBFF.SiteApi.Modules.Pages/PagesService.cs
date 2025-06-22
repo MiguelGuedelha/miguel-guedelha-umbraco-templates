@@ -71,7 +71,12 @@ internal sealed class PagesService : IPagesService
 
                 return response.Content;
             },
-            tags: [CacheTagConstants.Pages, id.ToString()]);
+            tags:
+            [
+                CacheTagConstants.Pages,
+                id.ToString(),
+                _siteResolutionContext.Site.SiteSettingsId.ToString()
+            ]);
 
         async Task<IApiResponse<IApiContent>> GetPageByIdFactory(bool factoryPreview, SiteDefinition factorySite, CancellationToken cancellationToken = default)
         {
@@ -125,7 +130,11 @@ internal sealed class PagesService : IPagesService
 
                     return redirectResponse.Content;
                 },
-                tags: [CacheTagConstants.Redirects]);
+                tags:
+                [
+                    CacheTagConstants.Redirects,
+                    _siteResolutionContext.Site.SiteSettingsId.ToString()
+                ]);
 
             if (redirect is not null)
             {

@@ -492,3 +492,6 @@ project-templates/test/**
 # Lockfiles
 packages.lock.json
 pnpm-lock.yaml
+
+# Docker bind mounts
+local-data/

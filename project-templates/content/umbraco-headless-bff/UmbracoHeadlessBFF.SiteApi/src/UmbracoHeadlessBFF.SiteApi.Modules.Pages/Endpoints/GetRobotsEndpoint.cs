@@ -82,7 +82,11 @@ internal static class GetRobotsEndpoint
 
                     return response.Content;
                 },
-                tags: [CacheTagConstants.Robots]);
+                tags:
+                [
+                    CacheTagConstants.Robots,
+                    siteResolutionContext.Site.SiteSettingsId.ToString()
+                ]);
 
             content = data?.RobotsContent;
         }

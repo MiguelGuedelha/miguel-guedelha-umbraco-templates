@@ -77,7 +77,11 @@ internal static class GetSitemapEndpoint
 
                 return response.Content;
             },
-            tags: [CacheTagConstants.Sitemaps]);
+            tags:
+            [
+                CacheTagConstants.Sitemaps,
+                siteResolutionContext.Site.SiteSettingsId.ToString()
+            ]);
 
         return data switch
         {

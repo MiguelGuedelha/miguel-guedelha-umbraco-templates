@@ -64,6 +64,7 @@ builder.AddCmsSharedModule();
 builder.AddErrorsModule();
 builder.AddCmsModule();
 builder.AddPagesModule();
+builder.AddCachingModule();
 builder.AddConfigurationModule();
 
 if (environment.IsLocal())

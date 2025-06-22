@@ -11,4 +11,9 @@
       <ProjectReference Include="..\UmbracoHeadlessBFF.SiteApi.Modules.Common\UmbracoHeadlessBFF.SiteApi.Modules.Common.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Aspire.Azure.Messaging.ServiceBus" />
+      <PackageReference Include="Polly.Core" />
+    </ItemGroup>
+
 </Project>
