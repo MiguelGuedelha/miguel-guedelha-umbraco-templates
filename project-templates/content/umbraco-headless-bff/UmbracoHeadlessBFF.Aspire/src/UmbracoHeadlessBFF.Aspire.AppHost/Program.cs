@@ -16,16 +16,16 @@ var smtpPort = builder.AddParameter("SmtpPort");
 var mailServer = builder.AddContainer("MailServer", "rnwood/smtp4dev")
     .WithHttpEndpoint(34523, 80, "ui")
     .WithHttpEndpoint(int.Parse(smtpPort.Resource.Value), 25, "smtp")
-    .WithVolume("UmbracoHeadlessBFF-mail-server-data", "/stmp4dev")
+    .WithBindMount("../local-data/mail-server/data", "/stmp4dev")
     .WithEnvironment("ServerOptions__AuthenticationRequired", "true")
     .WithEnvironment("ServerOptions__Users__0__Username", smtpUser)
     .WithEnvironment("ServerOptions__Users__0__Password", smtpPassword);
 
 var database = builder
     .AddSqlServer("SqlServer")
-    .WithDataVolume("UmbracoHeadlessBFF-db-data")
-    .WithVolume("UmbracoHeadlessBFF-db-log", "/var/opt/mssql/log")
-    .WithVolume("UmbracoHeadlessBFF-db-secrets", "/var/opt/mssql/secrets")
+    .WithDataBindMount("../local-data/database/data")
+    .WithBindMount("../local-data/database/logs", "/var/opt/mssql/log")
+    .WithBindMount("../local-data/database/secrets", "/var/opt/mssql/secrets")
     .WithContainerRuntimeArgs("--user", "root")
     .WithLifetime(ContainerLifetime.Persistent);
 
@@ -42,7 +42,7 @@ if (builder.Environment.IsLocal())
 {
     azureStorage.RunAsEmulator(c =>
     {
-        c.WithDataVolume("UmbracoHeadlessBFF-azure-storage");
+        c.WithDataBindMount("../local-data/azure-storage/data");
     });
 }
 
