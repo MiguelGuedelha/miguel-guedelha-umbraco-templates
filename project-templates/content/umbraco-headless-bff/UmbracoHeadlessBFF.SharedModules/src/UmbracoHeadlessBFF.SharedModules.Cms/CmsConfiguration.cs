@@ -30,7 +30,7 @@ public static class CmsConfiguration
         })
     };
 
-    public static void AddCmsSharedModule(this WebApplicationBuilder builder)
+    public static void AddCmsCommonSharedModule(this WebApplicationBuilder builder)
     {
         // Delivery Api
         builder.Services.Configure<CmsServiceOptions>(builder.Configuration.GetSection(CmsServiceOptions.SectionName));

@@ -28,7 +28,7 @@ builder.Services.AddSwaggerGen(options =>
     options.OperationFilter<AuthenticationSwaggerParameters>();
 });
 
-builder.AddCorrelationSharedModule();
+builder.AddCorrelationCommonSharedModule();
 builder.AddPreviewModule();
 builder.AddLinksModule();
 builder.AddUrlsModule();

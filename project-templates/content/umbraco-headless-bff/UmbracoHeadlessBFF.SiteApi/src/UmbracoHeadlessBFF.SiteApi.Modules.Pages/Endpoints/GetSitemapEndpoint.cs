@@ -12,6 +12,7 @@ using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Endpoints;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 using ZiggyCreatures.Caching.Fusion;
+using CachingConstants = UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching.CachingConstants;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Pages.Endpoints;
 
@@ -79,7 +80,7 @@ internal static class GetSitemapEndpoint
             },
             tags:
             [
-                CacheTagConstants.Sitemaps,
+                CachingTagConstants.Sitemaps,
                 siteResolutionContext.Site.SiteSettingsId.ToString()
             ]);
 

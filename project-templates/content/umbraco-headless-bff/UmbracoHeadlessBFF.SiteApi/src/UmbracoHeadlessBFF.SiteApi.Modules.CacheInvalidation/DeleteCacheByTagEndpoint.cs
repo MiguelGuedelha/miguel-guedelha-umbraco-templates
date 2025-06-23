@@ -2,31 +2,31 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Routing;
-using UmbracoHeadlessBFF.SharedModules.Common.Caching;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Endpoints;
 using ZiggyCreatures.Caching.Fusion;
+using CachingConstants = UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching.CachingConstants;
 
-namespace UmbracoHeadlessBFF.SiteApi.Modules.Caching;
+namespace UmbracoHeadlessBFF.SiteApi.Modules.CacheInvalidation;
 
-internal static class DeleteCacheByTagsEndpoint
+internal static class DeleteCacheByTagEndpoint
 {
-    public static RouteGroupBuilder MapDeleteCacheByTags(this RouteGroupBuilder builder)
+    public static RouteGroupBuilder MapDeleteCacheByTag(this RouteGroupBuilder builder)
     {
         builder
-            .MapDelete("/tags", Handle)
+            .MapDelete("/tags/{tag}", Handle)
             .MapToApiVersion(EndpointConstants.Versions.V1);
 
         return builder;
     }
 
     private static async Task<Ok> Handle(
-        string[] tags,
+        string tag,
         IFusionCacheProvider fusionCacheProvider,
         CancellationToken cancellationToken)
     {
         var fusionCache = fusionCacheProvider.GetCache(CachingConstants.SiteApiCacheName);
 
-        await fusionCache.RemoveByTagAsync(tags, token: cancellationToken);
+        await fusionCache.RemoveByTagAsync(tag, token: cancellationToken);
 
         return TypedResults.Ok();
     }

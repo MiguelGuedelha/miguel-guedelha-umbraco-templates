@@ -4,6 +4,8 @@
     </ItemGroup>
     <ItemGroup>
       <PackageReference Include="Asp.Versioning.Http" />
+      <PackageReference Include="ZiggyCreatures.FusionCache.AspNetCore.OutputCaching" />
+      <PackageReference Include="ZiggyCreatures.FusionCache.Serialization.NeueccMessagePack" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\..\..\UmbracoHeadlessBFF.SharedModules\src\UmbracoHeadlessBFF.SharedModules.Cms\UmbracoHeadlessBFF.SharedModules.Cms.csproj" />

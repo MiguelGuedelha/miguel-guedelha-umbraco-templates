@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
+using UmbracoHeadlessBFF.SharedModules.Common.Caching;
 using UmbracoHeadlessBFF.SiteApi.Modules.Pages.Converters;
 using UmbracoHeadlessBFF.SiteApi.Modules.Pages.Endpoints;
 using UmbracoHeadlessBFF.SiteApi.Modules.Pages.Mappers.BuildingBlocks;
@@ -86,6 +87,7 @@ public static class PagesConfiguration
         apiVersionGroup
             .MapGroup("/pages")
             .WithTags("Pages")
+            .CacheOutput()
             .MapGetPageByIdOrPath()
             .MapGetNotFoundPage()
             .MapGetSitemap()

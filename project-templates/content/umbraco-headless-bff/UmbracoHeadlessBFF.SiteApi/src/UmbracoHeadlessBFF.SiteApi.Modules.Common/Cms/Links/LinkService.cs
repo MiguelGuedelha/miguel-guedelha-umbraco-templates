@@ -4,6 +4,7 @@ using UmbracoHeadlessBFF.SharedModules.Common.Caching;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
 using ZiggyCreatures.Caching.Fusion;
+using CachingConstants = UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching.CachingConstants;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.Links;
 
@@ -49,7 +50,7 @@ public sealed class LinkService
 
                 return null;
             },
-            tags: [CacheTagConstants.Links, id.ToString()]);
+            tags: [CachingTagConstants.Links, id.ToString()]);
 
         return data;
     }

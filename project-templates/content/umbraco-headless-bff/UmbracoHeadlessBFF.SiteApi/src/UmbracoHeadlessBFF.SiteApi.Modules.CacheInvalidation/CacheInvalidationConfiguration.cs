@@ -4,17 +4,17 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace UmbracoHeadlessBFF.SiteApi.Modules.Caching;
+namespace UmbracoHeadlessBFF.SiteApi.Modules.CacheInvalidation;
 
-public static class CachingConfiguration
+public static class CacheInvalidationConfiguration
 {
-    public static void AddCachingModule(this WebApplicationBuilder builder)
+    public static void AddCacheInvalidationModule(this WebApplicationBuilder builder)
     {
         builder.AddAzureServiceBusClient("ServiceBus");
         builder.Services.AddHostedService<CacheInvalidationBackgroundService>();
     }
 
-    public static void MapCachingEndpoints(this RouteGroupBuilder apiVersionGroup)
+    public static void MapCacheInvalidationEndpoints(this RouteGroupBuilder apiVersionGroup)
     {
         apiVersionGroup
             .MapGroup("/caching")

@@ -6,6 +6,7 @@ using UmbracoHeadlessBFF.SharedModules.Common.Strings;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 using ZiggyCreatures.Caching.Fusion;
+using CachingConstants = UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching.CachingConstants;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
 
@@ -98,7 +99,7 @@ public sealed class SiteResolutionService
         return await _fusionCache.GetOrSetAsync<Dictionary<string, SiteDefinition>>(
             "sites",
             async (_, ct) => await GetSitesFactory(ct),
-            tags: [CacheTagConstants.Sites]);
+            tags: [CachingTagConstants.Sites]);
 
         async Task<Dictionary<string, SiteDefinition>> GetSitesFactory(CancellationToken cancellationToken = default)
         {

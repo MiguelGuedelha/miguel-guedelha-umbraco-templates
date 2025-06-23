@@ -8,12 +8,14 @@ using UmbracoHeadlessBFF.SharedModules.Cms;
 using UmbracoHeadlessBFF.SharedModules.Common.Caching;
 using UmbracoHeadlessBFF.SharedModules.Common.Correlation;
 using UmbracoHeadlessBFF.SharedModules.Common.Environment;
-using UmbracoHeadlessBFF.SiteApi.Modules.Caching;
+using UmbracoHeadlessBFF.SiteApi.Modules.CacheInvalidation;
+using UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Configuration;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 using UmbracoHeadlessBFF.SiteApi.Modules.Pages;
 using UmbracoHeadlessBFF.SiteApi.Web.Swagger;
+using CachingConstants = UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching.CachingConstants;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -59,13 +61,14 @@ builder.AddCachingSharedModule(CachingConstants.SiteApiCacheName,
         options.Converters.AddPagesConverters();
     });
 
-builder.AddCorrelationSharedModule();
-builder.AddCmsSharedModule();
-builder.AddErrorsModule();
-builder.AddCmsModule();
+builder.AddCorrelationCommonSharedModule();
+builder.AddCmsCommonSharedModule();
+builder.AddErrorsCommonModule();
+builder.AddConfigurationCommonModule();
+builder.AddCachingCommonModule();
+builder.AddCmsCommonModule();
 builder.AddPagesModule();
-builder.AddCachingModule();
-builder.AddConfigurationModule();
+builder.AddCacheInvalidationModule();
 
 if (environment.IsLocal())
 {
@@ -101,7 +104,9 @@ if (!app.Environment.IsProduction())
 }
 
 app.UseExceptionHandler();
-app.UseCmsModuleMiddleware();
+app.UseCmsCommonModuleMiddleware();
+
+app.UseOutputCache();
 
 app.MapDefaultEndpoints();
 
@@ -115,7 +120,7 @@ var versionGroup = app
     .WithApiVersionSet(apiVersionSet);
 
 versionGroup.MapPagesEndpoints();
-versionGroup.MapCachingEndpoints();
+versionGroup.MapCacheInvalidationEndpoints();
 
 if (app.Environment.IsLocal())
 {

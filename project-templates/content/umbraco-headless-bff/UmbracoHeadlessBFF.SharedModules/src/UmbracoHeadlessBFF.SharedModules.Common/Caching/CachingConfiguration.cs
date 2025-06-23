@@ -50,7 +50,8 @@ public static class CachingConfiguration
             .WithOptions(o =>
             {
                 //Backs off the Distributed Cache if having issues
-                o.DistributedCacheCircuitBreakerDuration = TimeSpan.FromSeconds(defaultCachingOptions.DistributedCacheCircuitBreakerDuration);
+                o.DistributedCacheCircuitBreakerDuration =
+                    TimeSpan.FromSeconds(defaultCachingOptions.DistributedCacheCircuitBreakerDuration);
 
                 //Log Levels (examples)
                 o.FailSafeActivationLogLevel = LogLevel.Debug;
@@ -76,9 +77,11 @@ public static class CachingConfiguration
                 o.FactorySoftTimeout = TimeSpan.FromMilliseconds(defaultCachingOptions.FactorySoftTimeoutMs);
                 o.FactoryHardTimeout = TimeSpan.FromSeconds(defaultCachingOptions.FactoryHardTimeout);
 
-                o.DistributedCacheSoftTimeout = TimeSpan.FromMilliseconds(defaultCachingOptions.DistributedCacheSoftTimeoutMs);
+                o.DistributedCacheSoftTimeout =
+                    TimeSpan.FromMilliseconds(defaultCachingOptions.DistributedCacheSoftTimeoutMs);
                 o.DistributedCacheHardTimeout = TimeSpan.FromSeconds(defaultCachingOptions.DistributedCacheHardTimeout);
-                o.AllowBackgroundDistributedCacheOperations = defaultCachingOptions.AllowBackgroundDistributedCacheOperations;
+                o.AllowBackgroundDistributedCacheOperations =
+                    defaultCachingOptions.AllowBackgroundDistributedCacheOperations;
                 o.AllowBackgroundBackplaneOperations = defaultCachingOptions.AllowBackgroundBackplaneOperations;
 
                 o.JitterMaxDuration = TimeSpan.FromSeconds(defaultCachingOptions.JitterMaxDuration);

@@ -1,6 +1,6 @@
 ﻿namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching;
 
-public static class CacheTagConstants
+public static class CachingTagConstants
 {
     public const string Links = "links";
     public const string Sites = "sites";

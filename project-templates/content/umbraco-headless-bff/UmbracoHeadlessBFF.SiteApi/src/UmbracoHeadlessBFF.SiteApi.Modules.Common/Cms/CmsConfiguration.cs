@@ -8,7 +8,7 @@ namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms;
 
 public static class CmsConfiguration
 {
-    public static void AddCmsModule(this WebApplicationBuilder builder)
+    public static void AddCmsCommonModule(this WebApplicationBuilder builder)
     {
         // Site Resolution
         builder.Services.AddTransient<SiteResolutionContext>();
@@ -22,7 +22,7 @@ public static class CmsConfiguration
         builder.Services.AddTransient<PreviewMiddleware>();
     }
 
-    public static void UseCmsModuleMiddleware(this WebApplication app)
+    public static void UseCmsCommonModuleMiddleware(this WebApplication app)
     {
         app.UseMiddleware<SiteResolutionMiddleware>();
         app.UseMiddleware<PreviewMiddleware>();

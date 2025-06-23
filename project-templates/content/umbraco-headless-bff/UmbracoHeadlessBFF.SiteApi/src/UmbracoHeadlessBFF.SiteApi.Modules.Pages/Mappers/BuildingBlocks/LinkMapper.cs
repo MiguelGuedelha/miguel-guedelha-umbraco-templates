@@ -81,11 +81,22 @@ internal sealed partial class LinkMapper : ILinkMapper
                 break;
             case ApiLinkType.External:
             default:
-                if (apiModel.Url?.StartsWith("tel:") is true || apiModel.Url?.StartsWith("mailto:") is true)
+                if (apiModel.Url?.StartsWith("tel:") is true
+                    || apiModel.Url?.StartsWith("mailto:") is true)
                 {
                     return new()
                     {
                         Target = null,
+                        Href = apiModel.Url,
+                        Title = apiModel.Title,
+                    };
+                }
+
+                if (apiModel.Url?.StartsWith('/') is true)
+                {
+                    return new()
+                    {
+                        Target = apiModel.Target,
                         Href = apiModel.Url,
                         Title = apiModel.Title,
                     };

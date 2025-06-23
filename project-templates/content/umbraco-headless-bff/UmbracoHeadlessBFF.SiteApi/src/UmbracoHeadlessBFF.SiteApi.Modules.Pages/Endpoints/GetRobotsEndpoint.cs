@@ -1,5 +1,4 @@
 ﻿using System.Net;
-using System.Text;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -15,7 +14,10 @@ using UmbracoHeadlessBFF.SiteApi.Modules.Common.Endpoints;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 using UmbracoHeadlessBFF.SiteApi.Modules.Pages.Models.Pages;
 using ZiggyCreatures.Caching.Fusion;
+using CachingConstants = UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching.CachingConstants;
 using NotFound = Microsoft.AspNetCore.Http.HttpResults.NotFound;
+
+
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Pages.Endpoints;
 
@@ -84,7 +86,7 @@ internal static class GetRobotsEndpoint
                 },
                 tags:
                 [
-                    CacheTagConstants.Robots,
+                    CachingTagConstants.Robots,
                     siteResolutionContext.Site.SiteSettingsId.ToString()
                 ]);
 

@@ -70,7 +70,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoHeadlessBFF.Cms.Modu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoHeadlessBFF.SharedModules.Cms", "UmbracoHeadlessBFF.SharedModules\src\UmbracoHeadlessBFF.SharedModules.Cms\UmbracoHeadlessBFF.SharedModules.Cms.csproj", "{8B55425B-CA62-4A62-962C-236000707DB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoHeadlessBFF.SiteApi.Modules.Caching", "UmbracoHeadlessBFF.SiteApi\src\UmbracoHeadlessBFF.SiteApi.Modules.Caching\UmbracoHeadlessBFF.SiteApi.Modules.Caching.csproj", "{59EDD170-937F-4487-92C6-77C179F61B5C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoHeadlessBFF.SiteApi.Modules.CacheInvalidation", "UmbracoHeadlessBFF.SiteApi\src\UmbracoHeadlessBFF.SiteApi.Modules.CacheInvalidation\UmbracoHeadlessBFF.SiteApi.Modules.CacheInvalidation.csproj", "{59EDD170-937F-4487-92C6-77C179F61B5C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoHeadlessBFF.Cms.Modules.Caching", "UmbracoHeadlessBFF.Cms\src\UmbracoHeadlessBFF.Cms.Modules.Caching\UmbracoHeadlessBFF.Cms.Modules.Caching.csproj", "{EB9C39AF-51ED-4398-926D-CDD2CC036A07}"
 EndProject

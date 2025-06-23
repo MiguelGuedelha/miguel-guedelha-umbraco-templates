@@ -7,7 +7,7 @@ namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 
 public static class ErrorsConfiguration
 {
-    public static void AddErrorsModule(this WebApplicationBuilder builder)
+    public static void AddErrorsCommonModule(this WebApplicationBuilder builder)
     {
         builder.Services.AddProblemDetails(options =>
         {

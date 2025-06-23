@@ -11,6 +11,7 @@ using UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 using ZiggyCreatures.Caching.Fusion;
+using CachingConstants = UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching.CachingConstants;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Pages;
 
@@ -73,7 +74,7 @@ internal sealed class PagesService : IPagesService
             },
             tags:
             [
-                CacheTagConstants.Pages,
+                CachingTagConstants.Pages,
                 id.ToString(),
                 _siteResolutionContext.Site.SiteSettingsId.ToString()
             ]);
@@ -132,7 +133,7 @@ internal sealed class PagesService : IPagesService
                 },
                 tags:
                 [
-                    CacheTagConstants.Redirects,
+                    CachingTagConstants.Redirects,
                     _siteResolutionContext.Site.SiteSettingsId.ToString()
                 ]);
 
@@ -170,7 +171,7 @@ internal sealed class PagesService : IPagesService
 
                 return response.Content;
             },
-            tags: [CacheTagConstants.Pages]);
+            tags: [CachingTagConstants.Pages]);
 
         async Task<IApiResponse<IApiContent>> GetPageByPathFactory(CancellationToken cancellationToken = default)
         {
@@ -213,7 +214,7 @@ internal sealed class PagesService : IPagesService
         var sortSegment = sort is null ? "no-sort" : sort.ToString().Replace(':', '-');
         var sizeSegment = $"{skip}-{take}";
 
-        var tags = new List<string> { CacheTagConstants.Pages };
+        var tags = new List<string> { CachingTagConstants.Pages };
 
         if (fetch is not null)
         {
