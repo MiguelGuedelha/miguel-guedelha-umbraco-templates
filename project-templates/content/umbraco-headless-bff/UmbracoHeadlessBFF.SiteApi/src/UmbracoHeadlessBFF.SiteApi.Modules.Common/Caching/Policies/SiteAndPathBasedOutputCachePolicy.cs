@@ -2,14 +2,13 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Primitives;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching.Policies;
 
 public sealed class SiteAndPathBasedOutputCachePolicy : SiteApiOutputCachePolicyBase, IOutputCachePolicy
 {
-    public const string PolicyName = "SiteBasedOutputCachePolicy";
+    public const string PolicyName = "SiteAndPathBasedOutputCachePolicy";
 
     public static readonly SiteAndPathBasedOutputCachePolicy Instance = new();
 
@@ -19,19 +18,24 @@ public sealed class SiteAndPathBasedOutputCachePolicy : SiteApiOutputCachePolicy
 
     public ValueTask CacheRequestAsync(OutputCacheContext context, CancellationToken cancellation)
     {
-        var canCache = CanCacheByPath(context, out var varyParams);
+        var canCacheBySitePath = CanCacheBySitePath(context, out var sitePath);
+        var canCacheBySite = CanCacheBySite(context, out var siteId);
+
+        var canCache = canCacheBySitePath && canCacheBySite;
+
         context.EnableOutputCaching = true;
         context.AllowCacheLookup = canCache;
         context.AllowCacheStorage = canCache;
         context.AllowLocking = true;
+        context.ResponseExpirationTimeSpan = TimeSpan.FromSeconds(60);
 
         if (!canCache)
         {
             return ValueTask.CompletedTask;
         }
 
-        context.CacheVaryByRules.VaryByValues["siteId"] = varyParams!.Value.SiteId;
-        context.CacheVaryByRules.VaryByValues["sitePath"] = varyParams.Value.SitePath;
+        context.CacheVaryByRules.VaryByValues["siteId"] = siteId!;
+        context.CacheVaryByRules.VaryByValues["sitePath"] = sitePath!;
 
         return ValueTask.CompletedTask;
     }
@@ -43,47 +47,20 @@ public sealed class SiteAndPathBasedOutputCachePolicy : SiteApiOutputCachePolicy
 
     public ValueTask ServeResponseAsync(OutputCacheContext context, CancellationToken cancellation)
     {
-        var response = context.HttpContext.Response;
-
-        // Verify existence of cookie headers
-        if (!StringValues.IsNullOrEmpty(response.Headers.SetCookie))
-        {
-            context.AllowCacheStorage = false;
-            return ValueTask.CompletedTask;
-        }
-
-        // Check response code
-        if (response.StatusCode is StatusCodes.Status200OK)
-        {
-            return ValueTask.CompletedTask;
-        }
-
-        context.AllowCacheStorage = false;
+        ServeResponseBaseAsync(context);
         return ValueTask.CompletedTask;
     }
 
-    private static bool CanCacheByPath(OutputCacheContext context, [NotNullWhen(true)] out (string SiteId, string SitePath)? siteCacheParams)
+    private static bool CanCacheBySitePath(OutputCacheContext context, [NotNullWhen(true)] out string? sitePath)
     {
-        siteCacheParams = null;
-        var canCacheBySite = CanCacheBySite(context, out var siteId);
-
-        if (!canCacheBySite)
-        {
-            return false;
-        }
+        sitePath = null;
 
         var siteContext = context.HttpContext.RequestServices.GetRequiredService<SiteResolutionContext>();
 
         try
         {
-            var sitePath = siteContext.Path;
-            if (string.IsNullOrWhiteSpace(sitePath))
-            {
-                return false;
-            }
-
-            siteCacheParams = (siteId!, sitePath);
-            return true;
+            sitePath = siteContext.Path;
+            return !string.IsNullOrWhiteSpace(sitePath);
         }
         catch
         {

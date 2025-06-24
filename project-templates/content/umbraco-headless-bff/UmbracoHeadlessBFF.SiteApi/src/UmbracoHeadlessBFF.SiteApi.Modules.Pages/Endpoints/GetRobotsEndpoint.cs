@@ -3,12 +3,14 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Refit;
 using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Pages;
 using UmbracoHeadlessBFF.SharedModules.Cms.Robots;
 using UmbracoHeadlessBFF.SharedModules.Common.Caching;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching;
+using UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching.Policies;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Endpoints;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
@@ -29,7 +31,8 @@ internal static class GetRobotsEndpoint
     {
         builder
             .MapGet("/robots", Handle)
-            .MapToApiVersion(EndpointConstants.Versions.V1);
+            .MapToApiVersion(EndpointConstants.Versions.V1)
+            .CacheOutput(SiteAndPathBasedOutputCachePolicy.PolicyName);
 
         return builder;
     }

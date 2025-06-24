@@ -1,31 +1,36 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.OutputCaching;
+using Microsoft.Extensions.Primitives;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching.Policies;
 
-public sealed class SiteBasedOutputCachePolicy : SiteApiOutputCachePolicyBase, IOutputCachePolicy
+public sealed class SiteAndIdBasedOutputCachePolicy : SiteApiOutputCachePolicyBase, IOutputCachePolicy
 {
-    public const string PolicyName = "SiteBasedOutputCachePolicy";
+    public const string PolicyName = "SiteAndIdBasedOutputCachePolicy";
 
-    public static readonly SiteBasedOutputCachePolicy Instance = new();
+    public static readonly SiteAndIdBasedOutputCachePolicy Instance = new();
 
-    private SiteBasedOutputCachePolicy()
+    private SiteAndIdBasedOutputCachePolicy()
     {
     }
 
     public ValueTask CacheRequestAsync(OutputCacheContext context, CancellationToken cancellation)
     {
-        var canCache = CanCacheBySite(context, out var siteId);
+        var canCacheBySite = CanCacheBySite(context, out var siteId);
+
         context.EnableOutputCaching = true;
-        context.AllowCacheLookup = canCache;
-        context.AllowCacheStorage = canCache;
+        context.AllowCacheLookup = canCacheBySite;
+        context.AllowCacheStorage = canCacheBySite;
         context.AllowLocking = true;
         context.ResponseExpirationTimeSpan = TimeSpan.FromSeconds(60);
 
-        if (canCache)
+        if (!canCacheBySite)
         {
-            context.CacheVaryByRules.VaryByValues["siteId"] = siteId!;
+            return ValueTask.CompletedTask;
         }
+
+        context.CacheVaryByRules.VaryByValues["siteId"] = siteId!;
+        context.CacheVaryByRules.QueryKeys = new StringValues("id");
 
         return ValueTask.CompletedTask;
     }

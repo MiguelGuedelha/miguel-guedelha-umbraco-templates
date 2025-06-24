@@ -87,7 +87,6 @@ public static class PagesConfiguration
         apiVersionGroup
             .MapGroup("/pages")
             .WithTags("Pages")
-            .CacheOutput()
             .MapGetPageByIdOrPath()
             .MapGetNotFoundPage()
             .MapGetSitemap()

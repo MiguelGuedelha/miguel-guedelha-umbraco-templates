@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using UmbracoHeadlessBFF.SharedModules.Cms.SiteResolution;
-using UmbracoHeadlessBFF.SharedModules.Common.Caching;
 using UmbracoHeadlessBFF.SharedModules.Common.Correlation;
 using UmbracoHeadlessBFF.SharedModules.Common.Strings;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching;

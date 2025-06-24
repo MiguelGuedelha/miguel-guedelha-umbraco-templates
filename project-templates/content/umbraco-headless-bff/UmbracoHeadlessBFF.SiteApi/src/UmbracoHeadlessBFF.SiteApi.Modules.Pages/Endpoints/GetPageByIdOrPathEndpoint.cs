@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.DependencyInjection;
+using UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching.Policies;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Endpoints;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 using UmbracoHeadlessBFF.SiteApi.Modules.Pages.Mappers.Pages;
@@ -16,7 +18,8 @@ internal static class GetPageByIdOrPathEndpoint
     {
         builder
             .MapGet("/page", Handle)
-            .MapToApiVersion(EndpointConstants.Versions.V1);
+            .MapToApiVersion(EndpointConstants.Versions.V1)
+            .CacheOutput(SiteAndIdBasedOutputCachePolicy.PolicyName);
 
         return builder;
     }

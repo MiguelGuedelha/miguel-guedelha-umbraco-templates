@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.DependencyInjection;
 using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Pages;
+using UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching.Policies;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Endpoints;
 using UmbracoHeadlessBFF.SiteApi.Modules.Pages.Models.Dictionary;
@@ -15,7 +17,8 @@ internal static class GetDictionaryEndpoint
     {
         builder
             .MapGet("/dictionary", Handle)
-            .MapToApiVersion(EndpointConstants.Versions.V1);
+            .MapToApiVersion(EndpointConstants.Versions.V1)
+            .CacheOutput(SiteBasedOutputCachePolicy.PolicyName);
 
         return builder;
     }

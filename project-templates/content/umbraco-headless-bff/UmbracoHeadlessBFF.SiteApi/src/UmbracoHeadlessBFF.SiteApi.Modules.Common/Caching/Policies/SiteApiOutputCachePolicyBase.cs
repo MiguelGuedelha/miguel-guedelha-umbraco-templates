@@ -45,4 +45,24 @@ public abstract class SiteApiOutputCachePolicyBase
             return false;
         }
     }
+
+    protected static void ServeResponseBaseAsync(OutputCacheContext context)
+    {
+        var response = context.HttpContext.Response;
+
+        // Verify existence of cookie headers
+        if (!StringValues.IsNullOrEmpty(response.Headers.SetCookie))
+        {
+            context.AllowCacheStorage = false;
+            return;
+        }
+
+        // Check response code
+        if (response.StatusCode is StatusCodes.Status200OK)
+        {
+            return;
+        }
+
+        context.AllowCacheStorage = false;
+    }
 }

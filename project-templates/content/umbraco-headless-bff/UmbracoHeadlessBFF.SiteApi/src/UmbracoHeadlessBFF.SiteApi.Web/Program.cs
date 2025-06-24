@@ -104,8 +104,8 @@ if (!app.Environment.IsProduction())
 }
 
 app.UseExceptionHandler();
-app.UseCmsCommonModuleMiddleware();
 
+app.UseCmsCommonModuleMiddleware();
 app.UseOutputCache();
 
 app.MapDefaultEndpoints();

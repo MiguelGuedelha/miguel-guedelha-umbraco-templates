@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Refit;
 using UmbracoHeadlessBFF.SharedModules.Cms.Sitemap;
 using UmbracoHeadlessBFF.SharedModules.Common.Caching;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching;
+using UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching.Policies;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Endpoints;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
@@ -24,7 +26,8 @@ internal static class GetSitemapEndpoint
     {
         builder
             .MapGet("/sitemap", Handle)
-            .MapToApiVersion(EndpointConstants.Versions.V1);
+            .MapToApiVersion(EndpointConstants.Versions.V1)
+            .CacheOutput(SiteAndPathBasedOutputCachePolicy.PolicyName);
 
         return builder;
     }
