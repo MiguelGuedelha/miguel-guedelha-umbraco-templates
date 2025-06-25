@@ -20,7 +20,6 @@ public sealed class SiteBasedOutputCachePolicy : SiteApiOutputCachePolicyBase, I
         context.AllowCacheLookup = canCache;
         context.AllowCacheStorage = canCache;
         context.AllowLocking = true;
-        context.ResponseExpirationTimeSpan = TimeSpan.FromSeconds(60);
 
         if (canCache)
         {
