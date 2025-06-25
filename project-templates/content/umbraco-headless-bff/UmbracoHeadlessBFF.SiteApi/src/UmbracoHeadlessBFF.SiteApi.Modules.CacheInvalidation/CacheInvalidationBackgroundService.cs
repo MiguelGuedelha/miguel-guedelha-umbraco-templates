@@ -13,14 +13,13 @@ namespace UmbracoHeadlessBFF.SiteApi.Modules.CacheInvalidation;
 public sealed class CacheInvalidationBackgroundService : BackgroundService
 {
     private readonly ServiceBusProcessor _serviceBusProcessor;
-    private readonly IFusionCache _fusionCache;
-    private readonly IOutputCacheStore _outputCacheStore;
+    private readonly IFusionCache _siteApiFusionCache;
+    private readonly IFusionCache _siteApiOutputFusionCache;
     private readonly ILogger<CacheInvalidationBackgroundService> _logger;
 
     public CacheInvalidationBackgroundService(
         ServiceBusClient serviceBusClient,
         IFusionCacheProvider fusionCacheProvider,
-        IOutputCacheStore outputCacheStore,
         ILogger<CacheInvalidationBackgroundService> logger)
     {
         _serviceBusProcessor = serviceBusClient.CreateProcessor(
@@ -32,8 +31,8 @@ public sealed class CacheInvalidationBackgroundService : BackgroundService
                 MaxConcurrentCalls = 5
             });
 
-        _fusionCache = fusionCacheProvider.GetCache(CachingConstants.SiteApiCacheName);
-        _outputCacheStore = outputCacheStore;
+        _siteApiFusionCache = fusionCacheProvider.GetCache(CachingConstants.SiteApiCacheName);
+        _siteApiOutputFusionCache = fusionCacheProvider.GetCache($"{CachingConstants.SiteApiCacheName}OutputCache");
         _logger = logger;
     }
 
@@ -68,20 +67,19 @@ public sealed class CacheInvalidationBackgroundService : BackgroundService
 
         if (message.ObjectsType is CacheInvalidationMessage.CacheInvalidationType.Domain || message.InvalidateAll)
         {
-            await _fusionCache.ClearAsync();
-            //TODO output cache underlying Fusion Cache clear all
+            await _siteApiFusionCache.ClearAsync();
+            await _siteApiOutputFusionCache.ClearAsync();
         }
 
         foreach (var item in message.Items)
         {
             if (item.ContentTypeAlias == "siteSettings")
             {
-                await _fusionCache.RemoveByTagAsync(CachingTagConstants.Sites);
+                await _siteApiFusionCache.RemoveByTagAsync(CachingTagConstants.Sites);
             }
 
-            await _fusionCache.RemoveByTagAsync(item.Key.ToString());
-            //TODO possibly use the underlying Fusion Cache instead directly
-            await _outputCacheStore.EvictByTagAsync(item.Key.ToString(), CancellationToken.None);
+            await _siteApiFusionCache.RemoveByTagAsync(item.Key.ToString());
+            await _siteApiOutputFusionCache.RemoveByTagAsync(item.Key.ToString());
         }
 
         await args.CompleteMessageAsync(args.Message);

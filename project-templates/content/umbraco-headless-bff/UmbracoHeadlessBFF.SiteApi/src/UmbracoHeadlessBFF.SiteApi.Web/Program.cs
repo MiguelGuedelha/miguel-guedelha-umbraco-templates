@@ -65,7 +65,7 @@ builder.AddCorrelationCommonSharedModule();
 builder.AddCmsCommonSharedModule();
 builder.AddErrorsCommonModule();
 builder.AddConfigurationCommonModule();
-builder.AddCachingCommonModule();
+builder.AddCachingCommonModule(CachingConstants.SiteApiCacheName);
 builder.AddCmsCommonModule();
 builder.AddPagesModule();
 builder.AddCacheInvalidationModule();
