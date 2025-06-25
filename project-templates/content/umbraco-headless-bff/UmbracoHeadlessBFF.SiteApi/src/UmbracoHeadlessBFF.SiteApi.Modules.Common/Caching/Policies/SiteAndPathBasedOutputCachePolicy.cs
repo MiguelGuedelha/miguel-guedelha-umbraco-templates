@@ -1,5 +1,4 @@
 using System.Diagnostics.CodeAnalysis;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.Extensions.DependencyInjection;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
@@ -18,8 +17,21 @@ public sealed class SiteAndPathBasedOutputCachePolicy : SiteApiOutputCachePolicy
 
     public ValueTask CacheRequestAsync(OutputCacheContext context, CancellationToken cancellation)
     {
-        var canCacheBySitePath = CanCacheBySitePath(context, out var sitePath);
-        var canCacheBySite = CanCacheBySite(context, out var siteId);
+        context.EnableOutputCaching = true;
+        context.AllowLocking = true;
+
+        var siteResolutionContext = context.HttpContext.RequestServices.GetService<SiteResolutionContext>();
+
+        if (siteResolutionContext is null)
+        {
+            context.EnableOutputCaching = false;
+            context.AllowCacheLookup = false;
+            context.AllowCacheStorage = false;
+            return ValueTask.CompletedTask;
+        }
+
+        var canCacheBySitePath = CanCacheBySitePath(siteResolutionContext, out var sitePath);
+        var canCacheBySite = CanCacheBase(context, siteResolutionContext, out var siteId);
 
         var canCache = canCacheBySitePath && canCacheBySite;
 
@@ -47,18 +59,29 @@ public sealed class SiteAndPathBasedOutputCachePolicy : SiteApiOutputCachePolicy
     public ValueTask ServeResponseAsync(OutputCacheContext context, CancellationToken cancellation)
     {
         ServeResponseBaseAsync(context);
+        try
+        {
+            var siteResolutionContext = context.HttpContext.RequestServices.GetRequiredService<SiteResolutionContext>();
+
+            context.Tags.Add(siteResolutionContext.Site.DictionaryId.ToString());
+            context.Tags.Add(siteResolutionContext.Site.SiteSettingsId.ToString());
+            context.Tags.Add(CachingTagConstants.Sitemaps);
+            context.Tags.Add(CachingTagConstants.Robots);
+        }
+        catch
+        {
+            context.AllowCacheStorage = false;
+            throw;
+        }
         return ValueTask.CompletedTask;
     }
 
-    private static bool CanCacheBySitePath(OutputCacheContext context, [NotNullWhen(true)] out string? sitePath)
+    private static bool CanCacheBySitePath(SiteResolutionContext siteResolutionContext, [NotNullWhen(true)] out string? sitePath)
     {
         sitePath = null;
-
-        var siteContext = context.HttpContext.RequestServices.GetRequiredService<SiteResolutionContext>();
-
         try
         {
-            sitePath = siteContext.Path;
+            sitePath = siteResolutionContext.Path;
             return !string.IsNullOrWhiteSpace(sitePath);
         }
         catch

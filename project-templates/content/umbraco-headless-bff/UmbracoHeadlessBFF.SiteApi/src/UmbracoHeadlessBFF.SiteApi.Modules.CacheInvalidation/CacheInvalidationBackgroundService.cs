@@ -1,4 +1,5 @@
 using Azure.Messaging.ServiceBus;
+using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using UmbracoHeadlessBFF.SharedModules.Common.Caching;
@@ -13,9 +14,14 @@ public sealed class CacheInvalidationBackgroundService : BackgroundService
 {
     private readonly ServiceBusProcessor _serviceBusProcessor;
     private readonly IFusionCache _fusionCache;
+    private readonly IOutputCacheStore _outputCacheStore;
     private readonly ILogger<CacheInvalidationBackgroundService> _logger;
 
-    public CacheInvalidationBackgroundService(ServiceBusClient serviceBusClient, IFusionCacheProvider fusionCacheProvider, ILogger<CacheInvalidationBackgroundService> logger)
+    public CacheInvalidationBackgroundService(
+        ServiceBusClient serviceBusClient,
+        IFusionCacheProvider fusionCacheProvider,
+        IOutputCacheStore outputCacheStore,
+        ILogger<CacheInvalidationBackgroundService> logger)
     {
         _serviceBusProcessor = serviceBusClient.CreateProcessor(
             "CmsCacheTopic",
@@ -27,6 +33,7 @@ public sealed class CacheInvalidationBackgroundService : BackgroundService
             });
 
         _fusionCache = fusionCacheProvider.GetCache(CachingConstants.SiteApiCacheName);
+        _outputCacheStore = outputCacheStore;
         _logger = logger;
     }
 
@@ -62,6 +69,7 @@ public sealed class CacheInvalidationBackgroundService : BackgroundService
         if (message.ObjectsType is CacheInvalidationMessage.CacheInvalidationType.Domain || message.InvalidateAll)
         {
             await _fusionCache.ClearAsync();
+            //TODO output cache underlying Fusion Cache clear all
         }
 
         foreach (var item in message.Items)
@@ -72,6 +80,8 @@ public sealed class CacheInvalidationBackgroundService : BackgroundService
             }
 
             await _fusionCache.RemoveByTagAsync(item.Key.ToString());
+            //TODO possibly use the underlying Fusion Cache instead directly
+            await _outputCacheStore.EvictByTagAsync(item.Key.ToString(), CancellationToken.None);
         }
 
         await args.CompleteMessageAsync(args.Message);

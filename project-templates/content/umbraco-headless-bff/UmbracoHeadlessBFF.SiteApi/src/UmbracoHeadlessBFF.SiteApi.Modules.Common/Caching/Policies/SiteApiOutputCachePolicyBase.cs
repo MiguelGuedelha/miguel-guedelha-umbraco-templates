@@ -1,7 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.OutputCaching;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Primitives;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
 
@@ -9,7 +8,7 @@ namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching.Policies;
 
 public abstract class SiteApiOutputCachePolicyBase
 {
-    protected static bool CanCacheBySite(OutputCacheContext context, [NotNullWhen(true)] out string? siteId)
+    protected static bool CanCacheBase(OutputCacheContext context, SiteResolutionContext siteResolutionContext, [NotNullWhen(true)] out string? siteId)
     {
         var request = context.HttpContext.Request;
 
@@ -28,16 +27,9 @@ public abstract class SiteApiOutputCachePolicyBase
             return false;
         }
 
-        var siteContext = context.HttpContext.RequestServices.GetService<SiteResolutionContext>();
-
-        if (siteContext is null)
-        {
-            return false;
-        }
-
         try
         {
-            siteId = siteContext.SiteId;
+            siteId = siteResolutionContext.SiteId;
             return true;
         }
         catch

@@ -11,5 +11,6 @@ public static class SiteResolutionConstants
         public const string AlternateSites = "alternate-sites";
         public const string Domain = "domain";
         public const string Path = "path";
+        public const string PageId = "pageId";
     }
 }

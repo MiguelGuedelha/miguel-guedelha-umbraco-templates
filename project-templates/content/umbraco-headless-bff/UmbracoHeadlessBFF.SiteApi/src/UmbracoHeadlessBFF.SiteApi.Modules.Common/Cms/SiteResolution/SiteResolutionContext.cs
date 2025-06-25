@@ -16,86 +16,50 @@ public sealed class SiteResolutionContext
 
     public bool IsPreview
     {
-        get
-        {
-            return GetContextItem<bool>(SiteResolutionConstants.TenancyItems.IsPreview);
-        }
-        set
-        {
-            SetContextItem(SiteResolutionConstants.TenancyItems.IsPreview, value);
-        }
+        get => GetContextItem<bool>(SiteResolutionConstants.TenancyItems.IsPreview);
+        set => SetContextItem(SiteResolutionConstants.TenancyItems.IsPreview, value);
     }
 
     public string PreviewToken
     {
-        get
-        {
-            return GetContextItem<string>(SiteResolutionConstants.TenancyItems.PreviewToken);
-        }
-        set
-        {
-            SetContextItem(SiteResolutionConstants.TenancyItems.PreviewToken, value);
-        }
+        get => GetContextItem<string>(SiteResolutionConstants.TenancyItems.PreviewToken);
+        set => SetContextItem(SiteResolutionConstants.TenancyItems.PreviewToken, value);
     }
 
     public string SiteId
     {
-        get
-        {
-            return GetContextItem<string>(SiteResolutionConstants.TenancyItems.SiteId);
-        }
-        set
-        {
-            SetContextItem(SiteResolutionConstants.TenancyItems.SiteId, value);
-        }
+        get => GetContextItem<string>(SiteResolutionConstants.TenancyItems.SiteId);
+        set => SetContextItem(SiteResolutionConstants.TenancyItems.SiteId, value);
     }
 
     public string Domain
     {
-        get
-        {
-            return GetContextItem<string>(SiteResolutionConstants.TenancyItems.Domain);
-        }
-        set
-        {
-            SetContextItem(SiteResolutionConstants.TenancyItems.Domain, value);
-        }
+        get => GetContextItem<string>(SiteResolutionConstants.TenancyItems.Domain);
+        set => SetContextItem(SiteResolutionConstants.TenancyItems.Domain, value);
     }
 
     public string Path
     {
-        get
-        {
-            return GetContextItem<string>(SiteResolutionConstants.TenancyItems.Path);
-        }
-        set
-        {
-            SetContextItem(SiteResolutionConstants.TenancyItems.Path, value);
-        }
+        get => GetContextItem<string>(SiteResolutionConstants.TenancyItems.Path);
+        set => SetContextItem(SiteResolutionConstants.TenancyItems.Path, value);
     }
 
     public SiteDefinition Site
     {
-        get
-        {
-            return GetContextItem<SiteDefinition>(SiteResolutionConstants.TenancyItems.Site);
-        }
-        set
-        {
-            SetContextItem(SiteResolutionConstants.TenancyItems.Site, value);
-        }
+        get => GetContextItem<SiteDefinition>(SiteResolutionConstants.TenancyItems.Site);
+        set => SetContextItem(SiteResolutionConstants.TenancyItems.Site, value);
     }
 
     public IReadOnlyCollection<SiteDefinition> AlternateSites
     {
-        get
-        {
-            return GetContextItem<IReadOnlyCollection<SiteDefinition>>(SiteResolutionConstants.TenancyItems.AlternateSites);
-        }
-        set
-        {
-            SetContextItem(SiteResolutionConstants.TenancyItems.AlternateSites, value);
-        }
+        get => GetContextItem<IReadOnlyCollection<SiteDefinition>>(SiteResolutionConstants.TenancyItems.AlternateSites);
+        set => SetContextItem(SiteResolutionConstants.TenancyItems.AlternateSites, value);
+    }
+
+    public Guid PageId
+    {
+        get => GetContextItem<Guid>(SiteResolutionConstants.TenancyItems.PageId);
+        set => SetContextItem(SiteResolutionConstants.TenancyItems.AlternateSites, value);
     }
 
     private T GetContextItem<T>(string key)

@@ -76,7 +76,8 @@ internal sealed class PagesService : IPagesService
             [
                 CachingTagConstants.Pages,
                 id.ToString(),
-                _siteResolutionContext.Site.SiteSettingsId.ToString()
+                _siteResolutionContext.Site.SiteSettingsId.ToString(),
+                _siteResolutionContext.Site.DictionaryId.ToString()
             ]);
 
         async Task<IApiResponse<IApiContent>> GetPageByIdFactory(bool factoryPreview, SiteDefinition factorySite, CancellationToken cancellationToken = default)

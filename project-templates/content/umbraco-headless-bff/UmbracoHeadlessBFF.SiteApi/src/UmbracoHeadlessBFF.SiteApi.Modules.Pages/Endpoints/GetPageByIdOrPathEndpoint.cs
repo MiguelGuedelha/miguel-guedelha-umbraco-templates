@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching.Policies;
+using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Endpoints;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 using UmbracoHeadlessBFF.SiteApi.Modules.Pages.Mappers.Pages;
@@ -26,7 +27,8 @@ internal static class GetPageByIdOrPathEndpoint
 
     private static async Task<Results<Ok<IPage>, NotFound>> Handle(string id,
         IPagesService pagesService,
-        IEnumerable<IPageMapper> mappers)
+        IEnumerable<IPageMapper> mappers,
+        SiteResolutionContext siteResolutionContext)
     {
         if (string.IsNullOrWhiteSpace(id))
         {
@@ -43,6 +45,8 @@ internal static class GetPageByIdOrPathEndpoint
         {
             return TypedResults.NotFound();
         }
+
+        siteResolutionContext.PageId = content.Id;
 
         var mapper = mappers.FirstOrDefault(x => x.CanMap(content.ContentType));
 
