@@ -5,8 +5,8 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
+  - group: 'api-keys'
+
 
 steps:
   - task: DotNetCoreCLI@2
@@ -15,10 +15,13 @@ steps:
       packagesToPack: './project-templates/MiguelGuedelha.UmbracoTemplates.Projects.csproj'
       versioningScheme: 'byEnvVar'
       versionEnvVar: Build.SourceBranchName
+    displayName: 'Pack Umbraco Templates Project'
 
-  - task: DotNetCoreCLI@2
+  - task: NuGetAuthenticate@1
     inputs:
-      command: 'push'
-      packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
-      nuGetFeedType: 'external'
-      externalEndpoint: 'MiguelGuedelha Nuget Packages'
+      nuGetServiceConnections: 'MiguelGuedelha Nuget Packages'
+    displayName: 'Authenticate with NuGet feed'
+
+  - script: |
+      dotnet push --source 'https://api.nuget.org/v3/index.json' --skip-duplicate --no-symbols --no-build $(Build.ArtifactStagingDirectory)/*.nupkg --api-key $(NugetApiKey)
+    displayName: 'Push NuGet Package'
