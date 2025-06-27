@@ -5,7 +5,7 @@ namespace UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi;
 
 public sealed record FieldsExpandProperties
 {
-    private readonly IReadOnlyList<FieldsExpandSubProperties>? _children;
+    private readonly IReadOnlyCollection<FieldsExpandSubProperties>? _children;
     private readonly int? _level;
 
     public FieldsExpandProperties(int level)
@@ -13,7 +13,7 @@ public sealed record FieldsExpandProperties
         _level = level;
     }
 
-    public FieldsExpandProperties(IReadOnlyList<FieldsExpandSubProperties> children)
+    public FieldsExpandProperties(IReadOnlyCollection<FieldsExpandSubProperties> children)
     {
         _children = children;
     }
@@ -49,7 +49,7 @@ public sealed record FieldsExpandProperties
 public sealed record FieldsExpandSubProperties
 {
     public required string Name { get; init; }
-    public IReadOnlyList<FieldsExpandSubProperties>? Children { get; init; }
+    public IReadOnlyCollection<FieldsExpandSubProperties>? Children { get; init; }
 
     public override string ToString()
     {

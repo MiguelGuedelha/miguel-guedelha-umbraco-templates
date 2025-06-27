@@ -20,7 +20,7 @@ internal interface IPagesService
     Task<IApiContent?> GetPage(Guid id, bool? isPreview = null, SiteDefinition? site = null);
     Task<IApiContent?> GetPage(string path);
     Task<PagedApiContent?> GetPages(int skip = 0, int take = 10, ContentFetchType? fetch = null,
-        IReadOnlyList<ContentFilterType>? filter = null, ContentSortType? sort = null, string? startItem = null);
+        IReadOnlyCollection<ContentFilterType>? filter = null, ContentSortType? sort = null, string? startItem = null);
 }
 
 internal sealed class PagesService : IPagesService
@@ -197,7 +197,7 @@ internal sealed class PagesService : IPagesService
         int skip = 0,
         int take = 10,
         ContentFetchType? fetch = null,
-        IReadOnlyList<ContentFilterType>? filter = null,
+        IReadOnlyCollection<ContentFilterType>? filter = null,
         ContentSortType? sort = null,
         string? startItem = null)
     {
@@ -211,7 +211,7 @@ internal sealed class PagesService : IPagesService
 
         var startItemSegment = startItem ?? "none";
         var fetchSegment = fetch is null ? "no-fetch" : fetch.ToString().Replace(':', '-');
-        var filterSegment = filter is null or [] ? "no-filter" : string.Join("-", filter.Select(x => x.ToString()).Order());
+        var filterSegment = filter is null or { Count: 0 } ? "no-filter" : string.Join("-", filter.Select(x => x.ToString()).Order());
         var sortSegment = sort is null ? "no-sort" : sort.ToString().Replace(':', '-');
         var sizeSegment = $"{skip}-{take}";
 

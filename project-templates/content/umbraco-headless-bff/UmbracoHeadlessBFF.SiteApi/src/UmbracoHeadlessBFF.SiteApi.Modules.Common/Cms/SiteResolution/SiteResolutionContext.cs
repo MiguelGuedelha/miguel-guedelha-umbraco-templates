@@ -50,12 +50,6 @@ public sealed class SiteResolutionContext
         set => SetContextItem(SiteResolutionConstants.TenancyItems.Site, value);
     }
 
-    public IReadOnlyCollection<SiteDefinition> AlternateSites
-    {
-        get => GetContextItem<IReadOnlyCollection<SiteDefinition>>(SiteResolutionConstants.TenancyItems.AlternateSites);
-        set => SetContextItem(SiteResolutionConstants.TenancyItems.AlternateSites, value);
-    }
-
     public Guid PageId
     {
         get => GetContextItem<Guid>(SiteResolutionConstants.TenancyItems.PageId);
