@@ -17,11 +17,6 @@ steps:
       versionEnvVar: Build.SourceBranchName
     displayName: 'Pack Umbraco Templates Project'
 
-  - task: NuGetAuthenticate@1
-    inputs:
-      nuGetServiceConnections: 'MiguelGuedelha Nuget Packages'
-    displayName: 'Authenticate with NuGet feed'
-
   - script: |
       dotnet push --source 'https://api.nuget.org/v3/index.json' --skip-duplicate --no-symbols --no-build $(Build.ArtifactStagingDirectory)/*.nupkg --api-key $(NugetApiKey)
     displayName: 'Push NuGet Package'
