@@ -9,11 +9,13 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+  - 
   - task: DotNetCoreCLI@2
     inputs:
       command: 'pack'
       packagesToPack: './project-templates/MiguelGuedelha.UmbracoTemplates.Projects.csproj'
-      versioningScheme: 'off'
+      versioningScheme: 'byEnvVar'
+      versionEnvVar: Build.SourceBranchName
 
   - publish: $(Build.ArtifactStagingDirectory)/
     artifact: nupkg
