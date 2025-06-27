@@ -18,5 +18,5 @@ steps:
     displayName: 'Pack Umbraco Templates Project'
 
   - script: |
-      dotnet nuget push --source 'https://api.nuget.org/v3/index.json' --skip-duplicate --no-symbols --no-build $(Build.ArtifactStagingDirectory)/*.nupkg --api-key $(NugetApiKey)
+      dotnet nuget push $(Build.ArtifactStagingDirectory)/*.nupkg -s 'https://api.nuget.org/v3/index.json' --skip-duplicate -n -k $(NugetApiKey)
     displayName: 'Push NuGet Package'
