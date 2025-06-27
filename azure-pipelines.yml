@@ -16,5 +16,9 @@ steps:
       versioningScheme: 'byEnvVar'
       versionEnvVar: Build.SourceBranchName
 
-  - publish: $(Build.ArtifactStagingDirectory)/
-    artifact: nupkg
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'push'
+      packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+      nuGetFeedType: 'external'
+      externalEndpoint: 'MiguelGuedelha Nuget Packages'
