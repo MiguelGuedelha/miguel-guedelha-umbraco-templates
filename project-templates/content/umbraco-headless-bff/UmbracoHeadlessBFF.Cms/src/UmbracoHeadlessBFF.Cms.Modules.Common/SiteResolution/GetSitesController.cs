@@ -30,7 +30,7 @@ public sealed class GetSitesController : Controller
     }
 
     [HttpGet("")]
-    public Results<Ok<Dictionary<string, SiteDefinition>>, NotFound, ProblemHttpResult> GetSites(bool preview)
+    public async Task<Results<Ok<Dictionary<string, SiteDefinition>>, NotFound, ProblemHttpResult>> GetSites(bool preview)
     {
         using var context = _umbracoContextFactory.EnsureUmbracoContext();
 
@@ -52,9 +52,14 @@ public sealed class GetSitesController : Controller
             .OfType<SiteGrouping>()
             .SelectMany(x => x.ChildrenForAllCultures)
             .OfType<Home>()
-            .Concat(root.OfType<Home>());
+            .Concat(root.OfType<Home>())
+            .ToArray();
 
-        var domainDefinitions = homepages.Select(x => (x, _domainService.GetAssignedDomains(x.Id, false)));
+        var domainTasks = homepages.Select(x => _domainService.GetAssignedDomainsAsync(x.Key, false)).ToArray();
+
+        await Task.WhenAll(domainTasks);
+
+        var domainDefinitions = homepages.Zip(domainTasks.Select(x => x.Result));
 
         var siteDefinitions = new Dictionary<string, SiteDefinition>();
 

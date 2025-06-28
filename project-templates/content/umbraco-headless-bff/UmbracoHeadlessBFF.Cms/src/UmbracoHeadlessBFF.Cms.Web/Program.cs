@@ -7,7 +7,6 @@ using UmbracoHeadlessBFF.Cms.Modules.Common.Links;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Preview;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Urls;
-using UmbracoHeadlessBFF.SharedModules.Common.Caching;
 using UmbracoHeadlessBFF.SharedModules.Common.Correlation;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -64,7 +63,6 @@ app.UseUmbraco()
     })
     .WithEndpoints(u =>
     {
-        u.UseInstallerEndpoints();
         u.UseBackOfficeEndpoints();
         u.UseWebsiteEndpoints();
     });

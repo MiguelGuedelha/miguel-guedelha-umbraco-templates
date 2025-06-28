@@ -8,7 +8,7 @@ public sealed class PreviewComposer : IComposer
 {
     public void Compose(IUmbracoBuilder builder)
     {
-        builder
-            .AddNotificationHandler<SendingContentNotification, PreviewUrlNotificationHandler>();
+        //TODO: Preview URL generation
+        // builder.AddNotificationHandler<SendingContentNotification, PreviewUrlNotificationHandler>();
     }
 }

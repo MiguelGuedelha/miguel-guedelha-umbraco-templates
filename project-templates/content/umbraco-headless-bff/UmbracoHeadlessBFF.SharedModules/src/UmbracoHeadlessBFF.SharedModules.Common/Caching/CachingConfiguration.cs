@@ -46,7 +46,7 @@ public static class CachingConfiguration
         configureJsonSerializerOptions?.Invoke(jsonOptions);
 
         builder.Services.AddFusionCache(cacheName ?? FusionCacheOptions.DefaultCacheName)
-            .WithCacheKeyPrefix()
+            .WithCacheKeyPrefixByCacheName()
             .WithOptions(o =>
             {
                 //Backs off the Distributed Cache if having issues

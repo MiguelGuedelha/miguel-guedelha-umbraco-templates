@@ -13,7 +13,7 @@ public static class CachingConfiguration
     {
         var outputCacheName = $"{cacheName}OutputCache";
         builder.Services.AddFusionCache(outputCacheName)
-            .WithCacheKeyPrefix()
+            .WithCacheKeyPrefixByCacheName()
             .WithDefaultEntryOptions(o =>
             {
                 o.IsFailSafeEnabled = true;
