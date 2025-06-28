@@ -11,6 +11,5 @@ public sealed record ApiEmbedVideo : IApiElement<ApiEmbedVideoProperties>
 
 public sealed record ApiEmbedVideoProperties
 {
-    public ApiOEmbedItem? Video { get; init; }
     public IReadOnlyCollection<ApiMediaWithCrops>? PlaceholderImage { get; init; }
 }

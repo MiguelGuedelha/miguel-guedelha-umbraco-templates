@@ -58,14 +58,6 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Models
 		public virtual global::Umbraco.Cms.Core.Models.MediaWithCrops PlaceholderImage => this.Value<global::Umbraco.Cms.Core.Models.MediaWithCrops>(_publishedValueFallback, "placeholderImage");
 
 		///<summary>
-		/// Video
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("video")]
-		public virtual global::Dawoe.OEmbedPickerPropertyEditor.Core.Models.OEmbedItem Video => this.Value<global::Dawoe.OEmbedPickerPropertyEditor.Core.Models.OEmbedItem>(_publishedValueFallback, "video");
-
-		///<summary>
 		/// Block Label
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
