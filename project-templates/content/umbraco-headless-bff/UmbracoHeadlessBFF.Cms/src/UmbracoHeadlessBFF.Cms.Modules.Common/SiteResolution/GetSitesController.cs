@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Core.PublishedCache;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Core.Services.Navigation;
@@ -24,14 +25,17 @@ public sealed class GetSitesController : Controller
     private readonly IDomainService _domainService;
     private readonly IPublishedContentCache _publishedContentCache;
     private readonly IDocumentNavigationQueryService _documentNavigationQueryService;
+    private readonly IVariationContextAccessor _variationContextAccessor;
 
     public GetSitesController(IDomainService domainService,
         IPublishedContentCache publishedContentCache,
-        IDocumentNavigationQueryService documentNavigationQueryService)
+        IDocumentNavigationQueryService documentNavigationQueryService,
+        IVariationContextAccessor variationContextAccessor)
     {
         _domainService = domainService;
         _publishedContentCache = publishedContentCache;
         _documentNavigationQueryService = documentNavigationQueryService;
+        _variationContextAccessor = variationContextAccessor;
     }
 
     [HttpGet("")]
@@ -92,9 +96,20 @@ public sealed class GetSitesController : Controller
                     continue;
                 }
 
-                var siteSettings = homepage.Descendant<SiteSettings>(firstDomain.LanguageIsoCode);
-                var dictionary = homepage.Descendant<SiteDictionary>(firstDomain.LanguageIsoCode);
+                _variationContextAccessor.VariationContext = new VariationContext(firstDomain.LanguageIsoCode);
+
+                _documentNavigationQueryService.TryGetDescendantsKeysOfType(homepage.Key, SiteSettings.ModelTypeAlias, out var siteSettingsKeys);
+                _documentNavigationQueryService.TryGetDescendantsKeysOfType(homepage.Key, SiteDictionary.ModelTypeAlias, out var dictionaryKeys);
+
+                var publishedContent = _publishedContentCache.GetById(preview, siteSettingsKeys.FirstOrDefault());
+
+                var siteSettings = publishedContent as SiteSettings;
+
+                publishedContent = _publishedContentCache.GetById(preview, dictionaryKeys.FirstOrDefault());
+
+                var dictionary = publishedContent as SiteDictionary;
                 var homePageSegment = homepage.UrlSegment(firstDomain.LanguageIsoCode);
+                //TODO: preview/unpublished site settings result in no linked pages showing
                 var notFoundPage = siteSettings?.NotFoundPage;
                 var searchPage = siteSettings?.SearchPage;
 
