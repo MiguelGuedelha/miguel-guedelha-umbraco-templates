@@ -2,8 +2,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Umbraco.Cms.Core.PublishedCache;
 using Umbraco.Cms.Core.Services;
-using Umbraco.Cms.Core.Web;
+using Umbraco.Cms.Core.Services.Navigation;
 using Umbraco.Extensions;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Authentication;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Models;
@@ -20,39 +21,49 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.SiteResolution;
 [ApiKey]
 public sealed class GetSitesController : Controller
 {
-    private readonly IUmbracoContextFactory _umbracoContextFactory;
     private readonly IDomainService _domainService;
+    private readonly IPublishedContentCache _publishedContentCache;
+    private readonly IDocumentNavigationQueryService _documentNavigationQueryService;
 
-    public GetSitesController(IUmbracoContextFactory umbracoContextFactory, IDomainService domainService)
+    public GetSitesController(IDomainService domainService,
+        IPublishedContentCache publishedContentCache,
+        IDocumentNavigationQueryService documentNavigationQueryService)
     {
-        _umbracoContextFactory = umbracoContextFactory;
         _domainService = domainService;
+        _publishedContentCache = publishedContentCache;
+        _documentNavigationQueryService = documentNavigationQueryService;
     }
 
     [HttpGet("")]
     public async Task<Results<Ok<Dictionary<string, SiteDefinition>>, NotFound, ProblemHttpResult>> GetSites(bool preview)
     {
-        using var context = _umbracoContextFactory.EnsureUmbracoContext();
+        _documentNavigationQueryService.TryGetRootKeys(out var keys);
 
-        var publishedContentCache = context.UmbracoContext.Content;
+        var rootTasks = keys.Select(x => _publishedContentCache.GetByIdAsync(x, preview)).ToArray();
 
-        if (publishedContentCache is null)
-        {
-            return TypedResults.Problem(new ProblemDetails
-            {
-                Title = "Content cache doesn't exist",
-                Status = StatusCodes.Status500InternalServerError,
-                Detail = "The Published Content Cache couldn't be accessed"
-            });
-        }
+        await Task.WhenAll(rootTasks);
 
-        var root = publishedContentCache.GetAtRoot(preview).ToArray();
+        var root = rootTasks.Select(x => x.Result).ToArray();
 
-        var homepages = root
+        var homepages = root.OfType<Home>();
+
+        var homepagesUnderGroupsTasks = root
             .OfType<SiteGrouping>()
-            .SelectMany(x => x.ChildrenForAllCultures)
-            .OfType<Home>()
-            .Concat(root.OfType<Home>())
+            .SelectMany(x =>
+            {
+                _documentNavigationQueryService.TryGetChildrenKeysOfType(x.Key, Home.ModelTypeAlias, out var homeIds);
+
+                return homeIds;
+            })
+            .Select(x => _publishedContentCache.GetByIdAsync(x, preview))
+            .ToArray();
+
+        await Task.WhenAll(homepagesUnderGroupsTasks);
+
+        homepages = homepages
+            .Concat(homepagesUnderGroupsTasks
+                .Select(x => x.Result)
+                .OfType<Home>())
             .ToArray();
 
         var domainTasks = homepages.Select(x => _domainService.GetAssignedDomainsAsync(x.Key, false)).ToArray();

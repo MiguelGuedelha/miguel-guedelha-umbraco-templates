@@ -10,20 +10,24 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Overrides;
 
 internal sealed partial class ApiRichTextMarkupParser : IApiRichTextMarkupParser
 {
-    private readonly IPublishedSnapshotAccessor _publishedSnapshotAccessor;
+    private readonly IPublishedContentCache _publishedContentCache;
+    private readonly IPublishedMediaCache _publishedMediaCache;
     private readonly IApiMediaUrlProvider _apiMediaUrlProvider;
     private readonly ILogger<ApiRichTextMarkupParser> _logger;
 
-    [GeneratedRegex("{localLink:(?<udi>umb:.+)}")]
-    private static partial Regex UmbracoNodeLinkRegex();
-
-    public ApiRichTextMarkupParser(ILogger<ApiRichTextMarkupParser> logger,
-        IPublishedSnapshotAccessor publishedSnapshotAccessor, IApiMediaUrlProvider apiMediaUrlProvider)
+    public ApiRichTextMarkupParser(IPublishedContentCache publishedContentCache,
+        IPublishedMediaCache publishedMediaCache,
+        IApiMediaUrlProvider apiMediaUrlProvider,
+        ILogger<ApiRichTextMarkupParser> logger)
     {
-        _logger = logger;
-        _publishedSnapshotAccessor = publishedSnapshotAccessor;
+        _publishedContentCache = publishedContentCache;
+        _publishedMediaCache = publishedMediaCache;
         _apiMediaUrlProvider = apiMediaUrlProvider;
+        _logger = logger;
     }
+
+    [GeneratedRegex("{localLink:(?<guid>.+)}")]
+    private static partial Regex UmbracoNodeLinkRegex();
 
     public string Parse(string html)
     {
@@ -32,10 +36,8 @@ internal sealed partial class ApiRichTextMarkupParser : IApiRichTextMarkupParser
             var doc = new HtmlDocument();
             doc.LoadHtml(html);
 
-            var publishedSnapshot = _publishedSnapshotAccessor.GetRequiredPublishedSnapshot();
-
-            ProcessLinks(doc, publishedSnapshot);
-            ProcessMedia(doc, publishedSnapshot);
+            ProcessLinks(doc, _publishedContentCache, _publishedMediaCache);
+            ProcessMedia(doc, _publishedMediaCache);
 
             return doc.DocumentNode.InnerHtml;
         }
@@ -49,7 +51,7 @@ internal sealed partial class ApiRichTextMarkupParser : IApiRichTextMarkupParser
         }
     }
 
-    private void ProcessLinks(HtmlDocument doc, IPublishedSnapshot publishedSnapshot)
+    private void ProcessLinks(HtmlDocument doc, IPublishedContentCache publishedContentCache, IPublishedMediaCache publishedMediaCache)
     {
         var links = doc.DocumentNode.SelectNodes("//a");
 
@@ -70,17 +72,18 @@ internal sealed partial class ApiRichTextMarkupParser : IApiRichTextMarkupParser
 
             var match = UmbracoNodeLinkRegex().Match(href);
             var handled = false;
-            if (match.Success && UdiParser.TryParse(match.Groups["udi"].Value, out var udi) && udi is GuidUdi guidUdi)
+            var type = link.GetAttributeValue("type", "unknown");
+            if (match.Success && Guid.TryParse(match.Groups["guid"].Value, out var guid))
             {
-                switch (guidUdi.EntityType)
+                switch (type)
                 {
                     case Constants.UdiEntityType.Document:
-                        link.SetAttributeValue("data-content-id", guidUdi.Guid.ToString());
+                        link.SetAttributeValue("data-content-id", guid.ToString());
                         link.SetAttributeValue("data-entity-type", Constants.UdiEntityType.Document);
                         link.Attributes.Remove("href");
                         break;
                     case Constants.UdiEntityType.Media:
-                        var media = publishedSnapshot.Media?.GetById(guidUdi.Guid);
+                        var media = publishedMediaCache.GetById(guid);
                         if (media is not null)
                         {
                             link.SetAttributeValue("href", _apiMediaUrlProvider.GetUrl(media));
@@ -102,7 +105,7 @@ internal sealed partial class ApiRichTextMarkupParser : IApiRichTextMarkupParser
         }
     }
 
-    private void ProcessMedia(HtmlDocument doc, IPublishedSnapshot publishedSnapshot)
+    private void ProcessMedia(HtmlDocument doc, IPublishedMediaCache publishedMediaCache)
     {
         var images = doc.DocumentNode.SelectNodes("//img");
 
@@ -120,12 +123,12 @@ internal sealed partial class ApiRichTextMarkupParser : IApiRichTextMarkupParser
                 continue;
             }
 
-            if (!UdiParser.TryParse(dataUdi, out var udiValue))
+            if (!UdiParser.TryParse(dataUdi, out var udiValue) || udiValue is not GuidUdi guidUdi)
             {
                 continue;
             }
 
-            var media = publishedSnapshot.Media?.GetById(udiValue);
+            var media = publishedMediaCache.GetById(guidUdi.Guid);
             if (media is null)
             {
                 continue;
