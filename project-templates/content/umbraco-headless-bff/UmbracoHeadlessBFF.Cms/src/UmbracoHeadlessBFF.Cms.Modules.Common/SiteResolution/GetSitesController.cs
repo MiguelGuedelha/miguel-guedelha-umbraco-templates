@@ -101,15 +101,13 @@ public sealed class GetSitesController : Controller
                 _documentNavigationQueryService.TryGetDescendantsKeysOfType(homepage.Key, SiteSettings.ModelTypeAlias, out var siteSettingsKeys);
                 _documentNavigationQueryService.TryGetDescendantsKeysOfType(homepage.Key, SiteDictionary.ModelTypeAlias, out var dictionaryKeys);
 
-                var publishedContent = _publishedContentCache.GetById(preview, siteSettingsKeys.FirstOrDefault());
 
-                var siteSettings = publishedContent as SiteSettings;
+                var siteSettings = await _publishedContentCache.GetByIdAsync(siteSettingsKeys.FirstOrDefault(), preview) as SiteSettings;
+                var dictionary = await _publishedContentCache.GetByIdAsync(dictionaryKeys.FirstOrDefault(), preview) as SiteDictionary;
 
-                publishedContent = _publishedContentCache.GetById(preview, dictionaryKeys.FirstOrDefault());
-
-                var dictionary = publishedContent as SiteDictionary;
                 var homePageSegment = homepage.UrlSegment(firstDomain.LanguageIsoCode);
                 //TODO: preview/unpublished site settings result in no linked pages showing
+                //
                 var notFoundPage = siteSettings?.NotFoundPage;
                 var searchPage = siteSettings?.SearchPage;
 
