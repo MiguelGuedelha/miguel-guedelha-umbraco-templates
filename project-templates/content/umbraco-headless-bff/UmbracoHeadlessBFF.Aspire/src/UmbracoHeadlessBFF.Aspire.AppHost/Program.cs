@@ -53,7 +53,29 @@ var cmsDeliveryApiKey = builder.AddParameter("CmsDeliveryApiKey");
 
 var serviceBus = builder
     .AddAzureServiceBus("ServiceBus")
-    .RunAsEmulator();
+    .RunAsEmulator(sb =>
+    {
+        // See https://github.com/dotnet/aspire/issues/8818 for details of what is happening here
+        // Will remove if Aspire team provides option to customise DB built-in eventually: https://github.com/dotnet/aspire/issues/9279
+        sb.WithHttpEndpoint(targetPort: 5300, name: "sbhealthendpoint")
+            .WithImageTag("1.1.2")
+            .WithContainerName("servicebus")
+            .WithEnvironment("SQL_WAIT_INTERVAL", "1");
+
+        var edge = sb.ApplicationBuilder.Resources.OfType<ContainerResource>()
+            .First(resource => resource.Name.EndsWith("-sqledge"));
+
+        var annotation = edge.Annotations.OfType<ContainerImageAnnotation>().First();
+
+        annotation.Image = "mssql/server";
+        annotation.Tag = "2022-latest";
+    });
+
+// See https://github.com/dotnet/aspire/issues/8818 for details of what is happening here
+// Will remove if Aspire team provides option to customise DB built-in eventually: https://github.com/dotnet/aspire/issues/9279
+var sbHc = serviceBus.Resource.Annotations.OfType<HealthCheckAnnotation>().First();
+serviceBus.Resource.Annotations.Remove(sbHc);
+serviceBus.WithHttpHealthCheck("/health", 200, "sbhealthendpoint");
 
 var cmsCacheTopic = serviceBus.AddServiceBusTopic("CmsCacheTopic");
 
