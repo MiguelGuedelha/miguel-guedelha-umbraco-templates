@@ -13,21 +13,21 @@ var smtpUser = builder.AddParameter("SmtpUser");
 var smtpPassword = builder.AddParameter("SmtpPassword", true);
 var smtpPort = builder.AddParameter("SmtpPort");
 
-const string baseBindPath = "../../../";
+const string baseBindPath = "../../../local-data/v13/";
 
 var mailServer = builder.AddContainer("MailServer", "rnwood/smtp4dev")
     .WithHttpEndpoint(34523, 80, "ui")
     .WithHttpEndpoint(int.Parse(smtpPort.Resource.Value), 25, "smtp")
-    .WithBindMount(Path.Join(baseBindPath, "local-data/mail-server/data"), "/stmp4dev")
+    .WithBindMount(Path.Join(baseBindPath, "mail-server/data"), "/stmp4dev")
     .WithEnvironment("ServerOptions__AuthenticationRequired", "true")
     .WithEnvironment("ServerOptions__Users__0__Username", smtpUser)
     .WithEnvironment("ServerOptions__Users__0__Password", smtpPassword);
 
 var database = builder
     .AddSqlServer("SqlServer")
-    .WithDataBindMount(Path.Join(baseBindPath, "local-data/database/data"))
-    .WithBindMount(Path.Join(baseBindPath, "local-data/database/logs"), "/var/opt/mssql/log")
-    .WithBindMount(Path.Join(baseBindPath, "local-data/database/secrets"), "/var/opt/mssql/secrets")
+    .WithDataBindMount(Path.Join(baseBindPath, "database/data"))
+    .WithBindMount(Path.Join(baseBindPath, "database/logs"), "/var/opt/mssql/log")
+    .WithBindMount(Path.Join(baseBindPath, "database/secrets"), "/var/opt/mssql/secrets")
     .WithContainerRuntimeArgs("--user", "root");
 
 var umbracoDb = database.AddDatabase("Database", "umbraco-cms");
@@ -40,7 +40,7 @@ var azureStorage = builder
     .AddAzureStorage("Storage")
     .RunAsEmulator(c =>
     {
-        c.WithDataBindMount(Path.Join(baseBindPath, "local-data/azure-storage/data"));
+        c.WithDataBindMount(Path.Join(baseBindPath, "azure-storage/data"));
     });
 
 var blobs = azureStorage.AddBlobs("blobs");
