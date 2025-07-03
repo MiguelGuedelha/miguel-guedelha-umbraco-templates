@@ -31,7 +31,12 @@ internal static class GetNotFoundPageEndpoint
     {
         var notFoundId = siteResolutionContext.Site.NotFoundPageId;
 
-        var data = await pagesService.GetPage(notFoundId);
+        if (notFoundId is null)
+        {
+            return TypedResults.NotFound();
+        }
+
+        var data = await pagesService.GetPage(notFoundId.Value);
 
         if (data is not ApiNotFound notFoundPage)
         {

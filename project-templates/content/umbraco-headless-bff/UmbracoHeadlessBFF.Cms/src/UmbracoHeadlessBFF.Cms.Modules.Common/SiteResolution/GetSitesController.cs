@@ -82,7 +82,7 @@ public sealed class GetSitesController : Controller
                 var notFoundPage = siteSettings?.NotFoundPage;
                 var searchPage = siteSettings?.SearchPage;
 
-                if (siteSettings is null || dictionary is null || homePageSegment is null || searchPage is null || notFoundPage is null)
+                if (siteSettings is null || dictionary is null || homePageSegment is null)
                 {
                     continue;
                 }
@@ -93,8 +93,8 @@ public sealed class GetSitesController : Controller
                 {
                     RootId = rootContent.Key,
                     SiteSettingsId = siteSettings.Key,
-                    NotFoundPageId = notFoundPage.Key,
-                    SearchPageId = searchPage.Key,
+                    NotFoundPageId = notFoundPage?.Key,
+                    SearchPageId = searchPage?.Key,
                     DictionaryId = dictionary.Key,
                     HomepageId = homepage.Key,
                     CultureInfo = domainGroup.Key,
