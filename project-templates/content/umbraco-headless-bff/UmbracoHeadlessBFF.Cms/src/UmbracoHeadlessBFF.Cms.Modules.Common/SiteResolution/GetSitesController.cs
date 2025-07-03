@@ -106,8 +106,6 @@ public sealed class GetSitesController : Controller
                 var dictionary = await _publishedContentCache.GetByIdAsync(dictionaryKeys.FirstOrDefault(), preview) as SiteDictionary;
 
                 var homePageSegment = homepage.UrlSegment(firstDomain.LanguageIsoCode);
-                //TODO: preview/unpublished site settings result in no linked pages showing
-                //
                 var notFoundPage = siteSettings?.NotFoundPage;
                 var searchPage = siteSettings?.SearchPage;
 

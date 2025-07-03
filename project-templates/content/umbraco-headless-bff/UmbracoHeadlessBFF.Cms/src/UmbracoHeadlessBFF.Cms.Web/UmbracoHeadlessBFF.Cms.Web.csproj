@@ -29,16 +29,6 @@
     <ProjectReference Include="..\UmbracoHeadlessBFF.Cms.Modules.Pages\UmbracoHeadlessBFF.Cms.Modules.Pages.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Views\Partials\grid\bootstrap3-fluid.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\Partials\grid\bootstrap3.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\Partials\grid\editors\base.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\Partials\grid\editors\embed.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\Partials\grid\editors\media.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\Partials\grid\editors\rte.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\Partials\grid\editors\textstring.cshtml" />
-  </ItemGroup>
-
   <PropertyGroup>
     <!-- Razor files are needed for the backoffice to work correctly -->
     <CopyRazorGenerateFilesToPublishDirectory>true</CopyRazorGenerateFilesToPublishDirectory>
