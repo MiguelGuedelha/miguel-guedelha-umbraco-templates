@@ -10,7 +10,6 @@ internal interface IEmbedVideoMapper : IMapper<ApiEmbedVideo, EmbedVideo>
 internal sealed class EmbedVideoMapper : IEmbedVideoMapper
 {
     private readonly IImageMapper _imageMapper;
-    //TODO: Embed convertion to v16
 
     public EmbedVideoMapper(IImageMapper imageMapper)
     {
@@ -23,7 +22,9 @@ internal sealed class EmbedVideoMapper : IEmbedVideoMapper
 
         return new()
         {
-            PlaceholderImage = placeholder is not null ? await _imageMapper.Map(placeholder) : null
+            PlaceholderImage = placeholder is not null ? await _imageMapper.Map(placeholder) : null,
+            VideoId = model.Properties.VideoId,
+            Provider = model.Properties.VideoProvider
         };
     }
 }

@@ -58,12 +58,20 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Models
 		public virtual global::Umbraco.Cms.Core.Models.MediaWithCrops PlaceholderImage => this.Value<global::Umbraco.Cms.Core.Models.MediaWithCrops>(_publishedValueFallback, "placeholderImage");
 
 		///<summary>
-		/// Video
+		/// Video Id
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("video")]
-		public virtual string Video => this.Value<string>(_publishedValueFallback, "video");
+		[ImplementPropertyType("videoId")]
+		public virtual string VideoId => this.Value<string>(_publishedValueFallback, "videoId");
+
+		///<summary>
+		/// Video Provider
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("videoProvider")]
+		public virtual string VideoProvider => this.Value<string>(_publishedValueFallback, "videoProvider");
 
 		///<summary>
 		/// Block Label
