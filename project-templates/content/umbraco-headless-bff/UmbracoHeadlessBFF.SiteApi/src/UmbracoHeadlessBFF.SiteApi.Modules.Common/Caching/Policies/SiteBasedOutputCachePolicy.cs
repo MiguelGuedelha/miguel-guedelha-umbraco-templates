@@ -55,9 +55,17 @@ public sealed class SiteBasedOutputCachePolicy : SiteApiOutputCachePolicyBase, I
         {
             var siteResolutionContext = context.HttpContext.RequestServices.GetRequiredService<SiteResolutionContext>();
 
-            context.Tags.Add(siteResolutionContext.Site.DictionaryId.ToString());
-            context.Tags.Add(siteResolutionContext.Site.NotFoundPageId.ToString());
-            context.Tags.Add(siteResolutionContext.Site.SiteSettingsId.ToString());
+            var tags = new List<string?>
+            {
+                siteResolutionContext.Site.DictionaryId.ToString(),
+                siteResolutionContext.Site.NotFoundPageId?.ToString(),
+                siteResolutionContext.Site.SiteSettingsId.ToString()
+            };
+
+            foreach (var tag in tags.Where(x => x is not null))
+            {
+                context.Tags.Add(tag!);
+            }
         }
         catch
         {
