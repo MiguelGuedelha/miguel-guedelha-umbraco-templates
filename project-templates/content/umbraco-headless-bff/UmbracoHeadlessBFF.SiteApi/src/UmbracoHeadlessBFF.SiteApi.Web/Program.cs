@@ -8,6 +8,7 @@ using UmbracoHeadlessBFF.SharedModules.Cms;
 using UmbracoHeadlessBFF.SharedModules.Common.Caching;
 using UmbracoHeadlessBFF.SharedModules.Common.Correlation;
 using UmbracoHeadlessBFF.SharedModules.Common.Environment;
+using UmbracoHeadlessBFF.SharedModules.Common.Versioning;
 using UmbracoHeadlessBFF.SiteApi.Modules.CacheInvalidation;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms;
@@ -52,6 +53,8 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 });
 
 builder.AddServiceDefaults();
+
+var version = AssemblyVersionExtensions.GetVersion();
 
 builder.AddCachingSharedModule(CachingConstants.SiteApiCacheName,
     configureJsonSerializerOptions: options =>
@@ -110,7 +113,9 @@ app.UseOutputCache();
 
 app.MapDefaultEndpoints();
 
-var apiVersionSet = app.NewApiVersionSet()
+var apiVersionSet = app
+    .MapGroup("/api")
+    .NewApiVersionSet()
     .HasApiVersion(1.0)
     .ReportApiVersions()
     .Build();
@@ -129,5 +134,9 @@ if (app.Environment.IsLocal())
             string.Join("\n", endpointSources.SelectMany(source => source.Endpoints)))
         .WithTags("Debug");
 }
+
+app
+    .MapGet("/version", () => new { version })
+    .WithTags("Version");
 
 await app.RunAsync();

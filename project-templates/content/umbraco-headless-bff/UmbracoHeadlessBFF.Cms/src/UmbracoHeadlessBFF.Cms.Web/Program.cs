@@ -8,6 +8,7 @@ using UmbracoHeadlessBFF.Cms.Modules.Common.Preview;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Urls;
 using UmbracoHeadlessBFF.SharedModules.Common.Correlation;
+using UmbracoHeadlessBFF.SharedModules.Common.Versioning;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -66,5 +67,9 @@ app.UseUmbraco()
         u.UseBackOfficeEndpoints();
         u.UseWebsiteEndpoints();
     });
+
+var version = AssemblyVersionExtensions.GetVersion();
+app.MapGet("/version", () => new { version })
+    .WithTags("Version");
 
 await app.RunAsync();
