@@ -48,17 +48,24 @@ public sealed class SiteResolutionService
 
         var sites = await GetSitesInternal();
 
+        var path = sitePath.ToString().SanitisePathSlashes();
+
         if (hasSiteId)
         {
             var parsedId = siteId.ToString();
             var matchingSiteId = sites.TryGetValue(parsedId, out var site);
             if (matchingSiteId && site is not null)
             {
-                return (parsedId, site);
+                var matchesSiteHeaders = site.Domains
+                    .Any(x => x.Domain.Equals(siteHost, StringComparison.OrdinalIgnoreCase)
+                              && path.StartsWith(x.Path, StringComparison.OrdinalIgnoreCase));
+
+                if (matchesSiteHeaders)
+                {
+                    return (parsedId, site);
+                }
             }
         }
-
-        var path = sitePath.ToString().SanitisePathSlashes();
 
         var sitesByLongestPath = sites
             .SelectMany(x => x.Value.Domains.Select(y => (x.Key, SiteDefinitionDomain: y)))
