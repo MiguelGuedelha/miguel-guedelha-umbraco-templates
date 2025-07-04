@@ -41,6 +41,11 @@ public sealed class SiteResolutionService
         var hasSitePath = context.Request.Headers.TryGetValue(CorrelationConstants.Headers.SitePath, out var sitePath);
         var hasSiteHost = context.Request.Headers.TryGetValue(CorrelationConstants.Headers.SiteHost, out var siteHost);
 
+        if (!hasSiteHost || !hasSitePath)
+        {
+            return null;
+        }
+
         var sites = await GetSitesInternal();
 
         if (hasSiteId)
@@ -51,11 +56,6 @@ public sealed class SiteResolutionService
             {
                 return (parsedId, site);
             }
-        }
-
-        if (!hasSiteHost || !hasSitePath)
-        {
-            return null;
         }
 
         var path = sitePath.ToString().SanitisePathSlashes();
