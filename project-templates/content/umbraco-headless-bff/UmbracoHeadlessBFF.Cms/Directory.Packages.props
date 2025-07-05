@@ -3,22 +3,20 @@
   <ItemGroup>
     <PackageVersion Include="Asp.Versioning.Mvc" Version="8.1.0" />
     <PackageVersion Include="Aspire.Azure.Messaging.ServiceBus" Version="9.3.1" />
-    <PackageVersion Include="Dawoe.OEmbedPickerPropertyEditor" Version="13.0.0" />
-    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.17" />
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.6" />
     <PackageVersion Include="Microsoft.ICU.ICU4C.Runtime" Version="72.1.0.3" />
     <PackageVersion Include="Scalar.AspNetCore" Version="2.5.3" />
-    <PackageVersion Include="Swashbuckle.AspNetCore" Version="8.1.4" />
-    <PackageVersion Include="Umbraco.Cms" Version="13.9.2" />
-    <PackageVersion Include="System.Text.Json" Version="8.0.5" />
-    <PackageVersion Include="Umbraco.Cms.Core" Version="13.9.2" />
-    <PackageVersion Include="Umbraco.Cms.Infrastructure" Version="13.9.2" />
-    <PackageVersion Include="Umbraco.Cms.Web.BackOffice" Version="13.9.2" />
-    <PackageVersion Include="Umbraco.Cms.Web.Common" Version="13.9.2" />
-    <PackageVersion Include="Umbraco.Cms.Web.Website" Version="13.9.2" />
-    <PackageVersion Include="Umbraco.Community.Contentment" Version="5.1.1" />
-    <PackageVersion Include="Umbraco.Community.DeliveryApiExtensions" Version="13.1.1" />
-    <PackageVersion Include="Umbraco.StorageProviders.AzureBlob" Version="13.1.0" />
-    <PackageVersion Include="Umbraco.StorageProviders.AzureBlob.ImageSharp" Version="13.1.0" />
-    <PackageVersion Include="uSync" Version="13.2.7" />
+    <PackageVersion Include="Swashbuckle.AspNetCore" Version="9.0.1" />
+    <PackageVersion Include="Umbraco.Cms" Version="16.0.0" />
+    <PackageVersion Include="System.Text.Json" Version="9.0.6" />
+    <PackageVersion Include="Umbraco.Cms.Core" Version="16.0.0" />
+    <PackageVersion Include="Umbraco.Cms.Infrastructure" Version="16.0.0" />
+    <PackageVersion Include="Umbraco.Cms.Web.Common" Version="16.0.0" />
+    <PackageVersion Include="Umbraco.Cms.Web.Website" Version="16.0.0" />
+    <PackageVersion Include="Umbraco.Community.Contentment" Version="6.0.0-alpha008" />
+    <PackageVersion Include="Umbraco.Community.DeliveryApiExtensions" Version="16.0.1" />
+    <PackageVersion Include="Umbraco.StorageProviders.AzureBlob" Version="16.0.0" />
+    <PackageVersion Include="Umbraco.StorageProviders.AzureBlob.ImageSharp" Version="16.0.0" />
+    <PackageVersion Include="uSync" Version="16.0.0" />
   </ItemGroup>
 </Project>

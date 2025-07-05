@@ -1,4 +1,7 @@
 ﻿using System.Text.RegularExpressions;
+using Umbraco.Cms.Core.Models.PublishedContent;
+using Umbraco.Cms.Core.PublishedCache;
+using Umbraco.Cms.Core.Routing;
 using Umbraco.Cms.Core.Web;
 using Umbraco.Extensions;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Models;
@@ -12,20 +15,26 @@ public sealed partial class LinkService
     [GeneratedRegex("^\\d+/(.*)$")]
     private static partial Regex ResolvedRouteRegex();
 
-    private readonly IUmbracoContextFactory _umbracoContextFactory;
+    private readonly IPublishedContentCache _publishedContentCache;
+    private readonly IPublishedUrlProvider _publishedUrlProvider;
+    private readonly IDomainCache _domainCache;
+    private readonly IVariationContextAccessor _variationContextAccessor;
 
-    public LinkService(IUmbracoContextFactory umbracoContextFactory)
+    public LinkService(IPublishedContentCache publishedContentCache,
+        IPublishedUrlProvider publishedUrlProvider,
+        IDomainCache domainCache,
+        IVariationContextAccessor variationContextAccessor)
     {
-        _umbracoContextFactory = umbracoContextFactory;
+        _publishedContentCache = publishedContentCache;
+        _publishedUrlProvider = publishedUrlProvider;
+        _domainCache = domainCache;
+        _variationContextAccessor = variationContextAccessor;
     }
 
     public Uri? GetUriByContentId(Guid linkId, string culture, bool preview)
     {
-        using var context = _umbracoContextFactory.EnsureUmbracoContext();
-
-        var contentCache = context.UmbracoContext.Content;
-
-        var item = contentCache?.GetById(preview, linkId);
+        _variationContextAccessor.VariationContext = new(culture);
+        var item = _publishedContentCache.GetById(preview, linkId);
 
         if (item is null)
         {
@@ -39,21 +48,14 @@ public sealed partial class LinkService
             return null;
         }
 
-        var domainCache = context.UmbracoContext.Domains;
-
-        var domain = domainCache?.GetAssigned(home.Id).FirstOrDefault(x => x.Culture == culture);
+        var domain = _domainCache.GetAssigned(home.Id).FirstOrDefault(x => x.Culture == culture);
 
         if (domain is null)
         {
             return null;
         }
 
-        var route = contentCache?.GetRouteById(preview, item.Id, culture);
-
-        if (route is null)
-        {
-            return null;
-        }
+        var route = _publishedUrlProvider.GetUrl(item.Id, culture: culture);
 
         var domainName = domain.Name.Contains("http") ? domain.Name.Replace("http:", "https:") : $"https://{domain.Name}";
 

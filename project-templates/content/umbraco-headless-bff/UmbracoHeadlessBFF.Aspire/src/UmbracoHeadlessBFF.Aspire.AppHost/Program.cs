@@ -13,7 +13,7 @@ var smtpUser = builder.AddParameter("SmtpUser");
 var smtpPassword = builder.AddParameter("SmtpPassword", true);
 var smtpPort = builder.AddParameter("SmtpPort");
 
-const string baseBindPath = "../../../local-data/v13/";
+const string baseBindPath = "../../../local-data/v16/";
 
 var mailServer = builder.AddContainer("MailServer", "rnwood/smtp4dev")
     .WithHttpEndpoint(34523, 80, "ui")

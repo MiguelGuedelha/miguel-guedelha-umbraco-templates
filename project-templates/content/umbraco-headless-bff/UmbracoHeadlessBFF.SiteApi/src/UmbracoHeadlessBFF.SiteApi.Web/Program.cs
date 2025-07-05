@@ -56,7 +56,9 @@ builder.AddServiceDefaults();
 
 var version = AssemblyVersionExtensions.GetVersion();
 
-builder.AddCachingSharedModule(CachingConstants.SiteApiCacheName,
+var cachePrefix = $"{version}:{CachingConstants.SiteApiCacheName}";
+
+builder.AddCachingSharedModule(cachePrefix,
     configureJsonSerializerOptions: options =>
     {
         options.Converters.Add(new JsonStringEnumConverter());
@@ -68,7 +70,7 @@ builder.AddCorrelationCommonSharedModule();
 builder.AddCmsCommonSharedModule();
 builder.AddErrorsCommonModule();
 builder.AddConfigurationCommonModule();
-builder.AddCachingCommonModule(CachingConstants.SiteApiCacheName);
+builder.AddCachingCommonModule(cachePrefix);
 builder.AddCmsCommonModule();
 builder.AddPagesModule();
 builder.AddCacheInvalidationModule();

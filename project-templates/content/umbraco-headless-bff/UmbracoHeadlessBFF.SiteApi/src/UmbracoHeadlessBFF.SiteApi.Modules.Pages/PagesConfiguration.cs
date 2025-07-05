@@ -27,7 +27,6 @@ public static class PagesConfiguration
             .AddTransient<ICardMapper, CardMapper>()
             .AddTransient<IImageMapper, ImageMapper>()
             .AddTransient<IVideoMapper, VideoMapper>()
-            .AddTransient<IEmbedItemMapper, EmbedItemMapper>()
             .AddTransient<IMediaBlockMapper, MediaBlockMapper>()
             .AddTransient<IEmbedVideoMapper, EmbedVideoMapper>()
             .AddTransient<IMediaLibraryVideoMapper, MediaLibraryVideoMapper>()

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Models.PublishedContent;
+using Umbraco.Cms.Core.PublishedCache;
 using Umbraco.Cms.Core.Routing;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Core.Web;
@@ -27,11 +28,12 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.Links;
 [ApiKey]
 public sealed class GetRedirectLinkController : Controller
 {
-    private readonly IUmbracoContextFactory _umbracoContextFactory;
     private readonly IVariationContextAccessor _variationContextAccessor;
     private readonly IRedirectUrlService _redirectUrlService;
     private readonly IPublishedUrlProvider _publishedUrlProvider;
     private readonly ApplicationUrlOptions _applicationUrlOptions;
+    private readonly IPublishedContentCache _publishedContentCache;
+    private readonly IDocumentUrlService _documentUrlService;
 
     private static readonly HashSet<string> s_nonValidDestinationPageTypes = [
         SiteSettings.ModelTypeAlias,
@@ -40,14 +42,19 @@ public sealed class GetRedirectLinkController : Controller
         Umbraco.Models.NotFound.ModelTypeAlias,
     ];
 
-    public GetRedirectLinkController(IUmbracoContextFactory umbracoContextFactory,
-        IVariationContextAccessor variationContextAccessor, IRedirectUrlService redirectUrlService,
-        IPublishedUrlProvider publishedUrlProvider, IOptionsSnapshot<ApplicationUrlOptions> applicationUrlOptions)
+    public GetRedirectLinkController(
+        IVariationContextAccessor variationContextAccessor,
+        IRedirectUrlService redirectUrlService,
+        IPublishedUrlProvider publishedUrlProvider,
+        IOptionsSnapshot<ApplicationUrlOptions> applicationUrlOptions,
+        IPublishedContentCache publishedContentCache,
+        IDocumentUrlService documentUrlService)
     {
-        _umbracoContextFactory = umbracoContextFactory;
         _variationContextAccessor = variationContextAccessor;
         _redirectUrlService = redirectUrlService;
         _publishedUrlProvider = publishedUrlProvider;
+        _publishedContentCache = publishedContentCache;
+        _documentUrlService = documentUrlService;
         _applicationUrlOptions = applicationUrlOptions.Value;
     }
 
@@ -56,21 +63,12 @@ public sealed class GetRedirectLinkController : Controller
     {
         _variationContextAccessor.VariationContext = new(culture);
 
-        using var context = _umbracoContextFactory.EnsureUmbracoContext().UmbracoContext;
-
-        var contentCache = context.Content;
-
-        if (contentCache is null)
-        {
-            throw new InvalidOperationException("No content cache");
-        }
-
         if (path.Contains("%2F", StringComparison.OrdinalIgnoreCase))
         {
             path = WebUtility.UrlDecode(path);
         }
 
-        var siteRoot = contentCache.GetById(siteId);
+        var siteRoot = _publishedContentCache.GetById(siteId);
 
         if (siteRoot is null)
         {
@@ -83,7 +81,7 @@ public sealed class GetRedirectLinkController : Controller
 
         if (latestRedirect is not null)
         {
-            var destination = contentCache.GetById(latestRedirect.ContentId);
+            var destination = _publishedContentCache.GetById(latestRedirect.ContentId);
             if (destination is not null)
             {
                 var destinationUrl = destination.Url(_publishedUrlProvider, latestRedirect.Culture, UrlMode.Absolute);
@@ -101,7 +99,15 @@ public sealed class GetRedirectLinkController : Controller
 
 
         // Handles all the pages which have the Redirect Settings composition and are not meant to be displayed on the site
-        var item = contentCache.GetByRoute(itemRoute);
+        var itemKey = _documentUrlService.GetDocumentKeyByRoute(itemRoute, culture, null, false);
+
+        if (itemKey is null)
+        {
+            return TypedResults.NotFound();
+        }
+
+        var item = await _publishedContentCache.GetByIdAsync(itemKey.Value);
+
 
         if (item is not IRedirectSettings redirectSettings)
         {
@@ -110,7 +116,7 @@ public sealed class GetRedirectLinkController : Controller
 
         var url = redirectSettings.RedirectLink switch
         {
-            { Type: LinkType.Content } => redirectSettings.RedirectLink.Content?.Url(_publishedUrlProvider, culture, UrlMode.Absolute),
+            { Type: LinkType.Content } => redirectSettings.RedirectLink.Url,
             { Type: LinkType.Media } => new Uri(new(_applicationUrlOptions.Media), redirectSettings.RedirectLink.Url).ToString(),
             { Type: LinkType.External } => redirectSettings.RedirectLink.Url!,
             _ => GenerateFallbackUrl(item, redirectSettings.RedirectDirection, culture)
