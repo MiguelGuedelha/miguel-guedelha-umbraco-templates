@@ -32,9 +32,13 @@ public static class CachingConfiguration
             throw new ArgumentException("Caching options can't be parsed");
         }
 
+        var cacheBuilder = builder.Services
+            .AddFusionCache(cacheName ?? FusionCacheOptions.DefaultCacheName)
+            .WithCacheKeyPrefix();
+
         if (!defaultCachingOptions.Enabled)
         {
-            builder.Services.AddFusionCache().WithNullImplementation();
+            cacheBuilder.WithNullImplementation();
             return;
         }
 
@@ -45,8 +49,7 @@ public static class CachingConfiguration
         var jsonOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web);
         configureJsonSerializerOptions?.Invoke(jsonOptions);
 
-        builder.Services.AddFusionCache(cacheName ?? FusionCacheOptions.DefaultCacheName)
-            .WithCacheKeyPrefix()
+        cacheBuilder
             .WithOptions(o =>
             {
                 //Backs off the Distributed Cache if having issues
