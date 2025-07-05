@@ -41,7 +41,14 @@ public sealed class SiteResolutionService
         var hasSitePath = context.Request.Headers.TryGetValue(CorrelationConstants.Headers.SitePath, out var sitePath);
         var hasSiteHost = context.Request.Headers.TryGetValue(CorrelationConstants.Headers.SiteHost, out var siteHost);
 
+        if (!hasSiteHost || !hasSitePath)
+        {
+            return null;
+        }
+
         var sites = await GetSitesInternal();
+
+        var path = sitePath.ToString().SanitisePathSlashes();
 
         if (hasSiteId)
         {
@@ -49,16 +56,16 @@ public sealed class SiteResolutionService
             var matchingSiteId = sites.TryGetValue(parsedId, out var site);
             if (matchingSiteId && site is not null)
             {
-                return (parsedId, site);
+                var matchesSiteHeaders = site.Domains
+                    .Any(x => x.Domain.Equals(siteHost, StringComparison.OrdinalIgnoreCase)
+                              && path.StartsWith(x.Path, StringComparison.OrdinalIgnoreCase));
+
+                if (matchesSiteHeaders)
+                {
+                    return (parsedId, site);
+                }
             }
         }
-
-        if (!hasSiteHost || !hasSitePath)
-        {
-            return null;
-        }
-
-        var path = sitePath.ToString().SanitisePathSlashes();
 
         var sitesByLongestPath = sites
             .SelectMany(x => x.Value.Domains.Select(y => (x.Key, SiteDefinitionDomain: y)))
