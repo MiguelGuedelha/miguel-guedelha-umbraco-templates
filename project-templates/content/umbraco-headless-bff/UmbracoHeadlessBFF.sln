@@ -5,8 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Local Configuration", "Local Configuration", "{88CA445B-8AD8-46D9-9D28-8373FD914273}"
 	ProjectSection(SolutionItems) = preProject
-		Directory.Build.props = Directory.Build.props
-		Directory.Packages.props = Directory.Packages.props
+		UmbracoHeadlessBFF.Aspire\Directory.Build.props = UmbracoHeadlessBFF.Aspire\Directory.Build.props
+		UmbracoHeadlessBFF.Aspire\Directory.Packages.props = UmbracoHeadlessBFF.Aspire\Directory.Packages.props
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "001 Global Configuration", "001 Global Configuration", "{E0332E04-0B45-4FF3-AB54-FF343395397C}"
