@@ -54,8 +54,6 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 
 builder.AddServiceDefaults();
 
-var version = AssemblyVersionExtensions.GetVersion();
-
 builder.AddCachingSharedModule(CachingConstants.SiteApiCacheName,
     configureJsonSerializerOptions: options =>
     {
@@ -68,7 +66,7 @@ builder.AddCorrelationCommonSharedModule();
 builder.AddCmsCommonSharedModule();
 builder.AddErrorsCommonModule();
 builder.AddConfigurationCommonModule();
-builder.AddCachingCommonModule(CachingConstants.SiteApiCacheName);
+builder.AddCachingCommonModule();
 builder.AddCmsCommonModule();
 builder.AddPagesModule();
 builder.AddCacheInvalidationModule();
@@ -135,6 +133,7 @@ if (app.Environment.IsLocal())
         .WithTags("Debug");
 }
 
+var version = AssemblyVersionExtensions.GetVersion();
 app
     .MapGet("/version", () => new { version })
     .WithTags("Version");

@@ -9,10 +9,9 @@ namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching;
 
 public static class CachingConfiguration
 {
-    public static void AddCachingCommonModule(this WebApplicationBuilder builder, string? cacheName = FusionCacheOptions.DefaultCacheName)
+    public static void AddCachingCommonModule(this WebApplicationBuilder builder)
     {
-        var outputCacheName = $"{cacheName}OutputCache";
-        builder.Services.AddFusionCache(outputCacheName)
+        builder.Services.AddFusionCache(CachingConstants.SiteApiOutputCacheName)
             .WithCacheKeyPrefixByCacheName()
             .WithDefaultEntryOptions(o =>
             {
@@ -27,7 +26,7 @@ public static class CachingConfiguration
 
         builder.Services.AddFusionOutputCache(o =>
         {
-            o.CacheName = outputCacheName;
+            o.CacheName = CachingConstants.SiteApiOutputCacheName;
         });
 
         builder.Services.AddOutputCache(o =>

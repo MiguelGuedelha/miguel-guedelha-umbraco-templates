@@ -15,25 +15,5 @@ public static class CachingConfiguration
     public static void AddCachingModule(this WebApplicationBuilder builder)
     {
         builder.AddAzureServiceBusClient("ServiceBus");
-
-        //Use fusion cache (and by extension all its perks) under the hood for the umbraco cache
-        // builder.Services
-        //     .AddFusionCache("umbraco")
-        //     .WithCacheKeyPrefixByCacheName()
-        //     .WithDefaultEntryOptions(o =>
-        //     {
-        //         o.IsFailSafeEnabled = true;
-        //     })
-        //     .WithSerializer(new FusionCacheSystemTextJsonSerializer())
-        //     .WithRegisteredDistributedCache()
-        //     .WithStackExchangeRedisBackplane(o =>
-        //     {
-        //         o.Configuration = builder.Configuration.GetConnectionString(CachingConstants.ConnectionStringName);
-        //     })
-        //     .AsHybridCache();
-        //
-        // builder.Services.AddOpenTelemetry()
-        //     .WithTracing(tracing => tracing.AddFusionCacheInstrumentation())
-        //     .WithMetrics(metrics => metrics.AddFusionCacheInstrumentation());
     }
 }

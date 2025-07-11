@@ -1,12 +1,10 @@
 using Azure.Messaging.ServiceBus;
-using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using UmbracoHeadlessBFF.SharedModules.Common.Caching;
 using UmbracoHeadlessBFF.SharedModules.Common.Caching.Messaging;
+using UmbracoHeadlessBFF.SharedModules.Common.Versioning;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching;
 using ZiggyCreatures.Caching.Fusion;
-using CachingConstants = UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching.CachingConstants;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.CacheInvalidation;
 
@@ -32,7 +30,7 @@ public sealed class CacheInvalidationBackgroundService : BackgroundService
             });
 
         _siteApiFusionCache = fusionCacheProvider.GetCache(CachingConstants.SiteApiCacheName);
-        _siteApiOutputFusionCache = fusionCacheProvider.GetCache($"{CachingConstants.SiteApiCacheName}OutputCache");
+        _siteApiOutputFusionCache = fusionCacheProvider.GetCache(CachingConstants.SiteApiOutputCacheName);
         _logger = logger;
     }
 
