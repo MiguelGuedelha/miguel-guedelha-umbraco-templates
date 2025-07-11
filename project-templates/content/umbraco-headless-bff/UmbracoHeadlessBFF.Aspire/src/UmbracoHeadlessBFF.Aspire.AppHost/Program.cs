@@ -26,8 +26,6 @@ var mailServer = builder.AddContainer("MailServer", "rnwood/smtp4dev")
 var database = builder
     .AddSqlServer("SqlServer")
     .WithDataBindMount(Path.Join(baseBindPath, "database/data"))
-    .WithBindMount(Path.Join(baseBindPath, "database/logs"), "/var/opt/mssql/log")
-    .WithBindMount(Path.Join(baseBindPath, "database/secrets"), "/var/opt/mssql/secrets")
     .WithContainerRuntimeArgs("--user", "root");
 
 var umbracoDb = database.AddDatabase("Database", "umbraco-cms");
