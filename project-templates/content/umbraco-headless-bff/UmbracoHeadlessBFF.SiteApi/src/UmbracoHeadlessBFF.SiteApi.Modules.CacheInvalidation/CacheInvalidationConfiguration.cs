@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using UmbracoHeadlessBFF.SharedModules.Common.ServiceDiscovery;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.CacheInvalidation;
 
@@ -10,7 +11,7 @@ public static class CacheInvalidationConfiguration
 {
     public static void AddCacheInvalidationModule(this WebApplicationBuilder builder)
     {
-        builder.AddAzureServiceBusClient("ServiceBus");
+        builder.AddAzureServiceBusClient(Services.ServiceBus.Name);
         builder.Services.AddHostedService<CacheInvalidationBackgroundService>();
     }
 

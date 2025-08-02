@@ -5,6 +5,7 @@ using Microsoft.Extensions.Hosting;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
 using UmbracoHeadlessBFF.SharedModules.Common.Caching;
+using UmbracoHeadlessBFF.SharedModules.Common.ServiceDiscovery;
 using ZiggyCreatures.Caching.Fusion;
 using ZiggyCreatures.Caching.Fusion.Serialization.SystemTextJson;
 
@@ -14,6 +15,6 @@ public static class CachingConfiguration
 {
     public static void AddCachingModule(this WebApplicationBuilder builder)
     {
-        builder.AddAzureServiceBusClient("ServiceBus");
+        builder.AddAzureServiceBusClient(Services.ServiceBus.Name);
     }
 }

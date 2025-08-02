@@ -10,6 +10,7 @@ using UmbracoHeadlessBFF.SharedModules.Cms.Preview;
 using UmbracoHeadlessBFF.SharedModules.Cms.Robots;
 using UmbracoHeadlessBFF.SharedModules.Cms.Sitemap;
 using UmbracoHeadlessBFF.SharedModules.Cms.SiteResolution;
+using UmbracoHeadlessBFF.SharedModules.Common.ServiceDiscovery;
 
 namespace UmbracoHeadlessBFF.SharedModules.Cms;
 
@@ -38,7 +39,7 @@ public static class CmsConfiguration
         builder.Services.AddRefitClient<IUmbracoDeliveryApi>(s_clientSettings)
             .ConfigureHttpClient(c =>
             {
-                c.BaseAddress = new("https://Cms/umbraco/delivery/api/v2");
+                c.BaseAddress = new($"https://{Services.Cms}/umbraco/delivery/api/v2");
             })
             .AddHttpMessageHandler<DeliveryApiHeadersHandler>()
             .AddHeaderPropagation();
@@ -48,7 +49,7 @@ public static class CmsConfiguration
         builder.Services.AddRefitClient<ISiteResolutionApi>()
             .ConfigureHttpClient(c =>
             {
-                c.BaseAddress = new("https://Cms/api/v1.0/sites");
+                c.BaseAddress = new($"https://{Services.Cms}/api/v1.0/sites");
             })
             .AddHttpMessageHandler<DeliveryApiHeadersHandler>()
             .AddHeaderPropagation();
@@ -57,7 +58,7 @@ public static class CmsConfiguration
         builder.Services.AddRefitClient<ILinksApi>()
             .ConfigureHttpClient(c =>
             {
-                c.BaseAddress = new("https://Cms/api/v1.0/links");
+                c.BaseAddress = new($"https://{Services.Cms}/api/v1.0/links");
             })
             .AddHttpMessageHandler<DeliveryApiHeadersHandler>()
             .AddHeaderPropagation();
@@ -66,7 +67,7 @@ public static class CmsConfiguration
         builder.Services.AddRefitClient<IPreviewVerificationApi>()
             .ConfigureHttpClient(c =>
             {
-                c.BaseAddress = new("https://Cms/api/v1.0/preview");
+                c.BaseAddress = new($"https://{Services.Cms}/api/v1.0/preview");
             })
             .AddHeaderPropagation();
 
@@ -74,7 +75,7 @@ public static class CmsConfiguration
         builder.Services.AddRefitClient<ISitemapsApi>()
             .ConfigureHttpClient(c =>
             {
-                c.BaseAddress = new("https://Cms/api/v1.0/pages");
+                c.BaseAddress = new($"https://{Services.Cms}/api/v1.0/pages");
             })
             .AddHttpMessageHandler<DeliveryApiHeadersHandler>()
             .AddHeaderPropagation();
@@ -83,7 +84,7 @@ public static class CmsConfiguration
         builder.Services.AddRefitClient<IRobotsApi>()
             .ConfigureHttpClient(c =>
             {
-                c.BaseAddress = new("https://Cms/api/v1.0/pages");
+                c.BaseAddress = new($"https://{Services.Cms}/api/v1.0/pages");
             })
             .AddHttpMessageHandler<DeliveryApiHeadersHandler>()
             .AddHeaderPropagation();

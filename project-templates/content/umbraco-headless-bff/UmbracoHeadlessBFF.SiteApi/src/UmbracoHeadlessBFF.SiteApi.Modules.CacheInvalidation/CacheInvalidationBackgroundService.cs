@@ -3,6 +3,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using UmbracoHeadlessBFF.SharedModules.Common.Caching.Messaging;
 using UmbracoHeadlessBFF.SharedModules.Common.Versioning;
+using UmbracoHeadlessBFF.SharedModules.Common.ServiceDiscovery;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching;
 using ZiggyCreatures.Caching.Fusion;
 
@@ -21,8 +22,8 @@ public sealed class CacheInvalidationBackgroundService : BackgroundService
         ILogger<CacheInvalidationBackgroundService> logger)
     {
         _serviceBusProcessor = serviceBusClient.CreateProcessor(
-            "CmsCacheTopic",
-            "CmsCacheTopicSiteApiSub",
+            Services.ServiceBus.Topics.CmsCache,
+            Services.ServiceBus.Subscriptions.SiteApiCmsCache,
             new()
             {
                 AutoCompleteMessages = false,

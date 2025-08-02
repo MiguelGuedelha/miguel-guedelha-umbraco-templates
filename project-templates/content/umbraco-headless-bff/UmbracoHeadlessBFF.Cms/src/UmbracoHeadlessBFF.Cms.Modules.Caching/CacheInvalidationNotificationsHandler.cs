@@ -6,6 +6,7 @@ using Umbraco.Cms.Core.Notifications;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Core.Services.Changes;
 using UmbracoHeadlessBFF.SharedModules.Common.Caching.Messaging;
+using UmbracoHeadlessBFF.SharedModules.Common.ServiceDiscovery;
 
 namespace UmbracoHeadlessBFF.Cms.Modules.Caching;
 
@@ -21,7 +22,7 @@ internal sealed class CacheInvalidationNotificationsHandler :
         ServiceBusClient serviceBusClient)
     {
         _contentService = contentService;
-        _serviceBusSender = serviceBusClient.CreateSender("CmsCacheTopic");
+        _serviceBusSender = serviceBusClient.CreateSender(Services.ServiceBus.Topics.CmsCache);
     }
 
     public async Task HandleAsync(ContentCacheRefresherNotification notification, CancellationToken cancellationToken)
