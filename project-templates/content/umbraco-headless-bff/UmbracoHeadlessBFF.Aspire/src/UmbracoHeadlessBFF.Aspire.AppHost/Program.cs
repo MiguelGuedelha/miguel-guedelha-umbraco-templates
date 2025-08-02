@@ -12,13 +12,15 @@ if (builder.Environment.IsLocal())
 
 var smtpUser = builder.AddParameter("SmtpUser");
 var smtpPassword = builder.AddParameter("SmtpPassword", true);
-var smtpPort = await builder.AddParameter("SmtpPort").Resource.GetValueAsync(CancellationToken.None);
+var smtpPort = builder.AddParameter("SmtpPort");
+
+var smtpPortString = await smtpPort.Resource.GetValueAsync(CancellationToken.None);
 
 const string baseBindPath = "../../../local-data/v13/";
 
 var mailServer = builder.AddContainer(Services.SmtpServer, "rnwood/smtp4dev")
     .WithHttpEndpoint(34523, 80, "ui")
-    .WithHttpEndpoint(int.Parse(smtpPort!), 25, "smtp")
+    .WithHttpEndpoint(int.Parse(smtpPortString!), 25, "smtp")
     .WithBindMount(Path.Join(baseBindPath, "mail-server/data"), "/stmp4dev")
     .WithEnvironment("ServerOptions__AuthenticationRequired", "true")
     .WithEnvironment("ServerOptions__Users__0__Username", smtpUser)
