@@ -19,10 +19,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference IsAspireProjectResource="false" Include="..\..\..\UmbracoHeadlessBFF.SharedModules\src\UmbracoHeadlessBFF.SharedModules.Common\UmbracoHeadlessBFF.SharedModules.Common.csproj" />
     <ProjectReference
-      Include="..\..\..\UmbracoHeadlessBFF.Cms\src\UmbracoHeadlessBFF.Cms.Web\UmbracoHeadlessBFF.Cms.Web.csproj" />
+      Include="..\..\..\UmbracoHeadlessBFF.SharedModules\src\UmbracoHeadlessBFF.SharedModules.Common\UmbracoHeadlessBFF.SharedModules.Common.csproj"
+      IsAspireProjectResource="false"
+    />
     <ProjectReference
-      Include="..\..\..\UmbracoHeadlessBFF.SiteApi\src\UmbracoHeadlessBFF.SiteApi.Web\UmbracoHeadlessBFF.SiteApi.Web.csproj" />
+      Include="..\..\..\UmbracoHeadlessBFF.Cms\src\UmbracoHeadlessBFF.Cms.Web\UmbracoHeadlessBFF.Cms.Web.csproj"
+      AspireProjectMetadataTypeName="Cms"
+    />
+    <ProjectReference
+      Include="..\..\..\UmbracoHeadlessBFF.SiteApi\src\UmbracoHeadlessBFF.SiteApi.Web\UmbracoHeadlessBFF.SiteApi.Web.csproj"
+      AspireProjectMetadataTypeName="SiteApi"
+    />
   </ItemGroup>
 </Project>

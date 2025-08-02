@@ -54,11 +54,7 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 
 builder.AddServiceDefaults();
 
-var version = AssemblyVersionExtensions.GetVersion();
-
-var cachePrefix = $"{version}:{CachingConstants.SiteApiCacheName}";
-
-builder.AddCachingSharedModule(cachePrefix,
+builder.AddCachingSharedModule(CachingConstants.SiteApiCacheName,
     configureJsonSerializerOptions: options =>
     {
         options.Converters.Add(new JsonStringEnumConverter());
@@ -70,7 +66,7 @@ builder.AddCorrelationCommonSharedModule();
 builder.AddCmsCommonSharedModule();
 builder.AddErrorsCommonModule();
 builder.AddConfigurationCommonModule();
-builder.AddCachingCommonModule(cachePrefix);
+builder.AddCachingCommonModule(CachingConstants.SiteApiCacheName);
 builder.AddCmsCommonModule();
 builder.AddPagesModule();
 builder.AddCacheInvalidationModule();
@@ -136,6 +132,8 @@ if (app.Environment.IsLocal())
             string.Join("\n", endpointSources.SelectMany(source => source.Endpoints)))
         .WithTags("Debug");
 }
+
+var version = AssemblyVersionExtensions.GetVersion();
 
 app
     .MapGet("/version", () => new { version })

@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using UmbracoHeadlessBFF.SharedModules.Common.Caching;
 using UmbracoHeadlessBFF.SharedModules.Common.Environment;
+using UmbracoHeadlessBFF.SharedModules.Common.ServiceDiscovery;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
@@ -11,46 +12,44 @@ if (builder.Environment.IsLocal())
 
 var smtpUser = builder.AddParameter("SmtpUser");
 var smtpPassword = builder.AddParameter("SmtpPassword", true);
-var smtpPort = builder.AddParameter("SmtpPort");
+var smtpPort = await builder.AddParameter("SmtpPort").Resource.GetValueAsync(CancellationToken.None);
 
 const string baseBindPath = "../../../local-data/v13/";
 
-var mailServer = builder.AddContainer("MailServer", "rnwood/smtp4dev")
+var mailServer = builder.AddContainer(Services.SmtpServer, "rnwood/smtp4dev")
     .WithHttpEndpoint(34523, 80, "ui")
-    .WithHttpEndpoint(int.Parse(smtpPort.Resource.Value), 25, "smtp")
+    .WithHttpEndpoint(int.Parse(smtpPort!), 25, "smtp")
     .WithBindMount(Path.Join(baseBindPath, "mail-server/data"), "/stmp4dev")
     .WithEnvironment("ServerOptions__AuthenticationRequired", "true")
     .WithEnvironment("ServerOptions__Users__0__Username", smtpUser)
     .WithEnvironment("ServerOptions__Users__0__Password", smtpPassword);
 
 var database = builder
-    .AddSqlServer("SqlServer")
+    .AddSqlServer(Services.DatabaseServer)
     .WithDataBindMount(Path.Join(baseBindPath, "database/data"))
     .WithContainerRuntimeArgs("--user", "root");
 
-var umbracoDb = database.AddDatabase("Database", "umbraco-cms");
+var umbracoDb = database.AddDatabase(Services.Database, "umbraco-cms");
 
 var cache = builder
     .AddRedis(CachingConstants.ConnectionStringName)
     .WithRedisInsight();
 
 var azureStorage = builder
-    .AddAzureStorage("Storage")
+    .AddAzureStorage(Services.AzureStorage)
     .RunAsEmulator(c =>
     {
         c.WithDataBindMount(Path.Join(baseBindPath, "azure-storage/data"));
     });
 
-var blobs = azureStorage.AddBlobs("blobs");
+var cmsUmbracoBlobContainer = await builder.AddParameter("CmsUmbracoBlobContainer").Resource.GetValueAsync(CancellationToken.None);
 
-var cmsUmbracoBlobContainer = builder.AddParameter("CmsUmbracoBlobContainer");
-
-var umbracoMediaBlob = blobs.AddBlobContainer(cmsUmbracoBlobContainer.Resource.Value);
+var umbracoMediaBlob = azureStorage.AddBlobContainer(cmsUmbracoBlobContainer!);
 
 var cmsDeliveryApiKey = builder.AddParameter("CmsDeliveryApiKey");
 
 var serviceBus = builder
-    .AddAzureServiceBus("ServiceBus")
+    .AddAzureServiceBus(Services.ServiceBus.Name)
     .RunAsEmulator(sb =>
     {
         // See https://github.com/dotnet/aspire/issues/8818 for details of what is happening here
@@ -75,20 +74,15 @@ var sbHc = serviceBus.Resource.Annotations.OfType<HealthCheckAnnotation>().First
 serviceBus.Resource.Annotations.Remove(sbHc);
 serviceBus.WithHttpHealthCheck("/health", 200, "sbhealthendpoint");
 
-var cmsCacheTopic = serviceBus.AddServiceBusTopic("CmsCacheTopic");
+var cmsCacheTopic = serviceBus.AddServiceBusTopic(Services.ServiceBus.Topics.CmsCache);
 
-cmsCacheTopic.AddServiceBusSubscription("CmsCacheTopicSiteApiSub")
+cmsCacheTopic.AddServiceBusSubscription(Services.ServiceBus.Subscriptions.SiteApiCmsCache)
     .WithProperties(sub =>
     {
         sub.MaxDeliveryCount = 5;
     });
 
-#if (false)
-// Don't commit actual name as below, it should not be compilable inside this template
-// Only compilable when testing/running during template development
-// It should always be GeneratedClassNamePrefix_Cms_Web when committed to remote
-#endif
-var cms = builder.AddProject<Projects.GeneratedClassNamePrefix_Cms_Web>("Cms", launchProfileName: "single")
+var cms = builder.AddProject<Projects.Cms>(Services.Cms, launchProfileName: "single")
     .WithExternalHttpEndpoints();
 
 cms.WithReference(umbracoDb, connectionName: "umbracoDbDSN")
@@ -97,7 +91,7 @@ cms.WithReference(umbracoDb, connectionName: "umbracoDbDSN")
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Port", smtpPort)
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Username", smtpUser)
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Password", smtpPassword)
-    .WithEnvironment("Umbraco__Storage__AzureBlob__Media__ConnectionString", blobs)
+    .WithEnvironment("Umbraco__Storage__AzureBlob__Media__ConnectionString", umbracoMediaBlob.Resource.Parent.ConnectionStringExpression)
     .WithEnvironment("Umbraco__Storage__AzureBlob__Media__ContainerName", cmsUmbracoBlobContainer)
     .WithEnvironment("Umbraco__CMS__DeliveryApi__ApiKey", cmsDeliveryApiKey)
     .WithEnvironment("ApplicationUrls__Media", () => cms.Resource.GetEndpoint("https").Url)
@@ -120,12 +114,7 @@ cms.WithUrls(context =>
     context.Urls.Add(new() { Url = $"{httpsEndpointUrl}/umbraco/swagger/index.html", DisplayText = "Swagger - Default API", Endpoint = httpsEndpoint });
 });
 
-#if (false)
-// Don't commit actual name as below, it should not be compilable inside this template
-// Only compilable when testing/running during template development
-// It should always be GeneratedClassNamePrefix_SiteApi_Web when committed to remote
-#endif
-var siteApi = builder.AddProject<Projects.GeneratedClassNamePrefix_SiteApi_Web>("SiteApi")
+var siteApi = builder.AddProject<Projects.SiteApi>(Services.SiteApi)
     .WithExternalHttpEndpoints()
     .WithReference(cache)
     .WithReference(cms)
@@ -147,7 +136,7 @@ siteApi.WithUrls(context =>
 
 // Example frontend service that could be added to aspire orchestration
 // Delete if not desired
-// var frontend = builder.AddPnpmApp("frontend-astro", "../../../UmbracoHeadlessBFF.Frontend", "dev")
+// var frontend = builder.AddPnpmApp(Services.Frontend, "../../../UmbracoHeadlessBFF.Frontend", "dev")
 //     .WithPnpmPackageInstallation()
 //     .WithReference(siteApi)
 //     .WithHttpEndpoint(targetPort: 4321)
