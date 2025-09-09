@@ -96,7 +96,7 @@ public sealed class GetSitesController : Controller
                     continue;
                 }
 
-                _variationContextAccessor.VariationContext = new VariationContext(firstDomain.LanguageIsoCode);
+                _variationContextAccessor.VariationContext = new(firstDomain.LanguageIsoCode);
 
                 _documentNavigationQueryService.TryGetDescendantsKeysOfType(homepage.Key, SiteSettings.ModelTypeAlias, out var siteSettingsKeys);
                 _documentNavigationQueryService.TryGetDescendantsKeysOfType(homepage.Key, SiteDictionary.ModelTypeAlias, out var dictionaryKeys);

@@ -73,13 +73,13 @@ internal sealed class CacheInvalidationNotificationsHandler :
 
         var message = items switch
         {
-            not null => new CacheInvalidationMessage(CacheInvalidationMessage.CacheInvalidationType.Content, false, items),
+            not null => new(CacheInvalidationMessage.CacheInvalidationType.Content, false, items),
             _ => new CacheInvalidationMessage(CacheInvalidationMessage.CacheInvalidationType.Content, true)
         };
 
         var serialisedMessage = JsonSerializer.Serialize(message);
 
-        await _serviceBusSender.SendMessageAsync(new ServiceBusMessage(serialisedMessage), cancellationToken);
+        await _serviceBusSender.SendMessageAsync(new(serialisedMessage), cancellationToken);
     }
 
     public async Task HandleAsync(DomainCacheRefresherNotification notification, CancellationToken cancellationToken)
@@ -98,6 +98,6 @@ internal sealed class CacheInvalidationNotificationsHandler :
 
         var serialisedMessage = JsonSerializer.Serialize(message);
 
-        await _serviceBusSender.SendMessageAsync(new ServiceBusMessage(serialisedMessage), cancellationToken);
+        await _serviceBusSender.SendMessageAsync(new(serialisedMessage), cancellationToken);
     }
 }

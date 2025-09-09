@@ -2,21 +2,21 @@
   <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Packages.props', $(MSBuildThisFileDirectory)..))" />
   <ItemGroup>
     <PackageVersion Include="Asp.Versioning.Mvc" Version="8.1.0" />
-    <PackageVersion Include="Aspire.Azure.Messaging.ServiceBus" Version="9.4.0" />
-    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.7" />
+    <PackageVersion Include="Aspire.Azure.Messaging.ServiceBus" Version="9.4.2" />
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.9" />
     <PackageVersion Include="Microsoft.ICU.ICU4C.Runtime" Version="72.1.0.3" />
-    <PackageVersion Include="Scalar.AspNetCore" Version="2.6.5" />
-    <PackageVersion Include="Swashbuckle.AspNetCore" Version="9.0.3" />
-    <PackageVersion Include="Umbraco.Cms" Version="16.1.1" />
-    <PackageVersion Include="System.Text.Json" Version="9.0.7" />
-    <PackageVersion Include="Umbraco.Cms.Core" Version="16.1.1" />
-    <PackageVersion Include="Umbraco.Cms.Infrastructure" Version="16.1.1" />
-    <PackageVersion Include="Umbraco.Cms.Web.Common" Version="16.1.1" />
-    <PackageVersion Include="Umbraco.Cms.Web.Website" Version="16.1.1" />
-    <PackageVersion Include="Umbraco.Community.Contentment" Version="6.0.0-alpha008" />
+    <PackageVersion Include="Scalar.AspNetCore" Version="2.7.4" />
+    <PackageVersion Include="Swashbuckle.AspNetCore" Version="9.0.4" />
+    <PackageVersion Include="Umbraco.Cms" Version="16.2.0" />
+    <PackageVersion Include="System.Text.Json" Version="9.0.9" />
+    <PackageVersion Include="Umbraco.Cms.Core" Version="16.2.0" />
+    <PackageVersion Include="Umbraco.Cms.Infrastructure" Version="16.2.0" />
+    <PackageVersion Include="Umbraco.Cms.Web.Common" Version="16.2.0" />
+    <PackageVersion Include="Umbraco.Cms.Web.Website" Version="16.2.0" />
+    <PackageVersion Include="Umbraco.Community.Contentment" Version="6.0.0-alpha009" />
     <PackageVersion Include="Umbraco.Community.DeliveryApiExtensions" Version="16.0.1" />
     <PackageVersion Include="Umbraco.StorageProviders.AzureBlob" Version="16.0.0" />
     <PackageVersion Include="Umbraco.StorageProviders.AzureBlob.ImageSharp" Version="16.0.0" />
-    <PackageVersion Include="uSync" Version="16.0.2" />
+    <PackageVersion Include="uSync" Version="16.0.4" />
   </ItemGroup>
 </Project>

@@ -43,7 +43,7 @@ public sealed class SiteAndIdBasedOutputCachePolicy : SiteApiOutputCachePolicyBa
         }
 
         context.CacheVaryByRules.VaryByValues["siteId"] = siteId!;
-        context.CacheVaryByRules.QueryKeys = new StringValues("id");
+        context.CacheVaryByRules.QueryKeys = new("id");
 
         return ValueTask.CompletedTask;
     }
