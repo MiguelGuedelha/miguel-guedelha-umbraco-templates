@@ -114,13 +114,4 @@ siteApi.WithUrls(context =>
     context.Urls.Add(new() { Url = $"{httpsEndpointUrl}/scalar", DisplayText = "Scalar - Site Api v1", Endpoint = httpsEndpoint });
 });
 
-// Example frontend service that could be added to aspire orchestration
-// Delete if not desired
-// var frontend = builder.AddPnpmApp(Services.Frontend, "../../../UmbracoHeadlessBFF.Frontend", "dev")
-//     .WithPnpmPackageInstallation()
-//     .WithReference(siteApi)
-//     .WithHttpEndpoint(targetPort: 4321)
-//     .WithExternalHttpEndpoints()
-//     .WaitFor(siteApi);
-
 await builder.Build().RunAsync();
