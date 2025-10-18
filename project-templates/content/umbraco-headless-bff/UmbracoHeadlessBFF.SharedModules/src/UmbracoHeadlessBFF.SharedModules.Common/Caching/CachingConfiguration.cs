@@ -43,7 +43,6 @@ public static class CachingConfiguration
         }
 
         builder.Services.AddMemoryCache();
-
         builder.AddRedisDistributedCache(CachingConstants.ConnectionStringName);
 
         var jsonOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web);
@@ -55,17 +54,6 @@ public static class CachingConfiguration
                 //Backs off the Distributed Cache if having issues
                 o.DistributedCacheCircuitBreakerDuration =
                     TimeSpan.FromSeconds(defaultCachingOptions.DistributedCacheCircuitBreakerDuration);
-
-                //Log Levels (examples)
-                o.FailSafeActivationLogLevel = LogLevel.Debug;
-                o.SerializationErrorsLogLevel = LogLevel.Warning;
-                o.DistributedCacheSyntheticTimeoutsLogLevel = LogLevel.Debug;
-                o.DistributedCacheErrorsLogLevel = LogLevel.Error;
-                o.FactorySyntheticTimeoutsLogLevel = LogLevel.Debug;
-                o.FactoryErrorsLogLevel = LogLevel.Error;
-                o.BackplaneErrorsLogLevel = LogLevel.Warning;
-                o.EventHandlingErrorsLogLevel = LogLevel.Warning;
-                o.IncoherentOptionsNormalizationLogLevel = LogLevel.Error;
 
                 configureOptions?.Invoke(o);
             })
