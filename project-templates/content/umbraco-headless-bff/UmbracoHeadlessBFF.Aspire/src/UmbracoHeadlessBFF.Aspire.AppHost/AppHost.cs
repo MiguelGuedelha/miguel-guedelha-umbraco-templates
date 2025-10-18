@@ -16,7 +16,7 @@ var smtpPort = builder.AddParameter("SmtpPort");
 
 var smtpPortString = await smtpPort.Resource.GetValueAsync(CancellationToken.None);
 
-const string baseBindPath = "../../../local-data/v16/";
+const string baseBindPath = "../../../local-data/v17/";
 
 var mailServer = builder.AddContainer(Services.SmtpServer, "rnwood/smtp4dev")
     .WithHttpEndpoint(34523, 80, "ui")
