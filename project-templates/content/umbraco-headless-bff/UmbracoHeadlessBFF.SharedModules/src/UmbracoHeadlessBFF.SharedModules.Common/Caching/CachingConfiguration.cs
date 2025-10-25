@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
+using UmbracoHeadlessBFF.SharedModules.Common.Versioning;
 using ZiggyCreatures.Caching.Fusion;
 using ZiggyCreatures.Caching.Fusion.Serialization.SystemTextJson;
 
@@ -15,6 +16,7 @@ public static class CachingConfiguration
 {
     public static void AddCachingSharedModule(this WebApplicationBuilder builder,
         string? cacheName = null,
+        bool versioned = false,
         Action<FusionCacheOptions>? configureOptions = null,
         Action<FusionCacheEntryOptions>? configureEntryOptions = null,
         Action<JsonSerializerOptions>? configureJsonSerializerOptions = null)
@@ -33,8 +35,16 @@ public static class CachingConfiguration
         }
 
         var cacheBuilder = builder.Services
-            .AddFusionCache(cacheName ?? FusionCacheOptions.DefaultCacheName)
-            .WithCacheKeyPrefix();
+            .AddFusionCache(cacheName ?? FusionCacheOptions.DefaultCacheName);
+
+        if (versioned)
+        {
+            cacheBuilder.WithCacheKeyPrefix($"{cacheName ?? FusionCacheOptions.DefaultCacheName}:{AssemblyVersionExtensions.GetVersion()}:");
+        }
+        else
+        {
+            cacheBuilder.WithCacheKeyPrefix($"{cacheName ?? FusionCacheOptions.DefaultCacheName}:");
+        }
 
         if (!defaultCachingOptions.Enabled)
         {
