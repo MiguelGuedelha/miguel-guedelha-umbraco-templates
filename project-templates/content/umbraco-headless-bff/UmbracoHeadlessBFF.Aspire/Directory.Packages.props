@@ -1,10 +1,10 @@
 <Project>
   <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Packages.props', $(MSBuildThisFileDirectory)..))" />
   <ItemGroup>
-    <PackageVersion Include="Aspire.Hosting.AppHost" Version="9.5.1" />
-    <PackageVersion Include="Aspire.Hosting.Azure.ServiceBus" Version="9.5.1" />
-    <PackageVersion Include="Aspire.Hosting.Azure.Storage" Version="9.5.1" />
-    <PackageVersion Include="Aspire.Hosting.Redis" Version="9.5.1" />
-    <PackageVersion Include="Aspire.Hosting.SqlServer" Version="9.5.1" />
+    <PackageVersion Include="Aspire.Hosting.AppHost" Version="9.5.2" />
+    <PackageVersion Include="Aspire.Hosting.Azure.ServiceBus" Version="9.5.2" />
+    <PackageVersion Include="Aspire.Hosting.Azure.Storage" Version="9.5.2" />
+    <PackageVersion Include="Aspire.Hosting.Redis" Version="9.5.2" />
+    <PackageVersion Include="Aspire.Hosting.SqlServer" Version="9.5.2" />
   </ItemGroup>
 </Project>
