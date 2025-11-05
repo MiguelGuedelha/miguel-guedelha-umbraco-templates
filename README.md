@@ -1,6 +1,6 @@
 # Umbraco .NET Templates
 
-This repository contains opinionated, (sort of) batteries-included .NET templates for Umbraco, designed to streamline the setup of new Umbraco projects. These templates aim to provide a solid foundation for developers working with Umbraco CMS.
+This repository contains opinionated, batteries-included .NET templates for Umbraco, designed to streamline the setup of new Umbraco projects. These templates aim to provide a solid foundation for developers working with Umbraco CMS.
 
 ## Features
 
