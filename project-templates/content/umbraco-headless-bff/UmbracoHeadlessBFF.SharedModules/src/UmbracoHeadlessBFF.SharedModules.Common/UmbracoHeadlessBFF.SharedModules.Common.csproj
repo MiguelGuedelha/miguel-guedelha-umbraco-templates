@@ -2,7 +2,6 @@
   <ItemGroup>
     <PackageReference Include="Aspire.StackExchange.Redis.DistributedCaching" />
     <PackageReference Include="HtmlAgilityPack" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
     <PackageReference Include="OpenTelemetry.Extensions.Hosting" />
     <PackageReference Include="Refit.HttpClientFactory" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" />
