@@ -55,7 +55,8 @@ This project is licensed under the MIT License. See the LICENSE file for details
 > [!WARNING]
 > With Umbraco 17 in the horizon (early Nov as of this README edit) creating brand new projects with Umbraco 13 makes less and less sense.
 >
-> With this in mind, no further updates will be done to the V13 branch and no further tags/releases will be created for V13
-> From the moment Umbraco 17 is out and the dependency packages are all available a initial 17.0.0 template will be releases
+> With this in mind, no further updates will be done to the V13 branch and no further tags/releases will be created for V13.
+>
+> From the moment Umbraco 17 is out and the dependency packages are all available a initial 17.0.0 template will be releases.
 
 Happy coding! 🚀
