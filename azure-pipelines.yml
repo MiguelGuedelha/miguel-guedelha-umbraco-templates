@@ -1,12 +1,15 @@
 trigger:
-  - refs/tags/*
+  branches:
+    include:
+      - refs/tags/*
+
+pr: none
 
 pool:
   vmImage: 'ubuntu-latest'
 
 variables:
   - group: 'api-keys'
-
 
 steps:
   - task: DotNetCoreCLI@2
