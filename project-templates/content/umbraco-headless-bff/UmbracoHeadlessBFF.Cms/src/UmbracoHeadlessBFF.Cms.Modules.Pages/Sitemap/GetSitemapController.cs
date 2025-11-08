@@ -62,7 +62,7 @@ public sealed class GetSitemapController : Controller
                 Loc = _linkService.GetUriByContentId(x.Key, culture, preview)?.AbsoluteUri ?? string.Empty,
                 LastMod = x.SitemapLastModifiedOverwrite ?? DateOnly.FromDateTime(x.UpdateDate),
                 ChangeFrequency = x.SitemapChangeFrequency,
-                Priority = x.SitemapPriority / 10,
+                Priority = x.SitemapPriority,
                 AlternateLanguages = x.Cultures
                     .Where(nodeCulture => !culture.InvariantEquals(nodeCulture.Value.Culture))
                     .Select(nodeCulture =>
