@@ -186,7 +186,7 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Models
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[ImplementPropertyType("robotsUnavailableAfter")]
-		public virtual global::System.DateTime RobotsUnavailableAfter => global::UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Models.SeoSettings.GetRobotsUnavailableAfter(this, _publishedValueFallback);
+		public virtual global::System.Nullable<global::System.DateTimeOffset> RobotsUnavailableAfter => global::UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Models.SeoSettings.GetRobotsUnavailableAfter(this, _publishedValueFallback);
 
 		///<summary>
 		/// Change Frequency: How often the page changes main content  (Ignored by Google)
@@ -201,7 +201,7 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Models
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[ImplementPropertyType("sitemapLastModifiedOverwrite")]
-		public virtual global::System.DateTime SitemapLastModifiedOverwrite => global::UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Models.SeoSettings.GetSitemapLastModifiedOverwrite(this, _publishedValueFallback);
+		public virtual global::System.Nullable<global::System.DateOnly> SitemapLastModifiedOverwrite => global::UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Models.SeoSettings.GetSitemapLastModifiedOverwrite(this, _publishedValueFallback);
 
 		///<summary>
 		/// Priority: How much priority this page has in the whole of the site  (Ignored by Google)

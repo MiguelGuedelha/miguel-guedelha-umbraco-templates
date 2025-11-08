@@ -24,11 +24,11 @@ public sealed record ApiHomeProperties : IApiSeoSettingsProperties, IApiNavigati
     public string? OgDescription { get; init; }
     public IReadOnlyCollection<ApiMediaWithCrops>? OgImage { get; init; }
     public IReadOnlyCollection<string>? RobotsIndexOptions { get; init; }
-    public DateTime? RobotsUnavailableAfter { get; init; }
+    public DateTimeOffset? RobotsUnavailableAfter { get; init; }
     public bool? SitemapShow { get; init; }
     public string? SitemapChangeFrequency { get; init; }
     public decimal SitemapPriority { get; init; }
-    public DateTime? SitemapLastModifiedOverwrite { get; init; }
+    public DateOnly? SitemapLastModifiedOverwrite { get; init; }
     public bool ShowBreadcrumbs { get; init; }
     public bool ShowInBreadcrumbs { get; init; }
     public string? BreadcrumbNameOverride { get; init; }

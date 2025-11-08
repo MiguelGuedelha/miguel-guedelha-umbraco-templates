@@ -60,9 +60,7 @@ public sealed class GetSitemapController : Controller
             .Select(x => new SitemapItem
             {
                 Loc = _linkService.GetUriByContentId(x.Key, culture, preview)?.AbsoluteUri ?? string.Empty,
-                LastMod = x.SitemapLastModifiedOverwrite != default
-                    ? DateOnly.FromDateTime(x.SitemapLastModifiedOverwrite)
-                    : DateOnly.FromDateTime(x.UpdateDate),
+                LastMod = x.SitemapLastModifiedOverwrite ?? DateOnly.FromDateTime(x.UpdateDate),
                 ChangeFrequency = x.SitemapChangeFrequency,
                 Priority = x.SitemapPriority,
                 AlternateLanguages = x.Cultures

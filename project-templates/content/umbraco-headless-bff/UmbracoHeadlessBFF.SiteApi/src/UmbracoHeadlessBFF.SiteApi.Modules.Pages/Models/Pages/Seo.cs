@@ -12,5 +12,5 @@ internal sealed record Seo
     public string? OgImage { get; init; }
 
     public string? RobotsIndexOptions { get; init; }
-    public DateTime? RobotsUnavailableAfter { get; init; }
+    public DateTimeOffset? RobotsUnavailableAfter { get; init; }
 }

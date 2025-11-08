@@ -11,9 +11,9 @@ public interface IApiSeoSettingsProperties
     string? OgDescription { get; init; }
     IReadOnlyCollection<ApiMediaWithCrops>? OgImage { get; init; }
     IReadOnlyCollection<string>? RobotsIndexOptions { get; init; }
-    DateTime? RobotsUnavailableAfter { get; init; }
+    DateTimeOffset? RobotsUnavailableAfter { get; init; }
     bool? SitemapShow { get; init; }
     string? SitemapChangeFrequency { get; init; }
     decimal SitemapPriority { get; init; }
-    DateTime? SitemapLastModifiedOverwrite { get; init; }
+    DateOnly? SitemapLastModifiedOverwrite { get; init; }
 }

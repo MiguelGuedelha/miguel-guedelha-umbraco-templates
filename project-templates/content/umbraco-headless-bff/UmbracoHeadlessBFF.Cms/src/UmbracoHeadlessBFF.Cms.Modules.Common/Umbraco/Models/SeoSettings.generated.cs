@@ -64,7 +64,7 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Models
 
 		/// <summary>Unavailable After</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		global::System.DateTime RobotsUnavailableAfter { get; }
+		global::System.Nullable<global::System.DateTimeOffset> RobotsUnavailableAfter { get; }
 
 		/// <summary>Change Frequency</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
@@ -73,7 +73,7 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Models
 
 		/// <summary>Last Modified Overwrite</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		global::System.DateTime SitemapLastModifiedOverwrite { get; }
+		global::System.Nullable<global::System.DateOnly> SitemapLastModifiedOverwrite { get; }
 
 		/// <summary>Priority</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
@@ -224,11 +224,11 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Models
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[ImplementPropertyType("robotsUnavailableAfter")]
-		public virtual global::System.DateTime RobotsUnavailableAfter => GetRobotsUnavailableAfter(this, _publishedValueFallback);
+		public virtual global::System.Nullable<global::System.DateTimeOffset> RobotsUnavailableAfter => GetRobotsUnavailableAfter(this, _publishedValueFallback);
 
 		/// <summary>Static getter for Unavailable After</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		public static global::System.DateTime GetRobotsUnavailableAfter(ISeoSettings that, IPublishedValueFallback publishedValueFallback) => that.Value<global::System.DateTime>(publishedValueFallback, "robotsUnavailableAfter");
+		public static global::System.Nullable<global::System.DateTimeOffset> GetRobotsUnavailableAfter(ISeoSettings that, IPublishedValueFallback publishedValueFallback) => that.Value<global::System.Nullable<global::System.DateTimeOffset>>(publishedValueFallback, "robotsUnavailableAfter");
 
 		///<summary>
 		/// Change Frequency: How often the page changes main content  (Ignored by Google)
@@ -248,11 +248,11 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Models
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[ImplementPropertyType("sitemapLastModifiedOverwrite")]
-		public virtual global::System.DateTime SitemapLastModifiedOverwrite => GetSitemapLastModifiedOverwrite(this, _publishedValueFallback);
+		public virtual global::System.Nullable<global::System.DateOnly> SitemapLastModifiedOverwrite => GetSitemapLastModifiedOverwrite(this, _publishedValueFallback);
 
 		/// <summary>Static getter for Last Modified Overwrite</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
-		public static global::System.DateTime GetSitemapLastModifiedOverwrite(ISeoSettings that, IPublishedValueFallback publishedValueFallback) => that.Value<global::System.DateTime>(publishedValueFallback, "sitemapLastModifiedOverwrite");
+		public static global::System.Nullable<global::System.DateOnly> GetSitemapLastModifiedOverwrite(ISeoSettings that, IPublishedValueFallback publishedValueFallback) => that.Value<global::System.Nullable<global::System.DateOnly>>(publishedValueFallback, "sitemapLastModifiedOverwrite");
 
 		///<summary>
 		/// Priority: How much priority this page has in the whole of the site  (Ignored by Google)
