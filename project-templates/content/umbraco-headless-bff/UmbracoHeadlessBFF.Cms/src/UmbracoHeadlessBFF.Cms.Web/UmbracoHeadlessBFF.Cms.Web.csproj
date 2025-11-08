@@ -6,7 +6,7 @@
     <PackageReference Include="Serilog.Exceptions" />
     <PackageReference Include="Swashbuckle.AspNetCore" />
     <PackageReference Include="Umbraco.Cms" />
-    <PackageReference Include="Umbraco.Community.Contentment" />
+    <PackageReference Include="Umbraco.Community.DataProtection" />
     <PackageReference Include="Umbraco.Community.DeliveryApiExtensions" />
     <PackageReference Include="Umbraco.StorageProviders.AzureBlob" />
     <PackageReference Include="Umbraco.StorageProviders.AzureBlob.ImageSharp" />

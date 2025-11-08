@@ -2,6 +2,7 @@ using Microsoft.Extensions.Azure;
 using Scalar.AspNetCore;
 using Umbraco.Cms.Api.Common.DependencyInjection;
 using Umbraco.Cms.Core;
+using Umbraco.Community.DataProtection.Composing;
 using UmbracoHeadlessBFF.Cms.Modules.Caching;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Authentication;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Links;
@@ -14,14 +15,21 @@ using UmbracoHeadlessBFF.SharedModules.Common.Versioning;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.CreateUmbracoBuilder()
+var umbracoBuilder = builder.CreateUmbracoBuilder();
+
+umbracoBuilder
     .AddBackOffice()
     .AddWebsite()
     .AddDeliveryApi()
     .AddComposers()
     .AddAzureBlobMediaFileSystem()
-    .AddAzureBlobImageSharpCache()
-    .Build();
+    .AddAzureBlobImageSharpCache();
+
+umbracoBuilder.AddUmbracoDataProtection();
+
+umbracoBuilder.WebhookEvents().Clear().AddCms();
+
+umbracoBuilder.Build();
 
 builder.AddServiceDefaults();
 
