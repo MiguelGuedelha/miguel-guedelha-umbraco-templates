@@ -26,10 +26,15 @@ var mailServer = builder.AddContainer(Services.SmtpServer, "rnwood/smtp4dev")
     .WithEnvironment("ServerOptions__Users__0__Username", smtpUser)
     .WithEnvironment("ServerOptions__Users__0__Password", smtpPassword);
 
+smtpUser.WithParentRelationship(mailServer);
+smtpPassword.WithParentRelationship(mailServer);
+smtpPort.WithParentRelationship(mailServer);
+
 var database = builder
     .AddSqlServer(Services.DatabaseServer)
     .WithDataBindMount(Path.Join(baseBindPath, "database/data"))
-    .WithContainerRuntimeArgs("--user", "root");
+    .WithContainerRuntimeArgs("--user", "root")
+    .WithLifetime(ContainerLifetime.Persistent);
 
 var umbracoDb = database.AddDatabase(Services.Database, "umbraco-cms");
 
@@ -39,20 +44,26 @@ var cache = builder
 
 var azureStorage = builder
     .AddAzureStorage(Services.AzureStorage)
-    .RunAsEmulator(c =>
+    .RunAsEmulator(o =>
     {
-        c.WithDataBindMount(Path.Join(baseBindPath, "azure-storage/data"));
+        o.WithLifetime(ContainerLifetime.Persistent);
+        o.WithDataBindMount(Path.Join(baseBindPath, "azure-storage/data"));
     });
 
-var cmsUmbracoBlobContainer = await builder.AddParameter("CmsUmbracoBlobContainer").Resource.GetValueAsync(CancellationToken.None);
 
-var umbracoMediaBlob = azureStorage.AddBlobContainer(cmsUmbracoBlobContainer!);
+var cmsUmbracoBlobContainerParameter = builder.AddParameter("CmsUmbracoBlobContainer");
+var blobContainerValue = await cmsUmbracoBlobContainerParameter.Resource.GetValueAsync(CancellationToken.None);
 
-var cmsDeliveryApiKey = builder.AddParameter("CmsDeliveryApiKey");
+var umbracoMediaBlob = azureStorage.AddBlobContainer(blobContainerValue!);
+
+cmsUmbracoBlobContainerParameter.WithParentRelationship(umbracoMediaBlob);
 
 var serviceBus = builder
     .AddAzureServiceBus(Services.ServiceBus.Name)
-    .RunAsEmulator();
+    .RunAsEmulator(o =>
+    {
+        o.WithLifetime(ContainerLifetime.Persistent);
+    });
 
 var cmsCacheTopic = serviceBus.AddServiceBusTopic(Services.ServiceBus.Topics.CmsCache);
 
@@ -65,6 +76,8 @@ cmsCacheTopic.AddServiceBusSubscription(Services.ServiceBus.Subscriptions.SiteAp
 var cms = builder.AddProject<Projects.Cms>(Services.Cms, launchProfileName: "single")
     .WithExternalHttpEndpoints();
 
+var cmsDeliveryApiKey = builder.AddParameter("CmsDeliveryApiKey");
+
 cms.WithReference(umbracoDb, connectionName: "umbracoDbDSN")
     .WithReference(cache)
     .WithReference(serviceBus)
@@ -72,7 +85,7 @@ cms.WithReference(umbracoDb, connectionName: "umbracoDbDSN")
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Username", smtpUser)
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Password", smtpPassword)
     .WithEnvironment("Umbraco__Storage__AzureBlob__Media__ConnectionString", umbracoMediaBlob.Resource.Parent.ConnectionStringExpression)
-    .WithEnvironment("Umbraco__Storage__AzureBlob__Media__ContainerName", cmsUmbracoBlobContainer)
+    .WithEnvironment("Umbraco__Storage__AzureBlob__Media__ContainerName", cmsUmbracoBlobContainerParameter)
     .WithEnvironment("Umbraco__CMS__DeliveryApi__ApiKey", cmsDeliveryApiKey)
     .WithEnvironment("ApplicationUrls__Media", () => cms.Resource.GetEndpoint("https").Url)
     .WaitFor(mailServer)
@@ -80,6 +93,8 @@ cms.WithReference(umbracoDb, connectionName: "umbracoDbDSN")
     .WaitFor(cache)
     .WaitFor(umbracoMediaBlob)
     .WaitFor(serviceBus);
+
+cmsDeliveryApiKey.WithParentRelationship(cms);
 
 cms.WithUrls(context =>
 {

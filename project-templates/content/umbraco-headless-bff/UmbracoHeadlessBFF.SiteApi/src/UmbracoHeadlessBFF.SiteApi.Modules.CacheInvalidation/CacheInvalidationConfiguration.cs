@@ -9,18 +9,24 @@ namespace UmbracoHeadlessBFF.SiteApi.Modules.CacheInvalidation;
 
 public static class CacheInvalidationConfiguration
 {
-    public static void AddCacheInvalidationModule(this WebApplicationBuilder builder)
+    extension(WebApplicationBuilder builder)
     {
-        builder.AddAzureServiceBusClient(Services.ServiceBus.Name);
-        builder.Services.AddHostedService<CacheInvalidationBackgroundService>();
+        public void AddCacheInvalidationModule()
+        {
+            builder.AddAzureServiceBusClient(Services.ServiceBus.Name);
+            builder.Services.AddHostedService<CacheInvalidationBackgroundService>();
+        }
     }
 
-    public static void MapCacheInvalidationEndpoints(this RouteGroupBuilder apiVersionGroup)
+    extension(RouteGroupBuilder builder)
     {
-        apiVersionGroup
-            .MapGroup("/caching")
-            .WithTags("Caching")
-            .MapDeleteCacheByTag()
-            .MapDeleteCacheByTags();
+        public void MapCacheInvalidationEndpoints()
+        {
+            builder
+                .MapGroup("/caching")
+                .WithTags("Caching")
+                .MapDeleteCacheByTag()
+                .MapDeleteCacheByTags();
+        }
     }
 }

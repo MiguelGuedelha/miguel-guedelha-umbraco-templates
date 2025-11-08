@@ -5,8 +5,11 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.Links;
 
 public static class LinksConfiguration
 {
-    public static void AddLinksModule(this WebApplicationBuilder builder)
+    extension(WebApplicationBuilder builder)
     {
-        builder.Services.AddTransient<LinkService>();
+        public void AddLinksModule()
+        {
+            builder.Services.AddTransient<LinkService>();
+        }
     }
 }

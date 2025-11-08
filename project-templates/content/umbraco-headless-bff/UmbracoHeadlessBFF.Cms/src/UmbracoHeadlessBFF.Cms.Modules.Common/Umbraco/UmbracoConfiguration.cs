@@ -8,9 +8,12 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco;
 
 public static class UmbracoConfiguration
 {
-    public static void AddUmbracoOverrides(this WebApplicationBuilder builder)
+    extension(WebApplicationBuilder builder)
     {
-        builder.Services.RemoveAll<IApiRichTextMarkupParser>();
-        builder.Services.AddSingleton<IApiRichTextMarkupParser, ApiRichTextMarkupParser>();
+        public void AddUmbracoOverrides()
+        {
+            builder.Services.RemoveAll<IApiRichTextMarkupParser>();
+            builder.Services.AddSingleton<IApiRichTextMarkupParser, ApiRichTextMarkupParser>();
+        }
     }
 }

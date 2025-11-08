@@ -3,7 +3,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using UmbracoHeadlessBFF.SharedModules.Common.Caching.Messaging;
 using UmbracoHeadlessBFF.SharedModules.Common.ServiceDiscovery;
-using UmbracoHeadlessBFF.SharedModules.Common.Versioning;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching;
 using ZiggyCreatures.Caching.Fusion;
 

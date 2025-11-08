@@ -15,28 +15,31 @@ internal sealed class LoadBalancingComposer : IComposer
 
 public static class ServerRoleExtensions
 {
-    public static void AddServerRoleLoadBalancing(this IUmbracoBuilder builder)
+    extension(IUmbracoBuilder builder)
     {
-        var serverRole = Environment.GetEnvironmentVariable("APPLICATION_SERVER_ROLE");
-
-        var serverRoleParsed = !serverRole.IsNullOrWhiteSpace()
-            ? Enum.Parse<ServerRole>(serverRole, true)
-            : ServerRole.Single;
-
-        switch (serverRoleParsed)
+        public void AddServerRoleLoadBalancing()
         {
-            case ServerRole.Single:
-                builder.SetServerRegistrar<SingleServerRoleAccessor>();
-                break;
-            case ServerRole.Subscriber:
-                builder.SetServerRegistrar<SubscriberServerRoleAccessor>();
-                break;
-            case ServerRole.SchedulingPublisher:
-                builder.SetServerRegistrar<SchedulingPublisherServerRoleAccessor>();
-                break;
-            case ServerRole.Unknown:
-            default:
-                throw new UnreachableException("The server role type should be valid at this point");
+            var serverRole = Environment.GetEnvironmentVariable("APPLICATION_SERVER_ROLE");
+
+            var serverRoleParsed = !serverRole.IsNullOrWhiteSpace()
+                ? Enum.Parse<ServerRole>(serverRole, true)
+                : ServerRole.Single;
+
+            switch (serverRoleParsed)
+            {
+                case ServerRole.Single:
+                    builder.SetServerRegistrar<SingleServerRoleAccessor>();
+                    break;
+                case ServerRole.Subscriber:
+                    builder.SetServerRegistrar<SubscriberServerRoleAccessor>();
+                    break;
+                case ServerRole.SchedulingPublisher:
+                    builder.SetServerRegistrar<SchedulingPublisherServerRoleAccessor>();
+                    break;
+                case ServerRole.Unknown:
+                default:
+                    throw new UnreachableException("The server role type should be valid at this point");
+            }
         }
     }
 

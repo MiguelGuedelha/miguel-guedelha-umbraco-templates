@@ -4,23 +4,25 @@ namespace UmbracoHeadlessBFF.SharedModules.Common.Http;
 
 public static class HttpContextExtensions
 {
-    public static void AddContextItem<T>(this HttpContext context, string key, T value)
+    extension(HttpContext context)
     {
-        context.Items[key] = value;
-    }
-
-    public static bool TryGetContextItem<T>(this HttpContext context, string key, out T? item)
-    {
-        var found = context.Items.TryGetValue(key, out var value);
-        item = default;
-
-        if (!found || value is not T castValue)
+        public void AddContextItem<T>(string key, T value)
         {
-            return false;
+            context.Items[key] = value;
         }
 
-        item = castValue;
-        return true;
+        public bool TryGetContextItem<T>(string key, out T? item)
+        {
+            var found = context.Items.TryGetValue(key, out var value);
+            item = default;
 
+            if (!found || value is not T castValue)
+            {
+                return false;
+            }
+
+            item = castValue;
+            return true;
+        }
     }
 }

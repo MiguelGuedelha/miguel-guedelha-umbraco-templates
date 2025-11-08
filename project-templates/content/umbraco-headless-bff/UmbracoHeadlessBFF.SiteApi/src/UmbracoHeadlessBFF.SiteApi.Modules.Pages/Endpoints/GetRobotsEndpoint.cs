@@ -27,14 +27,17 @@ internal static class GetRobotsEndpoint
 {
     private const string RobotsTxtSegment = "robots.txt";
 
-    public static RouteGroupBuilder MapGetRobots(this RouteGroupBuilder builder)
+    extension(RouteGroupBuilder builder)
     {
-        builder
-            .MapGet("/robots", Handle)
-            .MapToApiVersion(EndpointConstants.Versions.V1)
-            .CacheOutput(SiteAndPathBasedOutputCachePolicy.PolicyName);
+        public RouteGroupBuilder MapGetRobots()
+        {
+            builder
+                .MapGet("/robots", Handle)
+                .MapToApiVersion(EndpointConstants.Versions.V1)
+                .CacheOutput(SiteAndPathBasedOutputCachePolicy.PolicyName);
 
-        return builder;
+            return builder;
+        }
     }
 
     private static async Task<Results<Ok<RobotsTxt>, NotFound>> Handle(

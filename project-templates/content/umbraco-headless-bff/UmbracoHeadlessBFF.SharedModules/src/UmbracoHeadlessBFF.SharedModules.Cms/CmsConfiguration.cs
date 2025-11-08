@@ -31,68 +31,74 @@ public static class CmsConfiguration
         })
     };
 
-    public static void AddCmsCommonSharedModule(this WebApplicationBuilder builder)
+    extension(WebApplicationBuilder builder)
     {
-        // Delivery Api
-        builder.Services.Configure<CmsServiceOptions>(builder.Configuration.GetSection(CmsServiceOptions.SectionName));
-        builder.Services.AddTransient<DeliveryApiHeadersHandler>();
-        builder.Services.AddRefitClient<IUmbracoDeliveryApi>(s_clientSettings)
-            .ConfigureHttpClient(c =>
-            {
-                c.BaseAddress = new($"https://{Services.Cms}/umbraco/delivery/api/v2");
-            })
-            .AddHttpMessageHandler<DeliveryApiHeadersHandler>()
-            .AddHeaderPropagation();
+        public void AddCmsCommonSharedModule()
+        {
+            // Delivery Api
+            builder.Services.Configure<CmsServiceOptions>(builder.Configuration.GetSection(CmsServiceOptions.SectionName));
+            builder.Services.AddTransient<DeliveryApiHeadersHandler>();
+            builder.Services.AddRefitClient<IUmbracoDeliveryApi>(s_clientSettings)
+                .ConfigureHttpClient(c =>
+                {
+                    c.BaseAddress = new($"https://{Services.Cms}/umbraco/delivery/api/v2");
+                })
+                .AddHttpMessageHandler<DeliveryApiHeadersHandler>()
+                .AddHeaderPropagation();
 
-        // Site Resolution
-        builder.Services.AddTransient<DeliveryApiHeadersHandler>();
-        builder.Services.AddRefitClient<ISiteResolutionApi>()
-            .ConfigureHttpClient(c =>
-            {
-                c.BaseAddress = new($"https://{Services.Cms}/api/v1.0/sites");
-            })
-            .AddHttpMessageHandler<DeliveryApiHeadersHandler>()
-            .AddHeaderPropagation();
+            // Site Resolution
+            builder.Services.AddTransient<DeliveryApiHeadersHandler>();
+            builder.Services.AddRefitClient<ISiteResolutionApi>()
+                .ConfigureHttpClient(c =>
+                {
+                    c.BaseAddress = new($"https://{Services.Cms}/api/v1.0/sites");
+                })
+                .AddHttpMessageHandler<DeliveryApiHeadersHandler>()
+                .AddHeaderPropagation();
 
-        // Links
-        builder.Services.AddRefitClient<ILinksApi>()
-            .ConfigureHttpClient(c =>
-            {
-                c.BaseAddress = new($"https://{Services.Cms}/api/v1.0/links");
-            })
-            .AddHttpMessageHandler<DeliveryApiHeadersHandler>()
-            .AddHeaderPropagation();
+            // Links
+            builder.Services.AddRefitClient<ILinksApi>()
+                .ConfigureHttpClient(c =>
+                {
+                    c.BaseAddress = new($"https://{Services.Cms}/api/v1.0/links");
+                })
+                .AddHttpMessageHandler<DeliveryApiHeadersHandler>()
+                .AddHeaderPropagation();
 
-        // Preview
-        builder.Services.AddRefitClient<IPreviewVerificationApi>()
-            .ConfigureHttpClient(c =>
-            {
-                c.BaseAddress = new($"https://{Services.Cms}/api/v1.0/preview");
-            })
-            .AddHeaderPropagation();
+            // Preview
+            builder.Services.AddRefitClient<IPreviewVerificationApi>()
+                .ConfigureHttpClient(c =>
+                {
+                    c.BaseAddress = new($"https://{Services.Cms}/api/v1.0/preview");
+                })
+                .AddHeaderPropagation();
 
-        // Sitemap
-        builder.Services.AddRefitClient<ISitemapsApi>()
-            .ConfigureHttpClient(c =>
-            {
-                c.BaseAddress = new($"https://{Services.Cms}/api/v1.0/pages");
-            })
-            .AddHttpMessageHandler<DeliveryApiHeadersHandler>()
-            .AddHeaderPropagation();
+            // Sitemap
+            builder.Services.AddRefitClient<ISitemapsApi>()
+                .ConfigureHttpClient(c =>
+                {
+                    c.BaseAddress = new($"https://{Services.Cms}/api/v1.0/pages");
+                })
+                .AddHttpMessageHandler<DeliveryApiHeadersHandler>()
+                .AddHeaderPropagation();
 
-        // Robots
-        builder.Services.AddRefitClient<IRobotsApi>()
-            .ConfigureHttpClient(c =>
-            {
-                c.BaseAddress = new($"https://{Services.Cms}/api/v1.0/pages");
-            })
-            .AddHttpMessageHandler<DeliveryApiHeadersHandler>()
-            .AddHeaderPropagation();
+            // Robots
+            builder.Services.AddRefitClient<IRobotsApi>()
+                .ConfigureHttpClient(c =>
+                {
+                    c.BaseAddress = new($"https://{Services.Cms}/api/v1.0/pages");
+                })
+                .AddHttpMessageHandler<DeliveryApiHeadersHandler>()
+                .AddHeaderPropagation();
+        }
     }
 
-    public static void AddDeliveryApiConverters(this IList<JsonConverter> convertersList)
+    extension(IList<JsonConverter> convertersList)
     {
-        convertersList.Add(new ApiElementConverter());
-        convertersList.Add(new ApiContentConverter());
+        public void AddDeliveryApiConverters()
+        {
+            convertersList.Add(new ApiElementConverter());
+            convertersList.Add(new ApiContentConverter());
+        }
     }
 }

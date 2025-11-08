@@ -10,13 +10,16 @@ namespace UmbracoHeadlessBFF.SiteApi.Modules.CacheInvalidation;
 
 internal static class DeleteCacheByTagEndpoint
 {
-    public static RouteGroupBuilder MapDeleteCacheByTag(this RouteGroupBuilder builder)
+    extension(RouteGroupBuilder builder)
     {
-        builder
-            .MapDelete("/tags/{tag}", Handle)
-            .MapToApiVersion(EndpointConstants.Versions.V1);
+        public RouteGroupBuilder MapDeleteCacheByTag()
+        {
+            builder
+                .MapDelete("/tags/{tag}", Handle)
+                .MapToApiVersion(EndpointConstants.Versions.V1);
 
-        return builder;
+            return builder;
+        }
     }
 
     private static async Task<Ok> Handle(

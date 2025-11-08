@@ -15,14 +15,17 @@ namespace UmbracoHeadlessBFF.SiteApi.Modules.Pages.Endpoints;
 
 internal static class GetPageByIdOrPathEndpoint
 {
-    public static RouteGroupBuilder MapGetPageByIdOrPath(this RouteGroupBuilder builder)
+    extension(RouteGroupBuilder builder)
     {
-        builder
-            .MapGet("/page", Handle)
-            .MapToApiVersion(EndpointConstants.Versions.V1)
-            .CacheOutput(SiteAndIdBasedOutputCachePolicy.PolicyName);
+        public RouteGroupBuilder MapGetPageByIdOrPath()
+        {
+            builder
+                .MapGet("/page", Handle)
+                .MapToApiVersion(EndpointConstants.Versions.V1)
+                .CacheOutput(SiteAndIdBasedOutputCachePolicy.PolicyName);
 
-        return builder;
+            return builder;
+        }
     }
 
     private static async Task<Results<Ok<IPage>, NotFound>> Handle(string id,

@@ -4,7 +4,6 @@ using Microsoft.Extensions.Logging;
 using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.DeliveryApi;
 using Umbraco.Cms.Core.PublishedCache;
-using Umbraco.Extensions;
 
 namespace UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Overrides;
 

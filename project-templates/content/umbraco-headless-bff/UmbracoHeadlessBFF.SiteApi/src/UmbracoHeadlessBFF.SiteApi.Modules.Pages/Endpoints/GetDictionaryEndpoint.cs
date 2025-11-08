@@ -13,14 +13,17 @@ namespace UmbracoHeadlessBFF.SiteApi.Modules.Pages.Endpoints;
 
 internal static class GetDictionaryEndpoint
 {
-    public static RouteGroupBuilder MapGetDictionary(this RouteGroupBuilder builder)
+    extension(RouteGroupBuilder builder)
     {
-        builder
-            .MapGet("/dictionary", Handle)
-            .MapToApiVersion(EndpointConstants.Versions.V1)
-            .CacheOutput(SiteBasedOutputCachePolicy.PolicyName);
+        public RouteGroupBuilder MapGetDictionary()
+        {
+            builder
+                .MapGet("/dictionary", Handle)
+                .MapToApiVersion(EndpointConstants.Versions.V1)
+                .CacheOutput(SiteBasedOutputCachePolicy.PolicyName);
 
-        return builder;
+            return builder;
+        }
     }
 
     private static async Task<Results<Ok<SiteDictionary>, NotFound>> Handle(SiteResolutionContext context, IPagesService pagesService)

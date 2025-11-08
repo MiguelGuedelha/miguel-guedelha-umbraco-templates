@@ -4,15 +4,18 @@ public static class StringExtensions
 {
     private static readonly char[] s_uriTrimChars = ['/', '\\'];
 
-    public static string CombineUri(this string first, params string[] parts)
+    extension(string value)
     {
-        return parts is { Length: 0 }
-            ? first
-            : parts.Aggregate(first, (current, t) => $"{current.TrimEnd(s_uriTrimChars)}/{t.TrimStart(s_uriTrimChars)}");
-    }
+        public string CombineUri(params string[] parts)
+        {
+            return parts is { Length: 0 }
+                ? value
+                : parts.Aggregate(value, (current, t) => $"{current.TrimEnd(s_uriTrimChars)}/{t.TrimStart(s_uriTrimChars)}");
+        }
 
-    public static string SanitisePathSlashes(this string path)
-    {
-        return path.Equals("/") ? path : $"/{path.Trim('/')}/";
+        public string SanitisePathSlashes()
+        {
+            return value.Equals("/") ? value : $"/{value.Trim('/')}/";
+        }
     }
 }

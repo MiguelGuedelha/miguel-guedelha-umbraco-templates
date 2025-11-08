@@ -10,39 +10,43 @@ namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching;
 
 public static class CachingConfiguration
 {
-    public static void AddCachingCommonModule(this WebApplicationBuilder builder, bool versioned = false)
+    extension(WebApplicationBuilder builder)
     {
-        var cacheBuilder = builder.Services.AddFusionCache(CachingConstants.SiteApiOutputCacheName)
-            .WithDefaultEntryOptions(o =>
+        public void AddCachingCommonModule(bool versioned = false)
+        {
+            var cacheBuilder = builder.Services.AddFusionCache(CachingConstants.SiteApiOutputCacheName)
+                .WithDefaultEntryOptions(o =>
+                {
+                    o.IsFailSafeEnabled = true;
+                })
+                .WithSerializer(new FusionCacheNeueccMessagePackSerializer())
+                .WithRegisteredDistributedCache()
+                .WithStackExchangeRedisBackplane(o =>
+                {
+                    o.Configuration = builder.Configuration.GetConnectionString(SharedModules.Common.Caching.CachingConstants.ConnectionStringName);
+                });
+
+            if (versioned)
             {
-                o.IsFailSafeEnabled = true;
-            })
-            .WithSerializer(new FusionCacheNeueccMessagePackSerializer())
-            .WithRegisteredDistributedCache()
-            .WithStackExchangeRedisBackplane(o =>
+                cacheBuilder.WithCacheKeyPrefix($"{CachingConstants.SiteApiOutputCacheName}:{AssemblyVersionExtensions.GetVersion()}:");
+            }
+            else
             {
-                o.Configuration = builder.Configuration.GetConnectionString(SharedModules.Common.Caching.CachingConstants.ConnectionStringName);
+                cacheBuilder.WithCacheKeyPrefixByCacheName();
+            }
+
+            builder.Services.AddFusionOutputCache(o =>
+            {
+                o.CacheName = CachingConstants.SiteApiOutputCacheName;
             });
 
-        if (versioned)
-        {
-            cacheBuilder.WithCacheKeyPrefix($"{CachingConstants.SiteApiOutputCacheName}:{AssemblyVersionExtensions.GetVersion()}:");
-        }
-        else
-        {
-            cacheBuilder.WithCacheKeyPrefixByCacheName();
+            builder.Services.AddOutputCache(o =>
+            {
+                o.AddPolicy(SiteBasedOutputCachePolicy.PolicyName, SiteBasedOutputCachePolicy.Instance);
+                o.AddPolicy(SiteAndPathBasedOutputCachePolicy.PolicyName, SiteAndPathBasedOutputCachePolicy.Instance);
+                o.AddPolicy(SiteAndIdBasedOutputCachePolicy.PolicyName, SiteAndIdBasedOutputCachePolicy.Instance);
+            });
         }
 
-        builder.Services.AddFusionOutputCache(o =>
-        {
-            o.CacheName = CachingConstants.SiteApiOutputCacheName;
-        });
-
-        builder.Services.AddOutputCache(o =>
-        {
-            o.AddPolicy(SiteBasedOutputCachePolicy.PolicyName, SiteBasedOutputCachePolicy.Instance);
-            o.AddPolicy(SiteAndPathBasedOutputCachePolicy.PolicyName, SiteAndPathBasedOutputCachePolicy.Instance);
-            o.AddPolicy(SiteAndIdBasedOutputCachePolicy.PolicyName, SiteAndIdBasedOutputCachePolicy.Instance);
-        });
     }
 }

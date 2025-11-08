@@ -6,8 +6,11 @@ namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Configuration;
 
 public static class UrlsConfiguration
 {
-    public static void AddConfigurationCommonModule(this WebApplicationBuilder builder)
+    extension(WebApplicationBuilder builder)
     {
-        builder.Services.Configure<ApplicationUrlOptions>(builder.Configuration.GetSection(IApplicationUrlOptions.SectionName));
+        public void AddConfigurationCommonModule()
+        {
+            builder.Services.Configure<ApplicationUrlOptions>(builder.Configuration.GetSection(IApplicationUrlOptions.SectionName));
+        }
     }
 }

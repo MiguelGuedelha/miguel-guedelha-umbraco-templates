@@ -4,16 +4,19 @@ namespace UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Pages.Extensions;
 
 public static class ApiContentExtensions
 {
-    public static bool TryGetProperties<TOut>(this IApiContent content, [NotNullWhen(true)] out TOut? outValue)
-        where TOut : class
+    extension(IApiContent content)
     {
-        outValue = null;
-        if (content.GetType().GetProperty("Properties")?.GetValue(content) is not TOut properties)
+        public bool TryGetProperties<TOut>([NotNullWhen(true)] out TOut? outValue)
+            where TOut : class
         {
-            return false;
-        }
+            outValue = null;
+            if (content.GetType().GetProperty("Properties")?.GetValue(content) is not TOut properties)
+            {
+                return false;
+            }
 
-        outValue = properties;
-        return true;
+            outValue = properties;
+            return true;
+        }
     }
 }

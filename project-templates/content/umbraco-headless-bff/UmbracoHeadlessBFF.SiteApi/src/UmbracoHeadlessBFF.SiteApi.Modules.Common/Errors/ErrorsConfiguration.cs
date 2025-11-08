@@ -7,21 +7,24 @@ namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 
 public static class ErrorsConfiguration
 {
-    public static void AddErrorsCommonModule(this WebApplicationBuilder builder)
+    extension(WebApplicationBuilder builder)
     {
-        builder.Services.AddProblemDetails(options =>
+        public void AddErrorsCommonModule()
         {
-            options.CustomizeProblemDetails = context =>
+            builder.Services.AddProblemDetails(options =>
             {
-                context.ProblemDetails.Extensions.TryAdd("requestId", context.HttpContext.TraceIdentifier);
+                options.CustomizeProblemDetails = context =>
+                {
+                    context.ProblemDetails.Extensions.TryAdd("requestId", context.HttpContext.TraceIdentifier);
 
-                var activity = context.HttpContext.Features.Get<IHttpActivityFeature>()?.Activity;
-                context.ProblemDetails.Extensions.TryAdd("traceId", activity?.Id);
-                context.ProblemDetails.Extensions.TryAdd("correlationId", context.HttpContext.Request.Headers[CorrelationConstants.Headers.CorrelationId].ToString());
-            };
-        });
-        builder.Services.AddExceptionHandler<SiteApiRedirectExceptionHandler>();
-        builder.Services.AddExceptionHandler<SiteApiExceptionHandler>();
-        builder.Services.AddExceptionHandler<FallbackExceptionHandler>();
+                    var activity = context.HttpContext.Features.Get<IHttpActivityFeature>()?.Activity;
+                    context.ProblemDetails.Extensions.TryAdd("traceId", activity?.Id);
+                    context.ProblemDetails.Extensions.TryAdd("correlationId", context.HttpContext.Request.Headers[CorrelationConstants.Headers.CorrelationId].ToString());
+                };
+            });
+            builder.Services.AddExceptionHandler<SiteApiRedirectExceptionHandler>();
+            builder.Services.AddExceptionHandler<SiteApiExceptionHandler>();
+            builder.Services.AddExceptionHandler<FallbackExceptionHandler>();
+        }
     }
 }

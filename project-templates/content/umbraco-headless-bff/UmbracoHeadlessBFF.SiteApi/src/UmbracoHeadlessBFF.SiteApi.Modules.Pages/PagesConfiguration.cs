@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
-using UmbracoHeadlessBFF.SharedModules.Common.Caching;
 using UmbracoHeadlessBFF.SiteApi.Modules.Pages.Converters;
 using UmbracoHeadlessBFF.SiteApi.Modules.Pages.Endpoints;
 using UmbracoHeadlessBFF.SiteApi.Modules.Pages.Mappers.BuildingBlocks;
@@ -15,81 +14,90 @@ namespace UmbracoHeadlessBFF.SiteApi.Modules.Pages;
 
 public static class PagesConfiguration
 {
-    public static void AddPagesModule(this WebApplicationBuilder builder)
+    extension(WebApplicationBuilder builder)
     {
-        var services = builder.Services;
+        public void AddPagesModule()
+        {
+            var services = builder.Services;
 
-        services.AddTransient<IPagesService, PagesService>();
+            services.AddTransient<IPagesService, PagesService>();
 
-        // Building Block Mappers
-        services
-            .AddTransient<ILinkMapper, LinkMapper>()
-            .AddTransient<ICardMapper, CardMapper>()
-            .AddTransient<IImageMapper, ImageMapper>()
-            .AddTransient<IVideoMapper, VideoMapper>()
-            .AddTransient<IMediaBlockMapper, MediaBlockMapper>()
-            .AddTransient<IEmbedVideoMapper, EmbedVideoMapper>()
-            .AddTransient<IMediaLibraryVideoMapper, MediaLibraryVideoMapper>()
-            .AddTransient<IResponsiveImageMapper, ResponsiveImageMapper>()
-            .AddTransient<INavigationLinkMapper, NavigationLinkMapper>()
-            .AddTransient<ILinkWithSublinksMapper, LinkWithSublinksMapper>()
-            .AddTransient<IHeadingWithLinksMapper, HeadingWithLinksMapper>()
-            .AddTransient<IHeadingWithSocialLinksMapper, HeadingWithSocialLinksMapper>()
-            .AddTransient<IRichTextMapper, RichTextMapper>();
+            // Building Block Mappers
+            services
+                .AddTransient<ILinkMapper, LinkMapper>()
+                .AddTransient<ICardMapper, CardMapper>()
+                .AddTransient<IImageMapper, ImageMapper>()
+                .AddTransient<IVideoMapper, VideoMapper>()
+                .AddTransient<IMediaBlockMapper, MediaBlockMapper>()
+                .AddTransient<IEmbedVideoMapper, EmbedVideoMapper>()
+                .AddTransient<IMediaLibraryVideoMapper, MediaLibraryVideoMapper>()
+                .AddTransient<IResponsiveImageMapper, ResponsiveImageMapper>()
+                .AddTransient<INavigationLinkMapper, NavigationLinkMapper>()
+                .AddTransient<ILinkWithSublinksMapper, LinkWithSublinksMapper>()
+                .AddTransient<IHeadingWithLinksMapper, HeadingWithLinksMapper>()
+                .AddTransient<IHeadingWithSocialLinksMapper, HeadingWithSocialLinksMapper>()
+                .AddTransient<IRichTextMapper, RichTextMapper>();
 
-        // Component Mappers
-        services
-            .AddTransient<IComponentMapper, SpotlightMapper>()
-            .AddTransient<IComponentMapper, GalleryMapper>()
-            .AddTransient<IComponentMapper, RichTextSectionMapper>()
-            .AddTransient<IComponentMapper, SectionHeaderMapper>()
-            .AddTransient<IComponentMapper, FullWidthImageMapper>()
-            .AddTransient<IComponentMapper, CarouselMapper>()
-            .AddTransient<IComponentMapper, BannerMapper>();
+            // Component Mappers
+            services
+                .AddTransient<IComponentMapper, SpotlightMapper>()
+                .AddTransient<IComponentMapper, GalleryMapper>()
+                .AddTransient<IComponentMapper, RichTextSectionMapper>()
+                .AddTransient<IComponentMapper, SectionHeaderMapper>()
+                .AddTransient<IComponentMapper, FullWidthImageMapper>()
+                .AddTransient<IComponentMapper, CarouselMapper>()
+                .AddTransient<IComponentMapper, BannerMapper>();
 
-        services.AddTransient<IComponentMapper, FallbackComponentMapper>();
+            services.AddTransient<IComponentMapper, FallbackComponentMapper>();
 
-        // LayoutMappers
-        services
-            .AddTransient<ILayoutMapper, OneColumnMapper>();
+            // LayoutMappers
+            services
+                .AddTransient<ILayoutMapper, OneColumnMapper>();
 
-        services.AddTransient<ILayoutMapper, FallbackLayoutMapper>();
+            services.AddTransient<ILayoutMapper, FallbackLayoutMapper>();
 
 
-        // Page related mappers
-        services
-            .AddTransient<BasePageMapper>()
-            .AddTransient<ISeoMapper, SeoMapper>()
-            .AddTransient<ISiteSettingsMapper, SiteSettingsMapper>();
+            // Page related mappers
+            services
+                .AddTransient<BasePageMapper>()
+                .AddTransient<ISeoMapper, SeoMapper>()
+                .AddTransient<ISiteSettingsMapper, SiteSettingsMapper>();
 
-        // Page Mappers
-        services
-            .AddTransient<IPageMapper, HomeMapper>()
-            .AddTransient<IPageMapper, SiteSearchMapper>()
-            .AddTransient<IPageMapper, StandardContentMapper>()
-            .AddTransient<IPageMapper, BlogArticleMapper>()
-            .AddTransient<IPageMapper, NotFoundMapper>();
+            // Page Mappers
+            services
+                .AddTransient<IPageMapper, HomeMapper>()
+                .AddTransient<IPageMapper, SiteSearchMapper>()
+                .AddTransient<IPageMapper, StandardContentMapper>()
+                .AddTransient<IPageMapper, BlogArticleMapper>()
+                .AddTransient<IPageMapper, NotFoundMapper>();
 
-        services.AddTransient<IPageMapper, FallbackPageMapper>();
+            services.AddTransient<IPageMapper, FallbackPageMapper>();
+        }
     }
 
-    public static void AddPagesConverters(this IList<JsonConverter> convertersList)
+    extension(IList<JsonConverter> converters)
     {
-        convertersList.Add(new ComponentConverter());
-        convertersList.Add(new MediaBlockConverter());
-        convertersList.Add(new LayoutConverter());
-        convertersList.Add(new PageConverter());
+        public void AddPagesConverters()
+        {
+            converters.Add(new ComponentConverter());
+            converters.Add(new MediaBlockConverter());
+            converters.Add(new LayoutConverter());
+            converters.Add(new PageConverter());
+        }
     }
 
-    public static void MapPagesEndpoints(this RouteGroupBuilder apiVersionGroup)
+    extension(RouteGroupBuilder builder)
     {
-        apiVersionGroup
-            .MapGroup("/pages")
-            .WithTags("Pages")
-            .MapGetPageByIdOrPath()
-            .MapGetNotFoundPage()
-            .MapGetSitemap()
-            .MapGetRobots()
-            .MapGetDictionary();
+        public void MapPagesEndpoints()
+        {
+            builder
+                .MapGroup("/pages")
+                .WithTags("Pages")
+                .MapGetPageByIdOrPath()
+                .MapGetNotFoundPage()
+                .MapGetSitemap()
+                .MapGetRobots()
+                .MapGetDictionary();
+        }
     }
 }

@@ -22,14 +22,17 @@ internal static class GetSitemapEndpoint
 {
     private const string SitemapSegment = "sitemap.xml";
 
-    public static RouteGroupBuilder MapGetSitemap(this RouteGroupBuilder builder)
+    extension(RouteGroupBuilder builder)
     {
-        builder
-            .MapGet("/sitemap", Handle)
-            .MapToApiVersion(EndpointConstants.Versions.V1)
-            .CacheOutput(SiteAndPathBasedOutputCachePolicy.PolicyName);
+        public RouteGroupBuilder MapGetSitemap()
+        {
+            builder
+                .MapGet("/sitemap", Handle)
+                .MapToApiVersion(EndpointConstants.Versions.V1)
+                .CacheOutput(SiteAndPathBasedOutputCachePolicy.PolicyName);
 
-        return builder;
+            return builder;
+        }
     }
 
     private static async Task<Results<Ok<SitemapData>, NotFound>> Handle(

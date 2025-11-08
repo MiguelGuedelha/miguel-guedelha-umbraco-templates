@@ -16,14 +16,17 @@ namespace UmbracoHeadlessBFF.SiteApi.Modules.Pages.Endpoints;
 
 internal static class GetNotFoundPageEndpoint
 {
-    public static RouteGroupBuilder MapGetNotFoundPage(this RouteGroupBuilder builder)
+    extension(RouteGroupBuilder builder)
     {
-        builder
-            .MapGet("/not-found", Handle)
-            .MapToApiVersion(EndpointConstants.Versions.V1)
-            .CacheOutput(SiteBasedOutputCachePolicy.PolicyName);
+        public RouteGroupBuilder MapGetNotFoundPage()
+        {
+            builder
+                .MapGet("/not-found", Handle)
+                .MapToApiVersion(EndpointConstants.Versions.V1)
+                .CacheOutput(SiteBasedOutputCachePolicy.PolicyName);
 
-        return builder;
+            return builder;
+        }
     }
 
     private static async Task<Results<Ok<IPage>, NotFound>> Handle(IPagesService pagesService,
