@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Umbraco.Cms.Core.Configuration.Models;
 using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi;
+using UmbracoHeadlessBFF.SharedModules.Common.Environment;
 
 namespace UmbracoHeadlessBFF.Cms.Modules.Common.Authentication;
 
@@ -12,6 +14,12 @@ public sealed class ApiKeyAttribute : Attribute, IAuthorizationFilter
 {
     public void OnAuthorization(AuthorizationFilterContext context)
     {
+        var environment = context.HttpContext.RequestServices.GetRequiredService<IHostEnvironment>();
+        if (environment.IsLocal())
+        {
+            return;
+        }
+
         var deliveryApiConfig = context.HttpContext.RequestServices.GetService<IOptions<DeliveryApiSettings>>();
         var expectedApiKey = deliveryApiConfig?.Value.ApiKey;
 

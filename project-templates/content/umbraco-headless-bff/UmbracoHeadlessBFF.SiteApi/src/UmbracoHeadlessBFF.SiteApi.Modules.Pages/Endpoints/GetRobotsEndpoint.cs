@@ -131,7 +131,7 @@ internal static class GetRobotsEndpoint
 
         sitemapUrls.AddRange(alternateSitemapUrls);
 
-        var robotsSitemaps = string.Join('\n', sitemapUrls.Select(x => $"Sitemap: {x.ToString()}"));
+        var robotsSitemaps = string.Join('\n', sitemapUrls.Select(x => $"Sitemap: {x}"));
 
         return TypedResults.Ok(new RobotsTxt
         {

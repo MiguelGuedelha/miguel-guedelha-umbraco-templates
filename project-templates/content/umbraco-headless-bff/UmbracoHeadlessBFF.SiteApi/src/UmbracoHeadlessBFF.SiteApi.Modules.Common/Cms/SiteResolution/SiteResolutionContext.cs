@@ -58,13 +58,7 @@ public sealed class SiteResolutionContext
 
     private T GetContextItem<T>(string key)
     {
-        var context = _httpContextAccessor.HttpContext;
-
-        if (context is null)
-        {
-            throw new SiteApiException(StatusCodes.Status404NotFound, "No http context found");
-        }
-
+        var context = _httpContextAccessor.HttpContext ?? throw new SiteApiException(StatusCodes.Status404NotFound, "No http context found");
         var exists = context.TryGetContextItem<T>(key, out var value);
 
         if (!exists)
@@ -77,13 +71,7 @@ public sealed class SiteResolutionContext
 
     private void SetContextItem<T>(string key, T value)
     {
-        var context = _httpContextAccessor.HttpContext;
-
-        if (context is null)
-        {
-            throw new SiteApiException(StatusCodes.Status404NotFound, "No http context found");
-        }
-
+        var context = _httpContextAccessor.HttpContext ?? throw new SiteApiException(StatusCodes.Status404NotFound, "No http context found");
         context.AddContextItem(key, value);
     }
 }

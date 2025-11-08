@@ -51,13 +51,7 @@ internal static class GetPageByIdOrPathEndpoint
 
         siteResolutionContext.PageId = content.Id;
 
-        var mapper = mappers.FirstOrDefault(x => x.CanMap(content.ContentType));
-
-        if (mapper is null)
-        {
-            throw new SiteApiException($"No mapper for page with id = {id}");
-        }
-
+        var mapper = mappers.FirstOrDefault(x => x.CanMap(content.ContentType)) ?? throw new SiteApiException($"No mapper for page with id = {id}");
         var mapped = await mapper.Map(content);
 
         return mapped switch

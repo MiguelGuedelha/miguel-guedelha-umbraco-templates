@@ -4,8 +4,8 @@ using Umbraco.Cms.Core.Routing;
 using Umbraco.Cms.Core.Services.Navigation;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Models;
 using UmbracoHeadlessBFF.SharedModules.Cms.Links;
-using UmbracoHeadlessBFF.SharedModules.Common.Strings;
 using UmbracoHeadlessBFF.SharedModules.Common.Collections;
+using UmbracoHeadlessBFF.SharedModules.Common.Strings;
 
 namespace UmbracoHeadlessBFF.Cms.Modules.Common.Links;
 

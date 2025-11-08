@@ -28,13 +28,7 @@ public static class CachingConfiguration
             builder.Services.Configure<DefaultCachingOptions>(section);
 
             var defaultCachingOptions = section
-                .Get<DefaultCachingOptions>();
-
-            if (defaultCachingOptions is null)
-            {
-                throw new ArgumentException("Caching options can't be parsed");
-            }
-
+                .Get<DefaultCachingOptions>() ?? throw new ArgumentException("Caching options can't be parsed");
             var cacheBuilder = builder.Services
                 .AddFusionCache(cacheName ?? FusionCacheOptions.DefaultCacheName);
 

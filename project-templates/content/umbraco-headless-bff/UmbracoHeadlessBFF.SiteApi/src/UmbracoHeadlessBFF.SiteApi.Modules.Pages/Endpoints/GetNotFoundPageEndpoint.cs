@@ -46,13 +46,7 @@ internal static class GetNotFoundPageEndpoint
             return TypedResults.NotFound();
         }
 
-        var mapper = mappers.FirstOrDefault(x => x.CanMap(notFoundPage.ContentType));
-
-        if (mapper is null)
-        {
-            throw new SiteApiException($"No mapper for {notFoundPage.ContentType} page type");
-        }
-
+        var mapper = mappers.FirstOrDefault(x => x.CanMap(notFoundPage.ContentType)) ?? throw new SiteApiException($"No mapper for {notFoundPage.ContentType} page type");
         var mapped = await mapper.Map(notFoundPage);
 
         return mapped switch

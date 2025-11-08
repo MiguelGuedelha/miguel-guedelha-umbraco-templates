@@ -101,18 +101,26 @@ public sealed class GetSitesController : Controller
                 _documentNavigationQueryService.TryGetDescendantsKeysOfType(homepage.Key, SiteSettings.ModelTypeAlias, out var siteSettingsKeys);
                 _documentNavigationQueryService.TryGetDescendantsKeysOfType(homepage.Key, SiteDictionary.ModelTypeAlias, out var dictionaryKeys);
 
-
-                var siteSettings = await _publishedContentCache.GetByIdAsync(siteSettingsKeys.FirstOrDefault(), preview) as SiteSettings;
-                var dictionary = await _publishedContentCache.GetByIdAsync(dictionaryKeys.FirstOrDefault(), preview) as SiteDictionary;
-
-                var homePageSegment = homepage.UrlSegment(firstDomain.LanguageIsoCode);
-                var notFoundPage = siteSettings?.NotFoundPage;
-                var searchPage = siteSettings?.SearchPage;
-
-                if (siteSettings is null || dictionary is null || homePageSegment is null)
+                if (await _publishedContentCache.GetByIdAsync(siteSettingsKeys.FirstOrDefault(), preview) is not SiteSettings siteSettings)
                 {
                     continue;
                 }
+
+
+                if (await _publishedContentCache.GetByIdAsync(dictionaryKeys.FirstOrDefault(), preview) is not SiteDictionary dictionary)
+                {
+                    continue;
+                }
+
+                var homePageSegment = homepage.UrlSegment(firstDomain.LanguageIsoCode);
+
+                if (homePageSegment is null)
+                {
+                    continue;
+                }
+
+                var notFoundPage = siteSettings.NotFoundPage;
+                var searchPage = siteSettings.SearchPage;
 
                 var rootContent = homepage.Root();
 
