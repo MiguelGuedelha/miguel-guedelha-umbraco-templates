@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/template",
-  "author": "miguelguedelha",
+  "author": "Miguel Guedelha",
   "classifications": [
     "AspNetCore",
     "Web",
@@ -14,9 +14,10 @@
   "defaultName": "UmbracoHeadlessBFF",
   "description": "A template containing a baseline set of 2 deployable services. A Umbraco Site with Delivery API enabled, and a BFF API. It also includes pre-baked in features, such as caching and load balancing",
   "guids": [
-    "9cb15381-ae74-415a-985c-98e1f6e779ed",
-    "759145f7-38d6-4b5f-a862-55c536235b63",
-    "eaa22c3c-81e2-4fcb-b013-093c372258c9"
+    "9cb15381-ae74-415a-985c-98e1f6e779ed", // UmbracoHeadlessBFF.SiteApi user-secrets
+    "759145f7-38d6-4b5f-a862-55c536235b63", // UmbracoHeadlessBFF.Aspire user-secrets
+    "eaa22c3c-81e2-4fcb-b013-093c372258c9", // UmbracoHeadlessBFF.Cms user-secrets
+    "eb281fdb-b0b5-41ab-a107-dd0a655c514f" // Umbraco Global Id (appsettings.json)
   ],
   "identity": "MiguelGuedelha.UmbracoHeadlessBFF",
   "preferNameDirectory": true,
@@ -57,6 +58,51 @@
       "datatype": "bool",
       "description": "If specified, skips the automatic restore of the project on create.",
       "defaultValue": "false"
+    },
+    "cmsHttpsPortGenerated": {
+      "type": "generated",
+      "generator": "port",
+      "parameters": {
+        "low": 44300,
+        "high": 44399
+      },
+      "replaces": "44300"
+    },
+    "siteApiHttpsPortGenerated": {
+      "type": "generated",
+      "generator": "port",
+      "parameters": {
+        "low": 7000,
+        "high": 7300
+      },
+      "replaces": "7000"
+    },
+    "appHostHttpsPortGenerated": {
+      "type": "generated",
+      "generator": "port",
+      "parameters": {
+        "low": 17000,
+        "high": 17300
+      },
+      "replaces": "17000"
+    },
+    "appHostOtlpHttpsPortGenerated": {
+      "type": "generated",
+      "generator": "port",
+      "parameters": {
+        "low": 21000,
+        "high": 21300
+      },
+      "replaces": "21000"
+    },
+    "appHostResourceHttpsPortGenerated": {
+      "type": "generated",
+      "generator": "port",
+      "parameters": {
+        "low": 22000,
+        "high": 22300
+      },
+      "replaces": "22000"
     }
   },
   "tags": {

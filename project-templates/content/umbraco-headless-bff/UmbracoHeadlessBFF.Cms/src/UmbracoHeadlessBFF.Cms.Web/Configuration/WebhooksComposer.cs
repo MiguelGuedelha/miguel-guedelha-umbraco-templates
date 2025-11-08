@@ -1,6 +1,6 @@
 using Umbraco.Cms.Core.Composing;
 
-namespace UmbracoHeadlessBFF.Cms.Web.Composers;
+namespace UmbracoHeadlessBFF.Cms.Web.Configuration;
 
 internal sealed class WebhooksComposer : IComposer
 {

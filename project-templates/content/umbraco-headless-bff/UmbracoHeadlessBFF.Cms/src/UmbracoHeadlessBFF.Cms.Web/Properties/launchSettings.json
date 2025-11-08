@@ -1,36 +1,14 @@
 {
   "$schema": "https://json.schemastore.org/launchsettings.json",
   "profiles": {
-    "single": {
+    "https": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": false,
-      "applicationUrl": "https://localhost:44362;http://localhost:16730",
+      "applicationUrl": "https://localhost:44300",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Local",
-        "DOTNET_ENVIRONMENT": "Local",
-        "APPLICATION_SERVER_ROLE": "Single"
-      }
-    },
-    "cms": {
-      "commandName": "Project",
-      "dotnetRunMessages": true,
-      "launchBrowser": false,
-      "applicationUrl": "https://localhost:44362;http://localhost:16730",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Local",
-        "DOTNET_ENVIRONMENT": "Local",
-        "APPLICATION_SERVER_ROLE": "SchedulingPublisher"
-      }
-    },
-    "delivery-api": {
-      "commandName": "Project",
-      "dotnetRunMessages": true,
-      "launchBrowser": false,
-      "applicationUrl": "https://localhost:44363;http://localhost:16731",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Local",
-        "APPLICATION_SERVER_ROLE": "Subscriber"
+        "DOTNET_ENVIRONMENT": "Local"
       }
     }
   }

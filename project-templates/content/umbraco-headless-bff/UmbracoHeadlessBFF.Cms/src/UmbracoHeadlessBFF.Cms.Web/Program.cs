@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Azure;
 using Scalar.AspNetCore;
 using Umbraco.Cms.Api.Common.DependencyInjection;
 using Umbraco.Cms.Core;
@@ -45,6 +46,18 @@ if (builder.Environment.IsLocal())
 {
     builder.Configuration.AddUserSecrets<Program>();
 }
+
+builder.Services.AddAzureClients(clientBuilder =>
+{
+    var blobConnectionString = builder.Configuration["Umbraco:Storage:AzureBlob:Media:ConnectionString"];
+
+    if (string.IsNullOrWhiteSpace(blobConnectionString))
+    {
+        throw new ArgumentException("No blob container connection string");
+    }
+
+    clientBuilder.AddBlobServiceClient(blobConnectionString);
+});
 
 var app = builder.Build();
 

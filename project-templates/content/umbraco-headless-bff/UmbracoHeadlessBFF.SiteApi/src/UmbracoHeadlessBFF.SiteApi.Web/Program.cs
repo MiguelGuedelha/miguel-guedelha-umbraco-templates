@@ -80,8 +80,6 @@ var app = builder.Build();
 
 app.UseStatusCodePages();
 
-app.UseHttpsRedirection();
-
 app.UseCorrelationSharedModules();
 
 if (!app.Environment.IsProduction())
