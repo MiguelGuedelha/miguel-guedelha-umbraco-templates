@@ -40,16 +40,13 @@
         "**/*.user",
         "**/appsettings-schema*",
         "**/*lock.json",
-        "**/*lock.yaml",
         "**/App_Plugins/**",
         "**/[Uu]mbraco/**",
         "**/uSync/**",
-        "**/*.bundle.js*",
-        "**/node_modules/**",
-        "**/dist/**",
-        "**/.astro/**",
-        "**/.vscode/launch.json",
-        "**/dist"
+        "**/.vscode/**"
+      ],
+      "include": [
+        "**/App_Plugins/HeadlessPreviewExtension/**"
       ],
       "modifiers": []
     }
