@@ -10,11 +10,10 @@
     "API",
     "Headless"
   ],
-  "name": "Umbraco Website BFF API and Astro",
+  "name": "Umbraco Website with BFF API",
   "defaultName": "UmbracoHeadlessBFF",
-  "description": "A template containing a baseline set of 3 deployable services. A Umbraco Site with Delivery API enabled, a BFF layer API and an Astro Frontend. It also includes pre-baked in features, such as caching and load balancing",
+  "description": "A template containing a baseline set of 2 deployable services. A Umbraco Site with Delivery API enabled, and a BFF API. It also includes pre-baked in features, such as caching and load balancing",
   "guids": [
-    "96428842-b8ff-46d1-aa2f-dbf284cb7d6a",
     "9cb15381-ae74-415a-985c-98e1f6e779ed",
     "759145f7-38d6-4b5f-a862-55c536235b63",
     "eaa22c3c-81e2-4fcb-b013-093c372258c9"
@@ -26,7 +25,7 @@
       "path": "UmbracoHeadlessBFF.Aspire/UmbracoHeadlessBFF.Aspire.sln"
     }
   ],
-  "shortName": "umbraco-bff-astro",
+  "shortName": "umbraco-headless-bff",
   "sourceName": "UmbracoHeadlessBFF",
   "sources": [
     {
@@ -35,7 +34,7 @@
       "exclude": [
         "**/[Bb]in/**",
         "**/[Oo]bj/**",
-        ".template.config/**/*",
+        ".template.config/**",
         "**/*.filelist",
         "**/*.user",
         "**/appsettings-schema*",
@@ -43,7 +42,8 @@
         "**/App_Plugins/**",
         "**/[Uu]mbraco/**",
         "**/uSync/**",
-        "**/.vscode/**"
+        "**/.vscode/**",
+        "*.sh"
       ],
       "include": [
         "**/App_Plugins/HeadlessPreviewExtension/**"
