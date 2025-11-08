@@ -8,6 +8,7 @@ using UmbracoHeadlessBFF.Cms.Modules.Common.Preview;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Urls;
 using UmbracoHeadlessBFF.SharedModules.Common.Correlation;
+using UmbracoHeadlessBFF.SharedModules.Common.Environment;
 using UmbracoHeadlessBFF.SharedModules.Common.Versioning;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -39,6 +40,11 @@ builder.Services.AddControllers().AddJsonOptions(Constants.JsonOptionsNames.Deli
 {
     options.JsonSerializerOptions.MaxDepth = 128;
 });
+
+if (builder.Environment.IsLocal())
+{
+    builder.Configuration.AddUserSecrets<Program>();
+}
 
 var app = builder.Build();
 

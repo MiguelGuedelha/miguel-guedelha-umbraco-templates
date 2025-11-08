@@ -32,7 +32,7 @@ internal sealed class PreviewUrlProvider : IUrlProvider
         _logger = logger;
     }
 
-    public string Alias => "PreviewProvider";
+    public string Alias => "HeadlessPreviewProvider";
 
     public UrlInfo? GetUrl(IPublishedContent content, UrlMode mode, string? culture, Uri current) => null;
 

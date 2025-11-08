@@ -1,0 +1,19 @@
+{
+  "name": "Headless Preview Provider",
+  "alias": "Headless.Preview.Provider",
+  "extensions": [
+    {
+      "type": "workspaceActionMenuItem",
+      "kind": "previewOption",
+      "alias": "Headless.Preview.Preview.Option",
+      "name": "Headless Preview",
+      "forWorkspaceActions": "Umb.WorkspaceAction.Document.SaveAndPreview",
+      "weight": 101,
+      "meta": {
+        "icon": "icon-umbraco",
+        "label": "Save & Preview - Headless",
+        "urlProviderAlias": "HeadlessPreviewProvider"
+      }
+    }
+  ]
+}

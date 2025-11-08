@@ -29,4 +29,8 @@
     <ProjectReference Include="..\UmbracoHeadlessBFF.Cms.Modules.Pages\UmbracoHeadlessBFF.Cms.Modules.Pages.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="App_Plugins\HeadlessPreviewExtension\umbraco-package.json" />
+  </ItemGroup>
+
 </Project>
