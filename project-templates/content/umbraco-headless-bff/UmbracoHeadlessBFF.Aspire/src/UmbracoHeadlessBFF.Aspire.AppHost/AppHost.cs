@@ -33,8 +33,7 @@ smtpPort.WithParentRelationship(mailServer);
 var database = builder
     .AddSqlServer(Services.DatabaseServer)
     .WithDataBindMount(Path.Join(baseBindPath, "database/data"))
-    .WithContainerRuntimeArgs("--user", "root")
-    .WithLifetime(ContainerLifetime.Persistent);
+    .WithContainerRuntimeArgs("--user", "root");
 
 var umbracoDb = database.AddDatabase(Services.Database, "umbraco-cms");
 
@@ -46,7 +45,6 @@ var azureStorage = builder
     .AddAzureStorage(Services.AzureStorage)
     .RunAsEmulator(o =>
     {
-        o.WithLifetime(ContainerLifetime.Persistent);
         o.WithDataBindMount(Path.Join(baseBindPath, "azure-storage/data"));
     });
 
@@ -60,10 +58,7 @@ cmsUmbracoBlobContainerParameter.WithParentRelationship(umbracoMediaBlob);
 
 var serviceBus = builder
     .AddAzureServiceBus(Services.ServiceBus.Name)
-    .RunAsEmulator(o =>
-    {
-        o.WithLifetime(ContainerLifetime.Persistent);
-    });
+    .RunAsEmulator();
 
 var cmsCacheTopic = serviceBus.AddServiceBusTopic(Services.ServiceBus.Topics.CmsCache);
 
@@ -73,7 +68,7 @@ cmsCacheTopic.AddServiceBusSubscription(Services.ServiceBus.Subscriptions.SiteAp
         sub.MaxDeliveryCount = 5;
     });
 
-var cms = builder.AddProject<Projects.Cms>(Services.Cms, launchProfileName: "single")
+var cms = builder.AddProject<Projects.Cms>(Services.Cms)
     .WithExternalHttpEndpoints();
 
 var cmsDeliveryApiKey = builder.AddParameter("CmsDeliveryApiKey");
