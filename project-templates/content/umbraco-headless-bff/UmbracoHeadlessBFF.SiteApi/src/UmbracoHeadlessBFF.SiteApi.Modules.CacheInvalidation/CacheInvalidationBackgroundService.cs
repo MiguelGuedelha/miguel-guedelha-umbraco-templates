@@ -15,6 +15,16 @@ public sealed class CacheInvalidationBackgroundService : BackgroundService
     private readonly IFusionCache _siteApiOutputFusionCache;
     private readonly ILogger<CacheInvalidationBackgroundService> _logger;
 
+    private const int MaxRetryCount = 3;
+
+    private static readonly string[] s_genericTags =
+    [
+        CachingTagConstants.Sites,
+        CachingTagConstants.Sitemaps,
+        CachingTagConstants.Robots,
+        CachingTagConstants.Redirects
+    ];
+
     public CacheInvalidationBackgroundService(
         ServiceBusClient serviceBusClient,
         IFusionCacheProvider fusionCacheProvider,
@@ -58,7 +68,7 @@ public sealed class CacheInvalidationBackgroundService : BackgroundService
     {
         var message = args.Message.Body.ToObjectFromJson<CacheInvalidationMessage>();
 
-        if (message is null)
+        if (message is null || args.Message.DeliveryCount > MaxRetryCount)
         {
             // Message is wrongly formatted or can't be processed
             // Needs manual verification
@@ -90,23 +100,24 @@ public sealed class CacheInvalidationBackgroundService : BackgroundService
             case CacheInvalidationMessage.CacheInvalidationType.Content:
                 foreach (var item in message.Items)
                 {
-                    if (item.ContentTypeAlias == "siteSettings")
-                    {
-                        await _siteApiFusionCache.RemoveByTagAsync(CachingTagConstants.Sites);
-                    }
-
                     await _siteApiFusionCache.RemoveByTagAsync(item.Key.ToString());
                     await _siteApiOutputFusionCache.RemoveByTagAsync(item.Key.ToString());
                 }
 
-                await args.CompleteMessageAsync(args.Message);
+                await _siteApiFusionCache.RemoveByTagAsync(s_genericTags);
+                await _siteApiOutputFusionCache.RemoveByTagAsync(s_genericTags);
                 break;
+
             default:
                 if (_logger.IsEnabled(LogLevel.Warning))
                 {
-                    _logger.LogWarning("Unsupported CacheInvalidationMessage type: {Type}", message.ObjectsType);
+                    _logger.LogWarning("Unsupported CacheInvalidationMessage type: {Type}. Abandoning", message.ObjectsType);
                 }
-                break;
+
+                await args.AbandonMessageAsync(args.Message);
+                return;
         }
+
+        await args.CompleteMessageAsync(args.Message);
     }
 }

@@ -6,6 +6,7 @@ public sealed record DefaultCachingOptions
 
     public bool Enabled { get; init; }
     public int Duration { get; init; }
+    public int? DurationDistributed { get; init; }
     public int NullDuration { get; init; }
     public int DistributedCacheCircuitBreakerDuration { get; init; }
     public bool FailSafeIsEnabled { get; init; }

@@ -68,12 +68,9 @@ public sealed class SiteResolutionService
             x.SiteDefinitionDomain.Domain.Equals(siteHost, StringComparison.OrdinalIgnoreCase)
             && path.StartsWith(x.SiteDefinitionDomain.Path, StringComparison.OrdinalIgnoreCase));
 
-        if (foundSite is { Key: not null, SiteDefinitionDomain: not null })
-        {
-            return (foundSite.Key, sites[foundSite.Key]);
-        }
-
-        throw new SiteApiException(StatusCodes.Status404NotFound, "No site found");
+        return foundSite is { Key: not null, SiteDefinitionDomain: not null }
+            ? (foundSite.Key, sites[foundSite.Key])
+            : throw new SiteApiException(StatusCodes.Status404NotFound, "No site found");
     }
 
     public async Task<IReadOnlyCollection<SiteDefinition>> GetAlternateSites(SiteDefinition site)
@@ -92,24 +89,21 @@ public sealed class SiteResolutionService
     {
         if (_siteResolutionContext.IsPreview)
         {
-            return await GetSitesFactory();
+            return await GetSitesFactory(true);
         }
 
         return await _fusionCache.GetOrSetAsync<Dictionary<string, SiteDefinition>>(
-            "sites",
-            async (_, ct) => await GetSitesFactory(ct),
+            $"Region:{CachingRegionConstants.Sites}:List",
+            async (_, ct) => await GetSitesFactory(false, ct),
             tags: [CachingTagConstants.Sites]);
 
-        async Task<Dictionary<string, SiteDefinition>> GetSitesFactory(CancellationToken cancellationToken = default)
+        async Task<Dictionary<string, SiteDefinition>> GetSitesFactory(bool factoryPreview, CancellationToken cancellationToken = default)
         {
-            var response = await _siteResolutionApi.GetSites(_siteResolutionContext.IsPreview, cancellationToken);
+            var response = await _siteResolutionApi.GetSites(factoryPreview, cancellationToken);
 
-            if (response is { IsSuccessful: true, Content: not null })
-            {
-                return response.Content;
-            }
-
-            throw new SiteApiException((int)response.StatusCode, "Couldn't get sites", response.Error);
+            return response is { IsSuccessful: true, Content: not null }
+                ? response.Content
+                : throw new SiteApiException((int)response.StatusCode, "Couldn't get sites", response.Error);
         }
     }
 }

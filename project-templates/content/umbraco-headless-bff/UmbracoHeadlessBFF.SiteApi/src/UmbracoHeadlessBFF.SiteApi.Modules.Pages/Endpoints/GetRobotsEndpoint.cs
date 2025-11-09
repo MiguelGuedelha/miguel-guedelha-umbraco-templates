@@ -61,7 +61,7 @@ internal static class GetRobotsEndpoint
             return TypedResults.NotFound();
         }
 
-        var homepage = siteResolutionContext.Site.HomepageId;
+        var homepageId = siteResolutionContext.Site.HomepageId;
         var culture = siteResolutionContext.Site.CultureInfo;
         var isPreview = siteResolutionContext.IsPreview;
 
@@ -69,7 +69,7 @@ internal static class GetRobotsEndpoint
 
         if (isPreview)
         {
-            var response = await GetRobotsTxtFactory();
+            var response = await GetRobotsTxtFactory(homepageId, culture, true);
 
             content = response.Content?.RobotsContent;
         }
@@ -78,23 +78,21 @@ internal static class GetRobotsEndpoint
             var fusionCache = fusionCacheProvider.GetCache(CachingConstants.SiteApiCacheName);
 
             var data = await fusionCache.GetOrSetAsync<RobotsData?>(
-                $"robots:home-id:{homepage}:culture:{culture}",
+                $"Region:{CachingRegionConstants.Robots}:Site:{homepageId}-{culture}",
                 async (ctx, ct) =>
                 {
-                    var response = await GetRobotsTxtFactory(ct);
+                    var response = await GetRobotsTxtFactory(homepageId, culture, false, ct);
 
-                    if (response.StatusCode == HttpStatusCode.NotFound)
+                    if (response is { IsSuccessful: true, Content: not null })
                     {
-                        ctx.Options.SetDuration(TimeSpan.FromSeconds(defaultCachingOptions.Value.NullDuration));
+                        return response.Content;
                     }
 
-                    return response.Content;
+                    ctx.Options.SetAllDurations(TimeSpan.FromSeconds(defaultCachingOptions.Value.NullDuration));
+
+                    return null;
                 },
-                tags:
-                [
-                    CachingTagConstants.Robots,
-                    siteResolutionContext.Site.SiteSettingsId.ToString()
-                ]);
+                tags: [CachingTagConstants.Robots, homepageId.ToString(), culture, siteResolutionContext.Site.SiteSettingsId.ToString()]);
 
             content = data?.RobotsContent;
         }
@@ -138,16 +136,13 @@ internal static class GetRobotsEndpoint
             Content = $"{content}\n{robotsSitemaps}"
         });
 
-        async Task<IApiResponse<RobotsData>> GetRobotsTxtFactory(CancellationToken cancellationToken = default)
+        async Task<IApiResponse<RobotsData>> GetRobotsTxtFactory(Guid factoryHome, string factoryCulture, bool factoryPreview, CancellationToken cancellationToken = default)
         {
-            var response = await robotsApi.GetRobots(homepage, culture, isPreview, cancellationToken);
+            var response = await robotsApi.GetRobots(factoryHome, factoryCulture, factoryPreview, cancellationToken);
 
-            if (response is { IsSuccessful: false, StatusCode: not HttpStatusCode.NotFound })
-            {
-                throw new SiteApiException((int)response.StatusCode, response.ReasonPhrase);
-            }
-
-            return response;
+            return response is { IsSuccessful: false, StatusCode: not HttpStatusCode.NotFound }
+                ? throw new SiteApiException((int)response.StatusCode, response.ReasonPhrase)
+                : response;
         }
     }
 }

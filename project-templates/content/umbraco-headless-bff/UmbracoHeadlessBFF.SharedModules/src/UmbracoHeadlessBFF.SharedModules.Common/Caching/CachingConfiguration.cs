@@ -57,14 +57,14 @@ public static class CachingConfiguration
                 .WithOptions(o =>
                 {
                     //Backs off the Distributed Cache if having issues
-                    o.DistributedCacheCircuitBreakerDuration =
-                        TimeSpan.FromSeconds(defaultCachingOptions.DistributedCacheCircuitBreakerDuration);
+                    o.DistributedCacheCircuitBreakerDuration = TimeSpan.FromSeconds(defaultCachingOptions.DistributedCacheCircuitBreakerDuration);
 
                     configureOptions?.Invoke(o);
                 })
                 .WithDefaultEntryOptions(o =>
                 {
                     o.Duration = TimeSpan.FromSeconds(defaultCachingOptions.Duration);
+                    o.DistributedCacheDuration = TimeSpan.FromSeconds(defaultCachingOptions.DurationDistributed ?? defaultCachingOptions.Duration);
 
                     o.IsFailSafeEnabled = defaultCachingOptions.FailSafeIsEnabled;
                     o.FailSafeMaxDuration = TimeSpan.FromSeconds(defaultCachingOptions.FailSafeMaxDuration);
@@ -73,11 +73,9 @@ public static class CachingConfiguration
                     o.FactorySoftTimeout = TimeSpan.FromMilliseconds(defaultCachingOptions.FactorySoftTimeoutMs);
                     o.FactoryHardTimeout = TimeSpan.FromSeconds(defaultCachingOptions.FactoryHardTimeout);
 
-                    o.DistributedCacheSoftTimeout =
-                        TimeSpan.FromMilliseconds(defaultCachingOptions.DistributedCacheSoftTimeoutMs);
+                    o.DistributedCacheSoftTimeout = TimeSpan.FromMilliseconds(defaultCachingOptions.DistributedCacheSoftTimeoutMs);
                     o.DistributedCacheHardTimeout = TimeSpan.FromSeconds(defaultCachingOptions.DistributedCacheHardTimeout);
-                    o.AllowBackgroundDistributedCacheOperations =
-                        defaultCachingOptions.AllowBackgroundDistributedCacheOperations;
+                    o.AllowBackgroundDistributedCacheOperations = defaultCachingOptions.AllowBackgroundDistributedCacheOperations;
                     o.AllowBackgroundBackplaneOperations = defaultCachingOptions.AllowBackgroundBackplaneOperations;
 
                     o.JitterMaxDuration = TimeSpan.FromSeconds(defaultCachingOptions.JitterMaxDuration);

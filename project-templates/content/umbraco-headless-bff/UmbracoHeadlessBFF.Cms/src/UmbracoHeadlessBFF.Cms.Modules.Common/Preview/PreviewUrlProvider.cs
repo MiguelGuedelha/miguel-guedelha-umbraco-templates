@@ -71,7 +71,7 @@ internal sealed class PreviewUrlProvider : IUrlProvider
 
         var cultureInfo = new CultureInfo(culture);
 
-        return Task.FromResult<UrlInfo?>(new UrlInfo(
+        return Task.FromResult<UrlInfo?>(new(
             uriBuilder.Uri,
             Alias,
             culture,
@@ -89,12 +89,12 @@ internal sealed class PreviewUrlProvider : IUrlProvider
             return string.Empty;
         }
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_previewOptions.SecretKey!));
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_previewOptions.SecretKey));
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512);
 
         var tokenDescriptor = new SecurityTokenDescriptor
         {
-            Subject = new ClaimsIdentity([new Claim(ClaimTypes.Name, "site-preview")]),
+            Subject = new([new(ClaimTypes.Name, "site-preview")]),
             Expires = DateTime.UtcNow.AddHours(1),
             SigningCredentials = credentials
         };

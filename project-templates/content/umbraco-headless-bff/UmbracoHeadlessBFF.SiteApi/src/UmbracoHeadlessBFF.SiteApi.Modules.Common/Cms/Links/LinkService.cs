@@ -28,29 +28,30 @@ public sealed class LinkService
 
     public async Task<Link?> ResolveLink(Guid id)
     {
+        var culture =  _siteResolutionContext.Site.CultureInfo;
+
         if (_siteResolutionContext.IsPreview)
         {
-            var response = await _linksApi.GetLink(id, _siteResolutionContext.Site.CultureInfo, true);
+            var response = await _linksApi.GetLink(id, culture, true);
             return response.Content;
         }
 
-
         var data = await _fusionCache.GetOrSetAsync<Link?>(
-            $"links:id:{id}:culture:{_siteResolutionContext.Site.CultureInfo}",
+            $"Region:{CachingRegionConstants.Links}:{id}-{culture}",
             async (ctx, ct) =>
             {
-                var response = await _linksApi.GetLink(id, _siteResolutionContext.Site.CultureInfo, _siteResolutionContext.IsPreview, ct);
+                var response = await _linksApi.GetLink(id, culture, false, ct);
 
                 if (response is { IsSuccessful: true, Content: not null })
                 {
                     return response.Content;
                 }
 
-                ctx.Options.Duration = TimeSpan.FromSeconds(_defaultCachingOptions.NullDuration);
+                ctx.Options.SetAllDurations(TimeSpan.FromSeconds(_defaultCachingOptions.NullDuration));
 
                 return null;
             },
-            tags: [CachingTagConstants.Links, id.ToString()]);
+            tags: [CachingTagConstants.Links, id.ToString(), culture]);
 
         return data;
     }
