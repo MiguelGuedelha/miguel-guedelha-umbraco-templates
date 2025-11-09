@@ -28,7 +28,7 @@ public sealed class LinkService
 
     public async Task<Link?> ResolveLink(Guid id)
     {
-        var culture =  _siteResolutionContext.Site.CultureInfo;
+        var culture = _siteResolutionContext.Site.CultureInfo;
 
         if (_siteResolutionContext.IsPreview)
         {
