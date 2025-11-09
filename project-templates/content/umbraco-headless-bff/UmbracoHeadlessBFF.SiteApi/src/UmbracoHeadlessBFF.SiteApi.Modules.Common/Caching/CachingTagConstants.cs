@@ -8,4 +8,5 @@ public static class CachingTagConstants
     public const string Sitemaps = "sitemaps";
     public const string Pages = "pages";
     public const string Redirects = "redirects";
+    public const string Media = "media";
 }

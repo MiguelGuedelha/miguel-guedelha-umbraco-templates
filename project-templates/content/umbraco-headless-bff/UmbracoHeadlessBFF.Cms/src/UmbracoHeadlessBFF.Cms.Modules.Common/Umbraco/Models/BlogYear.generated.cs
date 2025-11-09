@@ -86,11 +86,11 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Models
 		public virtual global::UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Data.RedirectFallbackDirection RedirectDirection => global::UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Models.RedirectSettings.GetRedirectDirection(this, _publishedValueFallback);
 
 		///<summary>
-		/// Redirect Link: Direct link to a page, url, etc
+		/// Redirect Link Override: Direct link to a page, url, etc
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("redirectLink")]
-		public virtual global::Umbraco.Cms.Core.Models.Link RedirectLink => global::UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Models.RedirectSettings.GetRedirectLink(this, _publishedValueFallback);
+		[ImplementPropertyType("redirectLinkOverride")]
+		public virtual global::Umbraco.Cms.Core.Models.Link RedirectLinkOverride => global::UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Models.RedirectSettings.GetRedirectLinkOverride(this, _publishedValueFallback);
 	}
 }

@@ -13,7 +13,7 @@ public sealed class LinkService
     private readonly ILinksApi _linksApi;
     private readonly SiteResolutionContext _siteResolutionContext;
     private readonly IFusionCache _fusionCache;
-    private readonly IOptionsSnapshot<DefaultCachingOptions> _defaultCachingOptions;
+    private readonly DefaultCachingOptions _defaultCachingOptions;
 
     public LinkService(ILinksApi linksApi,
         SiteResolutionContext siteResolutionContext,
@@ -23,7 +23,7 @@ public sealed class LinkService
         _linksApi = linksApi;
         _siteResolutionContext = siteResolutionContext;
         _fusionCache = fusionCacheProvider.GetCache(CachingConstants.SiteApiCacheName);
-        _defaultCachingOptions = defaultCachingOptions;
+        _defaultCachingOptions = defaultCachingOptions.Value;
     }
 
     public async Task<Link?> ResolveLink(Guid id)
@@ -46,7 +46,7 @@ public sealed class LinkService
                     return response.Content;
                 }
 
-                ctx.Options.Duration = TimeSpan.FromSeconds(_defaultCachingOptions.Value.NullDuration);
+                ctx.Options.Duration = TimeSpan.FromSeconds(_defaultCachingOptions.NullDuration);
 
                 return null;
             },

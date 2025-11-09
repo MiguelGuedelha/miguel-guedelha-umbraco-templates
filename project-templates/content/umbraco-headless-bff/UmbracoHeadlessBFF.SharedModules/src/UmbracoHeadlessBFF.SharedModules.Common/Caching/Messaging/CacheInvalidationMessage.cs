@@ -23,6 +23,7 @@ public sealed record CacheInvalidationMessage
     public enum CacheInvalidationType
     {
         Content = 0,
-        Domain = 1
+        Domain = 1,
+        Media = 2
     }
 }

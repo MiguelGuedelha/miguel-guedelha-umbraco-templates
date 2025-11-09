@@ -39,7 +39,10 @@ public sealed class CacheInvalidationBackgroundService : BackgroundService
         _serviceBusProcessor.ProcessMessageAsync += ProcessCacheInvalidationMessage;
         _serviceBusProcessor.ProcessErrorAsync += args =>
         {
-            _logger.LogError(args.Exception, "Failure during cache invalidation processing");
+            if (_logger.IsEnabled(LogLevel.Error))
+            {
+                _logger.LogError(args.Exception, "Failure during cache invalidation processing");
+            }
             return Task.CompletedTask;
         };
         await _serviceBusProcessor.StartProcessingAsync(stoppingToken);
@@ -63,23 +66,47 @@ public sealed class CacheInvalidationBackgroundService : BackgroundService
             return;
         }
 
-        if (message.ObjectsType is CacheInvalidationMessage.CacheInvalidationType.Domain || message.InvalidateAll)
+        switch (message.ObjectsType)
         {
-            await _siteApiFusionCache.ClearAsync();
-            await _siteApiOutputFusionCache.ClearAsync();
+            case CacheInvalidationMessage.CacheInvalidationType.Domain:
+                await _siteApiFusionCache.ClearAsync();
+                await _siteApiOutputFusionCache.ClearAsync();
+                break;
+
+            case CacheInvalidationMessage.CacheInvalidationType.Media:
+                switch (message.InvalidateAll)
+                {
+                    case true:
+                        await _siteApiFusionCache.RemoveByTagAsync(CachingTagConstants.Media);
+                        break;
+                    case false:
+                        await _siteApiFusionCache.RemoveByTagAsync(message.Items.Select(x => x.Key.ToString()));
+                        break;
+                }
+
+                await _siteApiOutputFusionCache.ClearAsync();
+                break;
+
+            case CacheInvalidationMessage.CacheInvalidationType.Content:
+                foreach (var item in message.Items)
+                {
+                    if (item.ContentTypeAlias == "siteSettings")
+                    {
+                        await _siteApiFusionCache.RemoveByTagAsync(CachingTagConstants.Sites);
+                    }
+
+                    await _siteApiFusionCache.RemoveByTagAsync(item.Key.ToString());
+                    await _siteApiOutputFusionCache.RemoveByTagAsync(item.Key.ToString());
+                }
+
+                await args.CompleteMessageAsync(args.Message);
+                break;
+            default:
+                if (_logger.IsEnabled(LogLevel.Warning))
+                {
+                    _logger.LogWarning("Unsupported CacheInvalidationMessage type: {Type}", message.ObjectsType);
+                }
+                break;
         }
-
-        foreach (var item in message.Items)
-        {
-            if (item.ContentTypeAlias == "siteSettings")
-            {
-                await _siteApiFusionCache.RemoveByTagAsync(CachingTagConstants.Sites);
-            }
-
-            await _siteApiFusionCache.RemoveByTagAsync(item.Key.ToString());
-            await _siteApiOutputFusionCache.RemoveByTagAsync(item.Key.ToString());
-        }
-
-        await args.CompleteMessageAsync(args.Message);
     }
 }

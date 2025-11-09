@@ -69,12 +69,12 @@ var azureStorage = builder
     .WithUrlForEndpoint("table", x => { x.DisplayLocation = UrlDisplayLocation.DetailsOnly; });
 
 
-var cmsUmbracoBlobContainerParameter = builder.AddParameter("CmsUmbracoBlobContainer");
-var blobContainerValue = await cmsUmbracoBlobContainerParameter.Resource.GetValueAsync(CancellationToken.None);
+var cmsUmbracoBlobContainerNameParameter = builder.AddParameter("CmsUmbracoBlobContainer");
+var blobContainerValue = await cmsUmbracoBlobContainerNameParameter.Resource.GetValueAsync(CancellationToken.None);
 
 var umbracoMediaBlob = azureStorage.AddBlobContainer(blobContainerValue!);
 
-cmsUmbracoBlobContainerParameter.WithParentRelationship(umbracoMediaBlob);
+cmsUmbracoBlobContainerNameParameter.WithParentRelationship(umbracoMediaBlob);
 
 // Can't seem to reach "tcp" endpoint of the underlying MSSQL instance to hide URL in Aspire UI
 var serviceBus = builder
@@ -103,8 +103,8 @@ cms.WithReference(umbracoDb, connectionName: "umbracoDbDSN")
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Port", smtpPort)
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Username", smtpUser)
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Password", smtpPassword)
-    .WithEnvironment("Umbraco__Storage__AzureBlob__Media__ConnectionString", umbracoMediaBlob.Resource.Parent.ConnectionStringExpression)
-    .WithEnvironment("Umbraco__Storage__AzureBlob__Media__ContainerName", cmsUmbracoBlobContainerParameter)
+    .WithEnvironment("Umbraco__Storage__AzureBlob__Media__ConnectionString", umbracoMediaBlob.Resource.Parent)
+    .WithEnvironment("Umbraco__Storage__AzureBlob__Media__ContainerName", cmsUmbracoBlobContainerNameParameter)
     .WithEnvironment("Umbraco__CMS__DeliveryApi__ApiKey", cmsDeliveryApiKey)
     .WithEnvironment("ApplicationUrls__Media", () => cms.Resource.GetEndpoint("https").Url)
     .WaitFor(mailServer)

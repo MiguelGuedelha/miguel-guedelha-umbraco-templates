@@ -113,11 +113,11 @@ public sealed class GetRedirectLinkController : Controller
             return TypedResults.NotFound();
         }
 
-        var url = redirectSettings.RedirectLink switch
+        var url = redirectSettings.RedirectLinkOverride switch
         {
-            { Type: LinkType.Content } => redirectSettings.RedirectLink.Url,
-            { Type: LinkType.Media } => new Uri(new(_applicationUrlOptions.Media), redirectSettings.RedirectLink.Url).ToString(),
-            { Type: LinkType.External } => redirectSettings.RedirectLink.Url!,
+            { Type: LinkType.Content } => redirectSettings.RedirectLinkOverride.Url,
+            { Type: LinkType.Media } => new Uri(new(_applicationUrlOptions.Media), redirectSettings.RedirectLinkOverride.Url).ToString(),
+            { Type: LinkType.External } => redirectSettings.RedirectLinkOverride.Url!,
             _ => GenerateFallbackUrl(item, redirectSettings.RedirectDirection, culture)
         };
 

@@ -18,7 +18,7 @@ namespace UmbracoHeadlessBFF.SiteApi.Modules.Pages;
 internal interface IPagesService
 {
     Task<IApiContent?> GetPage(Guid id, bool? isPreview = null, SiteDefinition? site = null);
-    Task<IApiContent?> GetPage(string path);
+    Task<IApiContent?> GetPage(string path, bool? isPreview = null, SiteDefinition? site = null);
     Task<PagedApiContent?> GetPages(int skip = 0, int take = 10, ContentFetchType? fetch = null,
         IReadOnlyCollection<ContentFilterType>? filter = null, ContentSortType? sort = null, string? startItem = null);
 }
@@ -29,7 +29,7 @@ internal sealed class PagesService : IPagesService
     private readonly SiteResolutionContext _siteResolutionContext;
     private readonly ILinksApi _linksApi;
     private readonly IFusionCache _fusionCache;
-    private readonly IOptionsSnapshot<DefaultCachingOptions> _defaultCachingOptions;
+    private readonly DefaultCachingOptions _defaultCachingOptions;
 
     private static readonly string s_levelOneExpandFieldsLevel = new FieldsExpandProperties(1).ToString();
     private static readonly string s_defaultExpandFieldsLevel = new FieldsExpandProperties(5).ToString();
@@ -37,14 +37,15 @@ internal sealed class PagesService : IPagesService
     public PagesService(
         IUmbracoDeliveryApi umbracoDeliveryApi,
         SiteResolutionContext siteResolutionContext,
-        ILinksApi linksApi, IFusionCacheProvider fusionCacheProvider,
+        ILinksApi linksApi,
+        IFusionCacheProvider fusionCacheProvider,
         IOptionsSnapshot<DefaultCachingOptions> defaultCachingOptions)
     {
         _umbracoDeliveryApi = umbracoDeliveryApi;
         _siteResolutionContext = siteResolutionContext;
         _linksApi = linksApi;
         _fusionCache = fusionCacheProvider.GetCache(CachingConstants.SiteApiCacheName);
-        _defaultCachingOptions = defaultCachingOptions;
+        _defaultCachingOptions = defaultCachingOptions.Value;
     }
 
     public async Task<IApiContent?> GetPage(Guid id, bool? isPreview = null, SiteDefinition? site = null)
@@ -55,7 +56,7 @@ internal sealed class PagesService : IPagesService
 
         if (requestPreview)
         {
-            var response = await GetPageByIdFactory(true, requestSite);
+            var response = await GetPageByIdFactory(id, true, requestSite);
             return response.Content;
         }
 
@@ -63,11 +64,11 @@ internal sealed class PagesService : IPagesService
             $"page:home-id:{requestSite.HomepageId}:culture:{requestSite.CultureInfo}:page-id:{id}",
             async (ctx, ct) =>
             {
-                var response = await GetPageByIdFactory(false, requestSite, ct);
+                var response = await GetPageByIdFactory(id, false, requestSite, ct);
 
                 if (response.Content is null)
                 {
-                    ctx.Options.SetDuration(TimeSpan.FromSeconds(_defaultCachingOptions.Value.NullDuration));
+                    ctx.Options.SetDuration(TimeSpan.FromSeconds(_defaultCachingOptions.NullDuration));
                 }
 
                 return response.Content;
@@ -80,10 +81,10 @@ internal sealed class PagesService : IPagesService
                 _siteResolutionContext.Site.DictionaryId.ToString()
             ]);
 
-        async Task<IApiResponse<IApiContent>> GetPageByIdFactory(bool factoryPreview, SiteDefinition factorySite, CancellationToken cancellationToken = default)
+        async Task<IApiResponse<IApiContent>> GetPageByIdFactory(Guid factoryId, bool factoryPreview, SiteDefinition factorySite, CancellationToken cancellationToken = default)
         {
             var response = await _umbracoDeliveryApi.GetItemById(
-                id: id,
+                id: factoryId,
                 expand: s_defaultExpandFieldsLevel,
                 acceptLanguage: factorySite.CultureInfo,
                 preview: factoryPreview,
@@ -99,70 +100,73 @@ internal sealed class PagesService : IPagesService
         }
     }
 
-    public async Task<IApiContent?> GetPage(string path)
+    public async Task<IApiContent?> GetPage(string path, bool? isPreview = null, SiteDefinition? site = null)
     {
         var sanitizedPath = path.SanitisePathSlashes();
 
-        var site = _siteResolutionContext.Site;
+        var requestSite = site ?? _siteResolutionContext.Site;
+        var requestPreview = isPreview ?? _siteResolutionContext.IsPreview;
 
-        var matchingDomain = site.Domains.FirstOrDefault(x => sanitizedPath.StartsWith(x.Path) && _siteResolutionContext.Domain == x.Domain);
+        var matchingDomain = requestSite.Domains.FirstOrDefault(x => sanitizedPath.StartsWith(x.Path) && _siteResolutionContext.Domain == x.Domain);
 
         if (matchingDomain is null)
         {
             return null;
         }
 
-        if (!_siteResolutionContext.IsPreview)
-        {
-            var redirectPath = sanitizedPath.Replace(matchingDomain.Path, "/");
-
-            var redirect = await _fusionCache.GetOrSetAsync<RedirectLink?>(
-                $"redirects:home-id:{site.HomepageId}:culture:{site.CultureInfo}:path:{sanitizedPath}",
-                async (ctx, ct) =>
-                {
-                    var redirectResponse = await _linksApi.GetRedirect(redirectPath,
-                        site.HomepageId,
-                        site.CultureInfo,
-                        ct);
-
-                    if (!redirectResponse.IsSuccessStatusCode && redirectResponse.StatusCode != HttpStatusCode.NotFound)
-                    {
-                        throw new SiteApiException((int)redirectResponse.StatusCode, redirectResponse.ReasonPhrase);
-                    }
-
-                    return redirectResponse.Content;
-                },
-                tags:
-                [
-                    CachingTagConstants.Redirects,
-                    _siteResolutionContext.Site.SiteSettingsId.ToString()
-                ]);
-
-            if (redirect is not null)
-            {
-                throw new SiteApiRedirectException(redirect.StatusCode, redirect.Location);
-            }
-        }
-
-        var deliveryApiPath = site.RootId == site.HomepageId
+        var deliveryApiPath = requestSite.RootId == requestSite.HomepageId
             ? sanitizedPath.Replace(matchingDomain.Path, "/").SanitisePathSlashes()
-            : sanitizedPath.Replace(matchingDomain.Path, site.BasePath).SanitisePathSlashes();
+            : sanitizedPath.Replace(matchingDomain.Path, requestSite.BasePath).SanitisePathSlashes();
 
-        if (_siteResolutionContext.IsPreview)
+        if (requestPreview)
         {
-            var response = await GetPageByPathFactory();
+            var response = await GetPageByPathFactory(deliveryApiPath, requestSite, requestPreview);
             return response.Content;
         }
 
-        return await _fusionCache.GetOrSetAsync<IApiContent?>(
-            $"page:home-id:{site.HomepageId}:culture:{site.CultureInfo}:path:{sanitizedPath}",
+        var redirectPath = sanitizedPath.Replace(matchingDomain.Path, "/");
+
+        var redirect = await _fusionCache.GetOrSetAsync<RedirectLink?>(
+            $"redirects:home-id:{requestSite.HomepageId}:culture:{requestSite.CultureInfo}:path:{sanitizedPath}",
             async (ctx, ct) =>
             {
-                var response = await GetPageByPathFactory(ct);
+                var redirectResponse = await _linksApi.GetRedirect(redirectPath,
+                    requestSite.HomepageId,
+                    requestSite.CultureInfo,
+                    ct);
+
+                if (!redirectResponse.IsSuccessStatusCode && redirectResponse.StatusCode != HttpStatusCode.NotFound)
+                {
+                    throw new SiteApiException((int)redirectResponse.StatusCode, redirectResponse.ReasonPhrase);
+                }
+
+                if (redirectResponse.Content is null)
+                {
+                    ctx.Options.SetDuration(TimeSpan.FromSeconds(_defaultCachingOptions.NullDuration));
+                }
+
+                return redirectResponse.Content;
+            },
+            tags:
+            [
+                CachingTagConstants.Redirects,
+                _siteResolutionContext.Site.SiteSettingsId.ToString()
+            ]);
+
+        if (redirect is not null)
+        {
+            throw new SiteApiRedirectException(redirect.StatusCode, redirect.Location);
+        }
+
+        return await _fusionCache.GetOrSetAsync<IApiContent?>(
+            $"page:home-id:{requestSite.HomepageId}:culture:{requestSite.CultureInfo}:path:{sanitizedPath}",
+            async (ctx, ct) =>
+            {
+                var response = await GetPageByPathFactory(deliveryApiPath, requestSite, requestPreview, ct);
 
                 if (response.Content is null)
                 {
-                    ctx.Options.SetDuration(TimeSpan.FromSeconds(_defaultCachingOptions.Value.NullDuration));
+                    ctx.Options.SetDuration(TimeSpan.FromSeconds(_defaultCachingOptions.NullDuration));
                 }
 
                 if (response.Content is { } page)
@@ -174,14 +178,14 @@ internal sealed class PagesService : IPagesService
             },
             tags: [CachingTagConstants.Pages]);
 
-        async Task<IApiResponse<IApiContent>> GetPageByPathFactory(CancellationToken cancellationToken = default)
+        async Task<IApiResponse<IApiContent>> GetPageByPathFactory(string factoryPath, SiteDefinition factorySite, bool factoryPreview, CancellationToken cancellationToken = default)
         {
             var response = await _umbracoDeliveryApi.GetItemByPath(
-                path: deliveryApiPath,
+                path: factoryPath,
                 expand: s_defaultExpandFieldsLevel,
-                acceptLanguage: site.CultureInfo,
-                preview: _siteResolutionContext.IsPreview,
-                startItem: site.RootId.ToString(),
+                acceptLanguage: factorySite.CultureInfo,
+                preview: factoryPreview,
+                startItem: factorySite.RootId.ToString(),
                 cancellationToken: cancellationToken);
 
             if (response.IsSuccessStatusCode || response.StatusCode == HttpStatusCode.NotFound)
@@ -241,7 +245,7 @@ internal sealed class PagesService : IPagesService
 
                 if (response.Content is null)
                 {
-                    ctx.Options.SetDuration(TimeSpan.FromSeconds(_defaultCachingOptions.Value.NullDuration));
+                    ctx.Options.SetDuration(TimeSpan.FromSeconds(_defaultCachingOptions.NullDuration));
                 }
 
                 return response.Content;

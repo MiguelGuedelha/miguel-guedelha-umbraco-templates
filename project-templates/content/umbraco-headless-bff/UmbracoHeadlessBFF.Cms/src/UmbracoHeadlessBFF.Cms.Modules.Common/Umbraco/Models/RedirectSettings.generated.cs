@@ -26,10 +26,10 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Models
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		global::UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Data.RedirectFallbackDirection RedirectDirection { get; }
 
-		/// <summary>Redirect Link</summary>
+		/// <summary>Redirect Link Override</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		global::Umbraco.Cms.Core.Models.Link RedirectLink { get; }
+		global::Umbraco.Cms.Core.Models.Link RedirectLinkOverride { get; }
 	}
 
 	/// <summary>Redirect Settings</summary>
@@ -75,16 +75,16 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Models
 		public static global::UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Data.RedirectFallbackDirection GetRedirectDirection(IRedirectSettings that, IPublishedValueFallback publishedValueFallback) => that.Value<global::UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Data.RedirectFallbackDirection>(publishedValueFallback, "redirectDirection");
 
 		///<summary>
-		/// Redirect Link: Direct link to a page, url, etc
+		/// Redirect Link Override: Direct link to a page, url, etc
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("redirectLink")]
-		public virtual global::Umbraco.Cms.Core.Models.Link RedirectLink => GetRedirectLink(this, _publishedValueFallback);
+		[ImplementPropertyType("redirectLinkOverride")]
+		public virtual global::Umbraco.Cms.Core.Models.Link RedirectLinkOverride => GetRedirectLinkOverride(this, _publishedValueFallback);
 
-		/// <summary>Static getter for Redirect Link</summary>
+		/// <summary>Static getter for Redirect Link Override</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
 		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		public static global::Umbraco.Cms.Core.Models.Link GetRedirectLink(IRedirectSettings that, IPublishedValueFallback publishedValueFallback) => that.Value<global::Umbraco.Cms.Core.Models.Link>(publishedValueFallback, "redirectLink");
+		public static global::Umbraco.Cms.Core.Models.Link GetRedirectLinkOverride(IRedirectSettings that, IPublishedValueFallback publishedValueFallback) => that.Value<global::Umbraco.Cms.Core.Models.Link>(publishedValueFallback, "redirectLinkOverride");
 	}
 }
