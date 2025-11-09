@@ -1,10 +1,12 @@
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
+using Microsoft.Extensions.Configuration;
 using Umbraco.Cms.Core.Models.TemporaryFile;
 using Umbraco.Cms.Core.Persistence.Repositories;
+using Umbraco.Extensions;
 using UmbracoHeadlessBFF.SharedModules.Common.Strings;
 
-namespace UmbracoHeadlessBFF.Cms.Web.Configuration.LoadBalancing;
+namespace UmbracoHeadlessBFF.Cms.Modules.Common.LoadBalancing;
 
 internal sealed class BlobStorageTemporaryFileRepository : ITemporaryFileRepository
 {

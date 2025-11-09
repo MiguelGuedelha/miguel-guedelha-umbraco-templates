@@ -18,19 +18,20 @@ var smtpPortString = await smtpPort.Resource.GetValueAsync(CancellationToken.Non
 
 const string baseBindPath = "../../../local-data/v17/";
 
-var mailServer = builder.AddContainer(Services.SmtpServer, "rnwood/smtp4dev")
-    .WithHttpEndpoint(34523, 80, "ui")
-    .WithUrlForEndpoint("ui", x =>
+var mailServer = builder
+    .AddMailPit(Services.SmtpServer, 35000, int.Parse(smtpPortString!))
+    .WithArgs("--smtp-auth-allow-insecure")
+    .WithDataBindMount(Path.Join(baseBindPath, "mailpit/data"))
+    .WithUrlForEndpoint("http", x =>
     {
         x.DisplayLocation = UrlDisplayLocation.SummaryAndDetails;
         x.DisplayText = "Mail Server UI";
     })
-    .WithHttpEndpoint(int.Parse(smtpPortString!), 25, "smtp")
-    .WithUrlForEndpoint("smtp", x => { x.DisplayLocation = UrlDisplayLocation.DetailsOnly; })
-    .WithBindMount(Path.Join(baseBindPath, "mail-server/data"), "/stmp4dev")
-    .WithEnvironment("ServerOptions__AuthenticationRequired", "true")
-    .WithEnvironment("ServerOptions__Users__0__Username", smtpUser)
-    .WithEnvironment("ServerOptions__Users__0__Password", smtpPassword);
+    .WithUrlForEndpoint("smtp", x =>
+    {
+        x.DisplayLocation = UrlDisplayLocation.DetailsOnly;
+    })
+    .WithEnvironment("MP_SMTP_AUTH", $"{smtpUser}:{smtpPassword}");
 
 smtpUser.WithParentRelationship(mailServer);
 smtpPassword.WithParentRelationship(mailServer);
@@ -98,6 +99,7 @@ var cmsDeliveryApiKey = builder.AddParameter("CmsDeliveryApiKey");
 cms.WithReference(umbracoDb, connectionName: "umbracoDbDSN")
     .WithReference(cache)
     .WithReference(serviceBus)
+    .WithEnvironment("Umbraco__CMS__Global__Smtp__Host", "localhost")
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Port", smtpPort)
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Username", smtpUser)
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Password", smtpPassword)
@@ -143,7 +145,7 @@ siteApi.WithUrls(context =>
     var httpsEndpointUrl = httpsEndpoint.Url;
 
     context.Urls.Clear();
-    context.Urls.Add(new() { Url = $"{httpsEndpointUrl}/scalar", DisplayText = "Scalar - Site Api v1", Endpoint = httpsEndpoint });
+    context.Urls.Add(new() { Url = $"{httpsEndpointUrl}/scalar", DisplayText = "Scalar - Site Api", Endpoint = httpsEndpoint });
 });
 
 await builder.Build().RunAsync();

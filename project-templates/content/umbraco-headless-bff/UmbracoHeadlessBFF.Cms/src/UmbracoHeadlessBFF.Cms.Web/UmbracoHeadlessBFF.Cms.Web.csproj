@@ -1,6 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <ItemGroup>
-    <PackageReference Include="IntelliTect.AspNetCore.SignalR.SqlServer" />
     <PackageReference Include="Scalar.AspNetCore" />
     <PackageReference Include="Serilog.Enrichers.ClientInfo" />
     <PackageReference Include="Serilog.Exceptions" />

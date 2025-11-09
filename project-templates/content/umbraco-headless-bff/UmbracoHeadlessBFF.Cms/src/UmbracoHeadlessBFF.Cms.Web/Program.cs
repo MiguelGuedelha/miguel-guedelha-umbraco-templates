@@ -2,10 +2,13 @@ using Microsoft.Extensions.Azure;
 using Scalar.AspNetCore;
 using Umbraco.Cms.Api.Common.DependencyInjection;
 using Umbraco.Cms.Core;
+using Umbraco.Cms.Core.Webhooks;
+using Umbraco.Cms.Infrastructure.Runtime.RuntimeModeValidators;
 using Umbraco.Community.DataProtection.Composing;
 using UmbracoHeadlessBFF.Cms.Modules.Caching;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Authentication;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Links;
+using UmbracoHeadlessBFF.Cms.Modules.Common.LoadBalancing;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Preview;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Urls;
@@ -27,7 +30,15 @@ umbracoBuilder
 
 umbracoBuilder.AddUmbracoDataProtection();
 
-umbracoBuilder.WebhookEvents().Clear().AddCms();
+umbracoBuilder.AddLoadBalancing();
+
+umbracoBuilder.WebhookEvents().Clear().AddCms(false, WebhookPayloadType.Extended);
+
+if (!builder.Environment.IsLocal())
+{
+    // Docker related disable
+    umbracoBuilder.RuntimeModeValidators().Remove<UseHttpsValidator>();
+}
 
 umbracoBuilder.Build();
 

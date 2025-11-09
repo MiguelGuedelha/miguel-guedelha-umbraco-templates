@@ -103,6 +103,15 @@
         "high": 22300
       },
       "replaces": "22000"
+    },
+    "mailServerHttpPortGenerated": {
+      "type": "generated",
+      "generator": "port",
+      "parameters": {
+        "low": 35000,
+        "high": 35999
+      },
+      "replaces": "35000"
     }
   },
   "tags": {
