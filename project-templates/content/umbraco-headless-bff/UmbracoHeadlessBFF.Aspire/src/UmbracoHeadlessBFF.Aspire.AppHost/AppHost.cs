@@ -20,7 +20,12 @@ const string baseBindPath = "../../../local-data/v17/";
 
 var mailServer = builder.AddContainer(Services.SmtpServer, "rnwood/smtp4dev")
     .WithHttpEndpoint(34523, 80, "ui")
+    .WithUrlForEndpoint("ui", x => {
+        x.DisplayLocation = UrlDisplayLocation.SummaryAndDetails;
+        x.DisplayText = "Mail UI";
+    })
     .WithHttpEndpoint(int.Parse(smtpPortString!), 25, "smtp")
+    .WithUrlForEndpoint("smtp", x => { x.DisplayLocation = UrlDisplayLocation.DetailsOnly; })
     .WithBindMount(Path.Join(baseBindPath, "mail-server/data"), "/stmp4dev")
     .WithEnvironment("ServerOptions__AuthenticationRequired", "true")
     .WithEnvironment("ServerOptions__Users__0__Username", smtpUser)
@@ -33,20 +38,32 @@ smtpPort.WithParentRelationship(mailServer);
 var database = builder
     .AddSqlServer(Services.DatabaseServer)
     .WithDataBindMount(Path.Join(baseBindPath, "database/data"))
-    .WithContainerRuntimeArgs("--user", "root");
+    .WithContainerRuntimeArgs("--user", "root")
+    .WithUrlForEndpoint("tcp", x => { x.DisplayLocation = UrlDisplayLocation.DetailsOnly; });
 
 var umbracoDb = database.AddDatabase(Services.Database, "umbraco-cms");
 
 var cache = builder
     .AddRedis(CachingConstants.ConnectionStringName)
-    .WithRedisInsight();
+    .WithUrlForEndpoint("tcp", x => { x.DisplayLocation = UrlDisplayLocation.DetailsOnly; })
+    .WithRedisInsight(c =>
+    {
+        c.WithDataBindMount(Path.Join(baseBindPath, "redis-insight/data"));
+        c.WithUrlForEndpoint("http", x => {
+            x.DisplayLocation = UrlDisplayLocation.SummaryAndDetails;
+            x.DisplayText = "Redis Insight UI";
+        });
+    });
 
 var azureStorage = builder
     .AddAzureStorage(Services.AzureStorage)
     .RunAsEmulator(o =>
     {
         o.WithDataBindMount(Path.Join(baseBindPath, "azure-storage/data"));
-    });
+    })
+    .WithUrlForEndpoint("blob", x => { x.DisplayLocation = UrlDisplayLocation.DetailsOnly; })
+    .WithUrlForEndpoint("queue", x => { x.DisplayLocation = UrlDisplayLocation.DetailsOnly; })
+    .WithUrlForEndpoint("table", x => { x.DisplayLocation = UrlDisplayLocation.DetailsOnly; });
 
 
 var cmsUmbracoBlobContainerParameter = builder.AddParameter("CmsUmbracoBlobContainer");
@@ -56,9 +73,12 @@ var umbracoMediaBlob = azureStorage.AddBlobContainer(blobContainerValue!);
 
 cmsUmbracoBlobContainerParameter.WithParentRelationship(umbracoMediaBlob);
 
+// Can't seem to reach "tcp" endpoint of the underlying MSSQL instance to hide URL in Aspire UI
 var serviceBus = builder
     .AddAzureServiceBus(Services.ServiceBus.Name)
-    .RunAsEmulator();
+    .RunAsEmulator()
+    .WithUrlForEndpoint("emulator", x => { x.DisplayLocation = UrlDisplayLocation.DetailsOnly; })
+    .WithUrlForEndpoint("emulatorhealth", x => { x.DisplayLocation = UrlDisplayLocation.DetailsOnly; });
 
 var cmsCacheTopic = serviceBus.AddServiceBusTopic(Services.ServiceBus.Topics.CmsCache);
 
