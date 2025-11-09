@@ -28,12 +28,15 @@ internal sealed class ImageMapper : IImageMapper
             return Task.FromResult(default(Image?));
         }
 
+        object? altText = null;
+        media.Properties?.TryGetValue("altText", out altText);
+
         if (!s_imageTypes.Contains(media.Extension))
         {
             return Task.FromResult<Image?>(new()
             {
                 Src = new UriBuilder(_applicationUrlOptions.Media) { Path = media.Url.TrimStart('/') }.Uri.AbsoluteUri,
-                AltText = null
+                AltText = altText as string
             });
         }
 
@@ -44,8 +47,6 @@ internal sealed class ImageMapper : IImageMapper
             query.Add("rxy", $"{media.FocalPoint.Left},{media.FocalPoint.Top}");
         }
 
-        query.Add("quality", "75");
-
         if (!media.Extension.Equals("webp", StringComparison.OrdinalIgnoreCase) &&
             !media.Extension.Equals("avif", StringComparison.OrdinalIgnoreCase))
         {
@@ -54,6 +55,10 @@ internal sealed class ImageMapper : IImageMapper
 
         var url = new UriBuilder(_applicationUrlOptions.Media) { Path = media.Url, Query = query.ToString() };
 
-        return Task.FromResult<Image?>(new() { Src = url.Uri.AbsoluteUri, AltText = null });
+        return Task.FromResult<Image?>(new()
+        {
+            Src = url.Uri.AbsoluteUri,
+            AltText = altText as string
+        });
     }
 }
