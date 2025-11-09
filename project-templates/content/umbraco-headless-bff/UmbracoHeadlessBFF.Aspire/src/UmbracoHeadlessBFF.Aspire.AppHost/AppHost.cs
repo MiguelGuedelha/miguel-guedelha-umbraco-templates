@@ -20,9 +20,10 @@ const string baseBindPath = "../../../local-data/v17/";
 
 var mailServer = builder.AddContainer(Services.SmtpServer, "rnwood/smtp4dev")
     .WithHttpEndpoint(34523, 80, "ui")
-    .WithUrlForEndpoint("ui", x => {
+    .WithUrlForEndpoint("ui", x =>
+    {
         x.DisplayLocation = UrlDisplayLocation.SummaryAndDetails;
-        x.DisplayText = "Mail UI";
+        x.DisplayText = "Mail Server UI";
     })
     .WithHttpEndpoint(int.Parse(smtpPortString!), 25, "smtp")
     .WithUrlForEndpoint("smtp", x => { x.DisplayLocation = UrlDisplayLocation.DetailsOnly; })
@@ -49,7 +50,8 @@ var cache = builder
     .WithRedisInsight(c =>
     {
         c.WithDataBindMount(Path.Join(baseBindPath, "redis-insight/data"));
-        c.WithUrlForEndpoint("http", x => {
+        c.WithUrlForEndpoint("http", x =>
+        {
             x.DisplayLocation = UrlDisplayLocation.SummaryAndDetails;
             x.DisplayText = "Redis Insight UI";
         });
