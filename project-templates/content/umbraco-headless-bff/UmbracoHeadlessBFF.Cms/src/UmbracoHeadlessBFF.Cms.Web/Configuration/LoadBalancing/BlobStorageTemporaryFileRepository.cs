@@ -35,14 +35,19 @@ internal sealed class BlobStorageTemporaryFileRepository : ITemporaryFileReposit
     {
         var client = await GetBlobClient(key);
 
-        var props = await client.GetPropertiesAsync();
-
-        if (props is null)
+        if (!await client.ExistsAsync())
         {
             return null;
         }
 
-        var hasValue = props.Value.Metadata.TryGetValue(ExpireProperty, out var expires);
+        var tags = await client.GetTagsAsync();
+
+        if (tags is null)
+        {
+            return null;
+        }
+
+        var hasValue = tags.Value.Tags.TryGetValue(ExpireProperty, out var expires);
         var hasParsedExpires = DateTime.TryParse(expires, out var parsedExpires);
 
         if (!hasValue
@@ -59,32 +64,32 @@ internal sealed class BlobStorageTemporaryFileRepository : ITemporaryFileReposit
             return null;
         }
 
-        var hasFileName = props.Value.Metadata.TryGetValue(FilenameProperty, out var fileName);
+        var hasFileName = tags.Value.Tags.TryGetValue(FilenameProperty, out var fileName);
 
         if (!hasFileName)
         {
             return null;
         }
 
-        return new() { AvailableUntil = parsedExpires, FileName = fileName!, Key = key, OpenReadStream = () => stream };
+        return new()
+        {
+            AvailableUntil = parsedExpires,
+            FileName = fileName!,
+            Key = key,
+            OpenReadStream = () => stream
+        };
     }
 
     public async Task SaveAsync(TemporaryFileModel model)
     {
         var client = await GetBlobClient(model.Key);
 
-        var props = await client.GetPropertiesAsync();
-
-        if (props is null)
-        {
-            return;
-        }
-
         var options = new BlobUploadOptions
         {
-            Metadata = new Dictionary<string, string>
+            Tags = new Dictionary<string, string>
             {
-                { ExpireProperty, model.AvailableUntil.ToIsoString() }, { FilenameProperty, model.FileName }
+                { ExpireProperty, model.AvailableUntil.ToIsoString() },
+                { FilenameProperty, model.FileName }
             }
         };
 
@@ -108,7 +113,7 @@ internal sealed class BlobStorageTemporaryFileRepository : ITemporaryFileReposit
 
         await foreach (var blob in blobs)
         {
-            var hasExpires = blob.Metadata.TryGetValue(ExpireProperty, out var expires);
+            var hasExpires = blob.Tags.TryGetValue(ExpireProperty, out var expires);
 
             if (!hasExpires
                 || !DateTime.TryParse(expires!, out var expiresParsed)
@@ -131,7 +136,10 @@ internal sealed class BlobStorageTemporaryFileRepository : ITemporaryFileReposit
     {
         var client = _blobServiceClient.GetBlobContainerClient(_containerName);
 
-        await client.CreateIfNotExistsAsync();
+        if (!await client.ExistsAsync())
+        {
+            await client.CreateIfNotExistsAsync();
+        }
 
         return client;
     }

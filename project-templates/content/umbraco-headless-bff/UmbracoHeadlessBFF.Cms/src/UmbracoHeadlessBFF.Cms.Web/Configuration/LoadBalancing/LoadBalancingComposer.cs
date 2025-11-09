@@ -9,7 +9,7 @@ internal sealed class LoadBalancingComposer : IComposer
 {
     public void Compose(IUmbracoBuilder builder)
     {
-        // builder.Services.AddUnique<ITemporaryFileRepository, BlobStorageTemporaryFileRepository>();
+        builder.Services.AddUnique<ITemporaryFileRepository, BlobStorageTemporaryFileRepository>();
 
         builder
             .SetServerRegistrar(new StaticServerAccessor())
