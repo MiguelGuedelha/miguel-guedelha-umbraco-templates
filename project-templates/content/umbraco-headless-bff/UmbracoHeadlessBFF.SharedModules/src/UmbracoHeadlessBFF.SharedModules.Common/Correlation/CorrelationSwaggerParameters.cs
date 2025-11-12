@@ -1,4 +1,4 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using Microsoft.OpenApi;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Correlation;
@@ -9,7 +9,7 @@ public sealed class CorrelationSwaggerParameters : IOperationFilter
     {
         operation.Parameters ??= [];
 
-        operation.Parameters.Add(new()
+        operation.Parameters.Add(new OpenApiParameter
         {
             Name = CorrelationConstants.Headers.SiteHost,
             Description = "The frontend host, used to find the correct CMS instance and site node",
@@ -17,7 +17,7 @@ public sealed class CorrelationSwaggerParameters : IOperationFilter
             Required = false
         });
 
-        operation.Parameters.Add(new()
+        operation.Parameters.Add(new OpenApiParameter
         {
             Name = CorrelationConstants.Headers.SitePath,
             Description = "The frontend path, used to find the correct CMS instance and site node",
@@ -25,7 +25,7 @@ public sealed class CorrelationSwaggerParameters : IOperationFilter
             Required = false
         });
 
-        operation.Parameters.Add(new()
+        operation.Parameters.Add(new OpenApiParameter
         {
             Name = CorrelationConstants.Headers.SiteId,
             Description = "The resolved CMS/Site id, allows to skip the resolution step otherwise required if this is sent",
@@ -33,19 +33,19 @@ public sealed class CorrelationSwaggerParameters : IOperationFilter
             Required = false
         });
 
-        operation.Parameters.Add(new()
+        operation.Parameters.Add(new OpenApiParameter
         {
             Name = CorrelationConstants.Headers.PreviewMode,
             Description = "Whether or not the API should return preview content",
             In = ParameterLocation.Header,
             Required = false,
-            Schema = new()
+            Schema = new OpenApiSchema
             {
-                Type = "boolean"
+                Type = JsonSchemaType.Boolean
             }
         });
 
-        operation.Parameters.Add(new()
+        operation.Parameters.Add(new OpenApiParameter
         {
             Name = CorrelationConstants.Headers.PreviewToken,
             Description = "The preview token to be used when preview mode is true",

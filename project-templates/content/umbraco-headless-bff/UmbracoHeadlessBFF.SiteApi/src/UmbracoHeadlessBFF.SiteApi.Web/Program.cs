@@ -2,6 +2,7 @@ using System.Text.Json.Serialization;
 using Asp.Versioning;
 using Asp.Versioning.Conventions;
 using Microsoft.Extensions.Options;
+using Microsoft.OpenApi;
 using Scalar.AspNetCore;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using UmbracoHeadlessBFF.SharedModules.Cms;
@@ -84,7 +85,10 @@ app.UseCorrelationSharedModules();
 
 if (!app.Environment.IsProduction())
 {
-    app.UseSwagger();
+    app.UseSwagger(options =>
+    {
+        options.OpenApiVersion = OpenApiSpecVersion.OpenApi3_1;
+    });
     app.MapScalarApiReference(options =>
     {
         var descriptions = app.DescribeApiVersions();

@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Umbraco.Cms.Core.Configuration.Models;
 using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi;
@@ -24,11 +24,12 @@ public sealed class AuthenticationSwaggerParameters : IOperationFilter
         if (apiKeyParameter is not null
             && _deliveryApiSettings.CurrentValue is { PublicAccess: false, ApiKey: not null })
         {
-            apiKeyParameter.Required = true;
+            var param = apiKeyParameter as OpenApiParameter;
+            param?.Required = true;
             return;
         }
 
-        operation.Parameters.Add(new()
+        operation.Parameters.Add(new OpenApiParameter
         {
             Name = DeliveryApiConstants.ApiKeyHeaderName,
             Description = "The api key to be used when making requests",

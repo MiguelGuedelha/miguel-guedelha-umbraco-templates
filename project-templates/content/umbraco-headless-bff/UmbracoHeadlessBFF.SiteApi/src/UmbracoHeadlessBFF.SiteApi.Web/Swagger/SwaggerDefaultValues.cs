@@ -1,6 +1,7 @@
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace UmbracoHeadlessBFF.SiteApi.Web.Swagger;
@@ -24,13 +25,13 @@ internal sealed class SwaggerDefaultValues : IOperationFilter
         {
             // REF: https://github.com/domaindrivendev/Swashbuckle.AspNetCore/blob/b7cf75e7905050305b115dd96640ddd6e74c7ac9/src/Swashbuckle.AspNetCore.SwaggerGen/SwaggerGenerator/SwaggerGenerator.cs#L383-L387
             var responseKey = responseType.IsDefaultResponse ? "default" : responseType.StatusCode.ToString();
-            var response = operation.Responses[responseKey];
+            var response = operation.Responses?[responseKey];
 
-            foreach (var contentType in response.Content.Keys)
+            foreach (var contentType in response?.Content?.Keys ?? [])
             {
                 if (responseType.ApiResponseFormats.All(x => x.MediaType != contentType))
                 {
-                    response.Content.Remove(contentType);
+                    response?.Content?.Remove(contentType);
                 }
             }
         }
@@ -46,19 +47,24 @@ internal sealed class SwaggerDefaultValues : IOperationFilter
         {
             var description = apiDescription.ParameterDescriptions.First(p => p.Name == parameter.Name);
 
-            parameter.Description ??= description.ModelMetadata?.Description;
+            var param = parameter as OpenApiParameter;
 
-            if (parameter.Schema.Default == null &&
-                 description.DefaultValue != null &&
-                 description.DefaultValue is not DBNull &&
-                 description.ModelMetadata is { } modelMetadata)
+            param?.Description ??= description.ModelMetadata?.Description;
+
+            if (param?.Schema?.Default == null &&
+                description.DefaultValue != null &&
+                description.DefaultValue is not DBNull &&
+                description.ModelMetadata is { } modelMetadata)
             {
                 // REF: https://github.com/Microsoft/aspnet-api-versioning/issues/429#issuecomment-605402330
                 var json = JsonSerializer.Serialize(description.DefaultValue, modelMetadata.ModelType);
-                parameter.Schema.Default = OpenApiAnyFactory.CreateFromJson(json);
+
+                var schema = param?.Schema as OpenApiSchema;
+
+                schema?.Default = string.IsNullOrWhiteSpace(json) ? null : JsonNode.Parse(json);
             }
 
-            parameter.Required |= description.IsRequired;
+            param?.Required |= description.IsRequired;
         }
     }
 }
