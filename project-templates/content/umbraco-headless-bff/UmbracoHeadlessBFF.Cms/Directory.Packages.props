@@ -2,13 +2,13 @@
   <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Packages.props', $(MSBuildThisFileDirectory)..))" />
   <ItemGroup>
     <PackageVersion Include="Asp.Versioning.Mvc" Version="8.1.0" />
-    <PackageVersion Include="Aspire.Azure.Messaging.ServiceBus" Version="9.5.2" />
+    <PackageVersion Include="Aspire.Azure.Messaging.ServiceBus" Version="13.0.0" />
     <PackageVersion Include="Azure.Storage.Blobs" Version="12.26.0" />
     <PackageVersion Include="IntelliTect.AspNetCore.SignalR.SqlServer" Version="1.4.0" />
-    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.10" />
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.0" />
     <PackageVersion Include="Microsoft.ICU.ICU4C.Runtime" Version="72.1.0.3" />
     <PackageVersion Include="Scalar.AspNetCore" Version="2.10.3" />
-    <PackageVersion Include="Swashbuckle.AspNetCore" Version="9.0.6" />
+    <PackageVersion Include="Swashbuckle.AspNetCore" Version="10.0.0" />
     <PackageVersion Include="Umbraco.Cms" Version="17.0.0-rc1" />
     <PackageVersion Include="System.Text.Json" Version="9.0.10" />
     <PackageVersion Include="Umbraco.Cms.Core" Version="17.0.0-rc1" />

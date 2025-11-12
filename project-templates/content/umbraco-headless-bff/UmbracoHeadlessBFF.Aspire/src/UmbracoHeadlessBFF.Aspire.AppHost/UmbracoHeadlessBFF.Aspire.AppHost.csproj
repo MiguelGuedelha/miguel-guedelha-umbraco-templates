@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <Sdk Name="Aspire.AppHost.Sdk" Version="9.3.1" />
+  <Sdk Name="Aspire.AppHost.Sdk" Version="13.0.0" />
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -18,17 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference
-      Include="..\..\..\UmbracoHeadlessBFF.SharedModules\src\UmbracoHeadlessBFF.SharedModules.Common\UmbracoHeadlessBFF.SharedModules.Common.csproj"
-      IsAspireProjectResource="false"
-    />
-    <ProjectReference
-      Include="..\..\..\UmbracoHeadlessBFF.Cms\src\UmbracoHeadlessBFF.Cms.Web\UmbracoHeadlessBFF.Cms.Web.csproj"
-      AspireProjectMetadataTypeName="Cms"
-    />
-    <ProjectReference
-      Include="..\..\..\UmbracoHeadlessBFF.SiteApi\src\UmbracoHeadlessBFF.SiteApi.Web\UmbracoHeadlessBFF.SiteApi.Web.csproj"
-      AspireProjectMetadataTypeName="SiteApi"
-    />
+    <ProjectReference Include="..\..\..\UmbracoHeadlessBFF.SharedModules\src\UmbracoHeadlessBFF.SharedModules.Common\UmbracoHeadlessBFF.SharedModules.Common.csproj" IsAspireProjectResource="false" />
+    <ProjectReference Include="..\..\..\UmbracoHeadlessBFF.Cms\src\UmbracoHeadlessBFF.Cms.Web\UmbracoHeadlessBFF.Cms.Web.csproj" AspireProjectMetadataTypeName="Cms" />
+    <ProjectReference Include="..\..\..\UmbracoHeadlessBFF.SiteApi\src\UmbracoHeadlessBFF.SiteApi.Web\UmbracoHeadlessBFF.SiteApi.Web.csproj" AspireProjectMetadataTypeName="SiteApi" />
   </ItemGroup>
 </Project>

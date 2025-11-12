@@ -16,6 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "001 Global Configuration", 
 		Directory.Build.props = Directory.Build.props
 		Directory.Packages.props = Directory.Packages.props
 		.gitattributes = .gitattributes
+		NuGet.config = NuGet.config
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoHeadlessBFF.Aspire.AppHost", "UmbracoHeadlessBFF.Aspire\src\UmbracoHeadlessBFF.Aspire.AppHost\UmbracoHeadlessBFF.Aspire.AppHost.csproj", "{140ADDCC-22DB-42AC-BC96-758BB269E3D9}"
