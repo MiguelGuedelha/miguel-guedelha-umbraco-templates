@@ -1,4 +1,4 @@
-﻿using ZiggyCreatures.Caching.Fusion;
+using ZiggyCreatures.Caching.Fusion;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching;
 

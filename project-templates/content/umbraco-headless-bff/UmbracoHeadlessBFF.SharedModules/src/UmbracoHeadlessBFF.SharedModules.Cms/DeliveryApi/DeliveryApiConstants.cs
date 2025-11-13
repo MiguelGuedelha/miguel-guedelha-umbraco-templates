@@ -1,4 +1,4 @@
-﻿using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.BuildingBlocks;
+using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.BuildingBlocks;
 using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Components;
 using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Layouts;
 using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Pages;

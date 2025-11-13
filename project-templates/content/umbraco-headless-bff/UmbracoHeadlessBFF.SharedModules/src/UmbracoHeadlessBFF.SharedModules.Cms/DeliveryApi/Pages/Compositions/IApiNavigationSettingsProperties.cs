@@ -1,4 +1,4 @@
-﻿namespace UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Pages.Compositions;
+namespace UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Pages.Compositions;
 
 public interface IApiNavigationSettingsProperties
 {

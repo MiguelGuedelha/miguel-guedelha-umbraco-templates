@@ -1,4 +1,4 @@
-﻿using Refit;
+using Refit;
 using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Pages;
 
 namespace UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi;

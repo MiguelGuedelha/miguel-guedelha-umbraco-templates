@@ -1,4 +1,4 @@
-﻿namespace UmbracoHeadlessBFF.SharedModules.Cms.Links;
+namespace UmbracoHeadlessBFF.SharedModules.Cms.Links;
 
 public sealed record RedirectLink
 {

@@ -1,4 +1,4 @@
-﻿using UmbracoHeadlessBFF.SharedModules.Common.Urls;
+using UmbracoHeadlessBFF.SharedModules.Common.Urls;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Configuration;
 

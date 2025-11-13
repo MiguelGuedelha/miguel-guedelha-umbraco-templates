@@ -1,4 +1,4 @@
-﻿using Refit;
+using Refit;
 
 namespace UmbracoHeadlessBFF.SharedModules.Cms.Sitemap;
 

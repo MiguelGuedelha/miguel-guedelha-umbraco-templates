@@ -1,4 +1,4 @@
-﻿namespace UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Pages;
+namespace UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Pages;
 
 public sealed record ApiSiteDictionary : IApiContent<ApiSiteDictionaryProperties>
 {

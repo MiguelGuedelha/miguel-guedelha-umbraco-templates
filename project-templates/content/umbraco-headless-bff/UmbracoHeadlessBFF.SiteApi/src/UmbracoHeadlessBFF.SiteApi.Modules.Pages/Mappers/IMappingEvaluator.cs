@@ -1,4 +1,4 @@
-﻿namespace UmbracoHeadlessBFF.SiteApi.Modules.Pages.Mappers;
+namespace UmbracoHeadlessBFF.SiteApi.Modules.Pages.Mappers;
 
 internal interface IMappingEvaluator
 {

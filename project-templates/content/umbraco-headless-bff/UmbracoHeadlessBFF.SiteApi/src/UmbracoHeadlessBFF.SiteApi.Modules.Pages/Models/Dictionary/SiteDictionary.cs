@@ -1,4 +1,4 @@
-﻿namespace UmbracoHeadlessBFF.SiteApi.Modules.Pages.Models.Dictionary;
+namespace UmbracoHeadlessBFF.SiteApi.Modules.Pages.Models.Dictionary;
 
 internal sealed record SiteDictionary
 {

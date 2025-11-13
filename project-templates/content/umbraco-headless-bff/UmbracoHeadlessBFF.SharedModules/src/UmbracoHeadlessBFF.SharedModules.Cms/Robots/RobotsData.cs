@@ -1,4 +1,4 @@
-﻿namespace UmbracoHeadlessBFF.SharedModules.Cms.Robots;
+namespace UmbracoHeadlessBFF.SharedModules.Cms.Robots;
 
 public sealed record RobotsData
 {

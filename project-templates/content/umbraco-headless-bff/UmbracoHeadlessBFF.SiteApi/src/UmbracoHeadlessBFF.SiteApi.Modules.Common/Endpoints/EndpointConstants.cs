@@ -1,4 +1,4 @@
-﻿namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Endpoints;
+namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Endpoints;
 
 public static class EndpointConstants
 {

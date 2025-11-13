@@ -1,4 +1,4 @@
-﻿namespace UmbracoHeadlessBFF.SharedModules.Cms.Sitemap;
+namespace UmbracoHeadlessBFF.SharedModules.Cms.Sitemap;
 
 public sealed record SitemapData
 {

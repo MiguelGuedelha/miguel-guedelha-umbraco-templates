@@ -1,4 +1,4 @@
-﻿using UmbracoHeadlessBFF.SiteApi.Modules.Pages.Models.BuildingBlocks;
+using UmbracoHeadlessBFF.SiteApi.Modules.Pages.Models.BuildingBlocks;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Pages.Models.Pages;
 

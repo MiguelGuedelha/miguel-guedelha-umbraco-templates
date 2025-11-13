@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using UmbracoHeadlessBFF.SharedModules.Cms.SiteResolution;
 using UmbracoHeadlessBFF.SharedModules.Common.Http;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;

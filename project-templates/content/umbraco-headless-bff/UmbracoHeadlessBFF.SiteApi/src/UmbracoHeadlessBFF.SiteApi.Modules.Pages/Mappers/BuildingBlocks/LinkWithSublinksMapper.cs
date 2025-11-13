@@ -1,4 +1,4 @@
-﻿using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.BuildingBlocks;
+using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.BuildingBlocks;
 using UmbracoHeadlessBFF.SiteApi.Modules.Pages.Models.BuildingBlocks;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Pages.Mappers.BuildingBlocks;

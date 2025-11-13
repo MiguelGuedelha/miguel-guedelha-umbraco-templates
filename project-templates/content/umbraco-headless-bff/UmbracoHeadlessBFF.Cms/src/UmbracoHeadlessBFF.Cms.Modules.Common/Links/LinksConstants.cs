@@ -1,4 +1,4 @@
-﻿namespace UmbracoHeadlessBFF.Cms.Modules.Common.Links;
+namespace UmbracoHeadlessBFF.Cms.Modules.Common.Links;
 
 internal static class LinksConstants
 {

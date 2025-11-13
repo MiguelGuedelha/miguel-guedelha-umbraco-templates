@@ -1,4 +1,4 @@
-﻿namespace UmbracoHeadlessBFF.Cms.Modules.Pages;
+namespace UmbracoHeadlessBFF.Cms.Modules.Pages;
 
 internal static class PagesConstants
 {

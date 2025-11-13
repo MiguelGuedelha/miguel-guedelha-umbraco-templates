@@ -1,4 +1,4 @@
-﻿namespace UmbracoHeadlessBFF.SiteApi.Modules.Pages.Models.Layouts;
+namespace UmbracoHeadlessBFF.SiteApi.Modules.Pages.Models.Layouts;
 
 internal sealed record FallbackLayout : ILayout
 {

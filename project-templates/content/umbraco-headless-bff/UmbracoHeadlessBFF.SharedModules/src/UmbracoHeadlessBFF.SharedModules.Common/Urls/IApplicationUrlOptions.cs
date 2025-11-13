@@ -1,4 +1,4 @@
-﻿namespace UmbracoHeadlessBFF.SharedModules.Common.Urls;
+namespace UmbracoHeadlessBFF.SharedModules.Common.Urls;
 
 public interface IApplicationUrlOptions
 {

@@ -1,4 +1,4 @@
-﻿namespace UmbracoHeadlessBFF.SharedModules.Common.Correlation;
+namespace UmbracoHeadlessBFF.SharedModules.Common.Correlation;
 
 public static class CorrelationConstants
 {

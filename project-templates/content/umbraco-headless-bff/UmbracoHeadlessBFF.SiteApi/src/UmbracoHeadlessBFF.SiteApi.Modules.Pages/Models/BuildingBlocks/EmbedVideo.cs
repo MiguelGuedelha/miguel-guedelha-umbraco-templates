@@ -1,4 +1,4 @@
-﻿namespace UmbracoHeadlessBFF.SiteApi.Modules.Pages.Models.BuildingBlocks;
+namespace UmbracoHeadlessBFF.SiteApi.Modules.Pages.Models.BuildingBlocks;
 
 internal sealed record EmbedVideo : IMediaBlock
 {

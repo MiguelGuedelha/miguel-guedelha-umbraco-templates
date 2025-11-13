@@ -1,4 +1,4 @@
-﻿namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching;
+namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching;
 
 public static class CachingTagConstants
 {

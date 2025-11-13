@@ -1,4 +1,4 @@
-﻿namespace UmbracoHeadlessBFF.SiteApi.Modules.Pages.Models.Pages;
+namespace UmbracoHeadlessBFF.SiteApi.Modules.Pages.Models.Pages;
 
 internal sealed record SiteSearch : IPage
 {

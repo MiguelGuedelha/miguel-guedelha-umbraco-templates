@@ -1,4 +1,4 @@
-﻿namespace UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Data;
+namespace UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Data;
 
 public interface IApiBlock<TContent, TSettings>
     where TContent : class, IApiElement

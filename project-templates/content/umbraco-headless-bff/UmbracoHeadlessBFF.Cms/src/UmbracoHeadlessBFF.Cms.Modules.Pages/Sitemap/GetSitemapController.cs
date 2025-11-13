@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;

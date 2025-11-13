@@ -1,4 +1,4 @@
-﻿using System.Collections.Frozen;
+using System.Collections.Frozen;
 
 namespace UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi;
 

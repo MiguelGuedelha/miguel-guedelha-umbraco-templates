@@ -1,4 +1,4 @@
-﻿namespace UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Data;
+namespace UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Data;
 
 public sealed record ApiImageFocalPoint
 {

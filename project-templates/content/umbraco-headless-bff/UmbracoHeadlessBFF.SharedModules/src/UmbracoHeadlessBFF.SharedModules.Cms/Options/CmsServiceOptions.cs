@@ -1,4 +1,4 @@
-﻿namespace UmbracoHeadlessBFF.SharedModules.Cms.Options;
+namespace UmbracoHeadlessBFF.SharedModules.Cms.Options;
 
 public sealed record CmsServiceOptions
 {

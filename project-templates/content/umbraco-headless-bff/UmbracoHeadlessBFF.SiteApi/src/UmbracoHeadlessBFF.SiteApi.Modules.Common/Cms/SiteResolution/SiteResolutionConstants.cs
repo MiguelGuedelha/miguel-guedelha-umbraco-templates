@@ -1,4 +1,4 @@
-﻿namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
+namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
 
 public static class SiteResolutionConstants
 {

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.Links;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.Preview;

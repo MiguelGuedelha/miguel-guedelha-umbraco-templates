@@ -1,4 +1,4 @@
-﻿namespace UmbracoHeadlessBFF.SiteApi.Modules.Pages.Models.Components;
+namespace UmbracoHeadlessBFF.SiteApi.Modules.Pages.Models.Components;
 
 internal sealed record FallbackComponent : IComponent
 {

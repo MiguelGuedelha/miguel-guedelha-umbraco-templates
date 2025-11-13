@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 
 namespace UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Pages.Extensions;
 
