@@ -1,4 +1,4 @@
-using Microsoft.OpenApi;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace UmbracoHeadlessBFF.SharedModules.Common.Correlation;
@@ -41,7 +41,7 @@ public sealed class CorrelationSwaggerParameters : IOperationFilter
             Required = false,
             Schema = new OpenApiSchema
             {
-                Type = JsonSchemaType.Boolean
+                Type = "boolean"
             }
         });
 
