@@ -1,8 +1,7 @@
 using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Umbraco.Cms.Core.DeliveryApi;
-using UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Overrides;
+using Umbraco.Extensions;
+using UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Overrides.RichText;
 
 namespace UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco;
 
@@ -12,8 +11,8 @@ public static class UmbracoConfiguration
     {
         public void AddUmbracoOverrides()
         {
-            builder.Services.RemoveAll<IApiRichTextMarkupParser>();
-            builder.Services.AddSingleton<IApiRichTextMarkupParser, ApiRichTextMarkupParser>();
+            builder.Services.AddUnique<IApiRichTextMarkupParser, ApiRichTextMarkupParser>();
+            builder.Services.AddUnique<IApiRichTextElementParser, ApiRichTextElementParser>();
         }
     }
 }

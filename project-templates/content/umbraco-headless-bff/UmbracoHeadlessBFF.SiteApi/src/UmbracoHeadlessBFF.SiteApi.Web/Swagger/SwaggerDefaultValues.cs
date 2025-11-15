@@ -1,7 +1,6 @@
 using System.Text.Json;
-using System.Text.Json.Nodes;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.OpenApi;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace UmbracoHeadlessBFF.SiteApi.Web.Swagger;
@@ -61,7 +60,7 @@ internal sealed class SwaggerDefaultValues : IOperationFilter
 
                 var schema = param?.Schema as OpenApiSchema;
 
-                schema?.Default = string.IsNullOrWhiteSpace(json) ? null : JsonNode.Parse(json);
+                schema?.Default = OpenApiAnyFactory.CreateFromJson(json);
             }
 
             param?.Required |= description.IsRequired;
