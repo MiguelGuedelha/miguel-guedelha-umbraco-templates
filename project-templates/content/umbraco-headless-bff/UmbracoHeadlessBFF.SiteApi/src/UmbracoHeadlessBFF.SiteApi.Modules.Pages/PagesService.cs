@@ -53,12 +53,11 @@ internal sealed class PagesService : IPagesService
 
         if (isPreview ?? _siteResolutionContext.IsPreview)
         {
-            var response = await GetPageByIdFactory(id, true, requestSite);
-            return response.Content;
+            return (await GetPageByIdFactory(id, true, requestSite)).Content;
         }
 
         return await _fusionCache.GetOrSetAsync<IApiContent?>(
-            $"Region:{CachingRegionConstants.Pages}:Site:{requestSite.HomepageId}-{requestSite.CultureInfo}:Ids:{id}",
+            $"Region:{CachingRegionConstants.Pages}:Site:{requestSite.HomepageId}-{requestSite.CultureInfo}:Id:{id}",
             async (ctx, ct) =>
             {
                 var response = await GetPageByIdFactory(id, false, requestSite, ct);
@@ -118,7 +117,7 @@ internal sealed class PagesService : IPagesService
         var redirectPath = sanitizedPath.Replace(matchingDomain.Path, "/");
 
         var redirect = await _fusionCache.GetOrSetAsync<RedirectLink?>(
-            $"Region:{CachingRegionConstants.Redirects}:Site:{requestSite.HomepageId}-{requestSite.CultureInfo}:Paths:{sanitizedPath}",
+            $"Region:{CachingRegionConstants.Redirects}:Site:{requestSite.HomepageId}-{requestSite.CultureInfo}:Path:{sanitizedPath}",
             async (ctx, ct) =>
             {
                 var redirectResponse = await _linksApi.GetRedirect(redirectPath, requestSite.HomepageId, requestSite.CultureInfo, ct);
@@ -143,7 +142,7 @@ internal sealed class PagesService : IPagesService
         }
 
         return await _fusionCache.GetOrSetAsync<IApiContent?>(
-            $"Region:{CachingRegionConstants.Pages}:Site:{requestSite.HomepageId}-{requestSite.CultureInfo}:Paths:{sanitizedPath}",
+            $"Region:{CachingRegionConstants.Pages}:Site:{requestSite.HomepageId}-{requestSite.CultureInfo}:Path:{sanitizedPath}",
             async (ctx, ct) =>
             {
                 var response = await GetPageByPathFactory(deliveryApiPath, requestSite, false, ct);

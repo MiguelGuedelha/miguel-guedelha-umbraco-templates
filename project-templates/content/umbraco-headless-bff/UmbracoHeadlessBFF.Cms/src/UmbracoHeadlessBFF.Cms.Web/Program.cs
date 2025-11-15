@@ -49,6 +49,7 @@ builder.Services.AddSwaggerGen(options =>
     options.OperationFilter<AuthenticationSwaggerParameters>();
 });
 
+// Adds SiteAPI caches for refresh/clear purposes only
 builder.AddCachingSharedModule(CachingConstants.SiteApi.CacheName, true);
 
 builder.AddCorrelationCommonSharedModule();

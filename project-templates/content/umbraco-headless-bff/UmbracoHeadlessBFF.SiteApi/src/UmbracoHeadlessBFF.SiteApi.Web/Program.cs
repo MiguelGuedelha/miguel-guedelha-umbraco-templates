@@ -10,7 +10,6 @@ using UmbracoHeadlessBFF.SharedModules.Common.Caching;
 using UmbracoHeadlessBFF.SharedModules.Common.Correlation;
 using UmbracoHeadlessBFF.SharedModules.Common.Environment;
 using UmbracoHeadlessBFF.SharedModules.Common.Versioning;
-using UmbracoHeadlessBFF.SiteApi.Modules.CacheInvalidation;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Configuration;
@@ -125,7 +124,6 @@ var versionGroup = app
     .WithApiVersionSet(apiVersionSet);
 
 versionGroup.MapPagesEndpoints();
-versionGroup.MapCacheInvalidationEndpoints();
 
 if (app.Environment.IsLocal())
 {

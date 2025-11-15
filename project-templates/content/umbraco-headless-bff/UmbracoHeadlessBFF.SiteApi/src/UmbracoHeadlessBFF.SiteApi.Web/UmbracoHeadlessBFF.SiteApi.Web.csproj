@@ -17,7 +17,6 @@
     <ProjectReference Include="..\..\..\UmbracoHeadlessBFF.SharedModules\src\UmbracoHeadlessBFF.SharedModules.Common\UmbracoHeadlessBFF.SharedModules.Common.csproj" />
     <ProjectReference
       Include="..\..\..\UmbracoHeadlessBFF.SharedModules\src\UmbracoHeadlessBFF.SharedModules.ServiceDefaults\UmbracoHeadlessBFF.SharedModules.ServiceDefaults.csproj" />
-    <ProjectReference Include="..\UmbracoHeadlessBFF.SiteApi.Modules.CacheInvalidation\UmbracoHeadlessBFF.SiteApi.Modules.CacheInvalidation.csproj" />
     <ProjectReference Include="..\UmbracoHeadlessBFF.SiteApi.Modules.Pages\UmbracoHeadlessBFF.SiteApi.Modules.Pages.csproj" />
   </ItemGroup>
 
