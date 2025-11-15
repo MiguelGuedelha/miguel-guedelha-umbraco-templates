@@ -6,9 +6,11 @@ public static class AssemblyVersionExtensions
 {
     public static string GetVersion()
     {
-        return Assembly
+        var assemblyInfo = Assembly
             .GetEntryAssembly()
             ?.GetCustomAttribute<AssemblyInformationalVersionAttribute>()
-            ?.InformationalVersion ?? "1.0.0";
+            ?.InformationalVersion;
+
+        return string.IsNullOrWhiteSpace(assemblyInfo) ? "1.0.0" : assemblyInfo;
     }
 }

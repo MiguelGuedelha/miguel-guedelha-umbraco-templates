@@ -4,7 +4,6 @@ using UmbracoHeadlessBFF.SharedModules.Common.Caching;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
 using ZiggyCreatures.Caching.Fusion;
-using CachingConstants = UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching.CachingConstants;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.Links;
 
@@ -13,17 +12,17 @@ public sealed class LinkService
     private readonly ILinksApi _linksApi;
     private readonly SiteResolutionContext _siteResolutionContext;
     private readonly IFusionCache _fusionCache;
-    private readonly DefaultCachingOptions _defaultCachingOptions;
+    private readonly SiteApiCachingOptions _siteApiCachingOptions;
 
     public LinkService(ILinksApi linksApi,
         SiteResolutionContext siteResolutionContext,
         IFusionCacheProvider fusionCacheProvider,
-        IOptionsSnapshot<DefaultCachingOptions> defaultCachingOptions)
+        IOptionsSnapshot<SiteApiCachingOptions> siteApiCachingOptions)
     {
         _linksApi = linksApi;
         _siteResolutionContext = siteResolutionContext;
-        _fusionCache = fusionCacheProvider.GetCache(CachingConstants.SiteApiCacheName);
-        _defaultCachingOptions = defaultCachingOptions.Value;
+        _fusionCache = fusionCacheProvider.GetCache(CachingConstants.SiteApi.CacheName);
+        _siteApiCachingOptions = siteApiCachingOptions.Value;
     }
 
     public async Task<Link?> ResolveLink(Guid id)
@@ -47,11 +46,11 @@ public sealed class LinkService
                     return response.Content;
                 }
 
-                ctx.Options.SetAllDurations(TimeSpan.FromSeconds(_defaultCachingOptions.NullDuration));
+                ctx.Options.SetAllDurations(TimeSpan.FromSeconds(_siteApiCachingOptions.Default.NullDuration));
 
                 return null;
             },
-            tags: [CachingTagConstants.Links, id.ToString(), culture]);
+            tags: [CachingConstants.SiteApi.Tags.Links, id.ToString(), culture]);
 
         return data;
     }

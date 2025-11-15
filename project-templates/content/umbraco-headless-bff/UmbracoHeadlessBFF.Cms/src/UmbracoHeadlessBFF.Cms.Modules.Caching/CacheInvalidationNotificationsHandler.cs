@@ -1,12 +1,10 @@
-using System.Text.Json;
-using Azure.Messaging.ServiceBus;
 using Umbraco.Cms.Core.Cache;
 using Umbraco.Cms.Core.Events;
 using Umbraco.Cms.Core.Notifications;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Core.Services.Changes;
-using UmbracoHeadlessBFF.SharedModules.Common.Caching.Messaging;
-using UmbracoHeadlessBFF.SharedModules.Common.ServiceDiscovery;
+using UmbracoHeadlessBFF.SharedModules.Common.Caching;
+using ZiggyCreatures.Caching.Fusion;
 
 namespace UmbracoHeadlessBFF.Cms.Modules.Caching;
 
@@ -17,16 +15,16 @@ internal sealed class CacheInvalidationNotificationsHandler :
 {
     private readonly IContentService _contentService;
     private readonly IMediaService _mediaService;
-    private readonly ServiceBusSender _serviceBusSender;
+    private readonly IFusionCache _siteApiFusionCache;
 
     public CacheInvalidationNotificationsHandler(
         IContentService contentService,
         IMediaService mediaService,
-        ServiceBusClient serviceBusClient)
+        IFusionCacheProvider fusionCacheProvider)
     {
         _contentService = contentService;
         _mediaService = mediaService;
-        _serviceBusSender = serviceBusClient.CreateSender(Services.ServiceBus.Topics.CmsCache);
+        _siteApiFusionCache = fusionCacheProvider.GetCache(CachingConstants.SiteApi.CacheName);
     }
 
     public async Task HandleAsync(ContentCacheRefresherNotification notification, CancellationToken cancellationToken)
@@ -36,7 +34,7 @@ internal sealed class CacheInvalidationNotificationsHandler :
             return;
         }
 
-        var items = new List<CacheInvalidationMessage.CacheInvalidationItem>();
+        var items = new List<string>();
 
         foreach (var payload in payloads.Where(x => x.ChangeTypes is not TreeChangeTypes.Remove and not TreeChangeTypes.None))
         {
@@ -53,11 +51,7 @@ internal sealed class CacheInvalidationNotificationsHandler :
                 break;
             }
 
-            items.Add(new()
-            {
-                Key = content.Key,
-                ContentTypeAlias = content.ContentType.Alias
-            });
+            items.Add(content.Key.ToString());
 
             var changeType = payload.ChangeTypes;
 
@@ -66,24 +60,22 @@ internal sealed class CacheInvalidationNotificationsHandler :
                 continue;
             }
 
-            var descendants = _contentService.GetPagedDescendants(content.Id, 0, int.MaxValue, out _);
-            items.AddRange(descendants
-                .Select(descendant => new CacheInvalidationMessage.CacheInvalidationItem
-                {
-                    Key = descendant.Key,
-                    ContentTypeAlias = descendant.ContentType.Alias
-                }));
+            var descendants = _contentService
+                .GetPagedDescendants(content.Id, 0, int.MaxValue, out _)
+                .Select(x => x.Key.ToString());
+
+            items.AddRange(descendants);
         }
 
-        var message = items switch
+        if (items is null)
         {
-            not null => new(CacheInvalidationMessage.CacheInvalidationType.Content, false, items),
-            _ => new CacheInvalidationMessage(CacheInvalidationMessage.CacheInvalidationType.Content, true)
-        };
-
-        var serialisedMessage = JsonSerializer.Serialize(message);
-
-        await _serviceBusSender.SendMessageAsync(new(serialisedMessage), cancellationToken);
+            await _siteApiFusionCache.ClearAsync(token: cancellationToken);
+        }
+        else
+        {
+            await _siteApiFusionCache.RemoveByTagAsync(items, token: cancellationToken);
+            await _siteApiFusionCache.RemoveByTagAsync(items, token: cancellationToken);
+        }
     }
 
     public async Task HandleAsync(DomainCacheRefresherNotification notification, CancellationToken cancellationToken)
@@ -98,11 +90,7 @@ internal sealed class CacheInvalidationNotificationsHandler :
             return;
         }
 
-        var message = new CacheInvalidationMessage(CacheInvalidationMessage.CacheInvalidationType.Domain);
-
-        var serialisedMessage = JsonSerializer.Serialize(message);
-
-        await _serviceBusSender.SendMessageAsync(new(serialisedMessage), cancellationToken);
+        await _siteApiFusionCache.ClearAsync(token: cancellationToken);
     }
 
     public async Task HandleAsync(MediaCacheRefresherNotification notification, CancellationToken cancellationToken)
@@ -112,7 +100,7 @@ internal sealed class CacheInvalidationNotificationsHandler :
             return;
         }
 
-        var items = new List<CacheInvalidationMessage.CacheInvalidationItem>();
+        var items = new List<string>();
 
         foreach (var payload in payloads.Where(x => x.ChangeTypes is not TreeChangeTypes.Remove and not TreeChangeTypes.None))
         {
@@ -129,11 +117,7 @@ internal sealed class CacheInvalidationNotificationsHandler :
                 break;
             }
 
-            items.Add(new()
-            {
-                Key = media.Key,
-                ContentTypeAlias = media.ContentType.Alias
-            });
+            items.Add(media.Key.ToString());
 
             var changeType = payload.ChangeTypes;
 
@@ -142,23 +126,21 @@ internal sealed class CacheInvalidationNotificationsHandler :
                 continue;
             }
 
-            var descendants = _mediaService.GetPagedDescendants(media.Id, 0, int.MaxValue, out _);
-            items.AddRange(descendants
-                .Select(descendant => new CacheInvalidationMessage.CacheInvalidationItem
-                {
-                    Key = descendant.Key,
-                    ContentTypeAlias = descendant.ContentType.Alias
-                }));
+            var descendants = _mediaService
+                .GetPagedDescendants(media.Id, 0, int.MaxValue, out _)
+                .Select(x => x.Key.ToString());
+
+            items.AddRange(descendants);
         }
 
-        var message = items switch
+        if (items is null)
         {
-            not null => new(CacheInvalidationMessage.CacheInvalidationType.Media, false, items.DistinctBy(x => x.Key).ToArray()),
-            _ => new CacheInvalidationMessage(CacheInvalidationMessage.CacheInvalidationType.Media, true)
-        };
-
-        var serialisedMessage = JsonSerializer.Serialize(message);
-
-        await _serviceBusSender.SendMessageAsync(new(serialisedMessage), cancellationToken);
+            await _siteApiFusionCache.RemoveByTagAsync(CachingConstants.SiteApi.Tags.Media, token: cancellationToken);
+        }
+        else
+        {
+            await _siteApiFusionCache.RemoveByTagAsync(items, token: cancellationToken);
+            await _siteApiFusionCache.RemoveByTagAsync(CachingConstants.SiteApi.Tags.GlobalTags, token: cancellationToken);
+        }
     }
 }

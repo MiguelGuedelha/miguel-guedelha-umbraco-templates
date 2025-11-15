@@ -1,4 +1,4 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
@@ -71,8 +71,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoHeadlessBFF.Cms.Modu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoHeadlessBFF.SharedModules.Cms", "UmbracoHeadlessBFF.SharedModules\src\UmbracoHeadlessBFF.SharedModules.Cms\UmbracoHeadlessBFF.SharedModules.Cms.csproj", "{8B55425B-CA62-4A62-962C-236000707DB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoHeadlessBFF.SiteApi.Modules.CacheInvalidation", "UmbracoHeadlessBFF.SiteApi\src\UmbracoHeadlessBFF.SiteApi.Modules.CacheInvalidation\UmbracoHeadlessBFF.SiteApi.Modules.CacheInvalidation.csproj", "{59EDD170-937F-4487-92C6-77C179F61B5C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoHeadlessBFF.Cms.Modules.Caching", "UmbracoHeadlessBFF.Cms\src\UmbracoHeadlessBFF.Cms.Modules.Caching\UmbracoHeadlessBFF.Cms.Modules.Caching.csproj", "{EB9C39AF-51ED-4398-926D-CDD2CC036A07}"
 EndProject
 Global
@@ -124,10 +122,6 @@ Global
 		{8B55425B-CA62-4A62-962C-236000707DB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B55425B-CA62-4A62-962C-236000707DB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B55425B-CA62-4A62-962C-236000707DB9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{59EDD170-937F-4487-92C6-77C179F61B5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{59EDD170-937F-4487-92C6-77C179F61B5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{59EDD170-937F-4487-92C6-77C179F61B5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{59EDD170-937F-4487-92C6-77C179F61B5C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EB9C39AF-51ED-4398-926D-CDD2CC036A07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EB9C39AF-51ED-4398-926D-CDD2CC036A07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB9C39AF-51ED-4398-926D-CDD2CC036A07}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -150,7 +144,6 @@ Global
 		{7E4919F0-E290-4B96-ABD4-6C3406448C13} = {82F2FA96-FA6C-4ECC-80D6-573B2E546DC3}
 		{F05A9177-34B2-4EA4-958D-543B370DD042} = {A4F153A6-515D-4D8D-B700-69EB728D639D}
 		{8B55425B-CA62-4A62-962C-236000707DB9} = {DBB4C004-989A-44A9-B6D3-30042E68CC0C}
-		{59EDD170-937F-4487-92C6-77C179F61B5C} = {82F2FA96-FA6C-4ECC-80D6-573B2E546DC3}
 		{EB9C39AF-51ED-4398-926D-CDD2CC036A07} = {A4F153A6-515D-4D8D-B700-69EB728D639D}
 	EndGlobalSection
 EndGlobal

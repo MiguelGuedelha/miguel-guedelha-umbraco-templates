@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using UmbracoHeadlessBFF.SharedModules.Cms.SiteResolution;
+using UmbracoHeadlessBFF.SharedModules.Common.Caching;
 using UmbracoHeadlessBFF.SharedModules.Common.Correlation;
 using UmbracoHeadlessBFF.SharedModules.Common.Strings;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching;
@@ -24,7 +25,7 @@ public sealed class SiteResolutionService
         _httpContextAccessor = httpContextAccessor;
         _siteResolutionApi = siteResolutionApi;
         _siteResolutionContext = siteResolutionContext;
-        _fusionCache = fusionCacheProvider.GetCache(CachingConstants.SiteApiCacheName);
+        _fusionCache = fusionCacheProvider.GetCache(CachingConstants.SiteApi.CacheName);
     }
 
     public async Task<(string SiteId, SiteDefinition SiteDefinition)?> ResolveSite()
@@ -95,7 +96,7 @@ public sealed class SiteResolutionService
         return await _fusionCache.GetOrSetAsync<Dictionary<string, SiteDefinition>>(
             $"Region:{CachingRegionConstants.Sites}:List",
             async (_, ct) => await GetSitesFactory(false, ct),
-            tags: [CachingTagConstants.Sites]);
+            tags: [CachingConstants.SiteApi.Tags.Sites]);
 
         async Task<Dictionary<string, SiteDefinition>> GetSitesFactory(bool factoryPreview, CancellationToken cancellationToken = default)
         {
