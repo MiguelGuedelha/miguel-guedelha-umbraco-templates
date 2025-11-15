@@ -50,7 +50,9 @@ internal sealed partial class ApiRichTextMarkupParser : IApiRichTextMarkupParser
         }
     }
 
+#pragma warning disable IDE0060 // Remove unused parameter
     private void ProcessLinks(HtmlDocument doc, IPublishedContentCache publishedContentCache, IPublishedMediaCache publishedMediaCache)
+#pragma warning restore IDE0060 // Remove unused parameter
     {
         var links = doc.DocumentNode.SelectNodes("//a");
 

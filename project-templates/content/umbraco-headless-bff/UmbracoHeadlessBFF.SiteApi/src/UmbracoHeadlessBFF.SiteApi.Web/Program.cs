@@ -84,10 +84,7 @@ app.UseCorrelationSharedModules();
 
 if (!app.Environment.IsProduction())
 {
-    app.UseSwagger(options =>
-    {
-        options.OpenApiVersion = OpenApiSpecVersion.OpenApi3_1;
-    });
+    app.UseSwagger();
     app.MapScalarApiReference(options =>
     {
         var descriptions = app.DescribeApiVersions();

@@ -44,7 +44,8 @@
         "**/[Uu]mbraco/**",
         "**/uSync/**",
         "**/.vscode/**",
-        "*.sh"
+        "*.sh",
+        "*.ps1"
       ],
       "include": [
         "**/App_Plugins/HeadlessPreviewExtension/**"
