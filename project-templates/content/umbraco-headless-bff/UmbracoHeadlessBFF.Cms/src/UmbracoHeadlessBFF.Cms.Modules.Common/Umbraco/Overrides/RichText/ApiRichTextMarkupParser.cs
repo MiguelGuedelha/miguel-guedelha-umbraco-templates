@@ -1,5 +1,6 @@
 using HtmlAgilityPack;
 using Microsoft.Extensions.Logging;
+using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.DeliveryApi;
 using Umbraco.Cms.Core.PublishedCache;
 using Umbraco.Extensions;
@@ -60,14 +61,18 @@ internal sealed class ApiRichTextMarkupParser : ApiRichTextParserBase, IApiRichT
                 link.GetAttributeValue("type", "unknown"),
                 (route, contentId) =>
                 {
-                    link.SetAttributeValue("data-content-id", contentId.ToString("D"));
                     link.SetAttributeValue("href", $"{route.Path}{route.QueryString}");
+                    link.SetAttributeValue("data-content-id", contentId.ToString("D"));
                     link.SetAttributeValue("data-start-item-path", route.StartItem.Path);
                     link.SetAttributeValue("data-start-item-id", route.StartItem.Id.ToString("D"));
+                    link.Attributes["type"]?.Remove();
+                    link.SetAttributeValue("data-content-type", Constants.UdiEntityType.Document);
                 },
                 url =>
                 {
                     link.SetAttributeValue("href", url);
+                    link.Attributes["type"]?.Remove();
+                    link.SetAttributeValue("data-content-type", Constants.UdiEntityType.Document);
                 },
                 () =>
                 {

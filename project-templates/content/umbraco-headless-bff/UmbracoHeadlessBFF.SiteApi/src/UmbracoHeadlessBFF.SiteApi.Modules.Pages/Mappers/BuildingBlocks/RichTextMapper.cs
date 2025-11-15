@@ -43,12 +43,12 @@ internal sealed class RichTextMapper : IRichTextMapper
 
         foreach (var link in links)
         {
-            var entityType = link.GetAttributeValue("type", string.Empty);
+            var entityType = link.GetAttributeValue("data-content-type", string.Empty);
             var anchor = link.GetAttributeValue("data-anchor", string.Empty);
 
             if (string.IsNullOrWhiteSpace(entityType))
             {
-                link.Attributes.Remove("type");
+                link.Attributes.Remove("data-content-type");
                 continue;
             }
 
@@ -98,7 +98,7 @@ internal sealed class RichTextMapper : IRichTextMapper
             }
 
             link.Attributes.Remove("data-anchor");
-            link.Attributes.Remove("type");
+            link.Attributes.Remove("data-content-type");
         }
     }
 
