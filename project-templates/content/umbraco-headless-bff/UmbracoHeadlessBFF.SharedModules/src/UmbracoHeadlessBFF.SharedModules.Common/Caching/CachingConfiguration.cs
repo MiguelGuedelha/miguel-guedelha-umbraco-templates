@@ -1,5 +1,6 @@
 using System.Text.Json;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -59,7 +60,6 @@ public static class CachingConfiguration
             }
 
             builder.Services.AddMemoryCache();
-            builder.AddRedisDistributedCache(CachingConstants.ConnectionStringName);
 
             var jsonOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web);
             configureJsonSerializerOptions?.Invoke(jsonOptions);
@@ -109,7 +109,10 @@ public static class CachingConfiguration
                     configureEntryOptions?.Invoke(o);
                 })
                 .WithSerializer(new FusionCacheSystemTextJsonSerializer(jsonOptions))
-                .WithRegisteredDistributedCache()
+                .WithDistributedCache(new RedisCache(new RedisCacheOptions
+                {
+                    Configuration = builder.Configuration.GetConnectionString(CachingConstants.ConnectionStringName)
+                }))
                 .WithStackExchangeRedisBackplane(o =>
                 {
                     o.Configuration = builder.Configuration.GetConnectionString(CachingConstants.ConnectionStringName);

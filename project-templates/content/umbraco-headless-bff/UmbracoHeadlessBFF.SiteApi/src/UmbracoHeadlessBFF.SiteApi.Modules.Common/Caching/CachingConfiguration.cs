@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using UmbracoHeadlessBFF.SharedModules.Common.Caching;
@@ -26,7 +27,10 @@ public static class CachingConfiguration
                     o.JitterMaxDuration = TimeSpan.FromSeconds(10);
                 })
                 .WithSerializer(new FusionCacheNeueccMessagePackSerializer())
-                .WithRegisteredDistributedCache()
+                .WithDistributedCache(new RedisCache(new RedisCacheOptions
+                {
+                    Configuration = builder.Configuration.GetConnectionString(CachingConstants.ConnectionStringName)
+                }))
                 .WithStackExchangeRedisBackplane(o =>
                 {
                     o.Configuration = builder.Configuration.GetConnectionString(CachingConstants.ConnectionStringName);
