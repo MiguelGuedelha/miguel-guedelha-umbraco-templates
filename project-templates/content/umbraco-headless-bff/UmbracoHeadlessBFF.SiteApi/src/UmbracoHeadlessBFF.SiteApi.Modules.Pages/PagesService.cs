@@ -11,7 +11,6 @@ using UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 using ZiggyCreatures.Caching.Fusion;
-using CachingConstants = UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching.CachingConstants;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Pages;
 
@@ -29,7 +28,7 @@ internal sealed class PagesService : IPagesService
     private readonly SiteResolutionContext _siteResolutionContext;
     private readonly ILinksApi _linksApi;
     private readonly IFusionCache _fusionCache;
-    private readonly DefaultCachingOptions _defaultCachingOptions;
+    private readonly SiteApiCachingOptions _siteApiCachingOptions;
 
     private static readonly string s_levelOneExpandFieldsLevel = new FieldsExpandProperties(1).ToString();
     private static readonly string s_defaultExpandFieldsLevel = new FieldsExpandProperties(5).ToString();
@@ -39,13 +38,13 @@ internal sealed class PagesService : IPagesService
         SiteResolutionContext siteResolutionContext,
         ILinksApi linksApi,
         IFusionCacheProvider fusionCacheProvider,
-        IOptionsSnapshot<DefaultCachingOptions> defaultCachingOptions)
+        IOptionsSnapshot<SiteApiCachingOptions> siteApiCachingOptions)
     {
         _umbracoDeliveryApi = umbracoDeliveryApi;
         _siteResolutionContext = siteResolutionContext;
         _linksApi = linksApi;
-        _fusionCache = fusionCacheProvider.GetCache(CachingConstants.SiteApiCacheName);
-        _defaultCachingOptions = defaultCachingOptions.Value;
+        _fusionCache = fusionCacheProvider.GetCache(CachingConstants.SiteApi.CacheName);
+        _siteApiCachingOptions = siteApiCachingOptions.Value;
     }
 
     public async Task<IApiContent?> GetPage(Guid id, bool? isPreview = null, SiteDefinition? site = null)
@@ -66,12 +65,12 @@ internal sealed class PagesService : IPagesService
 
                 if (response.Content is null)
                 {
-                    ctx.Options.SetAllDurations(TimeSpan.FromSeconds(_defaultCachingOptions.NullDuration));
+                    ctx.Options.SetAllDurations(TimeSpan.FromSeconds(_siteApiCachingOptions.Default.NullDuration));
                 }
 
                 return response.Content;
             },
-            tags: [CachingTagConstants.Pages, id.ToString(), requestSite.HomepageId.ToString(), requestSite.CultureInfo, _siteResolutionContext.Site.SiteSettingsId.ToString(), _siteResolutionContext.Site.DictionaryId.ToString()]);
+            tags: [CachingConstants.SiteApi.Tags.Pages, id.ToString(), requestSite.HomepageId.ToString(), requestSite.CultureInfo, _siteResolutionContext.Site.SiteSettingsId.ToString(), _siteResolutionContext.Site.DictionaryId.ToString()]);
 
         async Task<IApiResponse<IApiContent>> GetPageByIdFactory(Guid factoryId, bool factoryPreview, SiteDefinition factorySite, CancellationToken cancellationToken = default)
         {
@@ -131,12 +130,12 @@ internal sealed class PagesService : IPagesService
 
                 if (redirectResponse.Content is null)
                 {
-                    ctx.Options.SetAllDurations(TimeSpan.FromSeconds(_defaultCachingOptions.NullDuration));
+                    ctx.Options.SetAllDurations(TimeSpan.FromSeconds(_siteApiCachingOptions.Default.NullDuration));
                 }
 
                 return redirectResponse.Content;
             },
-            tags: [CachingTagConstants.Redirects, requestSite.HomepageId.ToString(), requestSite.CultureInfo]);
+            tags: [CachingConstants.SiteApi.Tags.Redirects, requestSite.HomepageId.ToString(), requestSite.CultureInfo]);
 
         if (redirect is not null)
         {
@@ -151,7 +150,7 @@ internal sealed class PagesService : IPagesService
 
                 if (response.Content is null)
                 {
-                    ctx.Options.SetAllDurations(TimeSpan.FromSeconds(_defaultCachingOptions.NullDuration));
+                    ctx.Options.SetAllDurations(TimeSpan.FromSeconds(_siteApiCachingOptions.Default.NullDuration));
                 }
 
                 if (response.Content is { } page)
@@ -161,7 +160,7 @@ internal sealed class PagesService : IPagesService
 
                 return response.Content;
             },
-            tags: [CachingTagConstants.Pages, requestSite.HomepageId.ToString(), requestSite.CultureInfo]);
+            tags: [CachingConstants.SiteApi.Tags.Pages, requestSite.HomepageId.ToString(), requestSite.CultureInfo]);
 
         async Task<IApiResponse<IApiContent>> GetPageByPathFactory(string factoryPath, SiteDefinition factorySite, bool factoryPreview, CancellationToken cancellationToken = default)
         {
@@ -205,7 +204,7 @@ internal sealed class PagesService : IPagesService
         var sortSegment = sort is null ? "no-sort" : sort.ToString().Replace(':', '-');
         var sizeSegment = $"{skip}-{take}";
 
-        var tags = new List<string> { CachingTagConstants.Pages, site.HomepageId.ToString(), site.CultureInfo };
+        var tags = new List<string> { CachingConstants.SiteApi.Tags.Pages, site.HomepageId.ToString(), site.CultureInfo };
 
         if (fetch is not null)
         {
@@ -231,7 +230,7 @@ internal sealed class PagesService : IPagesService
 
                 if (response.Content is null)
                 {
-                    ctx.Options.SetAllDurations(TimeSpan.FromSeconds(_defaultCachingOptions.NullDuration));
+                    ctx.Options.SetAllDurations(TimeSpan.FromSeconds(_siteApiCachingOptions.Default.NullDuration));
                 }
 
                 return response.Content;

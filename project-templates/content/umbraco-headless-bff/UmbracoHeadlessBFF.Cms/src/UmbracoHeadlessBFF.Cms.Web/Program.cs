@@ -5,13 +5,13 @@ using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Webhooks;
 using Umbraco.Cms.Infrastructure.Runtime.RuntimeModeValidators;
 using Umbraco.Community.DataProtection.Composing;
-using UmbracoHeadlessBFF.Cms.Modules.Caching;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Authentication;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Links;
 using UmbracoHeadlessBFF.Cms.Modules.Common.LoadBalancing;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Preview;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco;
 using UmbracoHeadlessBFF.Cms.Modules.Common.Urls;
+using UmbracoHeadlessBFF.SharedModules.Common.Caching;
 using UmbracoHeadlessBFF.SharedModules.Common.Correlation;
 using UmbracoHeadlessBFF.SharedModules.Common.Environment;
 using UmbracoHeadlessBFF.SharedModules.Common.Versioning;
@@ -49,12 +49,13 @@ builder.Services.AddSwaggerGen(options =>
     options.OperationFilter<AuthenticationSwaggerParameters>();
 });
 
+builder.AddCachingSharedModule(CachingConstants.SiteApi.CacheName, true);
+
 builder.AddCorrelationCommonSharedModule();
 builder.AddPreviewModule();
 builder.AddLinksModule();
 builder.AddUrlsModule();
 builder.AddUmbracoOverrides();
-builder.AddCachingModule();
 
 builder.Services.AddControllers().AddJsonOptions(Constants.JsonOptionsNames.DeliveryApi, options =>
 {

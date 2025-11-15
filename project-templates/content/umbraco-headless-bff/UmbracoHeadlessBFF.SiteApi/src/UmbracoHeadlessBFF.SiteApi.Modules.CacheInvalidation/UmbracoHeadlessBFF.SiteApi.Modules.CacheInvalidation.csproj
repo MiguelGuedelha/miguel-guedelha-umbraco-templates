@@ -7,7 +7,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspire.Azure.Messaging.ServiceBus" />
     <PackageReference Include="Polly.Core" />
   </ItemGroup>
 

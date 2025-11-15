@@ -14,7 +14,6 @@ using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Endpoints;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 using ZiggyCreatures.Caching.Fusion;
-using CachingConstants = UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching.CachingConstants;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Pages.Endpoints;
 
@@ -39,7 +38,7 @@ internal static class GetSitemapEndpoint
         ISitemapsApi sitemapsApi,
         SiteResolutionContext siteResolutionContext,
         IFusionCacheProvider fusionCacheProvider,
-        IOptionsSnapshot<DefaultCachingOptions> defaultCachingOptions)
+        IOptionsSnapshot<SiteApiCachingOptions> siteApiCachingOptions)
     {
         var path = siteResolutionContext.Path;
         var domain = siteResolutionContext.Domain;
@@ -68,7 +67,7 @@ internal static class GetSitemapEndpoint
             };
         }
 
-        var fusionCache = fusionCacheProvider.GetCache(CachingConstants.SiteApiCacheName);
+        var fusionCache = fusionCacheProvider.GetCache(CachingConstants.SiteApi.CacheName);
 
         var data = await fusionCache.GetOrSetAsync<SitemapData?>(
             $"Region:{CachingRegionConstants.Sitemap}:Site:{homepageId}-{culture}",
@@ -78,12 +77,12 @@ internal static class GetSitemapEndpoint
 
                 if (response.StatusCode == HttpStatusCode.NotFound)
                 {
-                    ctx.Options.SetAllDurations(TimeSpan.FromSeconds(defaultCachingOptions.Value.NullDuration));
+                    ctx.Options.SetAllDurations(TimeSpan.FromSeconds(siteApiCachingOptions.Value.Default.NullDuration));
                 }
 
                 return response.Content;
             },
-            tags: [CachingTagConstants.Sitemaps, homepageId.ToString(), culture, siteResolutionContext.Site.SiteSettingsId.ToString()]);
+            tags: [CachingConstants.SiteApi.Tags.Sitemaps, homepageId.ToString(), culture, siteResolutionContext.Site.SiteSettingsId.ToString()]);
 
         return data switch
         {

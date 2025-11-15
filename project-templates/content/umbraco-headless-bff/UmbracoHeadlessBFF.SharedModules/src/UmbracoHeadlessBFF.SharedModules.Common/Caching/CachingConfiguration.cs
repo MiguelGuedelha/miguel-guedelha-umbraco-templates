@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
 using UmbracoHeadlessBFF.SharedModules.Common.Versioning;
@@ -16,7 +17,9 @@ public static class CachingConfiguration
     extension(WebApplicationBuilder builder)
     {
         public void AddCachingSharedModule(
-            string? cacheName = null,
+            string cachePrefix,
+            bool namedCache = false,
+            bool keyedService = false,
             bool versioned = false,
             Action<FusionCacheOptions>? configureOptions = null,
             Action<FusionCacheEntryOptions>? configureEntryOptions = null,
@@ -27,23 +30,31 @@ public static class CachingConfiguration
 
             builder.Services.Configure<DefaultCachingOptions>(section);
 
-            var defaultCachingOptions = section
-                .Get<DefaultCachingOptions>() ?? throw new ArgumentException("Caching options can't be parsed");
-            var cacheBuilder = builder.Services
-                .AddFusionCache(cacheName ?? FusionCacheOptions.DefaultCacheName);
+            var cacheName = namedCache ? cachePrefix.Trim(':') : FusionCacheOptions.DefaultCacheName;
+
+            var defaultCachingOptions = section.Get<DefaultCachingOptions>() ?? throw new ArgumentException("Caching options can't be parsed");
+
+            var cacheBuilder = builder.Services.AddFusionCache(cacheName);
 
             if (versioned)
             {
-                cacheBuilder.WithCacheKeyPrefix($"{cacheName ?? FusionCacheOptions.DefaultCacheName}:{AssemblyVersionExtensions.GetVersion()}:");
+                cacheBuilder.WithCacheKeyPrefix($"{cacheName}:{AssemblyVersionExtensions.GetVersion()}:");
             }
             else
             {
                 cacheBuilder.WithCacheKeyPrefixByCacheName();
             }
 
+            if (keyedService)
+            {
+                cacheBuilder.AsKeyedServiceByCacheName();
+            }
+
             if (!defaultCachingOptions.Enabled)
             {
-                cacheBuilder.WithNullImplementation();
+                var nullBuilder = cacheBuilder.WithNullImplementation();
+
+                nullBuilder.ThrowIfMissingMemoryCache = false;
                 return;
             }
 
@@ -56,31 +67,44 @@ public static class CachingConfiguration
             cacheBuilder
                 .WithOptions(o =>
                 {
-                    //Backs off the Distributed Cache if having issues
-                    o.DistributedCacheCircuitBreakerDuration = TimeSpan.FromSeconds(defaultCachingOptions.DistributedCacheCircuitBreakerDuration);
+                    if (defaultCachingOptions.Default is not null)
+                    {
+                        //Backs off the Distributed Cache if having issues
+                        o.DistributedCacheCircuitBreakerDuration = TimeSpan.FromSeconds(defaultCachingOptions.Default.DistributedCacheCircuitBreakerDuration);
+                    }
 
                     configureOptions?.Invoke(o);
+
+                    //Log Levels
+                    o.FailSafeActivationLogLevel = LogLevel.Debug;
+                    o.DistributedCacheSyntheticTimeoutsLogLevel = LogLevel.Information;
+                    o.DistributedCacheErrorsLogLevel = LogLevel.Error;
+                    o.FactorySyntheticTimeoutsLogLevel = LogLevel.Information;
+                    o.FactoryErrorsLogLevel = LogLevel.Error;
                 })
                 .WithDefaultEntryOptions(o =>
                 {
-                    o.Duration = TimeSpan.FromSeconds(defaultCachingOptions.Duration);
-                    o.DistributedCacheDuration = TimeSpan.FromSeconds(defaultCachingOptions.DurationDistributed ?? defaultCachingOptions.Duration);
+                    if (defaultCachingOptions.Default is not null)
+                    {
+                        o.Duration = TimeSpan.FromSeconds(defaultCachingOptions.Default.Duration);
+                        o.DistributedCacheDuration = TimeSpan.FromSeconds(defaultCachingOptions.Default.DurationDistributed ?? defaultCachingOptions.Default.Duration);
 
-                    o.IsFailSafeEnabled = defaultCachingOptions.FailSafeIsEnabled;
-                    o.FailSafeMaxDuration = TimeSpan.FromSeconds(defaultCachingOptions.FailSafeMaxDuration);
-                    o.FailSafeThrottleDuration = TimeSpan.FromSeconds(defaultCachingOptions.FailSafeThrottleDuration);
+                        o.IsFailSafeEnabled = defaultCachingOptions.Default.FailSafeIsEnabled;
+                        o.FailSafeMaxDuration = TimeSpan.FromSeconds(defaultCachingOptions.Default.FailSafeMaxDuration);
+                        o.FailSafeThrottleDuration = TimeSpan.FromSeconds(defaultCachingOptions.Default.FailSafeThrottleDuration);
 
-                    o.FactorySoftTimeout = TimeSpan.FromMilliseconds(defaultCachingOptions.FactorySoftTimeoutMs);
-                    o.FactoryHardTimeout = TimeSpan.FromSeconds(defaultCachingOptions.FactoryHardTimeout);
+                        o.FactorySoftTimeout = TimeSpan.FromMilliseconds(defaultCachingOptions.Default.FactorySoftTimeoutMs);
+                        o.FactoryHardTimeout = TimeSpan.FromSeconds(defaultCachingOptions.Default.FactoryHardTimeout);
 
-                    o.DistributedCacheSoftTimeout = TimeSpan.FromMilliseconds(defaultCachingOptions.DistributedCacheSoftTimeoutMs);
-                    o.DistributedCacheHardTimeout = TimeSpan.FromSeconds(defaultCachingOptions.DistributedCacheHardTimeout);
-                    o.AllowBackgroundDistributedCacheOperations = defaultCachingOptions.AllowBackgroundDistributedCacheOperations;
-                    o.AllowBackgroundBackplaneOperations = defaultCachingOptions.AllowBackgroundBackplaneOperations;
+                        o.DistributedCacheSoftTimeout = TimeSpan.FromMilliseconds(defaultCachingOptions.Default.DistributedCacheSoftTimeoutMs);
+                        o.DistributedCacheHardTimeout = TimeSpan.FromSeconds(defaultCachingOptions.Default.DistributedCacheHardTimeout);
+                        o.AllowBackgroundDistributedCacheOperations = defaultCachingOptions.Default.AllowBackgroundDistributedCacheOperations;
+                        o.AllowBackgroundBackplaneOperations = defaultCachingOptions.Default.AllowBackgroundBackplaneOperations;
 
-                    o.JitterMaxDuration = TimeSpan.FromSeconds(defaultCachingOptions.JitterMaxDuration);
+                        o.JitterMaxDuration = TimeSpan.FromSeconds(defaultCachingOptions.Default.JitterMaxDuration);
 
-                    o.EagerRefreshThreshold = defaultCachingOptions.EagerRefreshThreshold;
+                        o.EagerRefreshThreshold = defaultCachingOptions.Default.EagerRefreshThreshold;
+                    }
 
                     configureEntryOptions?.Invoke(o);
                 })

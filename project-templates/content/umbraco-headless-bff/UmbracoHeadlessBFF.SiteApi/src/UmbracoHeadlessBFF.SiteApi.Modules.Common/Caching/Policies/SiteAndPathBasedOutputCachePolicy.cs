@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.Extensions.DependencyInjection;
+using UmbracoHeadlessBFF.SharedModules.Common.Caching;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Cms.SiteResolution;
 
 namespace UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching.Policies;
@@ -65,8 +66,8 @@ public sealed class SiteAndPathBasedOutputCachePolicy : SiteApiOutputCachePolicy
 
             context.Tags.Add(siteResolutionContext.Site.DictionaryId.ToString());
             context.Tags.Add(siteResolutionContext.Site.SiteSettingsId.ToString());
-            context.Tags.Add(CachingTagConstants.Sitemaps);
-            context.Tags.Add(CachingTagConstants.Robots);
+            context.Tags.Add(CachingConstants.SiteApi.Tags.Sitemaps);
+            context.Tags.Add(CachingConstants.SiteApi.Tags.Robots);
         }
         catch
         {

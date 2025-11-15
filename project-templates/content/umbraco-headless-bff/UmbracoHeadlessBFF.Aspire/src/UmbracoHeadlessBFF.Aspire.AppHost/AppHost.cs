@@ -76,21 +76,6 @@ var umbracoMediaBlob = azureStorage.AddBlobContainer(blobContainerValue!);
 
 cmsUmbracoBlobContainerNameParameter.WithParentRelationship(umbracoMediaBlob);
 
-// Can't seem to reach "tcp" endpoint of the underlying MSSQL instance to hide URL in Aspire UI
-var serviceBus = builder
-    .AddAzureServiceBus(Services.ServiceBus.Name)
-    .RunAsEmulator()
-    .WithUrlForEndpoint("emulator", x => { x.DisplayLocation = UrlDisplayLocation.DetailsOnly; })
-    .WithUrlForEndpoint("emulatorhealth", x => { x.DisplayLocation = UrlDisplayLocation.DetailsOnly; });
-
-var cmsCacheTopic = serviceBus.AddServiceBusTopic(Services.ServiceBus.Topics.CmsCache);
-
-cmsCacheTopic.AddServiceBusSubscription(Services.ServiceBus.Subscriptions.SiteApiCmsCache)
-    .WithProperties(sub =>
-    {
-        sub.MaxDeliveryCount = 5;
-    });
-
 var cms = builder.AddProject<Projects.Cms>(Services.Cms)
     .WithExternalHttpEndpoints();
 
@@ -98,7 +83,6 @@ var cmsDeliveryApiKey = builder.AddParameter("CmsDeliveryApiKey");
 
 cms.WithReference(umbracoDb, connectionName: "umbracoDbDSN")
     .WithReference(cache)
-    .WithReference(serviceBus)
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Host", "localhost")
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Port", smtpPort)
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Username", smtpUser)
@@ -110,8 +94,7 @@ cms.WithReference(umbracoDb, connectionName: "umbracoDbDSN")
     .WaitFor(mailServer)
     .WaitFor(umbracoDb)
     .WaitFor(cache)
-    .WaitFor(umbracoMediaBlob)
-    .WaitFor(serviceBus);
+    .WaitFor(umbracoMediaBlob);
 
 cmsDeliveryApiKey.WithParentRelationship(cms);
 
@@ -132,12 +115,10 @@ var siteApi = builder.AddProject<Projects.SiteApi>(Services.SiteApi)
     .WithExternalHttpEndpoints()
     .WithReference(cache)
     .WithReference(cms)
-    .WithReference(serviceBus)
     .WithEnvironment("services__Cms__Parameters__DeliveryApiKey", cmsDeliveryApiKey)
     .WithEnvironment("ApplicationUrls__Media", () => cms.Resource.GetEndpoint("https").Url)
     .WaitFor(cache)
-    .WaitFor(cms)
-    .WaitFor(serviceBus);
+    .WaitFor(cms);
 
 siteApi.WithUrls(context =>
 {

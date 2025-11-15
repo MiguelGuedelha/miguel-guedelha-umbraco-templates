@@ -27,7 +27,7 @@ internal static class DeleteCacheByTagEndpoint
         IFusionCacheProvider fusionCacheProvider,
         CancellationToken cancellationToken)
     {
-        var fusionCache = fusionCacheProvider.GetCache(CachingConstants.SiteApiCacheName);
+        var fusionCache = fusionCacheProvider.GetCache(SharedModules.Common.Caching.CachingConstants.SiteApi.CacheName);
 
         await fusionCache.RemoveByTagAsync(tag, token: cancellationToken);
 

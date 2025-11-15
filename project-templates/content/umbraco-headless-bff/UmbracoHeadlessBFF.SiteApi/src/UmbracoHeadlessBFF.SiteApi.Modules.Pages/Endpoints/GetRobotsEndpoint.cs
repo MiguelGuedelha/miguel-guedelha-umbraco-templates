@@ -16,7 +16,6 @@ using UmbracoHeadlessBFF.SiteApi.Modules.Common.Endpoints;
 using UmbracoHeadlessBFF.SiteApi.Modules.Common.Errors;
 using UmbracoHeadlessBFF.SiteApi.Modules.Pages.Models.Pages;
 using ZiggyCreatures.Caching.Fusion;
-using CachingConstants = UmbracoHeadlessBFF.SiteApi.Modules.Common.Caching.CachingConstants;
 using NotFound = Microsoft.AspNetCore.Http.HttpResults.NotFound;
 
 
@@ -44,7 +43,7 @@ internal static class GetRobotsEndpoint
         IRobotsApi robotsApi,
         SiteResolutionContext siteResolutionContext,
         IFusionCacheProvider fusionCacheProvider,
-        IOptionsSnapshot<DefaultCachingOptions> defaultCachingOptions,
+        IOptionsSnapshot<SiteApiCachingOptions> siteApiCachingOptions,
         IPagesService pagesService,
         SiteResolutionService siteResolutionService)
     {
@@ -75,7 +74,7 @@ internal static class GetRobotsEndpoint
         }
         else
         {
-            var fusionCache = fusionCacheProvider.GetCache(CachingConstants.SiteApiCacheName);
+            var fusionCache = fusionCacheProvider.GetCache(CachingConstants.SiteApi.CacheName);
 
             var data = await fusionCache.GetOrSetAsync<RobotsData?>(
                 $"Region:{CachingRegionConstants.Robots}:Site:{homepageId}-{culture}",
@@ -88,11 +87,11 @@ internal static class GetRobotsEndpoint
                         return response.Content;
                     }
 
-                    ctx.Options.SetAllDurations(TimeSpan.FromSeconds(defaultCachingOptions.Value.NullDuration));
+                    ctx.Options.SetAllDurations(TimeSpan.FromSeconds(siteApiCachingOptions.Value.Default.NullDuration));
 
                     return null;
                 },
-                tags: [CachingTagConstants.Robots, homepageId.ToString(), culture, siteResolutionContext.Site.SiteSettingsId.ToString()]);
+                tags: [CachingConstants.SiteApi.Tags.Robots, homepageId.ToString(), culture, siteResolutionContext.Site.SiteSettingsId.ToString()]);
 
             content = data?.RobotsContent;
         }
