@@ -3,6 +3,7 @@ using Asp.Versioning.ApiExplorer;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
 using Microsoft.OpenApi;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace UmbracoHeadlessBFF.SiteApi.Web.Swagger;

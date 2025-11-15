@@ -12,6 +12,7 @@ public static class UmbracoConfiguration
         public void AddUmbracoOverrides()
         {
             builder.Services.AddUnique<IApiRichTextMarkupParser, ApiRichTextMarkupParser>();
+            builder.Services.AddUnique<IApiRichTextElementParser, ApiRichTextElementParser>();
         }
     }
 }

@@ -55,19 +55,19 @@ internal sealed class ApiRichTextMarkupParser : ApiRichTextParserBase, IApiRichT
             ReplaceLocalLinks(
                     contentCache,
                     mediaCache,
+                    link,
                 link.GetAttributeValue("href", string.Empty),
                 link.GetAttributeValue("type", "unknown"),
-                route =>
+                (route, contentId) =>
                 {
+                    link.SetAttributeValue("data-content-id", contentId.ToString("D"));
                     link.SetAttributeValue("href", $"{route.Path}{route.QueryString}");
                     link.SetAttributeValue("data-start-item-path", route.StartItem.Path);
                     link.SetAttributeValue("data-start-item-id", route.StartItem.Id.ToString("D"));
-                    link.Attributes["type"]?.Remove();
                 },
                 url =>
                 {
                     link.SetAttributeValue("href", url);
-                    link.Attributes["type"]?.Remove();
                 },
                 () =>
                 {
