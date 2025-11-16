@@ -1,7 +1,7 @@
 # Umbraco .NET Templates
 
-![Latest Version](https://img.shields.io/nuget/v/MiguelGuedelha.UmbracoTemplates)
-![Downloads](https://img.shields.io/nuget/dt/MiguelGuedelha.UmbracoTemplates)
+![Latest Version](https://img.shields.io/nuget/v/MiguelGuedelha.Umbraco.Templates)
+![Downloads](https://img.shields.io/nuget/dt/MiguelGuedelha.Umbraco.Templates)
 
 This repository contains opinionated, batteries-included .NET template(s) for Umbraco, designed to streamline the setup of new Umbraco projects. It aim to provide a solid foundation for developers working with Umbraco CMS.
 
@@ -22,7 +22,7 @@ The templates are orchestrated with .NET Aspire for a ready-to-go developer expe
 To install the templates, run the following command:
 
 ```sh
- dotnet new install MiguelGuedelha.UmbracoTemplates
+ dotnet new install MiguelGuedelha.Umbraco.Templates
 ```
 
 ## Usage
@@ -49,9 +49,10 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 - Ensure you have .NET SDK 10+ installed.
 - These templates are maintained and versioned alongside Umbraco versioning.
-  - MiguelGuedelha.UmbracoTemplates::17.x.x -> Umbraco 17
+  - MiguelGuedelha.Umbraco.Templates::17.x.x -> Umbraco 17
   - etc...
 - I've started to mark V13 versions of the package as deprecated, as I have no plans in maintaining these anymore with the new LTS around the corner
+- Due to an initial naming oopsie, V17+ versions will live under MiguelGuedelha.Umbraco.Templates, while the v13 versions will live in the original MiguelGuedelha.UmbracoTemplates space
 - Feedback and suggestions are highly appreciated!
 
 > [!WARNING]

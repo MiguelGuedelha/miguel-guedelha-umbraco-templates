@@ -1,0 +1,30 @@
+name: Pack and Publish
+
+on:
+  # only for debug/troubleshooting
+  workflow_dispatch:
+  push:
+    tags: 
+      - "*"
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.x'
+        cache: true
+    
+    - name: Pack
+      working-directory: ./project-templates
+      run: dotnet pack -p:PackageVersion=${{ github.ref_name }} -o artifacts
+
+    - name: Publish
+      working-directory: ./project-templates/artifacts
+      run: dotnet push *.nupkg -s 'https://api.nuget.org/v3/index.json' --skip-duplicate -n -k ${{ secrets.NUGET_API_KEY }}
