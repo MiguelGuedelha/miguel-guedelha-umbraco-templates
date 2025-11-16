@@ -45,7 +45,8 @@
         "**/uSync/**",
         "**/.vscode/**",
         "*.sh",
-        "*.ps1"
+        "*.ps1",
+        "k6.js"
       ],
       "include": [
         "**/App_Plugins/HeadlessPreviewExtension/**"

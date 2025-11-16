@@ -21,6 +21,7 @@ public sealed record ApiHomeProperties : IApiSeoSettingsProperties, IApiNavigati
     public string? MetaDescription { get; init; }
     public IReadOnlyCollection<ApiMediaWithCrops>? MetaImage { get; init; }
     public string? OgType { get; init; }
+    public string? OgTitle { get; init; }
     public string? OgDescription { get; init; }
     public IReadOnlyCollection<ApiMediaWithCrops>? OgImage { get; init; }
     public IReadOnlyCollection<string>? RobotsIndexOptions { get; init; }

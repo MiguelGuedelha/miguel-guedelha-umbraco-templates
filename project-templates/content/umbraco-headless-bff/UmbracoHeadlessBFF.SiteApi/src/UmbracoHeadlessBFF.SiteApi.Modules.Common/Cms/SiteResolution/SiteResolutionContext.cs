@@ -53,7 +53,7 @@ public sealed class SiteResolutionContext
     public Guid PageId
     {
         get => GetContextItem<Guid>(SiteResolutionConstants.TenancyItems.PageId);
-        set => SetContextItem(SiteResolutionConstants.TenancyItems.AlternateSites, value);
+        set => SetContextItem(SiteResolutionConstants.TenancyItems.PageId, value);
     }
 
     private T GetContextItem<T>(string key)

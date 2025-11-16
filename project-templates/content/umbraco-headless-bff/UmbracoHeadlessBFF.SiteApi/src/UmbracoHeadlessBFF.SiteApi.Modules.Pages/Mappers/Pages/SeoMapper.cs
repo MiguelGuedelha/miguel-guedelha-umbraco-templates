@@ -50,6 +50,7 @@ internal sealed class SeoMapper : ISeoMapper
             MetaDescription = model.MetaDescription,
             MetaImage = mappedMetaImage?.Src,
             OgType = model.OgType,
+            OgTitle = string.IsNullOrWhiteSpace(model.OgTitle) ? model.MetaTitle : model.OgTitle,
             OgDescription = string.IsNullOrWhiteSpace(model.OgDescription) ? model.MetaDescription : model.OgDescription,
             OgImage = mappedOgImage?.Src,
             RobotsIndexOptions = string.Join(' ', model.RobotsIndexOptions ?? []),

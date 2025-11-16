@@ -98,17 +98,40 @@ cms.WithReference(umbracoDb, connectionName: "umbracoDbDSN")
 
 cmsDeliveryApiKey.WithParentRelationship(cms);
 
-cms.WithUrls(context =>
-{
-    var httpsEndpoint = cms.GetEndpoint("https");
-    var httpsEndpointUrl = httpsEndpoint.Url;
+// Scalar URLs exists at endpoint/scalar/<group-name>
+// i.e /scalar/default, /scalar/management, /scalar/delivery, etc
+cms.WithUrlForEndpoint("https", x => {
+    x.DisplayLocation = UrlDisplayLocation.DetailsOnly;
+    x.DisplayOrder = 9999;
+});
 
-    context.Urls.Clear();
-    context.Urls.Add(new() { Url = $"{httpsEndpointUrl}/umbraco", DisplayText = "Umbraco Dashboard", Endpoint = httpsEndpoint });
-    context.Urls.Add(new() { Url = $"{httpsEndpointUrl}/scalar/delivery", DisplayText = "Scalar - Delivery API", Endpoint = httpsEndpoint });
-    context.Urls.Add(new() { Url = $"{httpsEndpointUrl}/scalar/default", DisplayText = "Scalar - Default API", Endpoint = httpsEndpoint });
-    context.Urls.Add(new() { Url = $"{httpsEndpointUrl}/umbraco/swagger/index.html?urls.primaryName=Umbraco+Delivery+API", DisplayText = "Swagger - Delivery API", Endpoint = httpsEndpoint });
-    context.Urls.Add(new() { Url = $"{httpsEndpointUrl}/umbraco/swagger/index.html", DisplayText = "Swagger - Default API", Endpoint = httpsEndpoint });
+cms.WithUrls(x =>
+{
+    var httpsUrl = x.GetEndpoint("https")?.Url;
+
+    x.Urls.Add(new()
+    {
+        DisplayLocation = UrlDisplayLocation.SummaryAndDetails,
+        DisplayText = "Umbraco Dashboard",
+        Url = $"{httpsUrl}/umbraco",
+        DisplayOrder = 50
+    });
+
+    x.Urls.Add(new()
+    {
+        DisplayLocation = UrlDisplayLocation.SummaryAndDetails,
+        DisplayText = "Swagger - Delivery API",
+        Url = $"{httpsUrl}/umbraco/swagger/index.html?urls.primaryName=Umbraco+Delivery+API",
+        DisplayOrder = 10
+    });
+
+    x.Urls.Add(new()
+    {
+        DisplayLocation = UrlDisplayLocation.SummaryAndDetails,
+        DisplayText = "Scalar - Default API",
+        Url = $"{httpsUrl}/scalar/default",
+        DisplayOrder = 9
+    });
 });
 
 var siteApi = builder.AddProject<Projects.SiteApi>(Services.SiteApi)
@@ -120,13 +143,23 @@ var siteApi = builder.AddProject<Projects.SiteApi>(Services.SiteApi)
     .WaitFor(cache)
     .WaitFor(cms);
 
-siteApi.WithUrls(context =>
+siteApi.WithUrlForEndpoint("https", x =>
 {
-    var httpsEndpoint = siteApi.GetEndpoint("https");
-    var httpsEndpointUrl = httpsEndpoint.Url;
+    x.DisplayLocation = UrlDisplayLocation.DetailsOnly;
+    x.DisplayOrder = 9999;
+});
 
-    context.Urls.Clear();
-    context.Urls.Add(new() { Url = $"{httpsEndpointUrl}/scalar", DisplayText = "Scalar - Site Api", Endpoint = httpsEndpoint });
+siteApi.WithUrls(x =>
+{
+    var httpsUrl = x.GetEndpoint("https")?.Url;
+
+    x.Urls.Add(new()
+    {
+        DisplayText = "Scalar",
+        DisplayLocation = UrlDisplayLocation.SummaryAndDetails,
+        Url = $"{httpsUrl}/scalar",
+        DisplayOrder = 50
+    });
 });
 
 await builder.Build().RunAsync();
