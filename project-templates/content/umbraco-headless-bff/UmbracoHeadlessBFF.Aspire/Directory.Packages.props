@@ -2,7 +2,6 @@
   <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Packages.props', $(MSBuildThisFileDirectory)..))" />
   <ItemGroup>
     <PackageVersion Include="Aspire.Hosting.AppHost" Version="13.0.0" />
-    <PackageVersion Include="Aspire.Hosting.Azure.ServiceBus" Version="13.0.0" />
     <PackageVersion Include="Aspire.Hosting.Azure.Storage" Version="13.0.0" />
     <PackageVersion Include="Aspire.Hosting.Redis" Version="13.0.0" />
     <PackageVersion Include="Aspire.Hosting.SqlServer" Version="13.0.0" />

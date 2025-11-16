@@ -76,21 +76,6 @@ var umbracoMediaBlob = azureStorage.AddBlobContainer(blobContainerValue!);
 
 cmsUmbracoBlobContainerNameParameter.WithParentRelationship(umbracoMediaBlob);
 
-// Can't seem to reach "tcp" endpoint of the underlying MSSQL instance to hide URL in Aspire UI
-var serviceBus = builder
-    .AddAzureServiceBus(Services.ServiceBus.Name)
-    .RunAsEmulator()
-    .WithUrlForEndpoint("emulator", x => { x.DisplayLocation = UrlDisplayLocation.DetailsOnly; })
-    .WithUrlForEndpoint("emulatorhealth", x => { x.DisplayLocation = UrlDisplayLocation.DetailsOnly; });
-
-var cmsCacheTopic = serviceBus.AddServiceBusTopic(Services.ServiceBus.Topics.CmsCache);
-
-cmsCacheTopic.AddServiceBusSubscription(Services.ServiceBus.Subscriptions.SiteApiCmsCache)
-    .WithProperties(sub =>
-    {
-        sub.MaxDeliveryCount = 5;
-    });
-
 var cms = builder.AddProject<Projects.Cms>(Services.Cms)
     .WithExternalHttpEndpoints();
 
@@ -98,7 +83,6 @@ var cmsDeliveryApiKey = builder.AddParameter("CmsDeliveryApiKey");
 
 cms.WithReference(umbracoDb, connectionName: "umbracoDbDSN")
     .WithReference(cache)
-    .WithReference(serviceBus)
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Host", "localhost")
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Port", smtpPort)
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Username", smtpUser)
@@ -110,42 +94,72 @@ cms.WithReference(umbracoDb, connectionName: "umbracoDbDSN")
     .WaitFor(mailServer)
     .WaitFor(umbracoDb)
     .WaitFor(cache)
-    .WaitFor(umbracoMediaBlob)
-    .WaitFor(serviceBus);
+    .WaitFor(umbracoMediaBlob);
 
 cmsDeliveryApiKey.WithParentRelationship(cms);
 
-cms.WithUrls(context =>
-{
-    var httpsEndpoint = cms.GetEndpoint("https");
-    var httpsEndpointUrl = httpsEndpoint.Url;
+// Scalar URLs exists at endpoint/scalar/<group-name>
+// i.e /scalar/default, /scalar/management, /scalar/delivery, etc
+cms.WithUrlForEndpoint("https", x => {
+    x.DisplayLocation = UrlDisplayLocation.DetailsOnly;
+    x.DisplayOrder = 9999;
+});
 
-    context.Urls.Clear();
-    context.Urls.Add(new() { Url = $"{httpsEndpointUrl}/umbraco", DisplayText = "Umbraco Dashboard", Endpoint = httpsEndpoint });
-    context.Urls.Add(new() { Url = $"{httpsEndpointUrl}/scalar/delivery", DisplayText = "Scalar - Delivery API", Endpoint = httpsEndpoint });
-    context.Urls.Add(new() { Url = $"{httpsEndpointUrl}/scalar/default", DisplayText = "Scalar - Default API", Endpoint = httpsEndpoint });
-    context.Urls.Add(new() { Url = $"{httpsEndpointUrl}/umbraco/swagger/index.html?urls.primaryName=Umbraco+Delivery+API", DisplayText = "Swagger - Delivery API", Endpoint = httpsEndpoint });
-    context.Urls.Add(new() { Url = $"{httpsEndpointUrl}/umbraco/swagger/index.html", DisplayText = "Swagger - Default API", Endpoint = httpsEndpoint });
+cms.WithUrls(x =>
+{
+    var httpsUrl = x.GetEndpoint("https")?.Url;
+
+    x.Urls.Add(new()
+    {
+        DisplayLocation = UrlDisplayLocation.SummaryAndDetails,
+        DisplayText = "Umbraco Dashboard",
+        Url = $"{httpsUrl}/umbraco",
+        DisplayOrder = 50
+    });
+
+    x.Urls.Add(new()
+    {
+        DisplayLocation = UrlDisplayLocation.SummaryAndDetails,
+        DisplayText = "Swagger - Delivery API",
+        Url = $"{httpsUrl}/umbraco/swagger/index.html?urls.primaryName=Umbraco+Delivery+API",
+        DisplayOrder = 10
+    });
+
+    x.Urls.Add(new()
+    {
+        DisplayLocation = UrlDisplayLocation.SummaryAndDetails,
+        DisplayText = "Scalar - Default API",
+        Url = $"{httpsUrl}/scalar/default",
+        DisplayOrder = 9
+    });
 });
 
 var siteApi = builder.AddProject<Projects.SiteApi>(Services.SiteApi)
     .WithExternalHttpEndpoints()
     .WithReference(cache)
     .WithReference(cms)
-    .WithReference(serviceBus)
     .WithEnvironment("services__Cms__Parameters__DeliveryApiKey", cmsDeliveryApiKey)
     .WithEnvironment("ApplicationUrls__Media", () => cms.Resource.GetEndpoint("https").Url)
     .WaitFor(cache)
-    .WaitFor(cms)
-    .WaitFor(serviceBus);
+    .WaitFor(cms);
 
-siteApi.WithUrls(context =>
+siteApi.WithUrlForEndpoint("https", x =>
 {
-    var httpsEndpoint = siteApi.GetEndpoint("https");
-    var httpsEndpointUrl = httpsEndpoint.Url;
+    x.DisplayLocation = UrlDisplayLocation.DetailsOnly;
+    x.DisplayOrder = 9999;
+});
 
-    context.Urls.Clear();
-    context.Urls.Add(new() { Url = $"{httpsEndpointUrl}/scalar", DisplayText = "Scalar - Site Api", Endpoint = httpsEndpoint });
+siteApi.WithUrls(x =>
+{
+    var httpsUrl = x.GetEndpoint("https")?.Url;
+
+    x.Urls.Add(new()
+    {
+        DisplayText = "Scalar",
+        DisplayLocation = UrlDisplayLocation.SummaryAndDetails,
+        Url = $"{httpsUrl}/scalar",
+        DisplayOrder = 50
+    });
 });
 
 await builder.Build().RunAsync();
