@@ -1,6 +1,9 @@
 # Umbraco .NET Templates
 
-This repository contains .NET template(s) for Umbraco, designed to streamline the setup of new Umbraco projects. It aims to provide a solid foundation for developers working with Umbraco CMS.
+![Latest Version](https://img.shields.io/nuget/v/MiguelGuedelha.UmbracoTemplates)
+![Downloads](https://img.shields.io/nuget/dt/MiguelGuedelha.UmbracoTemplates)
+
+This repository contains opinionated, batteries-included .NET template(s) for Umbraco, designed to streamline the setup of new Umbraco projects. It aim to provide a solid foundation for developers working with Umbraco CMS.
 
 ## Features
 
@@ -10,7 +13,7 @@ This repository contains .NET template(s) for Umbraco, designed to streamline th
 
 ## Available Templates
 
-The templates are orchestrated with .NET Aspire for a ready-to-go, batteries included developer experience
+The templates are orchestrated with .NET Aspire for a ready-to-go developer experience
 
 - `umbraco-headless-bff` - This is the main template which contains both a CMS project and a BFF Api layer
 
@@ -50,5 +53,12 @@ This project is licensed under the MIT License. See the LICENSE file for details
   - etc...
 - I've started to mark V13 versions of the package as deprecated, as I have no plans in maintaining these anymore with the new LTS around the corner
 - Feedback and suggestions are highly appreciated!
+
+> [!WARNING]
+> With Umbraco 17 in the horizon (early Nov as of this README edit) creating brand new projects with Umbraco 13 makes less and less sense.
+>
+> With this in mind, no further updates will be done to the V13 branch and no further tags/releases will be created for V13.
+>
+> From the moment Umbraco 17 is out and the dependency packages are all available a initial 17.0.0 template will be releases.
 
 Happy coding! 🚀
