@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 EXCLUDED_PATHS_ARRAY=(
     './UmbracoHeadlessBFF.Cms/src/UmbracoHeadlessBFF.Cms.Web/umbraco'
     './UmbracoHeadlessBFF.Cms/src/UmbracoHeadlessBFF.Cms.Web/Views'
