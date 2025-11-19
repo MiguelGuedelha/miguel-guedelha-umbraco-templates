@@ -28,4 +28,4 @@ jobs:
       - name: Publish
         if: ${{ github.event_name != 'workflow_dispatch' }}
         working-directory: ./project-templates/artifacts
-        run: dotnet push *.nupkg -s 'https://api.nuget.org/v3/index.json' --skip-duplicate -n -k ${{ secrets.NUGET_API_KEY }}
+        run: dotnet nuget push *.nupkg -s 'https://api.nuget.org/v3/index.json' --skip-duplicate -n -k ${{ secrets.NUGET_API_KEY }}
