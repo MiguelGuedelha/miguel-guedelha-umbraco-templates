@@ -23,7 +23,7 @@
   "preferNameDirectory": true,
   "primaryOutputs": [
     {
-      "path": "UmbracoHeadlessBFF.Aspire/UmbracoHeadlessBFF.Aspire.sln"
+      "path": "UmbracoHeadlessBFF.sln"
     }
   ],
   "shortName": "umbraco-headless-bff",
@@ -41,7 +41,6 @@
         "**/appsettings-schema*",
         "**/*lock.json",
         "**/App_Plugins/**",
-        "**/[Uu]mbraco/**",
         "**/uSync/**",
         "**/.vscode/**",
         "*.sh",
@@ -49,6 +48,7 @@
         "k6.js"
       ],
       "include": [
+        "**/*",
         "**/App_Plugins/HeadlessPreviewExtension/**"
       ],
       "modifiers": []
