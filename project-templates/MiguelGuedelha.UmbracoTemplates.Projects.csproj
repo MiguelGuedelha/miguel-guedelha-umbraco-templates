@@ -35,7 +35,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="content\**\*" Exclude="content\**\bin\**;content\**\obj\**" />
+    <Content Include="content\**\*" Exclude="content\**\bin\**;content\**\obj\**;content\**\umbraco-package-schema.json;content\**\appsettings-schema*;content\**\packages.lock.json" />
+    <Content Include="content\**\App_Plugins\HeadlessPreviewExtension\**" Exclude="content\**\App_Plugins\**" />
     <Compile Remove="**\*" />
   </ItemGroup>
 
