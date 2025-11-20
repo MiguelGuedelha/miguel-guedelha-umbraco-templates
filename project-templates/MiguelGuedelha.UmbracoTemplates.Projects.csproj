@@ -35,14 +35,32 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="content\**\*" Exclude="content\**\bin\**;content\**\obj\**;content\**\umbraco-package-schema.json;content\**\appsettings-schema*;content\**\packages.lock.json" />
-    <Content Include="content\**\App_Plugins\HeadlessPreviewExtension\**" Exclude="content\**\App_Plugins\**" />
+    <Content Include="content\**" />
+    <Content Remove="content\**\bin\**;content\**\obj\**" />
+    <Content Remove="content\**\umbraco-package-schema.json;content\**\appsettings-schema*" />
+    <Content Remove="content\**\packages.lock.json" />
+    <Content Remove="content\**\App_Plugins\**" />
+    <Content Remove="content\**\k6.js;content\**\dotnet-format*" />
+
+    <Content Include="content\**\App_Plugins\HeadlessPreviewExtension\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Includes packages that are not in source control but helps to remove bloat from local ran packs -->
+    <Content Remove="content\**\.idea\**;content\**\.vs\**;content\**\.vscode\**" />
+    <Content Remove="content\**\*.user;content\**\.DS_Store" />
+    <Content Remove="content\**\packages.lock.json" />
+    <Content Remove="content\**\umbraco\Logs\**;content\**\umbraco\Data\**" />
+    <Content Remove="content\**\local-data\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="**\*" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="..\README.md" Pack="true" PackagePath="\" />
-    <None Include="..\LICENSE.txt" Pack="true" PackagePath="\"/>
+    <None Include="..\LICENSE.txt" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>
