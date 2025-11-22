@@ -8,6 +8,10 @@
     <!--    <WarningsNotAsErrors></WarningsNotAsErrors> -->
   </PropertyGroup>
 
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+
   <!--   Add the following to individual class libraries if they need to use aspnetcore types/definitions but don't have them -->
   <!--  <ItemGroup>-->
   <!--    <FrameworkReference Include="Microsoft.AspNetCore.App"/>-->
