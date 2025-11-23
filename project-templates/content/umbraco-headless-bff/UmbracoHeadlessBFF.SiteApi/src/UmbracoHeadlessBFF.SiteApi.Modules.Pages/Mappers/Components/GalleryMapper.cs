@@ -17,7 +17,7 @@ internal sealed class GalleryMapper : IComponentMapper
 
     public bool CanMap(string type) => type == DeliveryApiConstants.ElementTypes.ApiGallery;
 
-    public async Task<IComponent?> Map(IApiElement model, IApiElement? settings)
+    public async Task<IComponent?> Map(IApiElement? model, IApiElement? settings)
     {
         if (model is not ApiGallery apiModel || settings is not ApiGallerySettings apiSettings)
         {

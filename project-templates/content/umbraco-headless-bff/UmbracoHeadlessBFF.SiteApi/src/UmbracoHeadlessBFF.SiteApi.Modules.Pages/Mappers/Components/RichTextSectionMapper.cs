@@ -18,7 +18,7 @@ internal sealed class RichTextSectionMapper : IComponentMapper
     }
 
     public bool CanMap(string type) => type == DeliveryApiConstants.ElementTypes.ApiRichTextSection;
-    public async Task<IComponent?> Map(IApiElement model, IApiElement? settings)
+    public async Task<IComponent?> Map(IApiElement? model, IApiElement? settings)
     {
         if (model is not ApiRichTextSection apiModel)
         {
@@ -32,8 +32,8 @@ internal sealed class RichTextSectionMapper : IComponentMapper
         {
             Id = apiModel.Id,
             ContentType = apiModel.ContentType,
-            Text = text is not null ? await _richTextMapper.Map(text) : null,
-            Cta = link is not null ? await _linkMapper.Map(link) : null
+            Text = await _richTextMapper.Map(text),
+            Cta = await _linkMapper.Map(link)
         };
     }
 }

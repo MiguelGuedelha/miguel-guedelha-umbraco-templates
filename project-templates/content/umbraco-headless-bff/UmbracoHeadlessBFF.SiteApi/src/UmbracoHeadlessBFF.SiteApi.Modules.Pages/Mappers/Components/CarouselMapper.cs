@@ -17,7 +17,7 @@ internal sealed class CarouselMapper : IComponentMapper
 
     public bool CanMap(string type) => type == DeliveryApiConstants.ElementTypes.ApiCarousel;
 
-    public async Task<IComponent?> Map(IApiElement model, IApiElement? settings)
+    public async Task<IComponent?> Map(IApiElement? model, IApiElement? settings)
     {
         if (model is not ApiCarousel apiModel)
         {

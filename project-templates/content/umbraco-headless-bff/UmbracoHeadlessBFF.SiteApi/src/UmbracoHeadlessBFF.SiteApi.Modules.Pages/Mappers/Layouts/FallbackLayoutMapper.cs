@@ -15,8 +15,13 @@ internal sealed class FallbackLayoutMapper : ILayoutMapper
 
     public bool CanMap(string type) => true;
 
-    public Task<ILayout?> Map(IApiBlockGridItem model)
+    public Task<ILayout?> Map(IApiBlockGridItem? model)
     {
+        if (model is null)
+        {
+            return Task.FromResult<ILayout?>(null);
+        }
+
         if (_logger.IsEnabled(LogLevel.Warning))
         {
             _logger.LogWarning("Fallback: Layout {Id} of type {ContentType}", model.Content.Id, model.Content.ContentType);

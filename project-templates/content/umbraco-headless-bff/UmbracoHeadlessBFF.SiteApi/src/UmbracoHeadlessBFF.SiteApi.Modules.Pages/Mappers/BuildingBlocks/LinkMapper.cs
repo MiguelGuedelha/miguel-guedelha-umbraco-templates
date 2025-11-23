@@ -28,14 +28,19 @@ internal sealed partial class LinkMapper : ILinkMapper
     [GeneratedRegex(@"^https?://([a-zA-Z0-9-\.]+):?(\d+)?$")]
     private static partial Regex DomainRegex();
 
-    public async Task<Link?> Map(ApiLink apiModel)
+    public async Task<Link?> Map(ApiLink? model)
     {
+        if (model is null)
+        {
+            return null;
+        }
+
         UriBuilder uriBuilder;
 
-        switch (apiModel.LinkType)
+        switch (model.LinkType)
         {
             case ApiLinkType.Content:
-                var link = await _linkService.ResolveLink(apiModel.DestinationId!.Value);
+                var link = await _linkService.ResolveLink(model.DestinationId!.Value);
 
                 if (link is null)
                 {
@@ -47,8 +52,8 @@ internal sealed partial class LinkMapper : ILinkMapper
                     return new()
                     {
                         Href = link.Path,
-                        Title = apiModel.Title,
-                        Target = apiModel.Target
+                        Title = model.Title,
+                        Target = model.Target
                     };
                 }
 
@@ -75,46 +80,46 @@ internal sealed partial class LinkMapper : ILinkMapper
                 if (match.Groups.Count == 3 && int.TryParse(match.Groups[2].Value, out var port))
                 {
                     uriBuilder.Port = port;
-                    uriBuilder.Path = apiModel.Url;
+                    uriBuilder.Path = model.Url;
                 }
 
                 break;
             case ApiLinkType.External:
             default:
-                if (apiModel.Url?.StartsWith("tel:") is true
-                    || apiModel.Url?.StartsWith("mailto:") is true)
+                if (model.Url?.StartsWith("tel:") is true
+                    || model.Url?.StartsWith("mailto:") is true)
                 {
                     return new()
                     {
                         Target = null,
-                        Href = apiModel.Url,
-                        Title = apiModel.Title,
+                        Href = model.Url,
+                        Title = model.Title,
                     };
                 }
 
-                if (apiModel.Url?.StartsWith('/') is true)
+                if (model.Url?.StartsWith('/') is true)
                 {
                     return new()
                     {
-                        Target = apiModel.Target,
-                        Href = apiModel.Url,
-                        Title = apiModel.Title,
+                        Target = model.Target,
+                        Href = model.Url,
+                        Title = model.Title,
                     };
                 }
 
-                uriBuilder = new(apiModel.Url!);
+                uriBuilder = new(model.Url!);
                 break;
         }
 
-        uriBuilder.Query = apiModel.QueryString ?? uriBuilder.Query;
+        uriBuilder.Query = model.QueryString ?? uriBuilder.Query;
         uriBuilder.Scheme = "https";
 
         return new()
         {
-            Target = apiModel.Target,
+            Target = model.Target,
             Href = uriBuilder.Uri.ToString(),
-            Title = apiModel.Title,
-            IsFile = apiModel.LinkType == ApiLinkType.Media
+            Title = model.Title,
+            IsFile = model.LinkType == ApiLinkType.Media
         };
     }
 }

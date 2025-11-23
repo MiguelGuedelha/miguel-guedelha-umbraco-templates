@@ -87,10 +87,11 @@ public static class CachingConfiguration
                     if (defaultCachingOptions.Default is not null)
                     {
                         o.Duration = TimeSpan.FromSeconds(defaultCachingOptions.Default.Duration);
-                        o.DistributedCacheDuration = TimeSpan.FromSeconds(defaultCachingOptions.Default.DurationDistributed ?? defaultCachingOptions.Default.Duration);
+                        o.DistributedCacheDuration = TimeSpan.FromSeconds(defaultCachingOptions.Default.DurationDistributed);
 
                         o.IsFailSafeEnabled = defaultCachingOptions.Default.FailSafeIsEnabled;
                         o.FailSafeMaxDuration = TimeSpan.FromSeconds(defaultCachingOptions.Default.FailSafeMaxDuration);
+                        o.DistributedCacheFailSafeMaxDuration = TimeSpan.FromSeconds(defaultCachingOptions.Default.DistributedCacheFailSafeMaxDuration);
                         o.FailSafeThrottleDuration = TimeSpan.FromSeconds(defaultCachingOptions.Default.FailSafeThrottleDuration);
 
                         o.FactorySoftTimeout = TimeSpan.FromMilliseconds(defaultCachingOptions.Default.FactorySoftTimeoutMs);

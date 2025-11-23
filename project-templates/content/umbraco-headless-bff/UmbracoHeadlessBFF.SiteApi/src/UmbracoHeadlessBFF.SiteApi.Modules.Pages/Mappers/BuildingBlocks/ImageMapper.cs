@@ -21,39 +21,39 @@ internal sealed class ImageMapper : IImageMapper
         _applicationUrlOptions = applicationUrlOptions.Value;
     }
 
-    public Task<Image?> Map(ApiMediaWithCrops media)
+    public Task<Image?> Map(ApiMediaWithCrops? model)
     {
-        if (media is null or { Extension: null })
+        if (model is null or { Extension: null })
         {
-            return Task.FromResult(default(Image?));
+            return Task.FromResult<Image?>(null);
         }
 
         object? altText = null;
-        media.Properties?.TryGetValue("altText", out altText);
+        model.Properties?.TryGetValue("altText", out altText);
 
-        if (!s_imageTypes.Contains(media.Extension))
+        if (!s_imageTypes.Contains(model.Extension))
         {
             return Task.FromResult<Image?>(new()
             {
-                Src = new UriBuilder(_applicationUrlOptions.Media) { Path = media.Url.TrimStart('/') }.Uri.AbsoluteUri,
+                Src = new UriBuilder(_applicationUrlOptions.Media) { Path = model.Url.TrimStart('/') }.Uri.AbsoluteUri,
                 AltText = altText as string
             });
         }
 
         var query = new QueryBuilder();
 
-        if (media.FocalPoint is not null)
+        if (model.FocalPoint is not null)
         {
-            query.Add("rxy", $"{media.FocalPoint.Left},{media.FocalPoint.Top}");
+            query.Add("rxy", $"{model.FocalPoint.Left},{model.FocalPoint.Top}");
         }
 
-        if (!media.Extension.Equals("webp", StringComparison.OrdinalIgnoreCase) &&
-            !media.Extension.Equals("avif", StringComparison.OrdinalIgnoreCase))
+        if (!model.Extension.Equals("webp", StringComparison.OrdinalIgnoreCase) &&
+            !model.Extension.Equals("avif", StringComparison.OrdinalIgnoreCase))
         {
             query.Add("format", "webp");
         }
 
-        var url = new UriBuilder(_applicationUrlOptions.Media) { Path = media.Url, Query = query.ToString() };
+        var url = new UriBuilder(_applicationUrlOptions.Media) { Path = model.Url, Query = query.ToString() };
 
         return Task.FromResult<Image?>(new()
         {

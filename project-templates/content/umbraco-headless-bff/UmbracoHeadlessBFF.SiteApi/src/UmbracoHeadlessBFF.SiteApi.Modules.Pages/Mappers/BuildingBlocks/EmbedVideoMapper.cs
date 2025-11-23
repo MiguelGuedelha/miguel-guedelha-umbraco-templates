@@ -16,13 +16,18 @@ internal sealed class EmbedVideoMapper : IEmbedVideoMapper
         _imageMapper = imageMapper;
     }
 
-    public async Task<EmbedVideo?> Map(ApiEmbedVideo model)
+    public async Task<EmbedVideo?> Map(ApiEmbedVideo? model)
     {
+        if (model is null)
+        {
+            return null;
+        }
+
         var placeholder = model.Properties.PlaceholderImage?.FirstOrDefault();
 
         return new()
         {
-            PlaceholderImage = placeholder is not null ? await _imageMapper.Map(placeholder) : null,
+            PlaceholderImage = await _imageMapper.Map(placeholder),
             VideoId = model.Properties.VideoId,
             Provider = model.Properties.VideoProvider
         };

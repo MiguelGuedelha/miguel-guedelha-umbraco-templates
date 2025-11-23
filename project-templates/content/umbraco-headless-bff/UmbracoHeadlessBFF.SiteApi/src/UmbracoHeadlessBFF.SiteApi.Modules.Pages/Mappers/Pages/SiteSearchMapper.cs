@@ -15,7 +15,7 @@ internal sealed class SiteSearchMapper : IPageMapper
 
     public bool CanMap(string type) => type == DeliveryApiConstants.ContentTypes.ApiSiteSearch;
 
-    public async Task<IPage?> Map(IApiContent model)
+    public async Task<IPage?> Map(IApiContent? model)
     {
         if (model is not ApiSiteSearch apiModel)
         {

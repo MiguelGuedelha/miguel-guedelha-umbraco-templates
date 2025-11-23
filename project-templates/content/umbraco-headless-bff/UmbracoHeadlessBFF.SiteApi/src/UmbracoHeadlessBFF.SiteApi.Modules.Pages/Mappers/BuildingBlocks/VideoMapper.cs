@@ -18,8 +18,13 @@ internal sealed class VideoMapper : IVideoMapper
         _applicationUrlOptions = applicationUrlOptions.Value;
     }
 
-    public Task<Video?> Map(ApiMediaWithCrops model)
+    public Task<Video?> Map(ApiMediaWithCrops? model)
     {
+        if (model is null)
+        {
+            return Task.FromResult<Video?>(null);
+        }
+
         return Task.FromResult<Video?>(new()
         {
             Src = new UriBuilder(_applicationUrlOptions.Media) { Path = model.Url }.Uri.AbsoluteUri,

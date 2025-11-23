@@ -18,15 +18,20 @@ internal sealed class MediaLibraryVideoMapper : IMediaLibraryVideoMapper
         _videoMapper = videoMapper;
     }
 
-    public async Task<MediaLibraryVideo?> Map(ApiMediaLibraryVideo model)
+    public async Task<MediaLibraryVideo?> Map(ApiMediaLibraryVideo? model)
     {
+        if (model is null)
+        {
+            return null;
+        }
+
         var placeholder = model.Properties.PlaceholderImage?.FirstOrDefault();
         var video = model.Properties.Video?.FirstOrDefault();
 
         return new()
         {
-            Video = video is not null ? await _videoMapper.Map(video) : null,
-            PlaceholderImage = placeholder is not null ? await _imageMapper.Map(placeholder) : null,
+            Video = await _videoMapper.Map(video),
+            PlaceholderImage = await _imageMapper.Map(placeholder),
         };
     }
 }

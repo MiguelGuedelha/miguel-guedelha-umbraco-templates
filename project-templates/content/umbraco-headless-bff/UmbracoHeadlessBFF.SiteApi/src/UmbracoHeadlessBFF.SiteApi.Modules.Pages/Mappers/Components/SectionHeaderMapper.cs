@@ -8,7 +8,7 @@ namespace UmbracoHeadlessBFF.SiteApi.Modules.Pages.Mappers.Components;
 internal sealed class SectionHeaderMapper : IComponentMapper
 {
     public bool CanMap(string type) => type == DeliveryApiConstants.ElementTypes.ApiSectionHeader;
-    public Task<IComponent?> Map(IApiElement model, IApiElement? settings)
+    public Task<IComponent?> Map(IApiElement? model, IApiElement? settings)
     {
         if (model is not ApiSectionHeader apiModel)
         {

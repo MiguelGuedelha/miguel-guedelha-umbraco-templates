@@ -11,11 +11,13 @@ public record DefaultCachingOptions
     public sealed record DefaultRegion
     {
         public int Duration { get; init; }
-        public int? DurationDistributed { get; init; }
+        public int DurationDistributed { get; init; }
         public int NullDuration { get; init; }
         public int DistributedCacheCircuitBreakerDuration { get; init; }
         public bool FailSafeIsEnabled { get; init; }
         public int FailSafeMaxDuration { get; init; }
+        public int DistributedCacheFailSafeMaxDuration { get; set; }
+
         public int FailSafeThrottleDuration { get; init; }
         public int FactorySoftTimeoutMs { get; init; }
         public int FactoryHardTimeout { get; init; }

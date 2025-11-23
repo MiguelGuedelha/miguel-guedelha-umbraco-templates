@@ -10,8 +10,13 @@ internal interface IHeadingWithSocialLinksMapper : IMapper<ApiHeadingWithSocialL
 internal sealed class HeadingWithSocialLinksMapper : IHeadingWithSocialLinksMapper
 {
 
-    public Task<HeadingWithSocialLinks?> Map(ApiHeadingWithSocialLinks model)
+    public Task<HeadingWithSocialLinks?> Map(ApiHeadingWithSocialLinks? model)
     {
+        if (model is null)
+        {
+            return Task.FromResult<HeadingWithSocialLinks?>(null);
+        }
+
         return Task.FromResult<HeadingWithSocialLinks?>(new()
         {
             Heading = model.Properties.Heading,

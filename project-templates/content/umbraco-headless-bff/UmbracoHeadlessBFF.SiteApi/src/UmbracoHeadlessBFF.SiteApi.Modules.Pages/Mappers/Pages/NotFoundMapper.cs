@@ -15,7 +15,7 @@ internal sealed class NotFoundMapper : IPageMapper
 
     public bool CanMap(string type) => type == DeliveryApiConstants.ContentTypes.ApiNotFound;
 
-    public async Task<IPage?> Map(IApiContent model)
+    public async Task<IPage?> Map(IApiContent? model)
     {
         if (model is not ApiNotFound apiModel)
         {

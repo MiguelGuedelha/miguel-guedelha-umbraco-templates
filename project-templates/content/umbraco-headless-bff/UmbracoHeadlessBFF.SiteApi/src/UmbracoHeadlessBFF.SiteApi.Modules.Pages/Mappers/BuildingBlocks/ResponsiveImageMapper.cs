@@ -16,16 +16,21 @@ internal sealed class ResponsiveImageMapper : IResponsiveImageMapper
         _imageMapper = imageMapper;
     }
 
-    public async Task<ResponsiveImage?> Map(ApiResponsiveImage apiModel)
+    public async Task<ResponsiveImage?> Map(ApiResponsiveImage? model)
     {
-        var mainImage = apiModel.Properties.MainImage?.FirstOrDefault();
-        var mobileImage = apiModel.Properties.MobileImage?.FirstOrDefault();
+        if (model is null)
+        {
+            return null;
+        }
+
+        var mainImage = model.Properties.MainImage?.FirstOrDefault();
+        var mobileImage = model.Properties.MobileImage?.FirstOrDefault();
 
         return new()
         {
-            MainImage = mainImage is not null ? await _imageMapper.Map(mainImage) : null,
-            MobileImage = mobileImage is not null ? await _imageMapper.Map(mobileImage) : null,
-            AltText = apiModel.Properties.AltText
+            MainImage = await _imageMapper.Map(mainImage),
+            MobileImage = await _imageMapper.Map(mobileImage),
+            AltText = model.Properties.AltText
         };
     }
 }

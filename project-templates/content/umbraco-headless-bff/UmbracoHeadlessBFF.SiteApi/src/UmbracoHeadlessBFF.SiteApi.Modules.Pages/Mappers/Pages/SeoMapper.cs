@@ -23,12 +23,17 @@ internal sealed class SeoMapper : ISeoMapper
         _siteResolutionContext = siteResolutionContext;
     }
 
-    public async Task<Seo?> Map(IApiSeoSettingsProperties model)
+    public async Task<Seo?> Map(IApiSeoSettingsProperties? model)
     {
+        if (model is null)
+        {
+            return null;
+        }
+
         var metaImage = model.MetaImage?.FirstOrDefault();
         var ogImage = model.OgImage?.FirstOrDefault();
 
-        var mappedMetaImage = metaImage is not null ? await _imageMapper.Map(metaImage) : null;
+        var mappedMetaImage = await _imageMapper.Map(metaImage);;
 
         var mappedOgImage = (ogImage, metaImage) switch
         {

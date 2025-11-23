@@ -21,7 +21,7 @@ internal sealed class SpotlightMapper : IComponentMapper
 
     public bool CanMap(string type) => type == DeliveryApiConstants.ElementTypes.ApiSpotlight;
 
-    public async Task<IComponent?> Map(IApiElement model, IApiElement? settings)
+    public async Task<IComponent?> Map(IApiElement? model, IApiElement? settings)
     {
         if (model is not ApiSpotlight apiModel)
         {
@@ -41,9 +41,9 @@ internal sealed class SpotlightMapper : IComponentMapper
             ContentType = apiModel.ContentType,
             Heading = apiModel.Properties.Heading,
             HeadingSize = apiModel.Properties.HeadingSize,
-            Description = description is not null ? await _richTextMapper.Map(description) : null,
-            Media = media is not null ? await _mediaBlockMapper.Map(media) : null,
-            Cta = cta is not null ? await _linkMapper.Map(cta) : null
+            Description = await _richTextMapper.Map(description),
+            Media = await _mediaBlockMapper.Map(media),
+            Cta = await _linkMapper.Map(cta)
         };
     }
 }

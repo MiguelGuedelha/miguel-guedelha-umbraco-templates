@@ -16,8 +16,13 @@ internal sealed class LinkWithSublinksMapper : ILinkWithSublinksMapper
         _linkMapper = linkMapper;
     }
 
-    public async Task<LinkWithSublinks?> Map(ApiLinkWithSublinks model)
+    public async Task<LinkWithSublinks?> Map(ApiLinkWithSublinks? model)
     {
+        if (model is null)
+        {
+            return null;
+        }
+
         var link = model.Properties.Link?.FirstOrDefault();
 
         var subLinksTasks = model.Properties.SubLinks?.Select(x => _linkMapper.Map(x)).ToArray() ?? [];
@@ -25,7 +30,7 @@ internal sealed class LinkWithSublinksMapper : ILinkWithSublinksMapper
 
         return new()
         {
-            Link = link is not null ? await _linkMapper.Map(link) : null,
+            Link = await _linkMapper.Map(link),
             Sublinks = subLinksTasks.Select(x => x.Result).OfType<Link>().ToArray()
         };
     }

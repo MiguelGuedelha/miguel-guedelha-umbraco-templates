@@ -42,7 +42,7 @@ internal sealed class BasePageMapper
 
         return new()
         {
-            Seo = seo is not null ? await _seoMapper.Map(seo) : null,
+            Seo = await _seoMapper.Map(seo),
             SiteSettings = siteSettings is not null
                 ? await _siteSettingsMapper.Map(siteSettings)
                 : null,

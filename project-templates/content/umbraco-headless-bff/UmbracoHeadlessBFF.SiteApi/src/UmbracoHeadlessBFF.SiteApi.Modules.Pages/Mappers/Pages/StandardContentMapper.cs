@@ -15,7 +15,7 @@ internal sealed class StandardContentMapper : IPageMapper
 
     public bool CanMap(string type) => type == DeliveryApiConstants.ContentTypes.ApiStandardContentPage;
 
-    public async Task<IPage?> Map(IApiContent model)
+    public async Task<IPage?> Map(IApiContent? model)
     {
         if (model is not ApiStandardContentPage apiModel)
         {

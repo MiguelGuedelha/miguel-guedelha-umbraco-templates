@@ -19,7 +19,7 @@ internal sealed class BannerMapper : IComponentMapper
 
     public bool CanMap(string type) => type == DeliveryApiConstants.ElementTypes.ApiBanner;
 
-    public async Task<IComponent?> Map(IApiElement model, IApiElement? settings)
+    public async Task<IComponent?> Map(IApiElement? model, IApiElement? settings)
     {
         if (model is not ApiBanner apiModel)
         {
@@ -46,8 +46,8 @@ internal sealed class BannerMapper : IComponentMapper
                 Heading = x.Properties.Heading,
                 HeadingSize = x.Properties.HeadingSize,
                 SubHeading = x.Properties.SubHeading,
-                Description = description is not null ? await _richTextMapper.Map(description) : null,
-                BackgroundMedia = media is not null ? await _mediaBlockMapper.Map(media) : null
+                Description = await _richTextMapper.Map(description),
+                BackgroundMedia = await _mediaBlockMapper.Map(media)
             };
         }).ToArray();
 

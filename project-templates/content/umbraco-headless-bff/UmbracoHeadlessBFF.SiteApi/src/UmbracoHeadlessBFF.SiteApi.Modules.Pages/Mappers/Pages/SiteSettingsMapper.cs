@@ -27,8 +27,13 @@ internal sealed class SiteSettingsMapper : ISiteSettingsMapper
         _headingWithSocialLinksMapper = headingWithSocialLinksMapper;
     }
 
-    public async Task<SiteSettings?> Map(ApiSiteSettings model)
+    public async Task<SiteSettings?> Map(ApiSiteSettings? model)
     {
+        if (model is null)
+        {
+            return null;
+        }
+
         var headerLogo = model.Properties.HeaderLogo?.FirstOrDefault();
 
         var quickLinkTasks = model.Properties.HeaderQuickLinks?.Select(x => _linkMapper.Map(x)).ToArray() ?? [];
@@ -45,7 +50,7 @@ internal sealed class SiteSettingsMapper : ISiteSettingsMapper
         await Task.WhenAll(headingWithLinksTasks);
 
         var socialLinksData = model.Properties.FooterSocialLinks?.Items.FirstOrDefault();
-        var socialLinks = socialLinksData is not null ? await _headingWithSocialLinksMapper.Map(socialLinksData.Content) : null;
+        var socialLinks = await _headingWithSocialLinksMapper.Map(socialLinksData?.Content);
 
         var footnoteLinks = model.Properties.FooterFootnoteLinks?
             .Select(x => _linkMapper.Map(x)).ToArray() ?? [];

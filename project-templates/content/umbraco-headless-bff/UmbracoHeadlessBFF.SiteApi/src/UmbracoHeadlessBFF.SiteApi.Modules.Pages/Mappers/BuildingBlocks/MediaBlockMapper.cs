@@ -22,8 +22,13 @@ internal sealed class MediaBlockMapper : IMediaBlockMapper
         _mediaLibraryVideoMapper = mediaLibraryVideoMapper;
     }
 
-    public async Task<IMediaBlock?> Map(IApiElement model)
+    public async Task<IMediaBlock?> Map(IApiElement? model)
     {
+        if (model is null)
+        {
+            return null;
+        }
+
         return model switch
         {
             ApiEmbedVideo embedVideo => await _embedVideoMapper.Map(embedVideo),

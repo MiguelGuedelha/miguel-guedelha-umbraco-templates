@@ -16,8 +16,13 @@ internal sealed class HeadingWithLinksMapper : IHeadingWithLinksMapper
         _linkMapper = linkMapper;
     }
 
-    public async Task<HeadingWithLinks?> Map(ApiHeadingWithLinks model)
+    public async Task<HeadingWithLinks?> Map(ApiHeadingWithLinks? model)
     {
+        if (model is null)
+        {
+            return null;
+        }
+
         var linkTasks = model.Properties.Links?.Select(x => _linkMapper.Map(x)).ToArray() ?? [];
         await Task.WhenAll(linkTasks);
 

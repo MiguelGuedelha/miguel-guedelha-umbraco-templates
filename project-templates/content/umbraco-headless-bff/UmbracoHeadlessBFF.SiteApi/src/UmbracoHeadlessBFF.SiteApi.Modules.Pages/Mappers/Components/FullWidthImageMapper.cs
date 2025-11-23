@@ -17,7 +17,7 @@ internal sealed class FullWidthImageMapper : IComponentMapper
 
     public bool CanMap(string type) => type == DeliveryApiConstants.ElementTypes.ApiFullWidthImage;
 
-    public async Task<IComponent?> Map(IApiElement model, IApiElement? settings)
+    public async Task<IComponent?> Map(IApiElement? model, IApiElement? settings)
     {
         if (model is not ApiFullWidthImage apiModel)
         {
@@ -30,7 +30,7 @@ internal sealed class FullWidthImageMapper : IComponentMapper
         {
             Id = apiModel.Id,
             ContentType = apiModel.ContentType,
-            Image = image is not null ? await _responsiveImageMapper.Map(image) : null
+            Image = await _responsiveImageMapper.Map(image)
         };
     }
 }

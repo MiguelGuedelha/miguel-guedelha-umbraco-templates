@@ -15,8 +15,13 @@ internal sealed class FallbackComponentMapper : IComponentMapper
 
     public bool CanMap(string type) => true;
 
-    public Task<IComponent?> Map(IApiElement model, IApiElement? settings)
+    public Task<IComponent?> Map(IApiElement? model, IApiElement? settings)
     {
+        if (model is null)
+        {
+            return Task.FromResult<IComponent?>(null);
+        }
+
         if (_logger.IsEnabled(LogLevel.Warning))
         {
             _logger.LogWarning("Fallback: Component {Id} of type {ContentType}", model.Id, model.ContentType);

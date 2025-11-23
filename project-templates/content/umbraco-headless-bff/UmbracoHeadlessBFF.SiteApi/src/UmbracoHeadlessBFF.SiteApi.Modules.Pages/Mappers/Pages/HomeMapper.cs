@@ -15,7 +15,7 @@ internal sealed class HomeMapper : IPageMapper
 
     public bool CanMap(string type) => type == DeliveryApiConstants.ContentTypes.ApiHome;
 
-    public async Task<IPage?> Map(IApiContent model)
+    public async Task<IPage?> Map(IApiContent? model)
     {
         if (model is not ApiHome apiModel)
         {

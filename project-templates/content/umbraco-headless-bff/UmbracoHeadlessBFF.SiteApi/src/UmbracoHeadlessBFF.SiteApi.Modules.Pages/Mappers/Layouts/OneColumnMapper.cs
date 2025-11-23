@@ -18,9 +18,9 @@ internal sealed class OneColumnMapper : ILayoutMapper
 
     public bool CanMap(string type) => type == DeliveryApiConstants.ElementTypes.ApiOneColumn;
 
-    public async Task<ILayout?> Map(IApiBlockGridItem model)
+    public async Task<ILayout?> Map(IApiBlockGridItem? model)
     {
-        if (model.Content is not ApiOneColumn)
+        if (model?.Content is not ApiOneColumn)
         {
             return null;
         }

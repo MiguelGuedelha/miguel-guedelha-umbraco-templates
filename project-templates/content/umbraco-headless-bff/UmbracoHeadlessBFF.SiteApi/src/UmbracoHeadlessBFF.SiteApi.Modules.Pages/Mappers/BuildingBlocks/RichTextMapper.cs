@@ -16,9 +16,9 @@ internal sealed class RichTextMapper : IRichTextMapper
         _linkMapper = linkMapper;
     }
 
-    public async Task<string?> Map(ApiRichTextItem model)
+    public async Task<string?> Map(ApiRichTextItem? model)
     {
-        if (string.IsNullOrWhiteSpace(model.Markup))
+        if (string.IsNullOrWhiteSpace(model?.Markup))
         {
             return null;
         }

@@ -15,7 +15,7 @@ internal sealed class BlogArticleMapper : IPageMapper
 
     public bool CanMap(string type) => type == DeliveryApiConstants.ContentTypes.ApiBlogArticle;
 
-    public async Task<IPage?> Map(IApiContent model)
+    public async Task<IPage?> Map(IApiContent? model)
     {
         if (model is not ApiBlogArticle apiModel)
         {

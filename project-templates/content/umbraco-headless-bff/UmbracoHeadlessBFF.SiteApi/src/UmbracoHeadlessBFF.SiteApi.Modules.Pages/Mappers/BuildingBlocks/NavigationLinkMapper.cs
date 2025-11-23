@@ -18,8 +18,13 @@ internal sealed class NavigationLinkMapper : INavigationLinkMapper
         _linkWithSublinksMapper = linkWithSublinksMapper;
     }
 
-    public async Task<NavigationLink?> Map(ApiMainNavigationLink model)
+    public async Task<NavigationLink?> Map(ApiMainNavigationLink? model)
     {
+        if (model is null)
+        {
+            return null;
+        }
+
         var link = model.Properties.Link?.FirstOrDefault();
 
         var subLinksTasks = model.Properties.SubLinks?.Items
@@ -28,7 +33,7 @@ internal sealed class NavigationLinkMapper : INavigationLinkMapper
 
         return new()
         {
-            Link = link is not null ? await _linkMapper.Map(link) : null,
+            Link = await _linkMapper.Map(link),
             SubLinks = subLinksTasks.Select(x => x.Result).OfType<LinkWithSublinks>().ToArray()
         };
     }
