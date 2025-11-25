@@ -4,7 +4,6 @@
     <PackageReference Include="Scalar.AspNetCore" />
     <PackageReference Include="Serilog.Enrichers.ClientInfo" />
     <PackageReference Include="Serilog.Exceptions" />
-    <PackageReference Include="Swashbuckle.AspNetCore" />
     <PackageReference Include="Umbraco.Cms" />
     <PackageReference Include="Umbraco.Community.DataProtection" />
     <PackageReference Include="Umbraco.Community.DeliveryApiExtensions" />

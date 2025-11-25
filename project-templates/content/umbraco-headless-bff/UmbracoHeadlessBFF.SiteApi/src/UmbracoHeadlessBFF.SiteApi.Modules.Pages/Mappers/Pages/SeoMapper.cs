@@ -33,7 +33,7 @@ internal sealed class SeoMapper : ISeoMapper
         var metaImage = model.MetaImage?.FirstOrDefault();
         var ogImage = model.OgImage?.FirstOrDefault();
 
-        var mappedMetaImage = await _imageMapper.Map(metaImage);;
+        var mappedMetaImage = await _imageMapper.Map(metaImage);
 
         var mappedOgImage = (ogImage, metaImage) switch
         {

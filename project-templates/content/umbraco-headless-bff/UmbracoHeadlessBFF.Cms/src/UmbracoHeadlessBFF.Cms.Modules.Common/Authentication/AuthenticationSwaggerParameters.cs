@@ -1,5 +1,5 @@
 using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Umbraco.Cms.Core.Configuration.Models;
 using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi;
