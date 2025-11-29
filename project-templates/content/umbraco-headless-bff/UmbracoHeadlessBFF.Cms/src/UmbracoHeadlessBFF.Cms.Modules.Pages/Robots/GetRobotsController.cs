@@ -12,11 +12,11 @@ using NotFound = Microsoft.AspNetCore.Http.HttpResults.NotFound;
 
 namespace UmbracoHeadlessBFF.Cms.Modules.Pages.Robots;
 
+[ApiKey]
 [ApiController]
 [Route($"api/v{{version:apiVersion}}/{PagesConstants.Endpoints.Group}")]
 [Tags(PagesConstants.Endpoints.Tag)]
 [ApiVersion(1)]
-[ApiKey]
 public sealed class GetRobotsController : Controller
 {
     private readonly IUmbracoContextFactory _umbracoContextFactory;

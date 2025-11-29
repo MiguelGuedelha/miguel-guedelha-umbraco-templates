@@ -7,11 +7,11 @@ using UmbracoHeadlessBFF.SharedModules.Cms.Links;
 
 namespace UmbracoHeadlessBFF.Cms.Modules.Common.Links;
 
+[ApiKey]
 [ApiController]
 [Route($"api/v{{version:apiVersion}}/{LinksConstants.Endpoints.Group}")]
 [Tags(LinksConstants.Endpoints.Tag)]
 [ApiVersion(1)]
-[ApiKey]
 public sealed class GetLinkByIdController
 {
     private readonly LinkService _linkService;

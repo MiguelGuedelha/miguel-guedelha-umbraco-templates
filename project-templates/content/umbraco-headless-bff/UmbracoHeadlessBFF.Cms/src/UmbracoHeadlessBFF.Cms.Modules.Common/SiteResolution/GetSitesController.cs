@@ -15,11 +15,11 @@ using NotFound = Microsoft.AspNetCore.Http.HttpResults.NotFound;
 
 namespace UmbracoHeadlessBFF.Cms.Modules.Common.SiteResolution;
 
+[ApiKey]
 [ApiController]
 [Route($"api/v{{version:apiVersion}}/{SiteResolutionConstants.Endpoints.Group}")]
 [Tags(SiteResolutionConstants.Endpoints.Tag)]
 [ApiVersion(1)]
-[ApiKey]
 public sealed class GetSitesController : Controller
 {
     private readonly IDomainService _domainService;
