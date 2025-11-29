@@ -46,7 +46,8 @@ public static class PagesConfiguration
                 .AddTransient<IComponentMapper, SectionHeaderMapper>()
                 .AddTransient<IComponentMapper, FullWidthImageMapper>()
                 .AddTransient<IComponentMapper, CarouselMapper>()
-                .AddTransient<IComponentMapper, BannerMapper>();
+                .AddTransient<IComponentMapper, BannerMapper>()
+                .AddTransient<IComponentMapper, BlogListingMapper>();
 
             services.AddTransient<IComponentMapper, FallbackComponentMapper>();
 
