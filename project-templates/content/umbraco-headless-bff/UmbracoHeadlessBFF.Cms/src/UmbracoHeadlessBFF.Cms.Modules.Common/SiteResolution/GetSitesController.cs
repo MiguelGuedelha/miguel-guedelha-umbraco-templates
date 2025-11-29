@@ -20,7 +20,7 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.SiteResolution;
 [Route($"api/v{{version:apiVersion}}/{SiteResolutionConstants.Endpoints.Group}")]
 [Tags(SiteResolutionConstants.Endpoints.Tag)]
 [ApiVersion(1)]
-public sealed class GetSitesController : Controller
+public sealed class GetSitesController : ControllerBase
 {
     private readonly IDomainService _domainService;
     private readonly IPublishedContentCache _publishedContentCache;

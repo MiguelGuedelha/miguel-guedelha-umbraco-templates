@@ -19,7 +19,7 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Pages.Sitemap;
 [Route($"api/v{{version:apiVersion}}/{PagesConstants.Endpoints.Group}")]
 [Tags(PagesConstants.Endpoints.Tag)]
 [ApiVersion(1)]
-public sealed class GetSitemapController : Controller
+public sealed class GetSitemapController : ControllerBase
 {
     private readonly IUmbracoContextFactory _umbracoContextFactory;
     private readonly IVariationContextAccessor _variationContextAccessor;

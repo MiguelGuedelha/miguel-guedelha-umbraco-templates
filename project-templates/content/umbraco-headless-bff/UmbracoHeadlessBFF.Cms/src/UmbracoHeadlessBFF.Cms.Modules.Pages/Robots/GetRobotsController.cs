@@ -17,7 +17,7 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Pages.Robots;
 [Route($"api/v{{version:apiVersion}}/{PagesConstants.Endpoints.Group}")]
 [Tags(PagesConstants.Endpoints.Tag)]
 [ApiVersion(1)]
-public sealed class GetRobotsController : Controller
+public sealed class GetRobotsController : ControllerBase
 {
     private readonly IUmbracoContextFactory _umbracoContextFactory;
     private readonly IVariationContextAccessor _variationContextAccessor;

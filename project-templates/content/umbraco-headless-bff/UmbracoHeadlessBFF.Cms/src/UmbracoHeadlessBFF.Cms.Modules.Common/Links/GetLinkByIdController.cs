@@ -12,7 +12,7 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.Links;
 [Route($"api/v{{version:apiVersion}}/{LinksConstants.Endpoints.Group}")]
 [Tags(LinksConstants.Endpoints.Tag)]
 [ApiVersion(1)]
-public sealed class GetLinkByIdController
+public sealed class GetLinkByIdController : ControllerBase
 {
     private readonly LinkService _linkService;
 

@@ -9,7 +9,7 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.Preview;
 [ApiVersion(1)]
 [Route("/api/v{version:apiVersion}/preview")]
 [Tags("Preview")]
-internal sealed class VerifyPreviewTokenController : ControllerBase
+public sealed class VerifyPreviewTokenController : ControllerBase
 {
 
     [HttpGet]

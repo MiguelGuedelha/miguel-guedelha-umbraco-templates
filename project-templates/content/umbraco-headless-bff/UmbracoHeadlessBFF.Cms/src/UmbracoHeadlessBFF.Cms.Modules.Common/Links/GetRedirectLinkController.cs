@@ -25,7 +25,7 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.Links;
 [Route($"api/v{{version:apiVersion}}/{LinksConstants.Endpoints.Group}")]
 [Tags(LinksConstants.Endpoints.Tag)]
 [ApiVersion(1)]
-public sealed class GetRedirectLinkController : Controller
+public sealed class GetRedirectLinkController : ControllerBase
 {
     private readonly IVariationContextAccessor _variationContextAccessor;
     private readonly IRedirectUrlService _redirectUrlService;
