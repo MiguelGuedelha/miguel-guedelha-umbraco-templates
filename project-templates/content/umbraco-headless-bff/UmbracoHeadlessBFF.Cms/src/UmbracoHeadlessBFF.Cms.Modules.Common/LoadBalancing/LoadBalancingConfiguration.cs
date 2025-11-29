@@ -29,7 +29,7 @@ public static class LoadBalancingConfiguration
         }
     }
 
-    public class StaticServerAccessor : IServerRoleAccessor
+    private class StaticServerAccessor : IServerRoleAccessor
     {
         public ServerRole CurrentServerRole => ServerRole.SchedulingPublisher;
     }

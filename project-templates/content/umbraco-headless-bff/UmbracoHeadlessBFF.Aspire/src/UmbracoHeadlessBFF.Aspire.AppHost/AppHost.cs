@@ -100,7 +100,8 @@ cmsDeliveryApiKey.WithParentRelationship(cms);
 
 // Scalar URLs exists at endpoint/scalar/<group-name>
 // i.e /scalar/default, /scalar/management, /scalar/delivery, etc
-cms.WithUrlForEndpoint("https", x => {
+cms.WithUrlForEndpoint("https", x =>
+{
     x.DisplayLocation = UrlDisplayLocation.DetailsOnly;
     x.DisplayOrder = 9999;
 });

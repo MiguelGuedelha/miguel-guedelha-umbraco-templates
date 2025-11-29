@@ -22,7 +22,7 @@ internal sealed class CardMapper : ICardMapper
 
     public async Task<IReadOnlyCollection<Card>?> Map(IEnumerable<ApiCard>? model)
     {
-        if(model is null)
+        if (model is null)
         {
             return null;
         }

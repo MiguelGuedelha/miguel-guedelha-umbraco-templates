@@ -13,6 +13,6 @@ $EXCLUDED_PATHS = $EXCLUDED_PATHS_ARRAY | ForEach-Object { "--exclude", $_ }
 dotnet restore
 dotnet build --no-restore
 
-dotnet format style . --severity info --no-restore --verbosity normal @EXCLUDED_PATHS
-dotnet format analyzers . --severity info --no-restore --verbosity normal @EXCLUDED_PATHS
-dotnet format whitespace . --no-restore --verbosity normal @EXCLUDED_PATHS
+dotnet format style . --severity info --no-restore --verify-no-changes --verbosity normal @EXCLUDED_PATHS
+dotnet format analyzers . --severity info --no-restore --verify-no-changes --verbosity normal @EXCLUDED_PATHS
+dotnet format whitespace . --no-restore --verify-no-changes --verbosity normal @EXCLUDED_PATHS
