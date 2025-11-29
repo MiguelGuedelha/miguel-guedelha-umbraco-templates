@@ -13,4 +13,6 @@ public sealed record ApiBlogListingSettings : IApiElement<ApiBlogListingSettings
 public sealed record ApiBlogListingSettingsProperties
 {
     public IReadOnlyCollection<IApiContent>? ArticlesContainer { get; init; }
+    public int? PagedAmount { get; init; }
+    public string? Sorting { get; init; }
 }

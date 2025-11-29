@@ -6,7 +6,7 @@ namespace UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Pages;
 
 public sealed record ApiBlogArticle : IApiContent<ApiBlogArticleProperties>
 {
-    public Guid Id { get; init; }
+    public required Guid Id { get; init; }
     public string ContentType => DeliveryApiConstants.ContentTypes.ApiBlogArticle;
     public required string Name { get; init; }
     public DateTime CreateDate { get; init; }

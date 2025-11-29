@@ -56,5 +56,20 @@ namespace UmbracoHeadlessBFF.Cms.Modules.Common.Umbraco.Models
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("articlesContainer")]
 		public virtual global::Umbraco.Cms.Core.Models.PublishedContent.IPublishedContent ArticlesContainer => this.Value<global::Umbraco.Cms.Core.Models.PublishedContent.IPublishedContent>(_publishedValueFallback, "articlesContainer");
+
+		///<summary>
+		/// Paged Amount: How many items should be pulled on each page of the listing results  Setting to 0 will use a default developer built-in default amount
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[ImplementPropertyType("pagedAmount")]
+		public virtual int PagedAmount => this.Value<int>(_publishedValueFallback, "pagedAmount");
+
+		///<summary>
+		/// Sorting
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("sorting")]
+		public virtual string Sorting => this.Value<string>(_publishedValueFallback, "sorting");
 	}
 }
