@@ -42,7 +42,7 @@
         "**/.vscode/**",
         "*.sh",
         "*.ps1",
-        "k6.js"
+        "**/performance-testing/**"
       ],
       "include": [
         "**/*",
