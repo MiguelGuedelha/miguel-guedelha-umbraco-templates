@@ -26,7 +26,9 @@ internal static class GetDictionaryEndpoint
         }
     }
 
-    private static async Task<Results<Ok<SiteDictionary>, NotFound>> Handle(SiteResolutionContext context, IPagesService pagesService)
+    private static async Task<Results<Ok<SiteDictionary>, NotFound>> Handle(
+        SiteResolutionContext context,
+        IPagesService pagesService)
     {
         var content = await pagesService.GetPage(context.Site.DictionaryId);
 

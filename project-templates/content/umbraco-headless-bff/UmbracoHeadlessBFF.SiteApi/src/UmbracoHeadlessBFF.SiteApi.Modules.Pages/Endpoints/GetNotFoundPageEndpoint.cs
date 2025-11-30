@@ -29,8 +29,10 @@ internal static class GetNotFoundPageEndpoint
         }
     }
 
-    private static async Task<Results<Ok<IPage>, NotFound>> Handle(IPagesService pagesService,
-        IEnumerable<IPageMapper> mappers, SiteResolutionContext siteResolutionContext)
+    private static async Task<Results<Ok<IPage>, NotFound>> Handle(
+        IPagesService pagesService,
+        IEnumerable<IPageMapper> mappers,
+        SiteResolutionContext siteResolutionContext)
     {
         var notFoundId = siteResolutionContext.Site.NotFoundPageId;
 

@@ -28,7 +28,8 @@ internal static class GetPageByIdOrPathEndpoint
         }
     }
 
-    private static async Task<Results<Ok<IPage>, NotFound>> Handle(string id,
+    private static async Task<Results<Ok<IPage>, NotFound>> Handle(
+        string id,
         IPagesService pagesService,
         IEnumerable<IPageMapper> mappers,
         SiteResolutionContext siteResolutionContext)

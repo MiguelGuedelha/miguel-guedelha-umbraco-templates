@@ -43,7 +43,7 @@ public abstract class SiteApiOutputCachePolicyBase
         var response = context.HttpContext.Response;
 
         // Verify existence of cookie headers
-        if (!StringValues.IsNullOrEmpty(response.Headers.SetCookie))
+        if (!string.IsNullOrWhiteSpace(response.Headers.SetCookie))
         {
             context.AllowCacheStorage = false;
             return;
