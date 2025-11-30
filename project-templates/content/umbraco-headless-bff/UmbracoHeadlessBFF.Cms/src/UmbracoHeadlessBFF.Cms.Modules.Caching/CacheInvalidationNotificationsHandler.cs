@@ -74,7 +74,7 @@ internal sealed class CacheInvalidationNotificationsHandler :
         else
         {
             await _siteApiFusionCache.RemoveByTagAsync(items, token: cancellationToken);
-            await _siteApiFusionCache.RemoveByTagAsync(items, token: cancellationToken);
+            await _siteApiFusionCache.RemoveByTagAsync(CachingConstants.SiteApi.Tags.GlobalTags, token: cancellationToken);
         }
     }
 
@@ -140,7 +140,8 @@ internal sealed class CacheInvalidationNotificationsHandler :
         else
         {
             await _siteApiFusionCache.RemoveByTagAsync(items, token: cancellationToken);
-            await _siteApiFusionCache.RemoveByTagAsync(CachingConstants.SiteApi.Tags.GlobalTags, token: cancellationToken);
         }
+
+        await _siteApiFusionCache.RemoveByTagAsync(CachingConstants.SiteApi.Tags.GlobalTags, token: cancellationToken);
     }
 }
