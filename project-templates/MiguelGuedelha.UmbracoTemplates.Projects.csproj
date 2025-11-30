@@ -52,6 +52,7 @@
     <Content Remove="content\**\packages.lock.json" />
     <Content Remove="content\**\umbraco\Logs\**;content\**\umbraco\Data\**" />
     <Content Remove="content\**\local-data\**" />
+    <Content Remove="content\**\.aspire\**" />
   </ItemGroup>
 
   <ItemGroup>
