@@ -17,18 +17,18 @@ internal sealed class PreviewUrlProvider : IUrlProvider
 {
     private readonly LinkService _linkService;
     private readonly IBackOfficeSecurityAccessor _backOfficeSecurityAccessor;
-    private readonly PreviewOptions _previewOptions;
+    private readonly IOptionsMonitor<PreviewOptions> _previewOptions;
     private readonly ILogger<PreviewUrlProvider> _logger;
 
     public PreviewUrlProvider(
         LinkService linkService,
         IBackOfficeSecurityAccessor backOfficeSecurityAccessor,
-        IOptions<PreviewOptions> previewOptions,
+        IOptionsMonitor<PreviewOptions> previewOptions,
         ILogger<PreviewUrlProvider> logger)
     {
         _linkService = linkService;
         _backOfficeSecurityAccessor = backOfficeSecurityAccessor;
-        _previewOptions = previewOptions.Value;
+        _previewOptions = previewOptions;
         _logger = logger;
     }
 
@@ -40,7 +40,7 @@ internal sealed class PreviewUrlProvider : IUrlProvider
 
     public Task<UrlInfo?> GetPreviewUrlAsync(IContent content, string? culture, string? segment)
     {
-        if (string.IsNullOrWhiteSpace(_previewOptions.SecretKey) || Encoding.UTF8.GetByteCount(_previewOptions.SecretKey) < 64)
+        if (string.IsNullOrWhiteSpace(_previewOptions.CurrentValue.SecretKey) || Encoding.UTF8.GetByteCount(_previewOptions.CurrentValue.SecretKey) < 64)
         {
             if (_logger.IsEnabled(LogLevel.Warning))
             {
@@ -89,7 +89,7 @@ internal sealed class PreviewUrlProvider : IUrlProvider
             return string.Empty;
         }
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_previewOptions.SecretKey));
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_previewOptions.CurrentValue.SecretKey));
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512);
 
         var tokenDescriptor = new SecurityTokenDescriptor

@@ -20,7 +20,7 @@ public sealed class ApiKeyAttribute : Attribute, IAuthorizationFilter
             return;
         }
 
-        var deliveryApiConfig = context.HttpContext.RequestServices.GetService<IOptions<DeliveryApiSettings>>();
+        var deliveryApiConfig = context.HttpContext.RequestServices.GetService<IOptionsSnapshot<DeliveryApiSettings>>();
         var expectedApiKey = deliveryApiConfig?.Value.ApiKey;
 
         if (string.IsNullOrWhiteSpace(expectedApiKey) ||
