@@ -33,7 +33,7 @@ Log.Logger = new LoggerConfiguration()
 
 try
 {
-    builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+    builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen(options =>
     {
