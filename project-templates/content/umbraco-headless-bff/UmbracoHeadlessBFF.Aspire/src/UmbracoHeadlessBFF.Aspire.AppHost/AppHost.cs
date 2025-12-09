@@ -81,14 +81,18 @@ var cms = builder.AddProject<Projects.Cms>(Services.Cms)
 
 var cmsDeliveryApiKey = builder.AddParameter("CmsDeliveryApiKey");
 
+var azureBlobStorageResource = umbracoMediaBlob.Resource.Parent;
+
 cms.WithReference(umbracoDb, connectionName: "umbracoDbDSN")
     .WithReference(cache)
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Host", "localhost")
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Port", smtpPort)
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Username", smtpUser)
     .WithEnvironment("Umbraco__CMS__Global__Smtp__Password", smtpPassword)
-    .WithEnvironment("Umbraco__Storage__AzureBlob__Media__ConnectionString", umbracoMediaBlob.Resource.Parent)
+    .WithEnvironment("Umbraco__Storage__AzureBlob__Media__ConnectionString", azureBlobStorageResource)
     .WithEnvironment("Umbraco__Storage__AzureBlob__Media__ContainerName", cmsUmbracoBlobContainerNameParameter)
+    .WithEnvironment("Umbraco__Storage__AzureBlob__TemporaryFile__ConnectionString", azureBlobStorageResource)
+    .WithEnvironment("Umbraco__Storage__AzureBlob__TemporaryFile__ContainerName", cmsUmbracoBlobContainerNameParameter)
     .WithEnvironment("Umbraco__CMS__DeliveryApi__ApiKey", cmsDeliveryApiKey)
     .WithEnvironment("ApplicationUrls__Media", () => cms.Resource.GetEndpoint("https").Url)
     .WaitFor(mailServer)

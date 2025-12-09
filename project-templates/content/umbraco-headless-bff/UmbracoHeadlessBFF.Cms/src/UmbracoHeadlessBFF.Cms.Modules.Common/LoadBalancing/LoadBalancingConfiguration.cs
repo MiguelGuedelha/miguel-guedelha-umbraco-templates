@@ -13,8 +13,6 @@ public static class LoadBalancingConfiguration
     {
         public void AddLoadBalancing()
         {
-            builder.Services.AddUnique<ITemporaryFileRepository, BlobStorageTemporaryFileRepository>();
-
             builder
                 .SetServerRegistrar(new StaticServerAccessor())
                 .LoadBalanceIsolatedCaches();
