@@ -1,4 +1,4 @@
-﻿using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi;
+using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi;
 using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Components;
 using UmbracoHeadlessBFF.SharedModules.Cms.DeliveryApi.Data;
 using UmbracoHeadlessBFF.SiteApi.Modules.Pages.Models.Components;
