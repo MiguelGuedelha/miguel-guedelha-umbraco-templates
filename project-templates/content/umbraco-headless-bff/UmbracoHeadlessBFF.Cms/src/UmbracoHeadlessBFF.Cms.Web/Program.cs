@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Azure;
 using Scalar.AspNetCore;
 using Umbraco.Cms.Api.Common.DependencyInjection;
@@ -58,6 +59,11 @@ builder.AddLinksModule();
 builder.AddUrlsModule();
 builder.AddUmbracoOverrides();
 
+builder.Services.Configure<KestrelServerOptions>(o =>
+{
+    o.AddServerHeader = false;
+});
+
 builder.Services.AddControllers().AddJsonOptions(Constants.JsonOptionsNames.DeliveryApi, options =>
 {
     options.JsonSerializerOptions.MaxDepth = 128;
@@ -81,6 +87,13 @@ builder.Services.AddAzureClients(clientBuilder =>
 });
 
 var app = builder.Build();
+
+app.Use(async (context, next) =>
+{
+    context.Response.Headers.Append("X-Content-Type-Options", "nosniff");
+    context.Response.Headers.Append("X-Frame-Options", "SAMEORIGIN");
+    await next();
+});
 
 await app.BootUmbracoAsync();
 

@@ -20,6 +20,10 @@
       Condition="$(RuntimeIdentifier.StartsWith('linux')) or $(RuntimeIdentifier.StartsWith('win')) or ('$(RuntimeIdentifier)' == '' and !$([MSBuild]::IsOSPlatform('osx')))" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <CopyRazorGenerateFilesToPublishDirectory>true</CopyRazorGenerateFilesToPublishDirectory>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference
       Include="..\..\..\UmbracoHeadlessBFF.SharedModules\src\UmbracoHeadlessBFF.SharedModules.Common\UmbracoHeadlessBFF.SharedModules.Common.csproj" />
