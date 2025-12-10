@@ -13,7 +13,7 @@ public static class AssemblyVersionExtensions
             ?.InformationalVersion;
 
         var version = infoVersion 
-            ?? assembly.GetName().Version?.ToString()
+            ?? assembly?.GetName()?.Version?.ToString()
             ?? "0.0.1";
 
         return version;
