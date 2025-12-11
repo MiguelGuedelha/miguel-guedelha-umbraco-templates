@@ -51,6 +51,7 @@ This project is licensed under the MIT License. See the LICENSE file for details
 - These templates are maintained and versioned alongside Umbraco versioning.
   - MiguelGuedelha.Umbraco.Templates::17.x.x -> Umbraco 17
   - etc...
+- Minors and patch versions might not align with Umbraco versions though, as there's a lot more dependencies associated with this package besides Umbraco
 - I've started to mark V13 versions of the package as deprecated, as I have no plans in maintaining these anymore with the new LTS around the corner
 - Due to an initial naming oopsie, V17+ versions will live under `MiguelGuedelha.Umbraco.Templates`, while the v13 versions will live in the original `MiguelGuedelha.UmbracoTemplates` space
 - Feedback and suggestions are highly appreciated!
