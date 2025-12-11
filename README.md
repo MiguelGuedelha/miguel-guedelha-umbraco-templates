@@ -1,6 +1,7 @@
 # Umbraco .NET Templates
 
-![Latest Version](https://img.shields.io/nuget/v/MiguelGuedelha.Umbraco.Templates)
+[![NuGet Version](https://img.shields.io/nuget/v/MiguelGuedelha.Umbraco.Templates)](https://www.nuget.org/packages/MiguelGuedelha.Umbraco.Templates)
+
 ![Downloads](https://img.shields.io/nuget/dt/MiguelGuedelha.Umbraco.Templates)
 
 This repository contains opinionated, batteries-included .NET template(s) for Umbraco, designed to streamline the setup of new Umbraco projects. It aim to provide a solid foundation for developers working with Umbraco CMS.
